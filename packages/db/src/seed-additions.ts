@@ -35,6 +35,29 @@ type Row = {
 };
 
 const ADDITIONS: Row[] = [
+  // === Fietsverhuur bij station ===
+  {
+    slug: 'fietsverhuur-utrecht-cs',
+    name: 'Fietsverhuur Utrecht Centraal',
+    category: Category.TOUR,
+    channel: D,
+    priceCents: 1200,
+    vatRate: V21,
+    websiteUrl: 'https://www.rijwielshop-utrecht.nl',
+    audienceTags: [
+      TargetAudience.TEAM,
+      TargetAudience.STUDENT,
+      TargetAudience.FAMILY,
+      TargetAudience.BACHELORETTE,
+      TargetAudience.INCOMING_DE,
+      TargetAudience.INCOMING_EN,
+    ],
+    groupMax: 40,
+    durationMinutes: 480,
+    descriptionNL:
+      'Fietsverhuur pal naast Utrecht Centraal Station - ideaal om afstanden tussen activiteiten snel te overbruggen. Gewone fiets, e-bike of bakfiets. Aanraden bij programma\'s met stops meer dan 30 min lopen uit elkaar.',
+  },
+
   // === Water (aanvulling) ===
   {
     slug: 'kanohuren-utrecht',

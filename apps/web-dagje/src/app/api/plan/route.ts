@@ -84,12 +84,13 @@ Return JSON:
 { "intro": "1-2 warme zinnen", "suggestions": [{"providerSlug": "...", "name": "...", "time": "10:00", "reason": "max 1 zin", "durationMinutes": 60}] }
 
 Regels:
-- Logische volgorde ochtend → middag → avond
+- Logische volgorde ochtend -> middag -> avond
 - Wandel/fietsafstanden binnen Utrecht-centrum
 - Groep van ${pax} personen - respecteer groupMin/groupMax
 - ${budgetEuro ? `Budget €${budgetEuro} p.p. - som van prijzen blijft daaronder` : 'Geen budget-limiet'}
 - ${chips.length ? `Sfeer: ${chips.join(', ')}` : ''}
-- ${season ? `Jaargetijde/thema: ${SEASON_HINTS[season] ?? season} - kies activiteiten die hierbij passen (bijv. binnen bij winter, water in zomer)` : ''}`;
+- ${season ? `Jaargetijde/thema: ${SEASON_HINTS[season] ?? season}` : ''}
+- BELANGRIJK: als de wandeltijd tussen twee opeenvolgende stops meer dan 30 minuten is, ofwel (a) kies dichterbijgelegen alternatieven, ofwel (b) voeg als eerste onderdeel "fietsverhuur-utrecht-cs" toe als vertrekpunt, en gebruik daarna verder-gelegen locaties. Utrecht is klein - meestal is 30 min lopen genoeg. Alleen bij bijv. Kasteel de Haar of Spoorwegmuseum wordt fiets een must.`;
 
   const userMsg = `Klantvraag:
 ${text || '(geen extra tekst)'}
