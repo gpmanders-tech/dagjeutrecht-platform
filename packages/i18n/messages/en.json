@@ -1,0 +1,51 @@
+{
+  "common": {
+    "book": "Book now",
+    "viewMore": "View more",
+    "from": "From",
+    "perPerson": "p.p.",
+    "tip": "Tip",
+    "loading": "Loading…",
+    "search": "Search",
+    "language": "Language"
+  },
+  "nav": {
+    "activities": "Activities",
+    "hotels": "Stay",
+    "restaurants": "Food & Drink",
+    "events": "Events",
+    "shop": "Shop",
+    "giftcards": "Gift cards",
+    "blog": "Blog",
+    "myBooking": "My booking"
+  },
+  "home": {
+    "hero": {
+      "title": "Your digital guide to Utrecht",
+      "subtitle": "Activities, hotels, restaurants and events — all in one place, instantly bookable.",
+      "cta": "Plan my day"
+    },
+    "categories": "Discover Utrecht",
+    "popular": "Popular today"
+  },
+  "checkout": {
+    "details": "Your details",
+    "email": "Email",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "phone": "Phone",
+    "wefactCheckbox": "Receive invoice via WeFact",
+    "companyName": "Company",
+    "vatNumber": "VAT number",
+    "projectCode": "Project code",
+    "pay": "Pay",
+    "secureNotice": "Payment secured by Mollie."
+  },
+  "footer": {
+    "about": "About Utrecht Now",
+    "contact": "Contact",
+    "terms": "Terms",
+    "privacy": "Privacy",
+    "partners": "For partners"
+  }
+}

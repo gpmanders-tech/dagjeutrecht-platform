@@ -1,0 +1,7 @@
+{
+  "common": { "book": "Prenota", "viewMore": "Scopri di più", "from": "Da", "perPerson": "p.p.", "tip": "Suggerimento", "loading": "Caricamento…", "search": "Cerca", "language": "Lingua" },
+  "nav": { "activities": "Attività", "hotels": "Hotel", "restaurants": "Cibo e bevande", "events": "Eventi", "shop": "Negozio", "giftcards": "Buoni regalo", "blog": "Blog", "myBooking": "La mia prenotazione" },
+  "home": { "hero": { "title": "La tua guida digitale di Utrecht", "subtitle": "Attività, hotel, ristoranti ed eventi — tutto in un unico posto, prenotabile subito.", "cta": "Pianifica la giornata" }, "categories": "Scopri Utrecht", "popular": "Popolare oggi" },
+  "checkout": { "details": "I tuoi dati", "email": "Email", "firstName": "Nome", "lastName": "Cognome", "phone": "Telefono", "wefactCheckbox": "Ricevi fattura tramite WeFact", "companyName": "Azienda", "vatNumber": "P. IVA", "projectCode": "Codice progetto", "pay": "Paga", "secureNotice": "Pagamento sicuro con Mollie." },
+  "footer": { "about": "Chi siamo", "contact": "Contatti", "terms": "Termini", "privacy": "Privacy", "partners": "Partner" }
+}

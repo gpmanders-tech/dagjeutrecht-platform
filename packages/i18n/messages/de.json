@@ -1,0 +1,51 @@
+{
+  "common": {
+    "book": "Jetzt buchen",
+    "viewMore": "Mehr ansehen",
+    "from": "Ab",
+    "perPerson": "p.P.",
+    "tip": "Tipp",
+    "loading": "Laden…",
+    "search": "Suchen",
+    "language": "Sprache"
+  },
+  "nav": {
+    "activities": "Aktivitäten",
+    "hotels": "Übernachten",
+    "restaurants": "Essen & Trinken",
+    "events": "Events",
+    "shop": "Shop",
+    "giftcards": "Gutscheine",
+    "blog": "Blog",
+    "myBooking": "Meine Buchung"
+  },
+  "home": {
+    "hero": {
+      "title": "Ihre digitale Touristeninfo für Utrecht",
+      "subtitle": "Aktivitäten, Hotels, Restaurants und Events — alles an einem Ort, sofort buchbar.",
+      "cta": "Tag planen"
+    },
+    "categories": "Utrecht entdecken",
+    "popular": "Heute beliebt"
+  },
+  "checkout": {
+    "details": "Ihre Daten",
+    "email": "E-Mail",
+    "firstName": "Vorname",
+    "lastName": "Nachname",
+    "phone": "Telefon",
+    "wefactCheckbox": "Rechnung über WeFact erhalten",
+    "companyName": "Firma",
+    "vatNumber": "USt-Nummer",
+    "projectCode": "Projektnummer",
+    "pay": "Bezahlen",
+    "secureNotice": "Zahlung gesichert über Mollie."
+  },
+  "footer": {
+    "about": "Über Utrecht Now",
+    "contact": "Kontakt",
+    "terms": "AGB",
+    "privacy": "Datenschutz",
+    "partners": "Für Partner"
+  }
+}

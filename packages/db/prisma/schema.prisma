@@ -1,0 +1,687 @@
+// Utrecht Platform — Prisma schema
+// Eén DB voor 4 domeinen + admin
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// ============================================================
+//  ENUMS
+// ============================================================
+
+enum Domain {
+  UTRECHTNOW
+  DAGJEUTRECHT
+  NACHTJEUTRECHT
+  UTRECHTINCOMING
+}
+
+enum Locale {
+  nl
+  en
+  de
+  fr
+  es
+  it
+  pt
+}
+
+enum BookingChannel {
+  TICKETMASTER
+  VIATOR
+  GETYOURGUIDE
+  FAREHARBOR
+  BOOKING
+  THEFORK
+  DIRECT
+  PARTNER_MAIL
+}
+
+enum Category {
+  MUSEUM
+  ATTRACTION
+  INDOOR
+  WORKSHOP
+  WORKSHOP_SERIES
+  WATER
+  TOUR
+  HOTEL
+  RESTAURANT
+  EVENT
+  WELLNESS
+  SHOP
+  GIFTCARD
+}
+
+enum OrderStatus {
+  CART
+  PENDING_PAYMENT
+  PAID
+  CONFIRMED
+  PARTIALLY_FULFILLED
+  FULFILLED
+  CANCELLED
+  REFUNDED
+  AWAITING_SUPPLIER
+  AWAITING_B2B_APPROVAL
+}
+
+enum PaymentMethod {
+  IDEAL
+  CARD
+  APPLE_PAY
+  GOOGLE_PAY
+  PAYPAL
+  SEPA
+  WEFACT_INVOICE
+}
+
+enum VoucherStatus {
+  ISSUED
+  REDEEMED
+  EXPIRED
+  REVOKED
+  REISSUED
+}
+
+enum InvoiceStatus {
+  DRAFT
+  SENT
+  PAID
+  CANCELLED
+  OVERDUE
+}
+
+enum ModificationType {
+  TIME_CHANGE
+  QUANTITY_CHANGE
+  DATE_CHANGE
+  CANCEL
+}
+
+enum ModificationStatus {
+  REQUESTED
+  APPROVED
+  REJECTED
+  COMPLETED
+}
+
+enum PartnerStatus {
+  PENDING
+  APPROVED
+  SUSPENDED
+  REJECTED
+}
+
+enum FulfilmentType {
+  ACTIVITY      // boekbare ervaring (ticket, tijdslot)
+  HOTEL_NIGHT
+  RESTAURANT
+  DROPSHIP      // partner verstuurt fysiek product
+  STOCK         // eigen voorraad
+  DIGITAL       // direct per mail (cadeaubon, e-book)
+  VOUCHER       // cadeaubon-saldo
+}
+
+enum TargetAudience {
+  TEAM
+  STUDENT
+  SCHOOL
+  FAMILY
+  BACHELORETTE
+  INCOMING_DE
+  INCOMING_EN
+  INCOMING_FR
+  INCOMING_NL
+}
+
+enum EnquiryChannel {
+  DAGJE
+  INCOMING
+}
+
+enum EnquiryStatus {
+  NEW
+  IN_PROGRESS
+  QUOTED
+  WON
+  LOST
+}
+
+// ============================================================
+//  PROVIDERS (~100 leveranciers)
+// ============================================================
+
+model Provider {
+  id              String   @id @default(cuid())
+  slug            String   @unique
+  name            String
+  category        Category
+  channel         BookingChannel
+  externalId      String?  // ID bij de bron (TM, Viator, etc.)
+  bookable        Boolean  @default(true)   // false = TIP-kaart
+  active          Boolean  @default(true)
+  marginOverride  Decimal? @db.Decimal(5, 4) // overschrijft globale marge
+  vatRate         Decimal  @default(0.21) @db.Decimal(5, 4) // 0.09 of 0.21
+  modifyDeadlineHours Int  @default(48)
+  canChangeTime   Boolean  @default(true)
+  canChangeCount  Boolean  @default(true)
+  contactEmail    String?
+  contactPhone    String?
+  websiteUrl      String?
+  heroImage       String?
+  addressLine     String?
+  city            String   @default("Utrecht")
+  lat             Float?
+  lng             Float?
+  rating          Float?
+  ratingCount     Int?
+  metadata        Json?    // extra config per channel
+
+  // audience & group capabilities (fase 1)
+  audienceTags       TargetAudience[] @default([])
+  groupMin           Int?
+  groupMax           Int?
+  guideLanguages     String[]     @default([])  // ["NL","DE","EN","FR"]
+  cateringIncluded   Boolean      @default(false)
+  wheelchairAccess   Boolean      @default(false)
+  bookingInstruction String?      @db.Text      // hoe Ger handmatig boekt
+  ownConditionsUrl   String?
+  ownConditionsText  String?      @db.Text
+  cancellationPolicy String?      @db.Text
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  products        Product[]
+  translations    ProviderTranslation[]
+  programItems    ProgramItem[]
+  enquiryItems    EnquiryItem[]
+}
+
+model ProviderTranslation {
+  id          String  @id @default(cuid())
+  providerId  String
+  locale      Locale
+  title       String
+  description String  @db.Text
+  shortDesc   String?
+  openingInfo String? @db.Text
+  provider    Provider @relation(fields: [providerId], references: [id], onDelete: Cascade)
+
+  @@unique([providerId, locale])
+}
+
+// ============================================================
+//  PRODUCTS (varianten per provider — tickets, kamers, gerechten, etc.)
+// ============================================================
+
+model Product {
+  id              String   @id @default(cuid())
+  providerId      String
+  slug            String
+  fulfilment      FulfilmentType
+  costPriceCents  Int      // inkoopprijs (cents)
+  minParticipants Int      @default(1)
+  maxParticipants Int?
+  durationMinutes Int?
+  stock           Int?     // nullable = onbeperkt / extern beheerd
+  active          Boolean  @default(true)
+  hidden          Boolean  @default(false)  // alleen via direct-link
+  metadata        Json?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  provider        Provider @relation(fields: [providerId], references: [id], onDelete: Cascade)
+  translations    ProductTranslation[]
+  orderItems      OrderItem[]
+  images          ProductImage[]
+
+  @@unique([providerId, slug])
+}
+
+model ProductTranslation {
+  id          String  @id @default(cuid())
+  productId   String
+  locale      Locale
+  name        String
+  description String  @db.Text
+  product     Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([productId, locale])
+}
+
+model ProductImage {
+  id        String  @id @default(cuid())
+  productId String
+  url       String
+  alt       String?
+  position  Int     @default(0)
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+}
+
+// ============================================================
+//  CUSTOMERS & PARTNERS (B2B)
+// ============================================================
+
+model Customer {
+  id            String   @id @default(cuid())
+  email         String   @unique
+  firstName     String?
+  lastName      String?
+  phone         String?
+  locale        Locale   @default(nl)
+  marketingOptIn Boolean @default(false)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  orders        Order[]
+  giftcardsOwned Giftcard[] @relation("GiftcardOwner")
+}
+
+model Partner {
+  id              String        @id @default(cuid())
+  companyName     String
+  contactName     String
+  email           String        @unique
+  phone           String?
+  vatNumber       String?
+  country         String        @default("DE")
+  preferredLocale Locale        @default(de)
+  status          PartnerStatus @default(PENDING)
+  marginOverride  Decimal?      @db.Decimal(5, 4) // B2B-marge per partner
+  paymentTermsDays Int          @default(14)
+  whiteLabel      Boolean       @default(false)
+  notes           String?       @db.Text
+  approvedAt      DateTime?
+  approvedById    String?
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  orders          Order[]
+  invoices        Invoice[]
+}
+
+// ============================================================
+//  ORDERS
+// ============================================================
+
+model Order {
+  id                  String        @id @default(cuid())
+  publicCode          String        @unique // e.g. UN-2026-00042
+  domain              Domain
+  locale              Locale        @default(nl)
+  status              OrderStatus   @default(CART)
+  customerId          String?
+  partnerId           String?       // gevuld bij B2B
+  customerEmail       String        // ook losse gast-orders
+  customerName        String?
+  customerPhone       String?
+  notes               String?       @db.Text
+
+  // bedragen in cents — afgeleid van order_items maar gecachet
+  subtotalCents       Int           @default(0)
+  vatCents            Int           @default(0)
+  totalCents          Int           @default(0)
+  costTotalCents      Int           @default(0) // intern, marge-rapportage
+  marginCents         Int           @default(0)
+  currency            String        @default("EUR")
+
+  // betaling
+  paymentMethod       PaymentMethod?
+  molliePaymentId     String?
+  paidAt              DateTime?
+
+  // facturatie
+  invoiceRequested    Boolean       @default(false)
+  companyName         String?
+  vatNumber           String?
+  projectCode         String?
+
+  // magic-link customer portal
+  portalToken         String        @unique @default(cuid())
+
+  createdAt           DateTime      @default(now())
+  updatedAt           DateTime      @updatedAt
+
+  customer            Customer?     @relation(fields: [customerId], references: [id])
+  partner             Partner?      @relation(fields: [partnerId], references: [id])
+  items               OrderItem[]
+  vouchers            Voucher[]
+  invoice             Invoice?
+  modifications       Modification[]
+  giftcardRedemptions GiftcardRedemption[]
+
+  @@index([status])
+  @@index([customerEmail])
+  @@index([createdAt])
+}
+
+model OrderItem {
+  id                String   @id @default(cuid())
+  orderId           String
+  productId         String
+  scheduledAt       DateTime?
+  participants      Int      @default(1)
+  unitCostCents     Int      // inkoop per stuk
+  unitPriceCents    Int      // verkoop per stuk (incl. marge, excl. BTW)
+  vatRate           Decimal  @db.Decimal(5, 4)
+  lineTotalCents    Int      // verkoop × aantal (incl. BTW)
+  lineCostCents     Int      // inkoop × aantal
+  lineMarginCents   Int
+  channel           BookingChannel
+  externalRef       String?  // booking ref bij leverancier
+  supplierStatus    String?  // free-form per kanaal
+  metadata          Json?
+
+  order             Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product           Product  @relation(fields: [productId], references: [id])
+  vouchers          Voucher[]
+}
+
+// ============================================================
+//  VOUCHERS
+// ============================================================
+
+model Voucher {
+  id            String        @id @default(cuid())
+  code          String        @unique
+  orderId       String
+  orderItemId   String
+  status        VoucherStatus @default(ISSUED)
+  pdfUrl        String?
+  qrPayload     String?
+  validFrom     DateTime?
+  validUntil    DateTime?
+  issuedAt      DateTime      @default(now())
+  redeemedAt    DateTime?
+  reissuedFromId String?      // bij wijzigingen koppeling naar oude
+
+  order         Order         @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  orderItem     OrderItem     @relation(fields: [orderItemId], references: [id], onDelete: Cascade)
+}
+
+// ============================================================
+//  INVOICES (WeFact)
+// ============================================================
+
+model Invoice {
+  id              String        @id @default(cuid())
+  orderId         String        @unique
+  partnerId       String?
+  wefactInvoiceId String?       @unique
+  invoiceNumber   String?       @unique
+  status          InvoiceStatus @default(DRAFT)
+  totalCents      Int
+  vatCents        Int
+  dueAt           DateTime?
+  paidAt          DateTime?
+  pdfUrl          String?
+  sentAt          DateTime?
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  order           Order         @relation(fields: [orderId], references: [id])
+  partner         Partner?      @relation(fields: [partnerId], references: [id])
+}
+
+// ============================================================
+//  MODIFICATIONS (wijzigen/annuleren)
+// ============================================================
+
+model Modification {
+  id            String             @id @default(cuid())
+  orderId       String
+  type          ModificationType
+  status        ModificationStatus @default(REQUESTED)
+  payload       Json               // bv. {oldTime, newTime, oldQty, newQty}
+  priceDeltaCents Int              @default(0) // positief = bijbetalen, negatief = restitutie
+  refundMollieId String?
+  requestedAt   DateTime           @default(now())
+  resolvedAt    DateTime?
+  notes         String?            @db.Text
+
+  order         Order              @relation(fields: [orderId], references: [id], onDelete: Cascade)
+}
+
+// ============================================================
+//  GIFTCARDS
+// ============================================================
+
+model Giftcard {
+  id              String   @id @default(cuid())
+  code            String   @unique
+  ownerCustomerId String?
+  initialCents    Int
+  balanceCents    Int
+  currency        String   @default("EUR")
+  validUntil      DateTime?
+  active          Boolean  @default(true)
+  createdAt       DateTime @default(now())
+
+  owner           Customer? @relation("GiftcardOwner", fields: [ownerCustomerId], references: [id])
+  redemptions     GiftcardRedemption[]
+}
+
+model GiftcardRedemption {
+  id          String   @id @default(cuid())
+  giftcardId  String
+  orderId     String
+  amountCents Int
+  createdAt   DateTime @default(now())
+
+  giftcard    Giftcard @relation(fields: [giftcardId], references: [id])
+  order       Order    @relation(fields: [orderId], references: [id])
+}
+
+// ============================================================
+//  CONTENT (blog, FAQ)
+// ============================================================
+
+model BlogPost {
+  id          String   @id @default(cuid())
+  domain      Domain
+  slug        String
+  locale      Locale
+  title       String
+  excerpt     String?  @db.Text
+  body        String   @db.Text
+  heroImage   String?
+  published   Boolean  @default(false)
+  publishedAt DateTime?
+  authorName  String?
+  metaTitle   String?
+  metaDesc    String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([domain, locale, slug])
+}
+
+model FaqItem {
+  id        String   @id @default(cuid())
+  domain    Domain
+  locale    Locale
+  question  String
+  answer    String   @db.Text
+  position  Int      @default(0)
+  category  String?
+}
+
+// ============================================================
+//  AUDIT
+// ============================================================
+
+model Review {
+  id           String   @id @default(cuid())
+  orderId      String?
+  providerId   String?
+  customerName String
+  customerEmail String
+  rating       Int      // 1-5
+  title        String?
+  body         String   @db.Text
+  published    Boolean  @default(false)
+  createdAt    DateTime @default(now())
+
+  @@index([providerId])
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  actorType String   // 'admin' | 'system' | 'partner' | 'customer'
+  actorId   String?
+  action    String   // e.g. 'order.refunded', 'provider.toggled_bookable'
+  entity    String   // e.g. 'Order', 'Provider'
+  entityId  String?
+  diff      Json?
+  ip        String?
+  createdAt DateTime @default(now())
+
+  @@index([entity, entityId])
+  @@index([createdAt])
+}
+
+// ============================================================
+//  SUPPLIER MAIL-QUEUE (Direct-leveranciers zonder API)
+// ============================================================
+
+model SupplierMessage {
+  id          String   @id @default(cuid())
+  orderItemId String
+  providerId  String
+  direction   String   // 'outbound' | 'inbound'
+  subject     String
+  body        String   @db.Text
+  status      String   // 'queued' | 'sent' | 'confirmed' | 'failed'
+  sentAt      DateTime?
+  confirmedAt DateTime?
+  createdAt   DateTime @default(now())
+}
+
+// ============================================================
+//  SETTINGS (key/value voor beheerpaneel)
+// ============================================================
+
+model Setting {
+  key       String   @id
+  value     Json
+  updatedAt DateTime @updatedAt
+}
+
+// ============================================================
+//  PROGRAMS (voorbeeldprogramma's DagjeUtrecht + UtrechtIncoming)
+// ============================================================
+
+model Program {
+  id             String           @id @default(cuid())
+  slug           String           @unique
+  channel        EnquiryChannel
+  audienceTags   TargetAudience[]
+  title          String
+  subtitle       String?
+  description    String           @db.Text
+  durationHours  Float
+  defaultPax     Int              @default(10)
+  pricePerPerson Int              // cents, incl. marge
+  heroImage      String?
+  published      Boolean          @default(true)
+  order          Int              @default(0)
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+
+  items          ProgramItem[]
+
+  @@index([channel, published])
+}
+
+model ProgramItem {
+  id          String   @id @default(cuid())
+  programId   String
+  providerId  String
+  order       Int
+  timeSlot    String?  // "10:30" — vrij tekstveld
+  durationMin Int?
+  notes       String?  @db.Text
+
+  program     Program  @relation(fields: [programId], references: [id], onDelete: Cascade)
+  provider    Provider @relation(fields: [providerId], references: [id])
+
+  @@index([programId, order])
+}
+
+// ============================================================
+//  ENQUIRIES (aanvragen zonder online betaling — fase 1)
+// ============================================================
+
+model Enquiry {
+  id            String         @id @default(cuid())
+  publicCode    String         @unique @default(cuid())
+  channel       EnquiryChannel
+  audience      TargetAudience?
+  status        EnquiryStatus  @default(NEW)
+
+  contactName   String
+  contactEmail  String
+  contactPhone  String?
+  companyName   String?
+  vatNumber     String?
+  country       String?
+
+  requestedDate DateTime?
+  paxAdults     Int            @default(1)
+  paxChildren   Int            @default(0)
+  budgetMinCents Int?
+  budgetMaxCents Int?
+  message       String?        @db.Text
+
+  sourceProgramId String?      // programma waarvan vertrokken (indien)
+  quoteRef       String?       // WeFact quote-id na "Genereer offerte"
+
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+
+  items         EnquiryItem[]
+  notes         EnquiryNote[]
+
+  @@index([status])
+  @@index([channel, status])
+  @@index([createdAt])
+}
+
+model EnquiryItem {
+  id                 String    @id @default(cuid())
+  enquiryId          String
+  providerId         String
+  order              Int
+  scheduledTime      String?   // "10:30" vrij tekstveld
+  pax                Int
+  costPriceCents     Int?
+  sellPriceCents     Int?
+  supplierStatus     String?   // "requested" | "confirmed" | "declined" | "alt-offered"
+  supplierResponseAt DateTime?
+  supplierNote       String?   @db.Text
+
+  enquiry            Enquiry   @relation(fields: [enquiryId], references: [id], onDelete: Cascade)
+  provider           Provider  @relation(fields: [providerId], references: [id])
+
+  @@index([enquiryId, order])
+}
+
+model EnquiryNote {
+  id        String   @id @default(cuid())
+  enquiryId String
+  author    String   @default("Ger")
+  body      String   @db.Text
+  createdAt DateTime @default(now())
+
+  enquiry   Enquiry  @relation(fields: [enquiryId], references: [id], onDelete: Cascade)
+
+  @@index([enquiryId, createdAt])
+}

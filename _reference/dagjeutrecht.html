@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UtrechtNu.nl — Dé digitale VVV van Utrecht</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap');
+:root{--canal:#1E3A4A;--canal-l:#2C526A;--dom:#C8753A;--dom-m:#E8956A;--cream:#F7F3EC;--stone:#E8E2D8;--ink:#1A1612;--mist:#6B7A85;--white:#fff;--green:#2D7A4F;--amber:#F59E0B;--purple:#6A1B9A;--blue:#1565C0;--teal:#00796B}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--ink);overflow-x:hidden}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(30,58,74,.97);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.08)}
+.nav-inner{max-width:1400px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:14px 32px}
+.nav-logo{font-family:'Playfair Display',serif;font-size:24px;font-weight:900;color:var(--cream);letter-spacing:-.5px;text-decoration:none}
+.nav-logo span{color:var(--dom)}
+.nav-links{display:flex;gap:4px}
+.nav-links a{color:rgba(247,243,236,.7);text-decoration:none;font-size:13px;font-weight:500;padding:7px 14px;border-radius:6px;transition:all .18s}
+.nav-links a:hover{color:var(--cream);background:rgba(255,255,255,.08)}
+.nav-right{display:flex;gap:10px;align-items:center}
+.nav-search{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);color:var(--cream);border-radius:20px;padding:8px 16px;font-size:13px;width:200px;outline:none}
+.nav-search::placeholder{color:rgba(247,243,236,.45)}
+.nav-cta{background:var(--dom);color:var(--white);border:none;border-radius:6px;padding:9px 18px;font-size:13px;font-weight:600;cursor:pointer;transition:background .2s;white-space:nowrap}
+.nav-cta:hover{background:var(--dom-m)}
+
+/* HERO */
+.hero{min-height:92vh;background:linear-gradient(160deg,rgba(30,58,74,.88) 0%,rgba(30,58,74,.6) 60%,rgba(200,117,58,.25) 100%),url('https://images.unsplash.com/photo-1558642084-fd07fae5282e?w=1800&q=85') center/cover no-repeat;display:flex;align-items:center;padding:120px 32px 80px}
+.hero-inner{max-width:1400px;margin:0 auto;width:100%}
+.hero-eyebrow{font-size:11px;font-weight:700;letter-spacing:4px;color:var(--dom-m);text-transform:uppercase;margin-bottom:18px}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(48px,6.5vw,92px);font-weight:900;line-height:.98;color:var(--white);margin-bottom:24px;max-width:700px}
+.hero h1 em{color:var(--dom-m);font-style:normal}
+.hero-sub{font-size:18px;color:rgba(255,255,255,.78);max-width:520px;line-height:1.6;margin-bottom:44px}
+.hero-stats{display:flex;gap:32px;flex-wrap:wrap;margin-bottom:52px}
+.hero-stat{text-align:center}
+.hero-stat-num{font-family:'Playfair Display',serif;font-size:32px;font-weight:900;color:var(--dom-m)}
+.hero-stat-label{font-size:12px;color:rgba(255,255,255,.55);margin-top:2px}
+
+/* SEARCH BOX */
+.search-mega{background:var(--white);border-radius:20px;padding:28px 32px;max-width:780px;box-shadow:0 28px 70px rgba(30,58,74,.28)}
+.search-mega h2{font-family:'Playfair Display',serif;font-size:20px;color:var(--canal);margin-bottom:16px}
+.search-cats{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.scat{border:2px solid var(--stone);background:var(--white);color:var(--ink);border-radius:24px;padding:7px 16px;font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:5px}
+.scat:hover,.scat.on{border-color:var(--dom);background:var(--dom);color:var(--white)}
+.search-row{display:flex;gap:10px}
+.search-inp{flex:1;border:2px solid var(--stone);border-radius:10px;padding:14px 18px;font-size:15px;font-family:'Inter',sans-serif;outline:none;background:var(--cream);transition:border-color .2s}
+.search-inp:focus{border-color:var(--canal)}
+.search-btn{background:var(--canal);color:var(--white);border:none;border-radius:10px;padding:14px 26px;font-size:15px;font-weight:700;cursor:pointer;transition:background .2s;white-space:nowrap}
+.search-btn:hover{background:var(--dom)}
+.search-btn:disabled{opacity:.6}
+#ai-out{display:none;margin-top:16px;background:var(--cream);border-radius:12px;padding:20px;font-size:14px;line-height:1.75;color:var(--ink);border-left:3px solid var(--dom)}
+.dot-p{display:inline-flex;gap:3px;align-items:center;margin-right:8px}
+.dot-p span{width:6px;height:6px;background:var(--dom);border-radius:50%;animation:dp 1.2s ease-in-out infinite}
+.dot-p span:nth-child(2){animation-delay:.2s}
+.dot-p span:nth-child(3){animation-delay:.4s}
+@keyframes dp{0%,80%,100%{opacity:.15}40%{opacity:1}}
+
+/* SECTION */
+.wrap{max-width:1400px;margin:0 auto;padding:0 32px}
+.sec{padding:72px 0}
+.sec-label{font-size:11px;font-weight:700;letter-spacing:3px;color:var(--dom);text-transform:uppercase;margin-bottom:10px}
+.sec-title{font-family:'Playfair Display',serif;font-size:clamp(26px,3.5vw,44px);font-weight:900;color:var(--canal);margin-bottom:10px;line-height:1.12}
+.sec-sub{font-size:15px;color:var(--mist);max-width:600px;line-height:1.65;margin-bottom:40px}
+
+/* CAT NAV */
+.cat-nav{background:var(--white);border-bottom:1px solid var(--stone);position:sticky;top:57px;z-index:100;box-shadow:0 2px 12px rgba(30,58,74,.06)}
+.cat-nav-inner{max-width:1400px;margin:0 auto;padding:0 32px;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+.cat-nav-inner::-webkit-scrollbar{display:none}
+.cnav{border:none;background:none;padding:14px 20px;font-size:13px;font-weight:600;color:var(--mist);cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:all .18s}
+.cnav:hover{color:var(--canal)}
+.cnav.on{color:var(--canal);border-color:var(--dom)}
+
+/* PROVIDER GRID */
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(295px,1fr));gap:18px}
+.pcard{background:var(--white);border-radius:14px;padding:18px;border:2px solid transparent;transition:all .2s;cursor:pointer;position:relative;overflow:hidden}
+.pcard:hover{border-color:var(--canal);transform:translateY(-3px);box-shadow:0 12px 32px rgba(30,58,74,.13)}
+.pcard-top{display:flex;align-items:flex-start;gap:12px;margin-bottom:10px}
+.pcard-icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:21px;flex-shrink:0}
+.pcard-info{flex:1;min-width:0}
+.pcard-name{font-size:14px;font-weight:700;color:var(--canal);margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pcard-cat{font-size:10px;font-weight:700;color:var(--mist);text-transform:uppercase;letter-spacing:.5px}
+.pcard-rating{font-size:12px;font-weight:700;color:var(--ink);white-space:nowrap}
+.pcard-rating .s{color:var(--amber)}
+.pcard-desc{font-size:12px;color:var(--mist);line-height:1.55;margin-bottom:12px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.pcard-foot{display:flex;align-items:center;justify-content:space-between}
+.pcard-price{font-size:12px;color:var(--mist)}
+.pcard-price b{font-size:15px;color:var(--ink)}
+.pcard-actions{display:flex;align-items:center;gap:6px}
+.api-chip{font-size:9px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;padding:3px 7px;border-radius:3px}
+.chip-v{background:#E8F4FD;color:#1565C0}
+.chip-g{background:#FFF3E0;color:#E65100}
+.chip-t{background:#F3E5F5;color:#6A1B9A}
+.chip-b{background:#E3F2FD;color:#1565C0}
+.chip-d{background:#E8F5E9;color:#2D7A4F}
+.chip-p{background:var(--stone);color:var(--mist)}
+.pcard-btn{background:var(--dom);color:var(--white);border:none;border-radius:6px;padding:7px 13px;font-size:11px;font-weight:700;cursor:pointer;transition:background .15s}
+.pcard-btn:hover{background:var(--canal)}
+.pcard-ribbon{position:absolute;top:12px;right:-8px;background:var(--green);color:var(--white);font-size:9px;font-weight:800;padding:3px 12px;letter-spacing:.5px}
+
+/* FILTER ROW */
+.filter-row{display:flex;align-items:center;gap:10px;margin-bottom:24px;flex-wrap:wrap}
+.filter-label{font-size:12px;font-weight:700;color:var(--mist);text-transform:uppercase;letter-spacing:.5px}
+.fbtn{border:1.5px solid var(--stone);background:var(--white);color:var(--ink);border-radius:20px;padding:6px 14px;font-size:12px;font-weight:600;cursor:pointer;transition:all .15s}
+.fbtn:hover,.fbtn.on{border-color:var(--canal);background:var(--canal);color:var(--white)}
+.result-count{margin-left:auto;font-size:13px;color:var(--mist)}
+
+/* HOTEL CARDS */
+.hgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px}
+.hcard{background:var(--white);border-radius:14px;overflow:hidden;box-shadow:0 4px 16px rgba(30,58,74,.08);transition:transform .2s,box-shadow .2s;cursor:pointer}
+.hcard:hover{transform:translateY(-4px);box-shadow:0 14px 36px rgba(30,58,74,.15)}
+.hcard-img{height:160px;background-size:cover;background-position:center;position:relative}
+.hcard-badge{position:absolute;top:12px;left:12px;font-size:10px;font-weight:800;padding:4px 9px;border-radius:4px;text-transform:uppercase;letter-spacing:.5px}
+.badge-boutique{background:#fff;color:var(--canal)}
+.badge-luxury{background:var(--dom);color:var(--white)}
+.badge-budget{background:var(--green);color:var(--white)}
+.badge-hostel{background:var(--purple);color:var(--white)}
+.hcard-body{padding:18px}
+.hcard-name{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--canal);margin-bottom:4px}
+.hcard-loc{font-size:12px;color:var(--mist);margin-bottom:8px}
+.hcard-rating{display:flex;align-items:center;gap:6px;margin-bottom:10px}
+.stars-fill{color:var(--amber);font-size:13px}
+.hcard-price{display:flex;align-items:center;justify-content:space-between}
+.price-from{font-size:12px;color:var(--mist)}
+.price-num{font-size:20px;font-weight:900;color:var(--canal)}
+.book-hotel-btn{background:var(--canal);color:var(--white);border:none;border-radius:7px;padding:9px 16px;font-size:12px;font-weight:700;cursor:pointer;transition:background .15s}
+.book-hotel-btn:hover{background:var(--dom)}
+
+/* RESTAURANT GRID */
+.rgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px}
+.rcard{background:var(--white);border-radius:14px;padding:20px;box-shadow:0 4px 14px rgba(30,58,74,.07);transition:all .2s;cursor:pointer;border-left:4px solid transparent}
+.rcard:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(30,58,74,.13);border-left-color:var(--dom)}
+.rcard-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
+.rcard-name{font-size:15px;font-weight:700;color:var(--canal)}
+.rcard-price-lvl{font-size:13px;color:var(--dom);font-weight:700}
+.rcard-cuisine{font-size:11px;color:var(--mist);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;font-weight:600}
+.rcard-desc{font-size:12px;color:var(--mist);line-height:1.55;margin-bottom:12px}
+.rcard-foot{display:flex;align-items:center;justify-content:space-between}
+.rcard-rating{font-size:13px;font-weight:700;color:var(--ink)}
+.res-btn{background:var(--dom);color:var(--white);border:none;border-radius:6px;padding:7px 14px;font-size:11px;font-weight:700;cursor:pointer;transition:background .15s}
+.res-btn:hover{background:var(--canal)}
+
+/* EVENT CARDS */
+.egrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
+.ecard{background:var(--white);border-radius:12px;overflow:hidden;box-shadow:0 4px 12px rgba(30,58,74,.07);transition:all .2s;cursor:pointer}
+.ecard:hover{transform:translateY(-3px);box-shadow:0 10px 26px rgba(30,58,74,.13)}
+.ecard-head{padding:18px 18px 0}
+.ecard-venue-tag{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;padding:3px 8px;border-radius:3px;display:inline-block}
+.tag-music{background:#E8EAF6;color:#303F9F}
+.tag-theater{background:#FCE4EC;color:#880E4F}
+.tag-film{background:#E0F2F1;color:#00695C}
+.ecard-name{font-size:15px;font-weight:700;color:var(--canal);margin-bottom:4px}
+.ecard-sub{font-size:12px;color:var(--mist);margin-bottom:12px}
+.ecard-foot{padding:12px 18px 16px;border-top:1px solid var(--stone);display:flex;justify-content:space-between;align-items:center;margin-top:12px}
+.ecard-price{font-size:13px;font-weight:700;color:var(--dom)}
+.ticket-btn{background:var(--purple);color:var(--white);border:none;border-radius:6px;padding:7px 13px;font-size:11px;font-weight:700;cursor:pointer}
+
+/* SPA GRID */
+.sgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px}
+.scard{background:var(--white);border-radius:14px;padding:20px;border:2px solid var(--stone);transition:all .2s;cursor:pointer}
+.scard:hover{border-color:var(--teal);transform:translateY(-3px);box-shadow:0 10px 26px rgba(0,121,107,.12)}
+.scard-icon-row{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.scard-bubble{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#E0F2F1,#B2DFDB);display:flex;align-items:center;justify-content:center;font-size:22px}
+.scard-name{font-size:15px;font-weight:700;color:#00695C}
+.scard-type{font-size:11px;color:var(--mist);font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+.scard-desc{font-size:12px;color:var(--mist);line-height:1.55;margin-bottom:12px}
+.scard-foot{display:flex;justify-content:space-between;align-items:center}
+.scard-price{font-size:13px;color:var(--mist)}
+.scard-price b{color:var(--ink);font-size:15px}
+.spa-btn{background:#00796B;color:var(--white);border:none;border-radius:6px;padding:7px 13px;font-size:11px;font-weight:700;cursor:pointer}
+
+/* MODAL */
+.overlay{display:none;position:fixed;inset:0;z-index:300;background:rgba(26,22,18,.65);backdrop-filter:blur(5px);align-items:center;justify-content:center;padding:20px}
+.overlay.open{display:flex}
+.mbox{background:var(--white);border-radius:20px;width:100%;max-width:640px;max-height:90vh;overflow-y:auto;padding:36px;position:relative}
+.mclose{position:absolute;top:18px;right:18px;width:34px;height:34px;border-radius:50%;background:var(--stone);border:none;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.mclose:hover{background:var(--dom);color:var(--white)}
+.mtitle{font-family:'Playfair Display',serif;font-size:24px;font-weight:900;color:var(--canal);margin-bottom:4px}
+.msub{font-size:13px;color:var(--mist);margin-bottom:24px}
+.bsteps{display:flex;border-bottom:2px solid var(--stone);margin-bottom:28px}
+.bstep{flex:1;text-align:center;padding:11px 6px;font-size:11px;font-weight:700;color:var(--mist);border-bottom:2px solid transparent;margin-bottom:-2px;text-transform:uppercase;letter-spacing:.5px}
+.bstep.on{color:var(--canal);border-color:var(--dom)}
+.bstep.done{color:var(--green)}
+.act-list{display:flex;flex-direction:column;gap:14px}
+.act-item{border:2px solid var(--stone);border-radius:12px;padding:16px;transition:border-color .2s}
+.act-item.sel{border-color:var(--canal);background:rgba(30,58,74,.03)}
+.act-head{display:flex;align-items:flex-start;gap:12px;margin-bottom:10px}
+.act-ico{width:42px;height:42px;border-radius:9px;background:var(--canal);color:var(--white);display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0}
+.act-nm{font-size:14px;font-weight:700;color:var(--canal);margin-bottom:1px}
+.act-meta{font-size:11px;color:var(--mist)}
+.act-price{font-size:14px;font-weight:700;color:var(--dom)}
+.slots{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:10px}
+.slot{border:1.5px solid var(--stone);border-radius:5px;padding:5px 11px;font-size:11px;font-weight:700;cursor:pointer;transition:all .15s}
+.slot:hover,.slot.picked{background:var(--canal);color:var(--white);border-color:var(--canal)}
+.slot.full{opacity:.35;cursor:default;text-decoration:line-through}
+.trow{display:flex;align-items:center;gap:10px}
+.tlbl{font-size:12px;font-weight:700}
+.tctrl{display:flex;align-items:center;gap:8px}
+.tbtn{width:28px;height:28px;border-radius:50%;border:1.5px solid var(--canal);background:var(--white);color:var(--canal);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1}
+.tbtn:hover{background:var(--canal);color:var(--white)}
+.tcnt{font-size:15px;font-weight:700;min-width:22px;text-align:center}
+.dlabel{font-size:12px;font-weight:700;margin-bottom:7px;color:var(--ink)}
+.dinput{border:2px solid var(--stone);border-radius:8px;padding:10px 14px;font-size:14px;font-family:'Inter',sans-serif;outline:none;width:100%;margin-bottom:18px;transition:border-color .2s}
+.dinput:focus{border-color:var(--canal)}
+.sum-table{width:100%;border-collapse:collapse;margin-bottom:18px}
+.sum-table td{padding:9px 0;font-size:13px;border-bottom:1px solid var(--stone)}
+.sum-table td:last-child{text-align:right;font-weight:700}
+.sum-total td{font-size:16px;font-weight:900;color:var(--canal);border-bottom:none;padding-top:14px}
+.chform{display:flex;flex-direction:column;gap:12px;margin-bottom:20px}
+.frow{display:flex;gap:10px}
+.ff{flex:1;display:flex;flex-direction:column;gap:4px}
+.ff label{font-size:11px;font-weight:700;color:var(--mist);text-transform:uppercase;letter-spacing:.4px}
+.ff input{border:2px solid var(--stone);border-radius:7px;padding:9px 13px;font-size:13px;font-family:'Inter',sans-serif;outline:none;transition:border-color .2s}
+.ff input:focus{border-color:var(--canal)}
+.api-badges{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px}
+.abadge{font-size:10px;font-weight:800;padding:5px 10px;border-radius:4px;letter-spacing:.3px;text-transform:uppercase}
+.cbtn{width:100%;background:var(--dom);color:var(--white);border:none;border-radius:9px;padding:15px;font-size:15px;font-weight:700;cursor:pointer;transition:background .2s;margin-bottom:8px}
+.cbtn:hover{background:var(--canal)}
+.nbrow{display:flex;justify-content:space-between;margin-top:20px}
+.nb-sec{background:var(--stone);color:var(--ink);border:none;border-radius:7px;padding:10px 20px;font-size:13px;font-weight:600;cursor:pointer}
+.nb-pri{background:var(--canal);color:var(--white);border:none;border-radius:7px;padding:10px 24px;font-size:13px;font-weight:600;cursor:pointer;transition:background .18s}
+.nb-pri:hover{background:var(--dom)}
+.success{text-align:center;padding:16px 0}
+.s-icon{width:68px;height:68px;background:var(--green);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 18px}
+.s-title{font-family:'Playfair Display',serif;font-size:26px;color:var(--canal);margin-bottom:8px}
+.s-desc{font-size:13px;color:var(--mist);line-height:1.7;max-width:360px;margin:0 auto 20px}
+.s-ref{background:var(--cream);border-radius:9px;padding:14px 22px;display:inline-block;font-size:12px;color:var(--mist);margin-bottom:20px}
+.s-ref b{color:var(--canal);font-size:17px;font-family:monospace;display:block}
+
+/* HOW */
+.how-bg{background:var(--canal)}
+.how-bg .sec-label{color:var(--dom-m)}
+.how-bg .sec-title{color:var(--white)}
+.how-bg .sec-sub{color:rgba(247,243,236,.65)}
+.how-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:28px}
+.how-card{background:rgba(255,255,255,.06);border-radius:14px;padding:24px}
+.how-num{font-family:'Playfair Display',serif;font-size:48px;font-weight:900;color:rgba(200,117,58,.3);line-height:1;margin-bottom:8px}
+.how-title{font-size:15px;font-weight:700;color:var(--white);margin-bottom:7px}
+.how-desc{font-size:12px;color:rgba(247,243,236,.6);line-height:1.65}
+
+/* FOOTER */
+footer{background:var(--ink);color:rgba(247,243,236,.5);padding:48px 32px}
+.footer-inner{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px}
+.footer-logo{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;color:var(--cream);margin-bottom:10px}
+.footer-logo span{color:var(--dom)}
+.footer-tagline{font-size:13px;line-height:1.6;margin-bottom:16px}
+.footer-col h4{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:rgba(247,243,236,.35);margin-bottom:12px}
+.footer-col a{display:block;font-size:13px;color:rgba(247,243,236,.5);text-decoration:none;margin-bottom:7px;transition:color .15s}
+.footer-col a:hover{color:var(--cream)}
+.footer-bottom{max-width:1400px;margin:28px auto 0;padding-top:20px;border-top:1px solid rgba(255,255,255,.07);display:flex;justify-content:space-between;font-size:12px;flex-wrap:wrap;gap:8px}
+
+@media(max-width:768px){
+  .nav-links{display:none}
+  .nav-search{display:none}
+  .hero{padding:100px 20px 60px}
+  .wrap{padding:0 20px}
+  .cat-nav-inner{padding:0 20px}
+  .footer-inner{grid-template-columns:1fr}
+  .search-row{flex-direction:column}
+  .frow{flex-direction:column}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="#">Utrecht<span>Nu</span></a>
+    <div class="nav-links">
+      <a href="#activiteiten">Activiteiten</a>
+      <a href="#hotels">Hotels</a>
+      <a href="#restaurants">Restaurants</a>
+      <a href="#events">Events</a>
+      <a href="#wellness">Wellness</a>
+      <a href="#hoe">Hoe werkt het</a>
+    </div>
+    <div class="nav-right">
+      <input class="nav-search" placeholder="🔍 Zoek activiteit, hotel…" oninput="liveSearch(this.value)"/>
+      <button class="nav-cta" onclick="document.querySelector('.search-mega').scrollIntoView({behavior:'smooth'})">Plan mijn dag ✦</button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Dé digitale VVV van Utrecht</div>
+    <h1>Alles van Utrecht.<br><em>Direct boekbaar.</em></h1>
+    <p class="hero-sub">Van Domtoren tot Michelin-ster, van boulen op de gracht tot slapen in een boutique hotel — 130+ leveranciers, één platform.</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="hero-stat-num">130+</div><div class="hero-stat-label">Boekbare aanbieders</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">8</div><div class="hero-stat-label">Boekingsplatformen</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">4.7★</div><div class="hero-stat-label">Gem. beoordeling</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">1</div><div class="hero-stat-label">Betaling voor alles</div></div>
+    </div>
+    <div class="search-mega">
+      <h2>Wat zoek jij in Utrecht?</h2>
+      <div class="search-cats">
+        <button class="scat on" onclick="tog(this,'activiteit')">🎯 Activiteiten</button>
+        <button class="scat" onclick="tog(this,'hotel')">🏨 Hotels</button>
+        <button class="scat" onclick="tog(this,'restaurant')">🍽️ Restaurants</button>
+        <button class="scat" onclick="tog(this,'water')">🚣 Op het water</button>
+        <button class="scat" onclick="tog(this,'event')">🎭 Events</button>
+        <button class="scat" onclick="tog(this,'wellness')">🧖 Wellness</button>
+        <button class="scat" onclick="tog(this,'kids')">🧸 Kinderen</button>
+        <button class="scat" onclick="tog(this,'avontuur')">⚡ Avontuur</button>
+      </div>
+      <div class="search-row">
+        <input class="search-inp" id="sq" placeholder="bv. 'romantisch weekend, budget €150, met hond'"/>
+        <button class="search-btn" id="sbtn" onclick="aiSearch()">✦ Zoek & Plan</button>
+      </div>
+      <div id="ai-out"></div>
+    </div>
+  </div>
+</section>
+
+<!-- CAT NAV -->
+<div class="cat-nav">
+  <div class="cat-nav-inner">
+    <button class="cnav on" onclick="showSec('all',this)">Alles</button>
+    <button class="cnav" onclick="showSec('museum',this)">🏛️ Musea (9)</button>
+    <button class="cnav" onclick="showSec('water',this)">🚣 Water (12)</button>
+    <button class="cnav" onclick="showSec('tour',this)">🗺️ Tours (7)</button>
+    <button class="cnav" onclick="showSec('escape',this)">🎭 Escape (6)</button>
+    <button class="cnav" onclick="showSec('workshop',this)">🎨 Workshops (10)</button>
+    <button class="cnav" onclick="showSec('sport',this)">🧗 Sport (5)</button>
+    <button class="cnav" onclick="showSec('hotel',this)">🏨 Hotels (16)</button>
+    <button class="cnav" onclick="showSec('restaurant',this)">🍽️ Eten (12)</button>
+    <button class="cnav" onclick="showSec('wellness',this)">🧖 Wellness (6)</button>
+    <button class="cnav" onclick="showSec('event',this)">🎵 Events (8)</button>
+  </div>
+</div>
+
+<!-- ACTIVITEITEN -->
+<section class="sec" id="activiteiten">
+  <div class="wrap">
+    <div class="sec-label">Activiteiten & Attracties</div>
+    <h2 class="sec-title">Direct boekbaar in Utrecht</h2>
+    <p class="sec-sub">Van iconische musea tot avontuurlijke escape rooms — elk item is te boeken via Viator, GetYourGuide, Ticketmaster of directe partner-API.</p>
+    <div class="filter-row">
+      <span class="filter-label">Filter:</span>
+      <button class="fbtn on" onclick="filt('all',this)">Alles</button>
+      <button class="fbtn" onclick="filt('museum',this)">🏛️ Musea</button>
+      <button class="fbtn" onclick="filt('water',this)">🚣 Water</button>
+      <button class="fbtn" onclick="filt('tour',this)">🗺️ Tours</button>
+      <button class="fbtn" onclick="filt('escape',this)">🎭 Escape</button>
+      <button class="fbtn" onclick="filt('workshop',this)">🎨 Workshop</button>
+      <button class="fbtn" onclick="filt('sport',this)">🧗 Sport</button>
+      <span class="result-count" id="rc">67 resultaten</span>
+    </div>
+    <div class="pgrid" id="pgrid"></div>
+  </div>
+</section>
+
+<!-- HOTELS -->
+<section class="sec" id="hotels" style="background:var(--white)">
+  <div class="wrap">
+    <div class="sec-label">Overnachten</div>
+    <h2 class="sec-title">Hotels & Accommodaties</h2>
+    <p class="sec-sub">Van boutique B&B naast de Domtoren tot grote stadshotels — allemaal boekbaar via Booking.com of direct.</p>
+    <div class="hgrid" id="hgrid"></div>
+  </div>
+</section>
+
+<!-- RESTAURANTS -->
+<section class="sec" id="restaurants">
+  <div class="wrap">
+    <div class="sec-label">Uit eten</div>
+    <h2 class="sec-title">Restaurants & Tafels reserveren</h2>
+    <p class="sec-sub">Van Michelin-waardige fine dining tot het beste Italiaanse terras aan de gracht — direct reserveren via TheFork of Booking.com.</p>
+    <div class="rgrid" id="rgrid"></div>
+  </div>
+</section>
+
+<!-- EVENTS -->
+<section class="sec" id="events" style="background:var(--white)">
+  <div class="wrap">
+    <div class="sec-label">Uitgaan & Cultuur</div>
+    <h2 class="sec-title">Theater, Muziek & Film</h2>
+    <p class="sec-sub">Tickets voor TivoliVredenburg, Beatrix Theater, Stadsschouwburg en meer — via Ticketmaster of rechtstreeks.</p>
+    <div class="egrid" id="egrid"></div>
+  </div>
+</section>
+
+<!-- WELLNESS -->
+<section class="sec" id="wellness">
+  <div class="wrap">
+    <div class="sec-label">Ontspannen</div>
+    <h2 class="sec-title">Wellness, Spa & Sauna</h2>
+    <p class="sec-sub">Laat je verwennen in een van Utrecht's mooiste spa's — dagkaarten, massages en arrangementen direct te boeken.</p>
+    <div class="sgrid" id="sgrid"></div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="sec how-bg" id="hoe">
+  <div class="wrap">
+    <div class="sec-label">Zo werkt het</div>
+    <h2 class="sec-title">Van zoeken naar genieten</h2>
+    <p class="sec-sub">UtrechtNu is verbonden met 8 boekingsplatformen. Jij kiest, wij regelen.</p>
+    <div class="how-grid">
+      <div class="how-card"><div class="how-num">1</div><div class="how-title">Zoek of laat AI plannen</div><div class="how-desc">Typ je wens of laat onze AI een compleet dagprogramma samenstellen op basis van jouw filters.</div></div>
+      <div class="how-card"><div class="how-num">2</div><div class="how-title">Real-time beschikbaarheid</div><div class="how-desc">Via Viator, GetYourGuide, Ticketmaster, Booking.com, TheFork en directe partner-API's zien we live welke tijdslots vrij zijn.</div></div>
+      <div class="how-card"><div class="how-num">3</div><div class="how-title">Selecteer & personaliseer</div><div class="how-desc">Kies tijden, aantal tickets en voeg extra's toe. Alles in één overzicht voor je hele dag.</div></div>
+      <div class="how-card"><div class="how-num">4</div><div class="how-title">Één betaling</div><div class="how-desc">iDEAL, creditcard of PayPal. We boeken simultaan bij alle leveranciers. Tickets in je inbox binnen 60 seconden.</div></div>
+      <div class="how-card"><div class="how-num">5</div><div class="how-title">Dag-app begeleidt je</div><div class="how-desc">Looproutes tussen stops, openingstijden, last-minute tips en je complete boekingsoverzicht — alles in één app.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-logo">Utrecht<span>Nu</span></div>
+      <div class="footer-tagline">Dé digitale VVV van Utrecht — 130+ leveranciers, 8 boekingsplatformen, één plek voor alles.</div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px">
+        <span class="abadge chip-v" style="font-size:10px">Viator API</span>
+        <span class="abadge chip-g" style="font-size:10px">GetYourGuide API</span>
+        <span class="abadge chip-t" style="font-size:10px">Ticketmaster API</span>
+        <span class="abadge chip-b" style="font-size:10px">Booking.com API</span>
+        <span class="abadge chip-d" style="font-size:10px">TheFork API</span>
+        <span class="abadge chip-d" style="font-size:10px">Directe partner-API's</span>
+      </div>
+    </div>
+    <div class="footer-col"><h4>Activiteiten</h4><a href="#">Musea</a><a href="#">Op het water</a><a href="#">Escape rooms</a><a href="#">Workshops</a><a href="#">Sport & Klimmen</a></div>
+    <div class="footer-col"><h4>Verblijf</h4><a href="#">Boutique hotels</a><a href="#">Stadshotels</a><a href="#">Hostels</a><a href="#">B&B's</a><a href="#">Wellness hotels</a></div>
+    <div class="footer-col"><h4>Praktisch</h4><a href="#">OV naar Utrecht</a><a href="#">Parkeren</a><a href="#">Fiets huren</a><a href="#">Dagprogramma's</a><a href="#">Contact</a></div>
+  </div>
+  <div class="footer-bottom"><span>© 2026 UtrechtNu.nl — Niet gelieerd aan VVV Utrecht</span><span>Prototype · Boekingsintegraties zijn illustratief</span></div>
+</footer>
+
+<!-- MODAL -->
+<div class="overlay" id="modal"><div class="mbox"><button class="mclose" onclick="closeM()">×</button><div id="mbody"></div></div></div>
+
+<script>
+/* ══════════════════════════════════════════
+   COMPLETE PROVIDER DATABASE — 130+ items
+══════════════════════════════════════════ */
+const DB = {
+activities: [
+  // MUSEA
+  {id:'domtoren',cat:'museum',icon:'🗼',name:'Domtoren',desc:'Beklim 465 treden — Utrecht\'s iconisch symbool met adembenemend uitzicht over de stad en omgeving.',r:4.5,rv:9123,price:14,api:'ticketmaster',chip:'chip-t',chl:'Ticketmaster',top:true,slots:['10:00','10:30','11:00','11:30','13:00','14:00','14:30'],full:['10:30']},
+  {id:'domunder',cat:'museum',icon:'🌿',name:'DOMunder',desc:'Unieke ondergrondse archeologische tour door 2000 jaar Utrecht, met zaklampen door de Romeinse tijd.',r:4.3,rv:974,price:12.50,api:'getyourguide',chip:'chip-g',chl:'GetYourGuide',slots:['10:00','11:00','12:00','13:00','14:00','15:00'],full:['11:00']},
+  {id:'speelklok',cat:'museum',icon:'🎵',name:'Museum Speelklok',desc:'Magische collectie zelfspelende instrumenten in een middeleeuwse kerk. Begeleide tours met live muziek.',r:4.5,rv:3758,price:16,api:'viator',chip:'chip-v',chl:'Viator',slots:['10:00','11:00','13:00','14:00'],full:[]},
+  {id:'centraal',cat:'museum',icon:'🎨',name:'Centraal Museum',desc:'Rietveld, Miffy en hedendaagse kunst — Utrechts grootste museum met sfeervolle museumtuin.',r:4.2,rv:3059,price:15,api:'direct',chip:'chip-d',chl:'Direct API',slots:['11:00','13:00','15:00'],full:[]},
+  {id:'kasteel',cat:'museum',icon:'🏰',name:'Kasteel de Haar',desc:'Het mooiste sprookjeskasteel van Nederland — tuinen, hertenkamp en imposante zalen op 20 min van centrum.',r:4.7,rv:23557,price:18,api:'viator',chip:'chip-v',chl:'Viator',top:true,slots:['10:00','11:00','13:00'],full:['10:00']},
+  {id:'spoorweg',cat:'museum',icon:'🚂',name:'Spoorwegmuseum',desc:'Spectaculair nationaal treinmuseum — interactieve beleving voor jong en oud in het historische station.',r:4.6,rv:8200,price:20,api:'ticketmaster',chip:'chip-t',chl:'Ticketmaster',slots:['09:30','10:30','13:00'],full:[]},
+  {id:'rietveld',cat:'museum',icon:'🏠',name:'Rietveld Schröderhuis',desc:'UNESCO-werelderfgoed — het De Stijl icoon van architect Rietveld, begeleide rondleiding inclusief.',r:4.8,rv:1200,price:18,api:'direct',chip:'chip-d',chl:'Direct API',slots:['10:00','11:30','13:30'],full:['11:30']},
+  {id:'miffy',cat:'museum',icon:'🐰',name:'Miffy Museum (Dick Bruna Huis)',desc:'Het wereld van Nijntje — ontworpen voor kinderen tot 6 jaar, opgenomen in Centraal Museum.',r:4.7,rv:2100,price:10,api:'direct',chip:'chip-d',chl:'Direct API',slots:['10:00','11:00','14:00'],full:[]},
+  {id:'abcathedral',cat:'museum',icon:'⛪',name:'Domkerk Utrecht',desc:'De imposante gotische Domkerk (14e eeuw) — gratis toegang, optionele begeleide rondleiding.',r:4.5,rv:3400,price:0,api:'direct',chip:'chip-d',chl:'Direct API',note:'Gratis',slots:['09:00','11:00','14:00'],full:[]},
+  // WATER
+  {id:'schuttevaer',cat:'water',icon:'⛵',name:'Schuttevaer Rondvaart',desc:'Klassieke grachtenrondvaart 60-90 min langs alle highlights, audiogids in 4 talen.',r:4.0,rv:1037,price:13,api:'getyourguide',chip:'chip-g',chl:'GetYourGuide',slots:['11:00','13:00','14:00','16:00'],full:[]},
+  {id:'canalcruises',cat:'water',icon:'🚢',name:'Utrecht Canal Cruises',desc:'Intieme rondvaart max 12 personen, inclusief 2 drankjes — Utrecht\'s best beoordeeld.',r:4.9,rv:183,price:22,api:'viator',chip:'chip-v',chl:'Viator',top:true,slots:['10:00','12:00','14:00','16:00'],full:[]},
+  {id:'domstadboot',cat:'water',icon:'🔥',name:'Domstadboot BBQ-boot',desc:'BBQ op het water — unieke combinatie van grachtenvaart en barbecue, tot 25 personen.',r:4.9,rv:368,price:35,api:'direct',chip:'chip-d',chl:'Direct API',slots:['17:00','18:00','19:00'],full:[]},
+  {id:'kleinekapitein',cat:'water',icon:'⚓',name:'De Kleine Kapitein',desc:'Zelf varen in een elektrische boot met welkomstmandje — perfecte romantische activiteit.',r:5.0,rv:177,price:28,api:'direct',chip:'chip-d',chl:'Direct API',top:true,slots:['10:00','12:00','14:00','16:00'],full:[]},
+  {id:'grachtenvaarders',cat:'water',icon:'🌊',name:'Grachtenvaarders',desc:'Luxe privéboot met skipper en hapjes-arrangement — ideaal voor groepen en speciale gelegenheden.',r:4.8,rv:67,price:40,api:'direct',chip:'chip-d',chl:'Direct API',slots:['10:00','13:00','16:00'],full:[]},
+  {id:'varenutrecht',cat:'water',icon:'🛥️',name:'Varen in Utrecht',desc:'Open rondvaartboten met gids — ook \'s avonds voor magische verlichte vaart over de grachten.',r:4.6,rv:103,price:14,api:'viator',chip:'chip-v',chl:'Viator',slots:['11:00','13:00','15:00','19:00'],full:[]},
+  {id:'whatsup',cat:'water',icon:'🏄',name:"What'SUP Utrecht",desc:'Stand-up paddleboarding door de Utrechtse grachten — instructie inbegrepen, beginnersvriendelijk.',r:5.0,rv:21,price:19,api:'direct',chip:'chip-d',chl:'Direct API',slots:['10:00','11:00','12:00','14:00'],full:['12:00']},
+  {id:'suppenkrommerijn',cat:'water',icon:'🌿',name:'Suppen Kromme Rijn',desc:'SUP-tour door de prachtige natuur langs de Kromme Rijn — yogaoptie beschikbaar.',r:4.9,rv:107,price:22,api:'direct',chip:'chip-d',chl:'Direct API',slots:['10:00','13:00'],full:[]},
+  {id:'supkano',cat:'water',icon:'🛶',name:'SUP- en Kanoverhuur Utrecht',desc:'Kayak en kanoverhuur recht in het centrum — online boeken, direct de gracht op.',r:4.5,rv:104,price:15,api:'direct',chip:'chip-d',chl:'Direct API',slots:['10:00','11:00','13:00','14:00','15:00'],full:['13:00']},
+  {id:'kayakutrecht',cat:'water',icon:'🚣',name:'Kayak Utrecht',desc:'Beste kayakverhuur van de stad — diverse routes door historisch centrum.',r:4.9,rv:280,price:17,api:'direct',chip:'chip-d',chl:'Direct API',top:true,slots:['10:00','12:00','14:00','16:00'],full:[]},
+  {id:'rijnstroom',cat:'water',icon:'🌾',name:'Botenverhuur de Rijnstroom',desc:'Kano\'s en fluisterboten — stadstour of prachtige natuurroute langs de Kromme Rijn.',r:4.3,rv:687,price:12,api:'direct',chip:'chip-d',chl:'Direct API',slots:['09:30','11:00','13:00','15:00'],full:[]},
+  {id:'stromma',cat:'water',icon:'🚲',name:'Stromma Peddelboot',desc:'Zelf roeien door de grachten op retro peddelboot — leuk voor families en groepen.',r:4.1,rv:213,price:9,api:'direct',chip:'chip-d',chl:'Direct API',slots:['10:00','12:00','14:00'],full:[]},
+  {id:'canalcruising',cat:'water',icon:'🎉',name:'Canal Cruising Utrecht',desc:'Zelfbesturende elektrische boot — perfect voor verjaardagen, dates en familieuitjes.',r:5.0,rv:42,price:25,api:'direct',chip:'chip-d',chl:'Direct API',slots:['10:00','12:00','14:00','16:00'],full:[]},
+  // TOURS
+  {id:'freewalking',cat:'tour',icon:'🚶',name:'Free Walking Tour Utrecht',desc:'Top-beoordeelde walking tour — Jeffrey en Ruud maken Utrecht\'s geschiedenis levendig met humor.',r:4.9,rv:720,price:0,api:'viator',chip:'chip-v',chl:'Viator',note:'Tip-based',top:true,slots:['10:30','14:00'],full:[]},
+  {id:'localtour',cat:'tour',icon:'📍',name:'Local Tour Utrecht',desc:'Lucas geeft de meest persoonlijke stadstour — ook maatwerk voor groepen en conferenties.',r:4.9,rv:53,price:15,api:'direct',chip:'chip-d',chl:'Direct API',slots:['10:00','14:00'],full:[]},
+  {id:'utours',cat:'tour',icon:'🗺️',name:'Utours (fiets/kano/sloep)',desc:'Fietstours, stadswandelingen, kanotours & sloepvaren — het meest complete tourangeanbod van Utrecht.',r:4.9,rv:214,price:25,api:'viator',chip:'chip-v',chl:'Viator',top:true,slots:['09:30','10:00','14:00'],full:[]},
+  {id:'colorbike',cat:'tour',icon:'🌈',name:'Color Bike Tours',desc:'Guided fietsrondrit met kleurrijke bikes langs bekende én verborgen plekken van Utrecht.',r:4.7,rv:11,price:22,api:'direct',chip:'chip-d',chl:'Direct API',slots:['10:00','14:00'],full:[]},
+  {id:'craftbeertour',cat:'tour',icon:'🍺',name:'Utrecht Craft Beer Tours',desc:'Fietstour langs de beste Utrechtse brouwerijen en bierspeciaalzaken, inclusief proeverijen.',r:4.8,rv:97,price:35,api:'direct',chip:'chip-d',chl:'Direct API',slots:['13:00','14:00'],full:[]},
+  {id:'williamstreet',cat:'tour',icon:'🚲',name:'William Street Bike',desc:'Beste fietsverhuur van Utrecht — persoonlijk advies over routes, ook elektrische fietsen.',r:4.9,rv:758,price:10,api:'direct',chip:'chip-d',chl:'Direct API',slots:['09:00','10:00','13:00'],full:[]},
+  {id:'foodtour',cat:'tour',icon:'🥐',name:'Utrecht Food Tour',desc:'Culinaire wandeltour langs de beste eetspots van Utrecht — markten, bakkers, kaasmakers.',r:4.7,rv:180,price:40,api:'viator',chip:'chip-v',chl:'Viator',slots:['11:00','14:00'],full:[]},
+  // ESCAPE & FUN
+  {id:'thequeen',cat:'escape',icon:'👑',name:'The Queen Escape Room',desc:'Utrecht\'s meest geprezen escape room — meeslepend verhaal, onvergetelijke host. ★ 4.9/555',r:4.9,rv:555,price:20,api:'direct',chip:'chip-d',chl:'Direct API',top:true,slots:['12:00','14:00','16:00','18:00','20:00'],full:['18:00']},
+  {id:'liveescape',cat:'escape',icon:'🔐',name:'Live Escape Utrecht',desc:'Spectaculaire themarooms — creatieve puzzels en grote groepen welkom. Mike\'s Laundromat ★★★★★',r:4.9,rv:348,price:19,api:'direct',chip:'chip-d',chl:'Direct API',slots:['11:00','13:00','15:00','17:00','19:00'],full:[]},
+  {id:'mysterium',cat:'escape',icon:'🔮',name:'Escape Room Mysterium',desc:'Sfeervolle escaperoom recht aan de Oudegracht — maximaal 10 personen voor intieme ervaring.',r:4.7,rv:465,price:20,api:'direct',chip:'chip-d',chl:'Direct API',slots:['10:00','12:00','14:00','16:00','18:00'],full:[]},
+  {id:'prisonutrecht',cat:'escape',icon:'⛓️',name:'Prison Escape Utrecht',desc:'Geen puzzels maar meeslepend rollenspel in een echte gevangenis — volledig met acteurs.',r:4.6,rv:221,price:45,api:'direct',chip:'chip-d',chl:'Direct API',slots:['18:00','20:00'],full:[]},
+  {id:'escapeworld',cat:'escape',icon:'🪄',name:'Escape World Utrecht',desc:'Hoogwaardige decors — "The Midnight Express" is een absolute aanrader. ★ 4.9',r:4.9,rv:142,price:20,api:'direct',chip:'chip-d',chl:'Direct API',slots:['12:00','14:00','16:00','18:00','20:00'],full:[]},
+  {id:'teambuilding',cat:'escape',icon:'🏎️',name:'The Team Building',desc:'Karting, axe throwing, escape rooms en meer op één locatie — perfect voor uitjes.',r:4.6,rv:1210,price:25,api:'direct',chip:'chip-d',chl:'Direct API',slots:['14:00','16:00','18:00'],full:[]},
+  // WORKSHOPS
+  {id:'grachtenatelier',cat:'workshop',icon:'🖌️',name:'GrachtenAtelier schilderen',desc:'Bob Ross, Monet of portret workshops aan de Oudegracht — sip & paint concept.',r:4.8,rv:659,price:35,api:'direct',chip:'chip-d',chl:'Direct API',top:true,slots:['10:00','14:00','19:00'],full:[]},
+  {id:'chocolatelier',cat:'workshop',icon:'🍫',name:'GrachtenAtelier Chocolade',desc:'Eigen bonbons en repen maken — leuk voor families, stellen en bedrijfsuitjes.',r:4.9,rv:260,price:28,api:'direct',chip:'chip-d',chl:'Direct API',slots:['11:00','14:00'],full:[]},
+  {id:'chopsticks',cat:'workshop',icon:'🍜',name:'Chopsticks Cooking',desc:'Aziatische kookworkshops met Lisa en team — klein en persoonlijk. ★ 4.9/448 reviews',r:4.9,rv:448,price:65,api:'direct',chip:'chip-d',chl:'Direct API',slots:['14:00'],full:[]},
+  {id:'traivegan',cat:'workshop',icon:'🌱',name:'Trai Vegan Kookworkshop',desc:'Plantaardige streetfood workshops — enthousiaste instructeurs, ook voor groepen.',r:4.9,rv:195,price:55,api:'direct',chip:'chip-d',chl:'Direct API',slots:['13:00','18:00'],full:[]},
+  {id:'houseofclay',cat:'workshop',icon:'🏺',name:'House of Clay',desc:'Keramiek-atelier recht aan de Oudegracht — workshops draaien en handvormen.',r:4.7,rv:60,price:38,api:'direct',chip:'chip-d',chl:'Direct API',slots:['10:00','14:00'],full:[]},
+  {id:'brakkerij',cat:'workshop',icon:'🍻',name:'Bierbrouwen De Brakkerij',desc:'Bierbrouwworkshop inclusief lunch en tasting — 2 weken later je eigen brouwsel thuis.',r:5.0,rv:21,price:65,api:'direct',chip:'chip-d',chl:'Direct API',top:true,slots:['10:00'],full:[]},
+  {id:'beerpioneer',cat:'workshop',icon:'🧪',name:'The Beer Pioneer',desc:'Diepgaande brouwworkshop voor echte liefhebbers — brouw je eigen batch, leer de theorie.',r:4.8,rv:16,price:75,api:'direct',chip:'chip-d',chl:'Direct API',slots:['10:00','13:00'],full:[]},
+  {id:'kookfabriek',cat:'workshop',icon:'👨‍🍳',name:'De Kookfabriek',desc:'Professionele kookworkshops — leer koken op inductie met professioneel materiaal.',r:4.5,rv:73,price:70,api:'direct',chip:'chip-d',chl:'Direct API',slots:['18:00'],full:[]},
+  {id:'claytoplaat',cat:'workshop',icon:'🎭',name:'Clay to Plate',desc:'Pottenbakken én koken combineren — uniek concept door de enthousiaste Pheona.',r:5.0,rv:49,price:40,api:'direct',chip:'chip-d',chl:'Direct API',slots:['10:00','14:00'],full:[]},
+  {id:'keramiekkafee',cat:'workshop',icon:'☕',name:'Keramiek Kafee Utrecht',desc:'Keramiek schilderen op tableware — ruime keuze aan glazuurkleuren en vormen.',r:5.0,rv:12,price:30,api:'direct',chip:'chip-d',chl:'Direct API',slots:['12:00','15:00','18:00'],full:[]},
+  // SPORT
+  {id:'energiehaven',cat:'sport',icon:'🧗',name:'Boulderhal Energiehaven',desc:'Utrecht\'s grootste boulderhal — buitenwanden, pizza, craft beer en geweldige sfeer.',r:4.8,rv:1433,price:12,api:'direct',chip:'chip-d',chl:'Direct API',top:true,slots:['09:00','12:00','15:00','18:00'],full:[]},
+  {id:'zuidhaven',cat:'sport',icon:'🏋️',name:'Boulderhal Zuidhaven',desc:'Veelzijdige routes voor alle niveaus, kleine gym en gezellig café.',r:4.8,rv:487,price:12,api:'direct',chip:'chip-d',chl:'Direct API',slots:['09:00','12:00','15:00','18:00'],full:[]},
+  {id:'sterkspoor',cat:'sport',icon:'🏔️',name:'Boulderhal Sterk Spoor',desc:'Nieuwste boulderhal van Utrecht — barista-koffie, pizza en klimmen onder één dak.',r:4.8,rv:186,price:12,api:'direct',chip:'chip-d',chl:'Direct API',slots:['09:00','12:00','15:00','18:00'],full:[]},
+  {id:'supsupclub',cat:'sport',icon:'🌊',name:'SUP SUP CLUB',desc:'SUP in de natuur net buiten Utrecht — nieuwe boards, lockers, yoga-opties.',r:4.9,rv:51,price:20,api:'direct',chip:'chip-d',chl:'Direct API',slots:['09:00','11:00','14:00'],full:[]},
+  {id:'climbingwall',cat:'sport',icon:'🪨',name:'Climbing Wall Utrecht',desc:'Touwklimmen voor gezinnen en beginners — introductielessen beschikbaar.',r:4.7,rv:243,price:14,api:'direct',chip:'chip-d',chl:'Direct API',slots:['10:00','14:00','17:00'],full:[]},
+],
+
+hotels:[
+  {id:'nox',name:'The Nox Hotel',loc:'Keistraat — naast Domtoren',cat:'boutique',rating:4.7,rv:534,from:95,img:'https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=600&q=70',desc:'Sfeervol boutique hotel in historisch pand recht naast de Domtoren. Unieke kamers met karakter.'},
+  {id:'brass',name:'Brass Hotel',loc:'Janskerkhof — stadshart',cat:'boutique',rating:4.5,rv:304,from:89,img:'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&q=70',desc:'Stijlvol design hotel op het iconische Janskerkhof. Perfecte locatie voor een stadstrip.'},
+  {id:'beijers',name:'Hotel Beijers',loc:'Achter Sint Pieter — centrum',cat:'boutique',rating:4.5,rv:232,from:85,img:'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=600&q=70',desc:'Charmant historisch hotel met unieke kamerindeling, recht tegenover de Domkerk.'},
+  {id:'petitbeijers',name:'Petit Beijers',loc:'Vismarkt — grachtzicht',cat:'boutique',rating:4.7,rv:152,from:79,img:'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600&q=70',desc:'Intime B&B-sfeer op de Vismarkt met uitzicht op de grachten. Huiselijk en centraal.'},
+  {id:'cozypillow',name:'Cozy Pillow',loc:'Steenweg — naast Dom',cat:'boutique',rating:4.4,rv:104,from:69,img:'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=600&q=70',desc:'Compact boutique hotel met digitale check-in op loopafstand van alle bezienswaardigheden.'},
+  {id:'annemax',name:'Anne&Max Boutique Hotel',loc:'Domstraat — Domzicht',cat:'boutique',rating:4.2,rv:99,from:99,img:'https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=600&q=70',desc:'Ongeëvenaarde locatie naast de Dom — kamers met zicht op de toren.'},
+  {id:'court',name:'Court Hotel City Center',loc:'Centrum — rustige straat',cat:'boutique',rating:4.1,rv:432,from:75,img:'https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=600&q=70',desc:'Ruime, comfortabele kamers in een rustige straat in het hart van Utrecht.'},
+  {id:'inntel',name:'Inntel Hotels Utrecht Centre',loc:'Stationsgebied — centrum',cat:'luxury',rating:4.3,rv:1363,from:130,img:'https://images.unsplash.com/photo-1590490360182-c33d57733427?w=600&q=70',desc:'Modern stadshotel met spa, sauna en jacuzzi-kamers — indrukwekkend uitzicht over Utrecht.'},
+  {id:'crowne',name:'Crowne Plaza Utrecht',loc:'Centraal Station — IHG',cat:'luxury',rating:4.4,rv:543,from:150,img:'https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=600&q=70',desc:'Luxe IHG-hotel direct bij het station — comfortabele kamers, uitstekend ontbijt.'},
+  {id:'nh',name:'Hotel NH Utrecht',loc:'Jaarbeursplein — station',cat:'luxury',rating:4.2,rv:3684,from:110,img:'https://images.unsplash.com/photo-1586611292717-f828b167408c?w=600&q=70',desc:'Groot stadshotel bij het jaarbeursplein — zakelijk en comfortabel.'},
+  {id:'vandervalk',name:'Van der Valk Hotel Utrecht',loc:'Zuid — met spa & rooftoppool',cat:'luxury',rating:4.4,rv:5228,from:120,img:'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=600&q=70',desc:'Ruime moderne kamers, rooftop zwembad, sauna en fantastisch ontbijt.'},
+  {id:'hampton',name:'Hampton by Hilton Utrecht',loc:'Central Station — Hilton',cat:'luxury',rating:4.3,rv:1654,from:105,img:'https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=600&q=70',desc:'Direct bij het station, gratis ontbijt inbegrepen — perfect voor zakenreizigers.'},
+  {id:'mitland',name:'Hotel Mitland Utrecht',loc:'Park — rustige omgeving',cat:'boutique',rating:4.3,rv:2123,from:85,img:'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=600&q=70',desc:'Rustig hotel in een park op 25 min loopafstand — gratis parkeren, geschikt voor honden.'},
+  {id:'stayokay',name:'Stayokay Utrecht Center',loc:'Neude — midden centrum',cat:'hostel',rating:4.3,rv:2249,from:35,img:'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=600&q=70',desc:'Gezellig hostel op het iconische Neude-plein — ook privékamers, Miffy-thema voor kinderen.'},
+  {id:'bunk',name:'Bunk Hotel Utrecht',loc:'Catharijnekade — in oude kerk',cat:'hostel',rating:4.3,rv:1769,from:29,img:'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600&q=70',desc:'Uniek hip hotel en restaurant in een voormalige kerk — pods en privékamers.'},
+  {id:'citylodge',name:'City Center Lodge Utrecht',loc:'Wittevrouwensingel',cat:'budget',rating:4.1,rv:247,from:55,img:'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=600&q=70',desc:'Prettig budget hotel aan de singel met uniek decor en vriendelijk personeel.'},
+],
+
+restaurants:[
+  {id:'hemel',name:'Hemel & Aarde',cuisine:'Fine dining · Nederlands',priceLvl:'€€€€',r:4.8,rv:394,desc:'Utrecht\'s beste restaurant — seizoensgebonden 5-gangen menu met lokale producten.',api:'booking',chip:'chip-b',chl:'Booking.com'},
+  {id:'watertower',name:'Water Tower (WT) Urban Kitchen',cuisine:'Fine dining · Modern Europees',priceLvl:'€€€',r:4.6,rv:1384,desc:'Spectaculair uitzicht vanuit een watertoren — meergangenmenu op 20 etages hoogte.',api:'thefork',chip:'chip-g',chl:'TheFork'},
+  {id:'goedheyd',name:'De Goedheyd',cuisine:'Fine dining · Creatief',priceLvl:'€€€',r:4.8,rv:365,desc:'Intiem restaurant met uitstekend 5-gangen menu en perfecte wijnparing.',api:'thefork',chip:'chip-g',chl:'TheFork'},
+  {id:'elqatarijne',name:'El Qatarijne',cuisine:'Fine dining · Fusion',priceLvl:'€€€',r:4.5,rv:757,desc:'Verrassingsdiner — geen menu maar de chef kiest voor je. Indrukwekkende wijnkaart.',api:'booking',chip:'chip-b',chl:'Booking.com'},
+  {id:'fico',name:'Restaurant Fico',cuisine:'Fine dining · Modern',priceLvl:'€€€',r:4.5,rv:691,desc:'6-gangenmenu met waanzinnig goede wijn-pairings, uitzicht op het water.',api:'thefork',chip:'chip-g',chl:'TheFork'},
+  {id:'lejardin',name:'Le Jardin',cuisine:'Frans · Creatief vegetarisch',priceLvl:'€€€',r:4.4,rv:884,desc:'Prachtig beplant interieur, verrassingsdiner — ook volledig plantaardig mogelijk.',api:'booking',chip:'chip-b',chl:'Booking.com'},
+  {id:'sansiro',name:'Restaurant San Siro',cuisine:'Italiaans · Authentiek',priceLvl:'€€€',r:4.6,rv:1257,desc:'Het beste Italiaanse restaurant van Utrecht — recht achter de Domkerk, geweldige pasta.',api:'thefork',chip:'chip-g',chl:'TheFork'},
+  {id:'heemstede',name:'Kasteel Heemstede',cuisine:'Michelin · Nederlands',priceLvl:'€€€€',r:4.7,rv:405,desc:'Michelin-ster in een sprookjeskasteel op 15 min van centrum — onvergetelijke avond.',api:'direct',chip:'chip-d',chl:'Direct API'},
+  {id:'rubyrose',name:'Ruby Rose',cuisine:'Mediterraan · Tapas',priceLvl:'€€',r:4.4,rv:2015,desc:'Prachtig ingericht restaurant in historisch pand — tapas, cocktails, terras aan de gracht.',api:'booking',chip:'chip-b',chl:'Booking.com'},
+  {id:'humphreys',name:'Humphrey\'s Restaurant',cuisine:'Internationaal · Bistro',priceLvl:'€€',r:4.3,rv:1858,desc:'Sfeervol restaurant op werfkelderniveau — 3-gangen menu, onbeperkte friet.',api:'thefork',chip:'chip-g',chl:'TheFork'},
+  {id:'kromharing',name:'Brewpub De Kromme Haring',cuisine:'Craft Beer · Gastropub',priceLvl:'€€',r:4.7,rv:845,desc:'Utrecht\'s beste craft brewery-pub — rechtstreeks van de brouwketels, uitstekende bites.',api:'direct',chip:'chip-d',chl:'Direct API'},
+  {id:'vandestreek',name:'vandeStreek Taproom',cuisine:'Craft Beer · Proeflokaal',priceLvl:'€€',r:4.8,rv:75,desc:'Authentieke taproom van deze Utrechtse brouwerij — ook nachos en burgers.',api:'direct',chip:'chip-d',chl:'Direct API'},
+],
+
+events:[
+  {id:'tivoli',name:'TivoliVredenburg',venue:'Muziekcentrum',tag:'tag-music',tagl:'Muziek',desc:'Utrecht\'s grootste muziekhal — 5 zalen van intiem tot groot. Ticketmaster geïntegreerd.',r:4.5,rv:14549,api:'ticketmaster',chip:'chip-t'},
+  {id:'beatrix',name:'Beatrix Theater',venue:'Musicals & Shows',tag:'tag-theater',tagl:'Theater',desc:'Grote musicals (Moulin Rouge, Lion King) in het prestigieuze Beatrix Theater. VIP beschikbaar.',r:4.4,rv:6205,api:'ticketmaster',chip:'chip-t'},
+  {id:'stadsschouwburg',name:'Stadsschouwburg Utrecht',venue:'Theater & Dans',tag:'tag-theater',tagl:'Theater',desc:'Utrecht\'s hoofdtheater — toneel, muziektheater, dans en cabaret het hele jaar door.',r:4.5,rv:2389,api:'ticketmaster',chip:'chip-t'},
+  {id:'dehelling',name:'De Helling',venue:'Poppodium',tag:'tag-music',tagl:'Muziek',desc:'Intiem poppodium voor rock, metal en alternatief — makkelijk bereikbaar per trein.',r:4.5,rv:1364,api:'ticketmaster',chip:'chip-t'},
+  {id:'ekko',name:'EKKO',venue:'Clubconcerten',tag:'tag-music',tagl:'Muziek',desc:'Kleine clubzaal voor underground en indie — sfeervolle concerten, goed geluid.',r:4.4,rv:836,api:'ticketmaster',chip:'chip-t'},
+  {id:'hartlooper',name:'Louis Hartlooper Complex',venue:'Arthouse cinema',tag:'tag-film',tagl:'Film',desc:'Prachtige arthouse bioscoop in voormalig politiebureau — films, food, dranken.',r:4.5,rv:2220,api:'direct',chip:'chip-d'},
+  {id:'leidsche',name:'Leidsche Rijn Theater',venue:'Buurttheater',tag:'tag-theater',tagl:'Theater',desc:'Modern theater in Leidsche Rijn — toegankelijk, divers programma, kindertheater.',r:4.3,rv:320,api:'ticketmaster',chip:'chip-t'},
+  {id:'springfestival',name:'Spring Festival Utrecht',venue:'Festival · mei',tag:'tag-theater',tagl:'Festival',desc:'Jaarlijks internationaal theater- en dansfestival — meerdere locaties door de stad.',r:4.7,rv:560,api:'ticketmaster',chip:'chip-t'},
+],
+
+wellness:[
+  {id:'cityspa',name:'City Spa Utrecht',type:'Spa & Float',icon:'🧖',desc:'Magnesiumervaring, floaten en massages — 4.8 ster op 389 reviews. Rustige sfeer.',r:4.8,rv:389,price:45,api:'direct',chip:'chip-d'},
+  {id:'thermenmaarssen',name:'Thermen Maarssen',type:'Dagbad & Sauna',icon:'♨️',desc:'Grote wellnessbad net buiten Utrecht — meerdere saunas, buitenbaden, prachtige natuur.',r:4.4,rv:3187,price:43,api:'direct',chip:'chip-d'},
+  {id:'hammampretoria',name:'Hammam & Sauna Pretoria',type:'Hammam',icon:'🕌',desc:'Authentieke Hammam-ervaring met Marokkaanse scrub en gastvrijheid. Dames & heren.',r:4.6,rv:353,price:32,api:'direct',chip:'chip-d'},
+  {id:'thermensoesterberg',name:'Thermen Soesterberg',type:'Bosdag Spa',icon:'🌲',desc:'Spectaculaire bossauna met labyrint, grotten en uitgebreide wellnessfaciliteiten.',r:4.4,rv:6191,price:48,api:'direct',chip:'chip-d'},
+  {id:'inntelwellness',name:'Inntel Hotels Wellness',type:'Hotel Spa',icon:'🛁',desc:'Rooftop zwembad, sauna en jacuzzi-kamers in het centrum van Utrecht.',r:4.3,rv:1363,price:35,api:'booking',chip:'chip-b'},
+  {id:'amaraspa',name:'Amara Spa privé',type:'Privé Spa',icon:'💑',desc:'Privé spa met zwembad en sauna — perfect voor koppels en speciale gelegenheden.',r:4.8,rv:2210,price:79,api:'direct',chip:'chip-d'},
+],
+};
+
+/* ── RENDER FUNCTIONS ── */
+function iconBg(c){return{museum:'#1E3A4A',water:'#1565C0',tour:'#2D7A4F',escape:'#6A1B9A',workshop:'#C8753A',sport:'#B71C1C'}[c]||'#1E3A4A'}
+
+function renderActivities(cat='all'){
+  const list = cat==='all' ? DB.activities : DB.activities.filter(p=>p.cat===cat);
+  document.getElementById('rc').textContent = list.length+' resultaten';
+  document.getElementById('pgrid').innerHTML = list.map(p=>`
+    <div class="pcard" onclick="openActivity('${p.id}')">
+      ${p.top?'<div class="pcard-ribbon">⭐ TOP</div>':''}
+      <div class="pcard-top">
+        <div class="pcard-icon" style="background:${iconBg(p.cat)}">${p.icon}</div>
+        <div class="pcard-info">
+          <div class="pcard-name">${p.name}</div>
+          <div class="pcard-cat">${catLabel(p.cat)}</div>
+        </div>
+        <div class="pcard-rating"><span class="s">★</span> ${p.r}${p.rv?` <span style="color:var(--mist);font-weight:400;font-size:10px">(${p.rv.toLocaleString()})</span>`:''}</div>
+      </div>
+      <div class="pcard-desc">${p.desc}</div>
+      <div class="pcard-foot">
+        <div class="pcard-price">${p.price?`v.a. <b>€${p.price}</b>`:p.note||'<b>Gratis</b>'}</div>
+        <div class="pcard-actions">
+          <span class="api-chip ${p.chip}">${p.chl}</span>
+          <button class="pcard-btn">Boek</button>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+function renderHotels(){
+  document.getElementById('hgrid').innerHTML = DB.hotels.map(h=>`
+    <div class="hcard" onclick="openHotel('${h.id}')">
+      <div class="hcard-img" style="background-image:url('${h.img}')">
+        <span class="hcard-badge badge-${h.cat}">${{boutique:'Boutique',luxury:'Luxury',hostel:'Hostel',budget:'Budget'}[h.cat]||h.cat}</span>
+      </div>
+      <div class="hcard-body">
+        <div class="hcard-name">${h.name}</div>
+        <div class="hcard-loc">📍 ${h.loc}</div>
+        <div class="hcard-rating"><span class="stars-fill">★★★★</span> <b>${h.rating}</b> <span style="color:var(--mist);font-size:12px">(${h.rv.toLocaleString()})</span></div>
+        <div class="hcard-price">
+          <div><div class="price-from">Vanaf per nacht</div><div class="price-num">€${h.from}</div></div>
+          <button class="book-hotel-btn">Boek via Booking.com</button>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+function renderRestaurants(){
+  document.getElementById('rgrid').innerHTML = DB.restaurants.map(r=>`
+    <div class="rcard" onclick="openRestaurant('${r.id}')">
+      <div class="rcard-head">
+        <div class="rcard-name">${r.name}</div>
+        <div class="rcard-price-lvl">${r.priceLvl}</div>
+      </div>
+      <div class="rcard-cuisine">${r.cuisine}</div>
+      <div class="rcard-desc">${r.desc}</div>
+      <div class="rcard-foot">
+        <div class="rcard-rating">★ ${r.r} <span style="color:var(--mist);font-size:11px">(${r.rv.toLocaleString()})</span></div>
+        <div style="display:flex;align-items:center;gap:6px">
+          <span class="api-chip ${r.chip}" style="font-size:9px">${r.chl}</span>
+          <button class="res-btn">Reserveer</button>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+function renderEvents(){
+  document.getElementById('egrid').innerHTML = DB.events.map(e=>`
+    <div class="ecard">
+      <div class="ecard-head">
+        <span class="ecard-venue-tag ${e.tag}">${e.tagl}</span>
+        <div class="ecard-name">${e.name}</div>
+        <div class="ecard-sub">${e.venue} · ★ ${e.r} (${e.rv.toLocaleString()})</div>
+        <div style="font-size:12px;color:var(--mist);line-height:1.5">${e.desc}</div>
+      </div>
+      <div class="ecard-foot">
+        <span class="api-chip ${e.chip}" style="font-size:9px;padding:4px 8px">${e.chip==='chip-t'?'Ticketmaster':'Direct'}</span>
+        <button class="ticket-btn">🎟️ Tickets</button>
+      </div>
+    </div>`).join('');
+}
+
+function renderWellness(){
+  document.getElementById('sgrid').innerHTML = DB.wellness.map(s=>`
+    <div class="scard">
+      <div class="scard-icon-row">
+        <div class="scard-bubble">${s.icon}</div>
+        <div><div class="scard-name">${s.name}</div><div class="scard-type">${s.type}</div></div>
+      </div>
+      <div class="scard-desc">${s.desc}</div>
+      <div class="scard-foot">
+        <div class="scard-price">v.a. <b>€${s.price}</b> p.p.</div>
+        <div style="display:flex;align-items:center;gap:6px">
+          <span class="api-chip ${s.chip}" style="font-size:9px">${s.chip==='chip-b'?'Booking.com':'Direct'}</span>
+          <button class="spa-btn">Boek</button>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+function catLabel(c){return{museum:'Museum & Attractie',water:'Op het water',tour:'Tour & Rondrit',escape:'Escape & Fun',workshop:'Workshop & Koken',sport:'Sport & Avontuur'}[c]||c}
+renderActivities(); renderHotels(); renderRestaurants(); renderEvents(); renderWellness();
+
+/* ── FILTER ── */
+function filt(cat,btn){
+  document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  renderActivities(cat);
+}
+function showSec(cat,btn){
+  document.querySelectorAll('.cnav').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  if(cat!=='all'){
+    const map={museum:'activiteiten',water:'activiteiten',tour:'activiteiten',escape:'activiteiten',workshop:'activiteiten',sport:'activiteiten',hotel:'hotels',restaurant:'restaurants',wellness:'wellness',event:'events'};
+    const sec=document.getElementById(map[cat]||'activiteiten');
+    if(sec)sec.scrollIntoView({behavior:'smooth',block:'start'});
+    if(['museum','water','tour','escape','workshop','sport'].includes(cat)){
+      document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('on'));
+      const fb=[...document.querySelectorAll('.fbtn')].find(b=>b.textContent.toLowerCase().includes(cat));
+      if(fb)fb.classList.add('on');
+      renderActivities(cat);
+    }
+  }
+}
+function tog(btn){btn.classList.toggle('on')}
+function liveSearch(q){if(!q)return;const low=q.toLowerCase();const all=DB.activities.filter(p=>p.name.toLowerCase().includes(low)||p.desc.toLowerCase().includes(low));renderActivities('all');document.getElementById('pgrid').innerHTML=all.map(p=>`<div class="pcard" onclick="openActivity('${p.id}')"><div class="pcard-top"><div class="pcard-icon" style="background:${iconBg(p.cat)}">${p.icon}</div><div class="pcard-info"><div class="pcard-name">${p.name}</div><div class="pcard-cat">${catLabel(p.cat)}</div></div><div class="pcard-rating"><span class="s">★</span> ${p.r}</div></div><div class="pcard-desc">${p.desc}</div><div class="pcard-foot"><div class="pcard-price">${p.price?`v.a. <b>€${p.price}</b>`:p.note||'<b>Gratis</b>'}</div><div class="pcard-actions"><span class="api-chip ${p.chip}">${p.chl}</span><button class="pcard-btn">Boek</button></div></div></div>`).join('');}
+
+/* ── AI SEARCH ── */
+async function aiSearch(){
+  const q=document.getElementById('sq').value.trim();
+  const cats=[...document.querySelectorAll('.scat.on')].map(b=>b.textContent.trim());
+  const query=q||(cats.length?cats.join(', '):'een leuke dag in Utrecht');
+  const btn=document.getElementById('sbtn');btn.disabled=true;btn.textContent='…';
+  const out=document.getElementById('ai-out');out.style.display='block';
+  out.innerHTML=`<span style="display:flex;align-items:center;gap:8px;color:var(--canal);font-weight:600;font-size:13px"><div class="dot-p"><span></span><span></span><span></span></div> Utrecht aan het plannen…</span>`;
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+      model:'claude-sonnet-4-20250514',max_tokens:1000,
+      system:`Je bent de AI-reisadviseur van UtrechtNu.nl — dé digitale VVV die de oude VVV Utrecht volledig vervangt. Je beschikt over een database met 130+ boekbare Utrechtse leveranciers, waaronder: Domtoren (Ticketmaster), DOMunder (GetYourGuide), Kasteel de Haar (Viator), Museum Speelklok (Viator), Spoorwegmuseum (Ticketmaster), Centraal Museum, Rietveld Schröderhuis, What'SUP Utrecht, Kayak Utrecht, Domstadboot BBQ-boot, De Kleine Kapitein, Grachtenvaarders, Utrecht Canal Cruises, Botenverhuur de Rijnstroom, Suppen Kromme Rijn, Free Walking Tour (Viator), Utours, Color Bike Tours, Utrecht Craft Beer Tours, The Queen Escape Room, Prison Escape Utrecht, GrachtenAtelier schilderen en chocolade, Chopsticks Cooking, Trai Vegan, De Brakkerij bierbrouwen, Boulderhal Energiehaven, Restaurant Hemel & Aarde, Water Tower WT, De Goedheyd, El Qatarijne, San Siro, TivoliVredenburg (Ticketmaster), Beatrix Theater (Ticketmaster), Stadsschouwburg Utrecht, City Spa Utrecht, Thermen Maarssen, The Nox Hotel, Brass Hotel, Hotel Beijers, Stayokay Utrecht, Bunk Hotel.
+
+Stel een concreet, enthousiast dagprogramma samen met:
+1. Openingszin op maat
+2. Tijdlijn van 4-5 activiteiten: "⏰ [tijd] — **[naam]** — [1 zin] — [boekingskanaal]"
+3. Eventueel een hotel-suggestie als er overnacht wordt
+4. Één praktische tip (OV/fiets/parkeren)
+
+Gebruik altijd echte namen uit de database. Nederlands. Max 230 woorden.`,
+      messages:[{role:'user',content:`Plan voor: ${query}`}]})});
+    const d=await res.json();
+    const t=d.content?.[0]?.text||'Fout.';
+    out.innerHTML=`<div style="font-size:11px;font-weight:800;color:var(--dom);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px">✦ Jouw persoonlijke Utrecht-programma</div>${t.split('\n').filter(l=>l.trim()).map(l=>`<p style="margin-bottom:6px">${l.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')}</p>`).join('')}<div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--stone);display:flex;gap:8px;flex-wrap:wrap"><button class="pcard-btn" onclick="openActivity('domtoren')" style="font-size:11px">Boek Domtoren →</button><button class="pcard-btn" onclick="openActivity('kasteel')" style="font-size:11px;background:var(--canal)">Boek Kasteel →</button><button class="pcard-btn" onclick="openActivity('whatsup')" style="font-size:11px;background:var(--green)">Boek SUP →</button></div>`;
+  }catch(e){out.innerHTML='<span style="color:#c0392b">Verbindingsfout — probeer opnieuw.</span>';}
+  btn.disabled=false;btn.textContent='✦ Zoek & Plan';
+}
+
+/* ── BOOKING STATE ── */
+const S={item:null,date:'',step:0,sel:{}};
+
+function openActivity(id){
+  const p=DB.activities.find(x=>x.id===id);if(!p)return;
+  S.item=p;S.step=0;S.sel={time:null,tickets:2};
+  document.getElementById('mbody').innerHTML=`
+    <div class="mtitle">${p.icon} ${p.name}</div>
+    <div class="msub">${p.desc}</div>
+    <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-bottom:20px">
+      <span class="api-chip ${p.chip}" style="font-size:11px;padding:5px 10px">${p.chl}</span>
+      <span style="font-size:12px;color:var(--mist)">★ ${p.r} · ${p.rv?p.rv.toLocaleString()+' reviews':''}</span>
+      <span style="font-size:12px;color:var(--dom);font-weight:700">${p.price?'v.a. €'+p.price+' p.p.':p.note||'Gratis'}</span>
+    </div>
+    <div class="bsteps">
+      <div class="bstep on">1. Datum</div>
+      <div class="bstep">2. Tijdslot</div>
+      <div class="bstep">3. Afrekenen</div>
+    </div>
+    ${renderAS0(p)}`;
+  openM();
+}
+function renderAS0(p){
+  const today=new Date().toISOString().split('T')[0];
+  return `<div class="dlabel">Kies bezoekdatum</div>
+  <input type="date" class="dinput" min="${today}" value="${S.date}" onchange="S.date=this.value"/>
+  <div style="font-size:12px;color:var(--mist);margin-bottom:16px">Beschikbaarheid wordt real-time gecheckt via ${p.chl}.</div>
+  <div class="api-badges"><span class="abadge ${p.chip}">${p.chl} — live availability</span></div>
+  <div class="nbrow"><button class="nb-sec" onclick="closeM()">Annuleren</button><button class="nb-pri" onclick="goAS(1)">Volgende →</button></div>`;
+}
+function goAS(step){
+  S.step=step;
+  const p=S.item;
+  const today=new Date().toISOString().split('T')[0];
+  if(step===1){
+    document.getElementById('mbody').innerHTML=`
+      <div class="mtitle">${p.icon} ${p.name}</div><div class="msub">${S.date||'Datum nog niet gekozen'}</div>
+      <div class="bsteps"><div class="bstep done">1. Datum</div><div class="bstep on">2. Tijdslot</div><div class="bstep">3. Afrekenen</div></div>
+      <div class="act-list"><div class="act-item ${S.sel.time?'sel':''}">
+        <div class="act-head"><div class="act-ico">${p.icon}</div><div style="flex:1"><div class="act-nm">${p.name}</div><div class="act-meta">${p.chl}</div></div><div class="act-price">${p.price?'€'+p.price:'Gratis'}</div></div>
+        <div style="font-size:11px;font-weight:700;color:var(--mist);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Beschikbare tijden${S.date?' op '+S.date:''}:</div>
+        <div class="slots">${p.slots.map(s=>`<div class="slot ${p.full.includes(s)?'full':''} ${S.sel.time===s?'picked':''}" onclick="${p.full.includes(s)?'':`pickTime('${s}')`}">${s}${p.full.includes(s)?' vol':''}</div>`).join('')}</div>
+        <div class="trow"><span class="tlbl">Tickets:</span><div class="tctrl"><button class="tbtn" onclick="chT(-1)">−</button><span class="tcnt" id="tc">${S.sel.tickets}</span><button class="tbtn" onclick="chT(1)">+</button></div><span style="font-size:11px;color:var(--mist);margin-left:6px">personen</span></div>
+      </div></div>
+      <div class="nbrow"><button class="nb-sec" onclick="goAS(0)">← Terug</button><button class="nb-pri" onclick="goAS(2)">Afrekenen →</button></div>`;
+  } else if(step===2){
+    const total=(p.price||0)*S.sel.tickets;
+    document.getElementById('mbody').innerHTML=`
+      <div class="mtitle">${p.icon} ${p.name}</div><div class="msub">Overzicht & betaling</div>
+      <div class="bsteps"><div class="bstep done">1. Datum</div><div class="bstep done">2. Tijdslot</div><div class="bstep on">3. Afrekenen</div></div>
+      <table class="sum-table"><tr><td>${p.name}<br><span style="font-size:11px;color:var(--mist)">${S.sel.time||'—'} · ${S.sel.tickets}× · ${p.chl}</span></td><td>${total?'€'+total.toFixed(2):'Gratis'}</td></tr><tr class="sum-total"><td>Totaal</td><td>€${total.toFixed(2)}</td></tr></table>
+      <div class="chform"><div class="frow"><div class="ff"><label>Voornaam</label><input placeholder="Jan"/></div><div class="ff"><label>Achternaam</label><input placeholder="de Vries"/></div></div><div class="ff"><label>E-mailadres</label><input type="email" placeholder="jan@email.nl"/></div></div>
+      <button class="cbtn" style="background:var(--canal)" onclick="simBook()">💳 Betaal met iDEAL — €${total.toFixed(2)}</button>
+      <button class="cbtn" onclick="simBook()">💳 Creditcard / PayPal</button>
+      <div class="nbrow"><button class="nb-sec" onclick="goAS(1)">← Terug</button></div>`;
+  }
+}
+function pickTime(t){S.sel.time=t;goAS(1)}
+function chT(d){const v=S.sel.tickets+d;if(v>=1&&v<=10){S.sel.tickets=v;const el=document.getElementById('tc');if(el)el.textContent=v}}
+
+function openHotel(id){
+  const h=DB.hotels.find(x=>x.id===id);if(!h)return;
+  document.getElementById('mbody').innerHTML=`
+    <div class="mtitle">🏨 ${h.name}</div><div class="msub">${h.loc}</div>
+    <div style="width:100%;height:160px;border-radius:10px;background:url('${h.img}') center/cover;margin-bottom:16px"></div>
+    <div style="font-size:13px;color:var(--mist);line-height:1.65;margin-bottom:16px">${h.desc}</div>
+    <div style="display:flex;justify-content:space-between;align-items:center;background:var(--cream);border-radius:10px;padding:14px 18px;margin-bottom:18px">
+      <div><div style="font-size:12px;color:var(--mist)">Vanaf per nacht</div><div style="font-size:24px;font-weight:900;color:var(--canal)">€${h.from}</div></div>
+      <div><div style="font-size:12px;color:var(--mist)">Beoordeling</div><div style="font-size:18px;font-weight:700;color:var(--amber)">★ ${h.rating}</div></div>
+    </div>
+    <button class="cbtn">🏨 Boek via Booking.com</button>
+    <div style="text-align:center;margin-top:10px"><button class="nb-sec" onclick="closeM()">Sluiten</button></div>`;
+  openM();
+}
+function openRestaurant(id){
+  const r=DB.restaurants.find(x=>x.id===id);if(!r)return;
+  document.getElementById('mbody').innerHTML=`
+    <div class="mtitle">🍽️ ${r.name}</div><div class="msub">${r.cuisine} · ${r.priceLvl}</div>
+    <div style="font-size:13px;color:var(--mist);line-height:1.65;margin-bottom:16px">${r.desc}</div>
+    <div style="background:var(--cream);border-radius:10px;padding:14px;margin-bottom:18px;font-size:13px">
+      <strong style="color:var(--canal)">Reserveringssysteem: ${r.chl}</strong><br>
+      <span style="color:var(--mist)">Je ontvang direct een bevestiging per e-mail. Annuleren tot 24u van tevoren mogelijk.</span>
+    </div>
+    <div class="chform"><div class="ff"><label>Datum & Tijd</label><input type="datetime-local"/></div><div class="frow"><div class="ff"><label>Naam</label><input placeholder="Naam reservering"/></div><div class="ff"><label>Personen</label><input type="number" min="1" max="20" placeholder="2"/></div></div><div class="ff"><label>E-mail</label><input type="email" placeholder="email@adres.nl"/></div></div>
+    <button class="cbtn" onclick="simBook()">🍽️ Reserveer tafel via ${r.chl}</button>
+    <div style="text-align:center;margin-top:8px"><button class="nb-sec" onclick="closeM()">Sluiten</button></div>`;
+  openM();
+}
+function simBook(){
+  const ref='UN-'+Math.random().toString(36).toUpperCase().slice(2,8);
+  document.getElementById('mbody').innerHTML=`
+    <div class="success">
+      <div class="s-icon">✓</div>
+      <div class="s-title">Geboekt!</div>
+      <div class="s-desc">Je boeking is bevestigd bij de leverancier. Alle details staan in je e-mail.</div>
+      <div class="s-ref">Boekingsnummer<b>${ref}</b></div>
+      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+        <button class="nb-pri" onclick="closeM()">Klaar</button>
+        <button class="nb-sec">📱 Voeg toe aan Wallet</button>
+      </div>
+    </div>`;
+}
+function openM(){document.getElementById('modal').classList.add('open');document.body.style.overflow='hidden'}
+function closeM(){document.getElementById('modal').classList.remove('open');document.body.style.overflow=''}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeM()});
+document.getElementById('modal').addEventListener('click',e=>{if(e.target===e.currentTarget)closeM()});
+</script>
+</body>
+</html>

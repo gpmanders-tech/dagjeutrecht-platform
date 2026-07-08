@@ -1,0 +1,25 @@
+{
+  "name": "utrecht-platform",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@9.12.0",
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "db:generate": "pnpm --filter @utrecht/db generate",
+    "db:push": "pnpm --filter @utrecht/db push",
+    "db:seed": "pnpm --filter @utrecht/db seed",
+    "db:scrape-images": "pnpm --filter @utrecht/db scrape-images",
+    "clean": "turbo run clean && rm -rf node_modules"
+  },
+  "devDependencies": {
+    "turbo": "^2.1.3",
+    "typescript": "^5.6.2",
+    "prettier": "^3.3.3"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

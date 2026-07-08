@@ -1,0 +1,51 @@
+{
+  "common": {
+    "book": "Boek nu",
+    "viewMore": "Bekijk meer",
+    "from": "Vanaf",
+    "perPerson": "p.p.",
+    "tip": "Tip",
+    "loading": "Laden…",
+    "search": "Zoek",
+    "language": "Taal"
+  },
+  "nav": {
+    "activities": "Activiteiten",
+    "hotels": "Overnachten",
+    "restaurants": "Eten & drinken",
+    "events": "Events",
+    "shop": "Webshop",
+    "giftcards": "Cadeaubonnen",
+    "blog": "Blog",
+    "myBooking": "Mijn boeking"
+  },
+  "home": {
+    "hero": {
+      "title": "Dé digitale VVV van Utrecht",
+      "subtitle": "Activiteiten, hotels, restaurants en events — alles op één plek, direct boekbaar.",
+      "cta": "Plan mijn dag"
+    },
+    "categories": "Ontdek Utrecht",
+    "popular": "Populair vandaag"
+  },
+  "checkout": {
+    "details": "Jouw gegevens",
+    "email": "E-mailadres",
+    "firstName": "Voornaam",
+    "lastName": "Achternaam",
+    "phone": "Telefoonnummer",
+    "wefactCheckbox": "Factuur ontvangen via WeFact",
+    "companyName": "Bedrijfsnaam",
+    "vatNumber": "BTW-nummer",
+    "projectCode": "Projectcode",
+    "pay": "Betaal",
+    "secureNotice": "Betaling is beveiligd via Mollie."
+  },
+  "footer": {
+    "about": "Over Utrecht Now",
+    "contact": "Contact",
+    "terms": "Algemene voorwaarden",
+    "privacy": "Privacy",
+    "partners": "Voor partners"
+  }
+}
