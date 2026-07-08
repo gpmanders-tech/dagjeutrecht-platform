@@ -8,6 +8,8 @@ WORKDIR /app
 
 # ---------- deps ----------
 FROM base AS deps
+# Force devDependencies zodat prisma-CLI, tsx, etc. worden geïnstalleerd, ook al staat NODE_ENV=production
+ENV NODE_ENV=development
 COPY pnpm-lock.yaml pnpm-workspace.yaml package.json turbo.json tsconfig.base.json ./
 COPY packages/db/package.json ./packages/db/
 COPY packages/ui/package.json ./packages/ui/
@@ -15,10 +17,11 @@ COPY packages/i18n/package.json ./packages/i18n/
 COPY packages/booking-engine/package.json ./packages/booking-engine/
 COPY packages/integrations/package.json ./packages/integrations/
 COPY apps/web-dagje/package.json ./apps/web-dagje/
-RUN pnpm install --frozen-lockfile
+RUN pnpm install --frozen-lockfile --prod=false
 
 # ---------- builder ----------
 FROM base AS builder
+ENV NODE_ENV=development
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY --from=deps /app/packages ./packages
