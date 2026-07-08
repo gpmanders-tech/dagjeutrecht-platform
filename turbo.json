@@ -1,6 +1,20 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "globalDependencies": [".env"],
+  "globalEnv": [
+    "DATABASE_URL",
+    "DIRECT_URL",
+    "ANTHROPIC_API_KEY",
+    "MAIL_FROM",
+    "OPS_MAIL_TO",
+    "SMTP_HOST",
+    "SMTP_PORT",
+    "SMTP_USER",
+    "SMTP_PASS",
+    "NEXT_PUBLIC_ADMIN_URL",
+    "NODE_ENV",
+    "NEXT_TELEMETRY_DISABLED"
+  ],
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
