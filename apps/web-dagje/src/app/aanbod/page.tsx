@@ -39,7 +39,7 @@ export default async function AanbodPage({
     take: 200,
   });
 
-  const cats = Object.keys(CATEGORY_LABEL);
+  const cats = Object.entries(CATEGORY_LABEL) as Array<[string, string]>;
 
   return (
     <main className="max-w-6xl mx-auto px-6 py-12">
@@ -51,11 +51,11 @@ export default async function AanbodPage({
       <div className="mb-8 space-y-3">
         <div className="flex flex-wrap gap-2">
           <Filter href="/aanbod" label="Alles" active={!searchParams.cat && !searchParams.audience} />
-          {cats.map((c) => (
+          {cats.map(([c, label]) => (
             <Filter
               key={c}
               href={`/aanbod?cat=${c}`}
-              label={CATEGORY_LABEL[c]}
+              label={label}
               active={searchParams.cat === c}
             />
           ))}
