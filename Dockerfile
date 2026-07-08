@@ -14,7 +14,6 @@ COPY packages/ui/package.json ./packages/ui/
 COPY packages/i18n/package.json ./packages/i18n/
 COPY packages/booking-engine/package.json ./packages/booking-engine/
 COPY packages/integrations/package.json ./packages/integrations/
-COPY packages/config/package.json ./packages/config/
 COPY apps/web-dagje/package.json ./apps/web-dagje/
 RUN pnpm install --frozen-lockfile
 
