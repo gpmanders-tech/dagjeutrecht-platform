@@ -1,8 +1,17 @@
+import type { Metadata } from 'next';
 import { prisma } from '@utrecht/db';
 import { computePrice } from '@utrecht/booking-engine';
 import { Samensteller, type InitialSuggestion } from '../../components/samensteller';
 import type { AudienceSlug } from '../../lib/audiences';
 import { providerImage } from '../../lib/provider-image';
+import { Breadcrumbs } from '../../components/seo-jsonld';
+
+export const metadata: Metadata = {
+  title: 'Stel je eigen dag Utrecht samen - met AI-hulp',
+  description:
+    'Onze AI-gids stelt in seconden een dagprogramma voor uit 150+ getoetste Utrechtse leveranciers. Kies doelgroep, budget en sfeer.',
+  alternates: { canonical: 'https://dagjeutrecht.nl/samensteller' },
+};
 
 export default async function SamenstellerPage({
   searchParams,
@@ -57,6 +66,12 @@ export default async function SamenstellerPage({
 
   return (
     <main className="max-w-6xl mx-auto px-6 py-12">
+      <Breadcrumbs
+        trail={[
+          { name: 'Home', url: '/' },
+          { name: 'Samensteller', url: '/samensteller' },
+        ]}
+      />
       <h1 className="font-serif text-4xl text-canal-900 mb-3">Stel je dag samen</h1>
       <p className="text-canal-700 mb-10 max-w-2xl">
         Vertel ons kort wie jullie zijn en wat jullie leuk vinden. Onze AI-gids stelt direct een

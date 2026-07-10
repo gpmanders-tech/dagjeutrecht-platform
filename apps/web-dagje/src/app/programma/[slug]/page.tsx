@@ -1,7 +1,20 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import type { Metadata } from 'next';
 import { prisma } from '@utrecht/db';
 import { providerImage } from '../../../lib/provider-image';
+import { Breadcrumbs } from '../../../components/seo-jsonld';
+
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+  const p = await prisma.program.findUnique({ where: { slug: params.slug } });
+  if (!p) return {};
+  return {
+    title: `${p.title} - programma Utrecht`,
+    description: p.description.slice(0, 155),
+    alternates: { canonical: `https://dagjeutrecht.nl/programma/${p.slug}` },
+    openGraph: p.heroImage ? { images: [{ url: p.heroImage }] } : undefined,
+  };
+}
 
 export const revalidate = 300;
 
@@ -22,6 +35,13 @@ export default async function ProgramDetail({ params }: { params: { slug: string
 
   return (
     <main>
+      <Breadcrumbs
+        trail={[
+          { name: 'Home', url: '/' },
+          { name: 'Programma\'s', url: '/programmas' },
+          { name: program.title, url: `/programma/${program.slug}` },
+        ]}
+      />
       <section className="relative bg-canal-900 text-white overflow-hidden">
         {program.heroImage && (
           <img

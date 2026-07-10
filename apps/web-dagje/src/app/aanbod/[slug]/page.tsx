@@ -1,8 +1,25 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import type { Metadata } from 'next';
 import { prisma } from '@utrecht/db';
 import { computePrice } from '@utrecht/booking-engine';
 import { providerImage } from '../../../lib/provider-image';
+import { Breadcrumbs, EventOrProductSchema } from '../../../components/seo-jsonld';
+
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+  const p = await prisma.provider.findUnique({
+    where: { slug: params.slug },
+    include: { products: { include: { translations: { where: { locale: 'nl' } } }, take: 1 } },
+  });
+  if (!p) return {};
+  const desc = p.products[0]?.translations[0]?.description ?? `${p.name} in Utrecht - boek via DagjeUtrecht.`;
+  return {
+    title: `${p.name} - ${p.city ?? 'Utrecht'}`,
+    description: desc.slice(0, 155),
+    alternates: { canonical: `https://dagjeutrecht.nl/aanbod/${p.slug}` },
+    openGraph: p.heroImage ? { images: [{ url: p.heroImage }] } : undefined,
+  };
+}
 
 export const revalidate = 300;
 
@@ -60,6 +77,21 @@ export default async function AanbodDetail({ params }: { params: { slug: string 
 
   return (
     <main>
+      <Breadcrumbs
+        trail={[
+          { name: 'Home', url: '/' },
+          { name: 'Activiteiten', url: '/aanbod' },
+          { name: provider.name, url: `/aanbod/${provider.slug}` },
+        ]}
+      />
+      <EventOrProductSchema
+        name={provider.name}
+        description={description}
+        price={priceCents ?? undefined}
+        image={providerImage(provider, 'lg')}
+        category={provider.category}
+        url={`/aanbod/${provider.slug}`}
+      />
       <div className="relative bg-canal-100 h-64 sm:h-80 overflow-hidden">
         <img
           src={providerImage(provider, 'lg')}

@@ -18,6 +18,7 @@
     "filter:wikimedia": "dotenv -e ../../.env -- tsx src/filter-wikimedia.ts",
     "check:urls": "dotenv -e ../../.env -- tsx src/check-urls.ts",
     "seed:additions": "dotenv -e ../../.env -- tsx src/seed-additions.ts",
+    "seed:blog": "dotenv -e ../../.env -- tsx src/seed-blog.ts",
     "daily-report": "dotenv -e ../../.env -- tsx src/daily-report.ts",
     "typecheck": "tsc --noEmit"
   },

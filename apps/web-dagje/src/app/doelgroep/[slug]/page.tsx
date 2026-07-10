@@ -1,7 +1,19 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import type { Metadata } from 'next';
 import { prisma } from '@utrecht/db';
 import { findAudience } from '../../../lib/audiences';
+import { Breadcrumbs, FaqSchema } from '../../../components/seo-jsonld';
+
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+  const a = findAudience(params.slug);
+  if (!a) return {};
+  return {
+    title: `${a.title} in Utrecht - programma's en ideeën`,
+    description: a.intro,
+    alternates: { canonical: `https://dagjeutrecht.nl/doelgroep/${a.slug}` },
+  };
+}
 
 export const revalidate = 300;
 
@@ -20,6 +32,14 @@ export default async function AudiencePage({ params }: { params: { slug: string 
 
   return (
     <main>
+      <Breadcrumbs
+        trail={[
+          { name: 'Home', url: '/' },
+          { name: 'Voor wie', url: '/#doelgroepen' },
+          { name: audience.title, url: `/doelgroep/${audience.slug}` },
+        ]}
+      />
+      <FaqSchema items={audience.faq} />
       <section className={`${audience.accentClass} py-20`}>
         <div className="max-w-5xl mx-auto px-6">
           <div className="text-5xl mb-4">{audience.heroEmoji}</div>

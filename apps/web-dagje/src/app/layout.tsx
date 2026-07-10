@@ -148,15 +148,34 @@ const jsonLd = {
   ],
 };
 
+const GSC_TAG = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION;
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
+const BING_TAG = process.env.NEXT_PUBLIC_BING_VERIFICATION;
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="nl">
       <head>
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        {GSC_TAG && <meta name="google-site-verification" content={GSC_TAG} />}
+        {BING_TAG && <meta name="msvalidate.01" content={BING_TAG} />}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        {GA_ID && (
+          <>
+            <script
+              async
+              src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+            />
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GA_ID}',{anonymize_ip:true});`,
+              }}
+            />
+          </>
+        )}
       </head>
       <body className="min-h-screen bg-white text-canal-900 flex flex-col">
         <SiteHeader />

@@ -1,8 +1,17 @@
 import Link from 'next/link';
+import type { Metadata } from 'next';
 import { prisma } from '@utrecht/db';
 import { computePrice } from '@utrecht/booking-engine';
 import { AUDIENCES } from '../../lib/audiences';
 import { providerImage } from '../../lib/provider-image';
+import { Breadcrumbs } from '../../components/seo-jsonld';
+
+export const metadata: Metadata = {
+  title: '150+ activiteiten in Utrecht - alle uitjes op een rij',
+  description:
+    'Musea, water, workshops, restaurants, wellness en meer. Filter op categorie of doelgroep en voeg direct toe aan je dagprogramma.',
+  alternates: { canonical: 'https://dagjeutrecht.nl/aanbod' },
+};
 
 export const revalidate = 300;
 
@@ -43,6 +52,12 @@ export default async function AanbodPage({
 
   return (
     <main className="max-w-6xl mx-auto px-6 py-12">
+      <Breadcrumbs
+        trail={[
+          { name: 'Home', url: '/' },
+          { name: 'Activiteiten', url: '/aanbod' },
+        ]}
+      />
       <h1 className="font-serif text-4xl text-canal-900 mb-3">Alle activiteiten</h1>
       <p className="text-canal-700 mb-8 max-w-2xl">
         Blader door onze Utrechtse leveranciers en voeg toe aan je programma.
