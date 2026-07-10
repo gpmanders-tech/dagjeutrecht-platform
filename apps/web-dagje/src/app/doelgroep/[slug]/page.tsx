@@ -21,14 +21,19 @@ export default async function AudiencePage({ params }: { params: { slug: string 
   const audience = findAudience(params.slug);
   if (!audience) notFound();
 
-  const programs = await prisma.program.findMany({
-    where: {
-      channel: 'DAGJE',
-      published: true,
-      audienceTags: { has: audience.db },
-    },
-    orderBy: { order: 'asc' },
-  });
+  let programs: Awaited<ReturnType<typeof prisma.program.findMany>> = [];
+  try {
+    programs = await prisma.program.findMany({
+      where: {
+        channel: 'DAGJE',
+        published: true,
+        audienceTags: { has: audience.db },
+      },
+      orderBy: { order: 'asc' },
+    });
+  } catch (e) {
+    console.error('doelgroep programs DB fetch failed:', e);
+  }
 
   return (
     <main>

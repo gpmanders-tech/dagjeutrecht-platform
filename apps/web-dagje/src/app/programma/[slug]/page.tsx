@@ -19,15 +19,21 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 export const revalidate = 300;
 
 export default async function ProgramDetail({ params }: { params: { slug: string } }) {
-  const program = await prisma.program.findUnique({
-    where: { slug: params.slug },
-    include: {
-      items: {
-        orderBy: { order: 'asc' },
-        include: { provider: true },
+  let program;
+  try {
+    program = await prisma.program.findUnique({
+      where: { slug: params.slug },
+      include: {
+        items: {
+          orderBy: { order: 'asc' },
+          include: { provider: true },
+        },
       },
-    },
-  });
+    });
+  } catch (e) {
+    console.error('program detail DB fetch failed:', e);
+    notFound();
+  }
   if (!program) notFound();
 
   const slugs = program.items.map((it) => it.provider.slug).join(',');

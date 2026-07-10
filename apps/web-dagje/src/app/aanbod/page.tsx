@@ -34,19 +34,26 @@ export default async function AanbodPage({
 }: {
   searchParams: { cat?: string; audience?: string };
 }) {
-  const providers = await prisma.provider.findMany({
-    where: {
-      active: true,
-      category: { notIn: ['WORKSHOP_SERIES', 'GIFTCARD'] as any },
-      ...(searchParams.cat ? { category: searchParams.cat as any } : {}),
-      ...(searchParams.audience
-        ? { audienceTags: { has: (AUDIENCES.find((a) => a.slug === searchParams.audience)?.db ?? 'TEAM') as any } }
-        : {}),
-    },
-    include: { products: { where: { active: true }, take: 1 } },
-    orderBy: [{ rating: 'desc' }, { name: 'asc' }],
-    take: 200,
-  });
+  let providers: Awaited<ReturnType<typeof prisma.provider.findMany>> = [];
+  let dbError = false;
+  try {
+    providers = await prisma.provider.findMany({
+      where: {
+        active: true,
+        category: { notIn: ['WORKSHOP_SERIES', 'GIFTCARD'] as any },
+        ...(searchParams.cat ? { category: searchParams.cat as any } : {}),
+        ...(searchParams.audience
+          ? { audienceTags: { has: (AUDIENCES.find((a) => a.slug === searchParams.audience)?.db ?? 'TEAM') as any } }
+          : {}),
+      },
+      include: { products: { where: { active: true }, take: 1 } },
+      orderBy: [{ rating: 'desc' }, { name: 'asc' }],
+      take: 200,
+    });
+  } catch (e) {
+    console.error('aanbod DB fetch failed:', e);
+    dbError = true;
+  }
 
   const cats = Object.entries(CATEGORY_LABEL) as Array<[string, string]>;
 
@@ -88,7 +95,16 @@ export default async function AanbodPage({
         </div>
       </div>
 
-      {providers.length === 0 ? (
+      {dbError ? (
+        <div className="rounded-2xl bg-amber-50 border border-amber-200 p-6 text-amber-900">
+          <p className="font-semibold mb-1">Overzicht laadt niet</p>
+          <p className="text-sm">
+            Onze catalogus is even niet beschikbaar. Probeer het over een paar minuten opnieuw, of
+            gebruik de <Link href="/samensteller" className="underline">samensteller</Link> om een
+            programma te bouwen.
+          </p>
+        </div>
+      ) : providers.length === 0 ? (
         <p className="text-canal-500">Geen activiteiten met deze filter.</p>
       ) : (
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">

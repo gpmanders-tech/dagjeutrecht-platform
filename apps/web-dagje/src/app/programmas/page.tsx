@@ -5,10 +5,15 @@ import { AUDIENCES } from '../../lib/audiences';
 export const revalidate = 300;
 
 export default async function ProgrammasPage() {
-  const programs = await prisma.program.findMany({
-    where: { channel: 'DAGJE', published: true },
-    orderBy: [{ order: 'asc' }, { title: 'asc' }],
-  });
+  let programs: Awaited<ReturnType<typeof prisma.program.findMany>> = [];
+  try {
+    programs = await prisma.program.findMany({
+      where: { channel: 'DAGJE', published: true },
+      orderBy: [{ order: 'asc' }, { title: 'asc' }],
+    });
+  } catch (e) {
+    console.error('programmas DB fetch failed:', e);
+  }
 
   // Groepeer per doelgroep
   const byAudience = new Map<string, typeof programs>();

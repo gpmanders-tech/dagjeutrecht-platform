@@ -40,16 +40,22 @@ const CATEGORY_LABEL: Record<string, string> = {
 };
 
 export default async function AanbodDetail({ params }: { params: { slug: string } }) {
-  const provider = await prisma.provider.findUnique({
-    where: { slug: params.slug },
-    include: {
-      products: {
-        where: { active: true },
-        take: 1,
-        include: { translations: { where: { locale: 'nl' } } },
+  let provider;
+  try {
+    provider = await prisma.provider.findUnique({
+      where: { slug: params.slug },
+      include: {
+        products: {
+          where: { active: true },
+          take: 1,
+          include: { translations: { where: { locale: 'nl' } } },
+        },
       },
-    },
-  });
+    });
+  } catch (e) {
+    console.error('provider detail DB fetch failed:', e);
+    notFound();
+  }
   if (!provider) notFound();
 
   const product = provider.products[0];

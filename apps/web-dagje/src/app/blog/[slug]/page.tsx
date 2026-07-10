@@ -21,9 +21,15 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 export const revalidate = 300;
 
 export default async function BlogPost({ params }: { params: { slug: string } }) {
-  const post = await prisma.blogPost.findFirst({
-    where: { domain: 'DAGJEUTRECHT', locale: 'nl', slug: params.slug, published: true },
-  });
+  let post;
+  try {
+    post = await prisma.blogPost.findFirst({
+      where: { domain: 'DAGJEUTRECHT', locale: 'nl', slug: params.slug, published: true },
+    });
+  } catch (e) {
+    console.error('blog post DB fetch failed:', e);
+    notFound();
+  }
   if (!post) notFound();
 
   const articleLd = {

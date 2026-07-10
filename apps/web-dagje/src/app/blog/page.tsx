@@ -4,11 +4,16 @@ import { prisma } from '@utrecht/db';
 export const revalidate = 300;
 
 export default async function BlogIndex() {
-  const posts = await prisma.blogPost.findMany({
-    where: { domain: 'DAGJEUTRECHT', locale: 'nl', published: true },
-    orderBy: { publishedAt: 'desc' },
-    take: 30,
-  });
+  let posts: Awaited<ReturnType<typeof prisma.blogPost.findMany>> = [];
+  try {
+    posts = await prisma.blogPost.findMany({
+      where: { domain: 'DAGJEUTRECHT', locale: 'nl', published: true },
+      orderBy: { publishedAt: 'desc' },
+      take: 30,
+    });
+  } catch (e) {
+    console.error('blog list DB fetch failed:', e);
+  }
 
   return (
     <main className="max-w-4xl mx-auto px-6 py-14">
