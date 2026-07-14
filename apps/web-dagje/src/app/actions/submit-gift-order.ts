@@ -16,12 +16,12 @@ const schema = z.object({
   deliverBy: z.string().optional(),
 });
 
-const SMTP_HOST = process.env.SMTP_HOST || 'mail.dagjeutrecht.nl';
-const SMTP_PORT = Number(process.env.SMTP_PORT || 587);
-const SMTP_USER = process.env.SMTP_USER || '';
-const SMTP_PASS = process.env.SMTP_PASS || '';
-const MAIL_FROM = process.env.MAIL_FROM || 'info@dagjeutrecht.nl';
-const OPS_MAIL_TO = process.env.OPS_MAIL_TO || 'info@dagjeutrecht.nl';
+const SMTP_HOST = (process.env.SMTP_HOST || 'mail.dagjeutrecht.nl').trim();
+const SMTP_PORT = Number((process.env.SMTP_PORT || '587').trim());
+const SMTP_USER = (process.env.SMTP_USER || '').trim();
+const SMTP_PASS = (process.env.SMTP_PASS || '').trim();
+const MAIL_FROM = (process.env.MAIL_FROM || 'info@dagjeutrecht.nl').trim();
+const OPS_MAIL_TO = (process.env.OPS_MAIL_TO || 'info@dagjeutrecht.nl').trim();
 
 function transporter() {
   if (!SMTP_USER || !SMTP_PASS) return null;

@@ -11,12 +11,12 @@ import nodemailer from 'nodemailer';
 const prisma = new PrismaClient();
 
 const SITE_URL = process.env.SITE_URL || 'https://dagjeutrecht.nl';
-const SMTP_HOST = process.env.SMTP_HOST || 'mail.dagjeutrecht.nl';
-const SMTP_PORT = Number(process.env.SMTP_PORT || 587);
-const SMTP_USER = process.env.SMTP_USER || '';
-const SMTP_PASS = process.env.SMTP_PASS || '';
-const MAIL_FROM = process.env.MAIL_FROM || 'info@dagjeutrecht.nl';
-const MAIL_TO = process.env.DAILY_REPORT_TO || process.env.OPS_MAIL_TO || 'gpmanders@gmail.com';
+const SMTP_HOST = (process.env.SMTP_HOST || 'mail.dagjeutrecht.nl').trim();
+const SMTP_PORT = Number((process.env.SMTP_PORT || '587').trim());
+const SMTP_USER = (process.env.SMTP_USER || '').trim();
+const SMTP_PASS = (process.env.SMTP_PASS || '').trim();
+const MAIL_FROM = (process.env.MAIL_FROM || 'info@dagjeutrecht.nl').trim();
+const MAIL_TO = (process.env.DAILY_REPORT_TO || process.env.OPS_MAIL_TO || 'gpmanders@gmail.com').trim();
 
 async function checkUrl(url: string): Promise<{ ok: boolean; status: number | string; ms: number }> {
   const start = Date.now();

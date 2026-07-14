@@ -33,14 +33,14 @@ export async function GET(req: Request) {
   if (testMail) {
     try {
       const t = nodemailer.createTransport({
-        host: process.env.SMTP_HOST!,
-        port: Number(process.env.SMTP_PORT || 587),
-        secure: Number(process.env.SMTP_PORT) === 465,
-        auth: { user: process.env.SMTP_USER!, pass: process.env.SMTP_PASS! },
+        host: process.env.SMTP_HOST!.trim(),
+        port: Number((process.env.SMTP_PORT || '587').trim()),
+        secure: Number((process.env.SMTP_PORT || '587').trim()) === 465,
+        auth: { user: process.env.SMTP_USER!.trim(), pass: process.env.SMTP_PASS!.trim() },
       });
       const info = await t.sendMail({
-        from: process.env.MAIL_FROM ?? 'info@dagjeutrecht.nl',
-        to: process.env.OPS_MAIL_TO ?? 'gpmanders@gmail.com',
+        from: (process.env.MAIL_FROM ?? 'info@dagjeutrecht.nl').trim(),
+        to: (process.env.OPS_MAIL_TO ?? 'gpmanders@gmail.com').trim(),
         subject: 'DagjeUtrecht Vercel probe',
         text: `Testmail vanuit Vercel (${process.env.VERCEL_REGION}).`,
       });
