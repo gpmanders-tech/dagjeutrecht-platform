@@ -18,16 +18,18 @@ export function SiteHeader() {
           </span>
         </Link>
         <nav className="hidden md:flex items-center gap-5 text-sm text-canal-800 pb-1">
-          <div className="relative group">
-            <button className="hover:text-terracotta-600 flex items-center gap-1">Voor wie ▾</button>
-            <div className="absolute top-full left-0 mt-1 min-w-[220px] rounded-xl border border-canal-100 bg-white shadow-lg opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity z-50">
+          <details className="relative group">
+            <summary className="hover:text-terracotta-600 cursor-pointer list-none flex items-center gap-1">
+              Voor wie ▾
+            </summary>
+            <div className="absolute top-full left-0 mt-1 min-w-[220px] rounded-xl border border-canal-100 bg-white shadow-lg z-50">
               <Link href="/bedrijfsuitje-utrecht" className="block px-4 py-2 hover:bg-cream rounded-t-xl">Bedrijfsuitje</Link>
               <Link href="/schooluitje-utrecht" className="block px-4 py-2 hover:bg-cream">Schooluitje</Link>
               <Link href="/vrijgezellenfeest-utrecht" className="block px-4 py-2 hover:bg-cream">Vrijgezellenfeest</Link>
               <Link href="/teambuilding-utrecht" className="block px-4 py-2 hover:bg-cream">Teambuilding</Link>
               <Link href="/#doelgroepen" className="block px-4 py-2 hover:bg-cream rounded-b-xl text-canal-500 border-t border-canal-100">Alle doelgroepen</Link>
             </div>
-          </div>
+          </details>
           <Link href="/samensteller" className="hover:text-terracotta-600">Stel samen</Link>
           <Link href="/programmas" className="hover:text-terracotta-600">Voorbeeldprogramma's</Link>
           <Link href="/aanbod" className="hover:text-terracotta-600">Activiteiten</Link>
