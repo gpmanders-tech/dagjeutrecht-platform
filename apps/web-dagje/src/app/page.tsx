@@ -62,7 +62,7 @@ export default async function Home() {
           {AUDIENCES.map((a) => (
             <Link
               key={a.slug}
-              href={`/doelgroep/${a.slug}`}
+              href={a.landingUrl ?? `/doelgroep/${a.slug}`}
               className="group relative block rounded-2xl overflow-hidden shadow-soft aspect-[4/3] transition-transform hover:-translate-y-1"
             >
               <img

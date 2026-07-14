@@ -10,11 +10,23 @@ const schema = z.object({
     .enum(['lente', 'zomer', 'herfst', 'winter', 'kerst', 'zomervakantie'])
     .nullable()
     .optional(),
+  duration: z
+    .enum(['enkel', 'halve-dag', 'hele-dag', 'avond', 'meerdaags'])
+    .nullable()
+    .optional(),
   text: z.string().optional().default(''),
   chips: z.array(z.string()).optional().default([]),
   budgetEuro: z.number().nullable().optional(),
   pax: z.number().int().min(1).max(200).optional().default(10),
 });
+
+const DURATION_HINTS: Record<string, string> = {
+  enkel: 'LOSSE ACTIVITEIT (1-2 uur). Kies EEN activiteit. Geen borrel, geen lunch, geen extra onderdelen.',
+  'halve-dag': 'HALVE DAG (3-4 uur). Kies 1-2 activiteiten inclusief korte lunch of borrel.',
+  'hele-dag': 'HELE DAG (6-8 uur). Kies 3-4 onderdelen: ochtend-activiteit, lunch, middag-activiteit, borrel of diner.',
+  avond: 'ALLEEN AVOND (3-5 uur). Kies diner + avondactiviteit. Geen ochtend/middag-onderdelen.',
+  meerdaags: 'MEERDAAGS. Programma over 2 dagen, met hotel-overnachting tussen dag 1 en dag 2.',
+};
 
 const SEASON_HINTS: Record<string, string> = {
   lente: 'Lente (mrt-mei) - bloesem, buiten wanneer het kan, terrassen openen',
@@ -28,7 +40,7 @@ const SEASON_HINTS: Record<string, string> = {
 
 export async function POST(req: Request) {
   const body = await req.json();
-  const { audience, season, text, chips, budgetEuro, pax } = schema.parse(body);
+  const { audience, season, duration, text, chips, budgetEuro, pax } = schema.parse(body);
 
   if (!process.env.ANTHROPIC_API_KEY) {
     return NextResponse.json(await fallbackPlan(audience));
@@ -90,6 +102,7 @@ Regels:
 - ${budgetEuro ? `Budget €${budgetEuro} p.p. - som van prijzen blijft daaronder` : 'Geen budget-limiet'}
 - ${chips.length ? `Sfeer: ${chips.join(', ')}` : ''}
 - ${season ? `Jaargetijde/thema: ${SEASON_HINTS[season] ?? season}` : ''}
+- ${duration ? `DUUR-EIS: ${DURATION_HINTS[duration]}` : ''}
 - BELANGRIJK: als de wandeltijd tussen twee opeenvolgende stops meer dan 30 minuten is, ofwel (a) kies dichterbijgelegen alternatieven, ofwel (b) voeg als eerste onderdeel "fietsverhuur-utrecht-cs" toe als vertrekpunt, en gebruik daarna verder-gelegen locaties. Utrecht is klein - meestal is 30 min lopen genoeg. Alleen bij bijv. Kasteel de Haar of Spoorwegmuseum wordt fiets een must.`;
 
   const userMsg = `Klantvraag:

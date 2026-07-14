@@ -36,6 +36,16 @@ const SEASONS = [
 
 type SeasonSlug = typeof SEASONS[number]['slug'];
 
+const DURATIONS = [
+  { slug: 'enkel', label: 'Losse activiteit', hint: '1-2 uur, zonder borrel' },
+  { slug: 'halve-dag', label: 'Halve dag', hint: '3-4 uur' },
+  { slug: 'hele-dag', label: 'Hele dag', hint: '6-8 uur' },
+  { slug: 'avond', label: 'Alleen avond', hint: '3-5 uur' },
+  { slug: 'meerdaags', label: 'Meerdaags', hint: 'weekend + hotel' },
+] as const;
+
+type DurationSlug = typeof DURATIONS[number]['slug'];
+
 export function Samensteller({
   initialAudience,
   initialSuggestions = [],
@@ -45,6 +55,7 @@ export function Samensteller({
 }) {
   const [audience, setAudience] = useState<AudienceSlug | ''>(initialAudience ?? '');
   const [season, setSeason] = useState<SeasonSlug | ''>('');
+  const [duration, setDuration] = useState<DurationSlug | ''>('');
   const [pax, setPax] = useState(10);
   const [budget, setBudget] = useState<number | ''>('');
   const [chips, setChips] = useState<string[]>([]);
@@ -79,6 +90,7 @@ export function Samensteller({
         body: JSON.stringify({
           audience: audienceObj?.db ?? null,
           season: season || null,
+          duration: duration || null,
           text,
           chips,
           budgetEuro: budget === '' ? null : Number(budget),
@@ -193,31 +205,59 @@ export function Samensteller({
         </div>
 
         {audience && (
-          <div>
-            <label className="block text-sm font-medium text-canal-800 mb-2">
-              Jaargetijde / thema (optioneel)
-            </label>
-            <div className="flex flex-wrap gap-2">
-              {SEASONS.map((s) => {
-                const active = season === s.slug;
-                return (
-                  <button
-                    key={s.slug}
-                    type="button"
-                    onClick={() => setSeason(active ? '' : s.slug)}
-                    className={`rounded-full px-3 py-1 text-sm border ${
-                      active
-                        ? 'bg-canal-900 text-white border-canal-900'
-                        : 'bg-white text-canal-700 border-canal-200'
-                    }`}
-                    title={s.months}
-                  >
-                    {s.label}
-                  </button>
-                );
-              })}
+          <>
+            <div>
+              <label className="block text-sm font-medium text-canal-800 mb-2">
+                Duur (optioneel)
+              </label>
+              <div className="flex flex-wrap gap-2">
+                {DURATIONS.map((d) => {
+                  const active = duration === d.slug;
+                  return (
+                    <button
+                      key={d.slug}
+                      type="button"
+                      onClick={() => setDuration(active ? '' : d.slug)}
+                      className={`rounded-full px-3 py-1 text-sm border ${
+                        active
+                          ? 'bg-canal-900 text-white border-canal-900'
+                          : 'bg-white text-canal-700 border-canal-200'
+                      }`}
+                      title={d.hint}
+                    >
+                      {d.label}
+                    </button>
+                  );
+                })}
+              </div>
             </div>
-          </div>
+
+            <div>
+              <label className="block text-sm font-medium text-canal-800 mb-2">
+                Jaargetijde / thema (optioneel)
+              </label>
+              <div className="flex flex-wrap gap-2">
+                {SEASONS.map((s) => {
+                  const active = season === s.slug;
+                  return (
+                    <button
+                      key={s.slug}
+                      type="button"
+                      onClick={() => setSeason(active ? '' : s.slug)}
+                      className={`rounded-full px-3 py-1 text-sm border ${
+                        active
+                          ? 'bg-canal-900 text-white border-canal-900'
+                          : 'bg-white text-canal-700 border-canal-200'
+                      }`}
+                      title={s.months}
+                    >
+                      {s.label}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          </>
         )}
 
         <div>

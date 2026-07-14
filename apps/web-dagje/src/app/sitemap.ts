@@ -16,6 +16,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/contact',
     '/voorwaarden',
     '/privacy',
+    '/bedrijfsuitje-utrecht',
+    '/schooluitje-utrecht',
+    '/vrijgezellenfeest-utrecht',
+    '/teambuilding-utrecht',
   ].map((path) => ({
     url: `${BASE}${path}`,
     lastModified: new Date(),

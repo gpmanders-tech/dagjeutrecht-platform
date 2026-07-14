@@ -11,6 +11,8 @@ export const AUDIENCES: Array<{
   photoCategories: Array<
     'INDOOR' | 'WORKSHOP' | 'WATER' | 'TOUR' | 'MUSEUM' | 'ATTRACTION' | 'RESTAURANT' | 'WELLNESS' | 'EVENT'
   >;
+  /** SEO-landingspagina URL - voor betere Google-ranking op de directe zoekterm. */
+  landingUrl?: string;
   intro: string;
   faq: Array<{ q: string; a: string }>;
 }> = [
@@ -22,6 +24,7 @@ export const AUDIENCES: Array<{
     heroEmoji: '🤝',
     accentClass: 'bg-canal-800 text-cream',
     photoCategories: ['INDOOR', 'WORKSHOP', 'RESTAURANT'],
+    landingUrl: '/bedrijfsuitje-utrecht',
     intro:
       'Een teamuitje in Utrecht dat blijft hangen - mét borrel, mét lunch, mét factuur op naam van de zaak. Wij regelen alles, jullie hoeven alleen op te dagen.',
     faq: [
@@ -52,6 +55,7 @@ export const AUDIENCES: Array<{
     heroEmoji: '🎒',
     accentClass: 'bg-emerald-700 text-white',
     photoCategories: ['MUSEUM', 'ATTRACTION', 'TOUR'],
+    landingUrl: '/schooluitje-utrecht',
     intro:
       'Educatief, veilig en zonder gedoe. We stemmen altijd af met de begeleider en denken mee over leerdoelen, allergieën en vervoer.',
     faq: [
@@ -82,6 +86,7 @@ export const AUDIENCES: Array<{
     heroEmoji: '👰',
     accentClass: 'bg-pink-500 text-white',
     photoCategories: ['WELLNESS', 'WATER', 'WORKSHOP'],
+    landingUrl: '/vrijgezellenfeest-utrecht',
     intro:
       'Utrechtse vrijgezellendag met stijl: workshops, waterpret, borrel, diner. We fixen ook de kroon.',
     faq: [
