@@ -5,32 +5,28 @@ import nodemailer from 'nodemailer';
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
+// Publiek: alleen ok/niet ok. Details en testmail alleen met ?token=HEALTH_TOKEN.
 export async function GET(req: Request) {
   const url = new URL(req.url);
-  const testMail = url.searchParams.get('mail') === '1';
-
-  const dbUrl = process.env.DATABASE_URL || '';
-  const dbMasked = dbUrl ? `${dbUrl.slice(0, 22)}...${dbUrl.slice(-30)} (len:${dbUrl.length})` : '(unset)';
-
-  const smtpState = {
-    host: process.env.SMTP_HOST || '(unset)',
-    port: process.env.SMTP_PORT || '(unset)',
-    user: process.env.SMTP_USER ? process.env.SMTP_USER : '(unset)',
-    pass_set: !!process.env.SMTP_PASS,
-    mail_from: process.env.MAIL_FROM || '(unset)',
-    ops_mail_to: process.env.OPS_MAIL_TO || '(unset)',
-  };
+  const token = process.env.HEALTH_TOKEN?.trim();
+  const authorized = !!token && url.searchParams.get('token') === token;
 
   const started = Date.now();
-  let dbResult: any;
+  let dbOk = false;
+  let providers: number | null = null;
   try {
-    dbResult = { ok: true, providers: await prisma.provider.count() };
-  } catch (e: any) {
-    dbResult = { ok: false, error: e.message?.slice(0, 200) };
+    providers = await prisma.provider.count();
+    dbOk = true;
+  } catch {
+    dbOk = false;
+  }
+
+  if (!authorized) {
+    return NextResponse.json({ ok: dbOk }, { status: dbOk ? 200 : 503 });
   }
 
   let mailResult: any = { skipped: true };
-  if (testMail) {
+  if (url.searchParams.get('mail') === '1') {
     try {
       const t = nodemailer.createTransport({
         host: process.env.SMTP_HOST!.trim(),
@@ -40,7 +36,7 @@ export async function GET(req: Request) {
       });
       const info = await t.sendMail({
         from: (process.env.MAIL_FROM ?? 'info@dagjeutrecht.nl').trim(),
-        to: (process.env.OPS_MAIL_TO ?? 'gpmanders@gmail.com').trim(),
+        to: (process.env.OPS_MAIL_TO ?? 'info@dagjeutrecht.nl').trim(),
         subject: 'DagjeUtrecht Vercel probe',
         text: `Testmail vanuit Vercel (${process.env.VERCEL_REGION}).`,
       });
@@ -51,12 +47,11 @@ export async function GET(req: Request) {
   }
 
   return NextResponse.json({
+    ok: dbOk,
     elapsed_ms: Date.now() - started,
-    db: dbResult,
-    smtp: smtpState,
+    db: { ok: dbOk, providers },
+    smtp_configured: !!(process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS),
     mail: mailResult,
     vercel_region: process.env.VERCEL_REGION ?? null,
-    node_env: process.env.NODE_ENV,
-    database_url_masked: dbMasked,
   });
 }
