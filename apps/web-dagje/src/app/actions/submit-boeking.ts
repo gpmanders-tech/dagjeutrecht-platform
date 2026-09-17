@@ -2,7 +2,6 @@
 
 import { prisma } from '@utrecht/db';
 import { z } from 'zod';
-import nodemailer from 'nodemailer';
 import {
   TIJDVAKKEN,
   LEVERANCIERS,
@@ -15,6 +14,8 @@ import {
   vindPakket,
   type TijdvakId,
 } from '../../lib/aanbod';
+import { OPS_MAIL_TO, stuurMail } from '../../lib/mail';
+import { startInkoop } from '../../lib/inkoop-agent';
 
 const GROEPEN = {
   TEAM: 'Bedrijf of team',
@@ -40,23 +41,6 @@ const schema = z.object({
 });
 
 export type BoekingInput = z.input<typeof schema>;
-
-const SMTP_HOST = (process.env.SMTP_HOST || 'mail.dagjeutrecht.nl').trim();
-const SMTP_PORT = Number((process.env.SMTP_PORT || '587').trim());
-const SMTP_USER = (process.env.SMTP_USER || '').trim();
-const SMTP_PASS = (process.env.SMTP_PASS || '').trim();
-const MAIL_FROM = (process.env.MAIL_FROM || 'info@dagjeutrecht.nl').trim();
-const OPS_MAIL_TO = (process.env.OPS_MAIL_TO || 'info@dagjeutrecht.nl').trim();
-
-function transporter() {
-  if (!SMTP_USER || !SMTP_PASS) return null;
-  return nodemailer.createTransport({
-    host: SMTP_HOST,
-    port: SMTP_PORT,
-    secure: SMTP_PORT === 465,
-    auth: { user: SMTP_USER, pass: SMTP_PASS },
-  });
-}
 
 export async function submitBoeking(
   input: BoekingInput
@@ -129,8 +113,7 @@ export async function submitBoeking(
 
   const code = enquiry.publicCode.slice(-6).toUpperCase();
 
-  const t = transporter();
-  if (t) {
+  {
     const programma = regels
       .map(
         ({ tijdvak, blok }) =>
@@ -145,12 +128,10 @@ export async function submitBoeking(
       )
       .join('\n');
 
-    await t
-      .sendMail({
-        from: MAIL_FROM,
-        to: OPS_MAIL_TO,
-        subject: `[DagjeUtrecht] Boeking ${code}: ${formatDatum(data.datum)}, ${data.personen} pers.`,
-        text: `Nieuwe boekingsaanvraag ${code}
+    await stuurMail({
+        aan: OPS_MAIL_TO,
+        onderwerp: `[DagjeUtrecht] Boeking ${code}: ${formatDatum(data.datum)}, ${data.personen} pers.`,
+        tekst: `Nieuwe boekingsaanvraag ${code}
 
 Datum: ${formatDatum(data.datum)}
 Personen: ${data.personen}
@@ -169,16 +150,13 @@ ${inkoop}
 Opmerking klant:
 ${data.opmerking || '(geen)'}
 `,
-      })
-      .catch((e) => console.error('Ops mail failed:', e));
+      });
 
-    await t
-      .sendMail({
-        from: MAIL_FROM,
-        to: data.email,
+    await stuurMail({
+        aan: data.email,
         replyTo: OPS_MAIL_TO,
-        subject: `Je aanvraag bij DagjeUtrecht.nl (${code})`,
-        text: `Hoi ${data.naam.split(' ')[0]},
+        onderwerp: `Je aanvraag bij DagjeUtrecht.nl (${code})`,
+        tekst: `Hoi ${data.naam.split(' ')[0]},
 
 Bedankt voor je aanvraag bij DagjeUtrecht.nl. We controleren nu de beschikbaarheid bij onze partners. Binnen 2 werkdagen krijg je een bevestiging met betaallink. Pas na betaling is de boeking definitief.
 
@@ -197,8 +175,14 @@ Groet,
 Ger Manders
 DagjeUtrecht.nl
 `,
-      })
-      .catch((e) => console.error('Confirm mail failed:', e));
+      });
+  }
+
+  // Inkoop-agent direct laten starten; lukt dat niet, dan pakt de dagelijkse ronde het op
+  try {
+    await startInkoop(enquiry.id);
+  } catch (e) {
+    console.error('startInkoop mislukt:', e);
   }
 
   return { ok: true, code };

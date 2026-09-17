@@ -6,7 +6,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: '*',
         allow: '/',
-        disallow: ['/boeken', '/api/'],
+        disallow: ['/boeken', '/api/', '/inkoop/', '/betaald'],
       },
     ],
     sitemap: 'https://www.dagjeutrecht.nl/sitemap.xml',

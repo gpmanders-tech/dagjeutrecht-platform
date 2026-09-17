@@ -650,6 +650,15 @@ model Enquiry {
 
   items         EnquiryItem[]
   notes         EnquiryNote[]
+  inkooporders  Inkooporder[]
+
+  // Inkoop-agent (vaste pakketten)
+  molliePaymentId   String?
+  betaalUrl         String?
+  betaalLinkOp      DateTime?
+  betaaldOp         DateTime?
+  dagInfoOp         DateTime?
+  agentMeldingOp    DateTime?
 
   @@index([status])
   @@index([channel, status])
@@ -685,4 +694,45 @@ model EnquiryNote {
   enquiry   Enquiry  @relation(fields: [enquiryId], references: [id], onDelete: Cascade)
 
   @@index([enquiryId, createdAt])
+}
+
+// ============================================================
+//  INKOOP-AGENT: per onderdeel een inkooporder bij de leverancier
+// ============================================================
+
+enum InkoopStatus {
+  TE_VERSTUREN
+  VERSTUURD
+  BEVESTIGD
+  AFGEWEZEN
+  GEANNULEERD
+}
+
+model Inkooporder {
+  id            String       @id @default(cuid())
+  enquiryId     String
+  tijdvak       String       // ontvangst | ochtend | lunch | middag | afsluiting
+  bouwsteen     String       // slug uit lib/aanbod.ts
+  leverancier   String       // BHG | RIJNSTROOM | STEPVERHUUR | DOMTOREN | SCHUTTEVAER
+  datum         DateTime
+  van           String
+  tot           String
+  personen      Int
+  inkoopCents   Int
+  status        InkoopStatus @default(TE_VERSTUREN)
+  /// Gedeeld door alle orders van dezelfde leverancier binnen één boeking (bevestiglink)
+  token         String
+  verstuurdOp   DateTime?
+  herinneringOp DateTime?
+  beantwoordOp  DateTime?
+  opmerking     String?      @db.Text
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+
+  enquiry       Enquiry      @relation(fields: [enquiryId], references: [id], onDelete: Cascade)
+
+  @@index([token])
+  @@index([status])
+  @@index([leverancier, datum])
+  @@index([enquiryId])
 }
