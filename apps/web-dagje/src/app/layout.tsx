@@ -2,18 +2,17 @@ import '@utrecht/ui/styles';
 import type { Metadata } from 'next';
 import { SiteHeader } from '../components/site-header';
 import { SiteFooter } from '../components/site-footer';
-import { ChatWidget } from '../components/chat-widget';
 
-const SITE_URL = 'https://dagjeutrecht.nl';
+const SITE_URL = 'https://www.dagjeutrecht.nl';
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: 'DagjeUtrecht - Stel je dag Utrecht zelf samen | Bedrijfsuitjes, groepen & meer',
+    default: 'DagjeUtrecht: dagje uit in Utrecht voor groepen',
     template: '%s | DagjeUtrecht',
   },
   description:
-    'Het complete platform voor een dag Utrecht: teamuitjes, studentenclubjes, schoolgroepen, gezinnen en vrijgezellenfeesten. 150+ getoetste leveranciers, AI-gids en offerte binnen 48u.',
+    'Vaste dagpakketten in Utrecht voor bedrijven, scholen en vriendengroepen: jeu de boules, kanoën, kickbike, rondvaart en borrel. Vaste prijs per persoon.',
   keywords: [
     'dagje Utrecht',
     'dagje uit Utrecht',
@@ -30,12 +29,13 @@ export const metadata: Metadata = {
     'programma Utrecht',
     'activiteiten Utrecht',
     'uitje Utrecht',
-    'workshops Utrecht',
+    'jeu de boules Utrecht',
+    'kickbike Utrecht',
+    'Amelisweerd',
     'SUP Utrecht',
     'kanoën Utrecht',
     'rondvaart Utrecht',
     'Domtoren',
-    'Kasteel de Haar',
     'DagjeUtrecht',
   ],
   authors: [{ name: 'Ger Manders', url: SITE_URL }],
@@ -57,23 +57,23 @@ export const metadata: Metadata = {
     locale: 'nl_NL',
     url: SITE_URL,
     siteName: 'DagjeUtrecht',
-    title: 'Dagje Utrecht voor elke groep - stel je dag zelf samen',
+    title: 'Dagje Utrecht voor groepen, met vaste pakketten',
     description:
-      'Kant-en-klare dagprogramma\'s of maak je eigen: activiteiten, lunch en borrels bij 150+ Utrechtse leveranciers. Één aanspreekpunt, offerte binnen 48u.',
+      'Jeu de boules, kanoën, kickbike, rondvaart en borrel. Kies een pakket of stel zelf samen, met een vaste prijs per persoon.',
     images: [
       {
-        url: '/og-image.jpg',
+        url: '/og-image.png',
         width: 1200,
-        height: 630,
+        height: 600,
         alt: 'DagjeUtrecht - dagprogramma\'s in Utrecht',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Dagje Utrecht voor elke groep',
+    title: 'Dagje Utrecht voor groepen',
     description:
-      'Teamuitje, studentenclubje, schoolreis of vrijgezellenfeest - stel zelf samen bij 150+ Utrechtse leveranciers.',
+      'Jeu de boules, kanoën, kickbike, rondvaart en borrel met een vaste prijs per persoon.',
   },
   alternates: {
     canonical: SITE_URL,
@@ -96,12 +96,12 @@ const jsonLd = {
       alternateName: 'DagjeUtrecht.nl',
       url: SITE_URL,
       logo: `${SITE_URL}/logo.png`,
-      image: `${SITE_URL}/og-image.jpg`,
+      image: `${SITE_URL}/og-image.png`,
       email: 'info@dagjeutrecht.nl',
       telephone: '+31302271439',
       priceRange: '\u20AC\u20AC',
       description:
-        'DagjeUtrecht organiseert dagprogramma\'s in Utrecht voor teamuitjes, studentenclubjes, schoolgroepen, gezinnen en vrijgezellenfeesten. Ruim 150 getoetste leveranciers.',
+        'DagjeUtrecht verzorgt vaste dagpakketten in Utrecht voor bedrijven, scholen en vriendengroepen.',
       address: {
         '@type': 'PostalAddress',
         addressLocality: 'Utrecht',
@@ -123,7 +123,7 @@ const jsonLd = {
       '@id': `${SITE_URL}#website`,
       url: SITE_URL,
       name: 'DagjeUtrecht',
-      description: 'Stel je eigen dag Utrecht samen - activiteiten, lunch en borrels bij 150+ Utrechtse leveranciers.',
+      description: 'Dagpakketten in Utrecht met een vaste prijs per persoon.',
       publisher: { '@id': `${SITE_URL}#organization` },
       inLanguage: 'nl-NL',
     },
@@ -136,13 +136,6 @@ const jsonLd = {
       audience: {
         '@type': 'Audience',
         audienceType: 'Bedrijven, scholen, verenigingen, gezinnen, vrijgezellenfeesten',
-      },
-      offers: {
-        '@type': 'AggregateOffer',
-        priceCurrency: 'EUR',
-        lowPrice: 25,
-        highPrice: 250,
-        offerCount: 150,
       },
     },
   ],
@@ -181,7 +174,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <SiteHeader />
         <div className="flex-1">{children}</div>
         <SiteFooter />
-        <ChatWidget />
       </body>
     </html>
   );

@@ -1,4 +1,4 @@
-export const metadata = { title: 'Over ons - DagjeUtrecht.nl' };
+export const metadata = { title: 'Over ons' };
 
 export default function OverOns() {
   return (
@@ -10,15 +10,15 @@ export default function OverOns() {
         in Utrecht.
       </p>
       <p>
-        We maken van Utrecht een dag om nooit meer te vergeten. Jij kiest de activiteiten, wij
-        regelen de rest: van boeking bij de leverancier tot de factuur. Eén aanspreekpunt - Ger.
+        We maken van Utrecht een dag om nooit meer te vergeten. Jij kiest een pakket of stelt zelf
+        een dag samen, wij regelen de reserveringen bij onze partners. Op de dag zelf is Ger jullie
+        aanspreekpunt.
       </p>
       <h2 className="font-serif text-2xl mt-8">Waarom deze site?</h2>
       <p>
-        Utrecht heeft honderden leuke plekken, maar wie ze allemaal moet bellen raakt de weg
-        kwijt. Op DagjeUtrecht.nl combineer je zelf activiteiten uit 100+ getoetste leveranciers
-        tot één programma, met AI-hulp en live prijsindicatie. Binnen 48u stuurt Ger een
-        vrijblijvende offerte.
+        Een groepsuitje regelen kost vaak veel mailen en bellen. Daarom werken we met vaste
+        onderdelen bij vaste partners, zoals JEU de boules bar en Botenverhuur De Rijnstroom. Je
+        ziet meteen wat het kost en binnen 2 werkdagen is alles bevestigd.
       </p>
       <h2 className="font-serif text-2xl mt-8">Contact</h2>
       <ul>

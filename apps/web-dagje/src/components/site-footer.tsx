@@ -9,9 +9,8 @@ export function SiteFooter() {
             <span className="text-terracotta-400">Dagje</span>Utrecht
           </p>
           <p className="mt-3 max-w-sm">
-            Dé plek voor georganiseerde dagen Utrecht - teamuitjes, studentengroepen, scholen,
-            gezinnen en vrijgezellenfeesten. Handmatig ingekocht bij lokale leveranciers, één
-            aanspreekpunt: Ger.
+            Vaste dagpakketten in Utrecht voor bedrijven, scholen en vriendengroepen. Samen met
+            lokale partners, met een vaste prijs per persoon.
           </p>
           <p className="mt-4 text-xs text-cream/60">
             <a href="mailto:info@dagjeutrecht.nl" className="hover:text-white">info@dagjeutrecht.nl</a>
@@ -22,8 +21,9 @@ export function SiteFooter() {
         <div>
           <p className="text-white font-medium mb-3">Site</p>
           <ul className="space-y-2">
-            <li><Link href="/samensteller" className="hover:text-white">Zelf samenstellen</Link></li>
-            <li><Link href="/aanbod" className="hover:text-white">Alle activiteiten</Link></li>
+            <li><Link href="/pakketten" className="hover:text-white">Pakketten</Link></li>
+            <li><Link href="/bouwstenen" className="hover:text-white">Alle onderdelen</Link></li>
+            <li><Link href="/boeken" className="hover:text-white">Zelf samenstellen</Link></li>
             <li><Link href="/blog" className="hover:text-white">Inspiratie</Link></li>
           </ul>
         </div>

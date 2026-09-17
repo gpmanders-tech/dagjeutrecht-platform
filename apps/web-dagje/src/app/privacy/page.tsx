@@ -1,4 +1,4 @@
-export const metadata = { title: 'Privacy - DagjeUtrecht.nl' };
+export const metadata = { title: 'Privacy' };
 
 export default function PrivacyPage() {
   return (
@@ -14,7 +14,7 @@ export default function PrivacyPage() {
       <ul className="list-disc pl-5 space-y-1">
         <li>Naam, e-mail, telefoon - via het aanvraagformulier</li>
         <li>Bedrijfsgegevens (naam, BTW-nr) als je factuur wil ontvangen</li>
-        <li>Voorkeuren uit de samensteller (activiteiten, budget, datum)</li>
+        <li>Je keuzes in de samensteller (onderdelen, datum, aantal personen)</li>
       </ul>
 
       <h2 className="font-serif text-2xl text-canal-900 mt-8 mb-3">Waar we het voor gebruiken</h2>

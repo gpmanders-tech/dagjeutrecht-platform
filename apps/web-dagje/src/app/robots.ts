@@ -6,10 +6,10 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: '*',
         allow: '/',
-        disallow: ['/aanvraag', '/cadeau'],
+        disallow: ['/boeken', '/api/'],
       },
     ],
-    sitemap: 'https://dagjeutrecht.nl/sitemap.xml',
-    host: 'https://dagjeutrecht.nl',
+    sitemap: 'https://www.dagjeutrecht.nl/sitemap.xml',
+    host: 'https://www.dagjeutrecht.nl',
   };
 }

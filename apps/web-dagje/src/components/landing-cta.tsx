@@ -4,7 +4,7 @@ export function LandingCTA({
   title,
   text,
   primaryLabel = 'Vraag vrijblijvend een offerte aan',
-  href = '/samensteller',
+  href = '/boeken',
   variant = 'terracotta',
 }: {
   title: string;

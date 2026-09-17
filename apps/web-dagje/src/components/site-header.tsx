@@ -26,21 +26,19 @@ export function SiteHeader() {
               <Link href="/bedrijfsuitje-utrecht" className="block px-4 py-2 hover:bg-cream rounded-t-xl">Bedrijfsuitje</Link>
               <Link href="/schooluitje-utrecht" className="block px-4 py-2 hover:bg-cream">Schooluitje</Link>
               <Link href="/vrijgezellenfeest-utrecht" className="block px-4 py-2 hover:bg-cream">Vrijgezellenfeest</Link>
-              <Link href="/teambuilding-utrecht" className="block px-4 py-2 hover:bg-cream">Teambuilding</Link>
-              <Link href="/#doelgroepen" className="block px-4 py-2 hover:bg-cream rounded-b-xl text-canal-500 border-t border-canal-100">Alle doelgroepen</Link>
+              <Link href="/teambuilding-utrecht" className="block px-4 py-2 hover:bg-cream rounded-b-xl">Teambuilding</Link>
             </div>
           </details>
-          <Link href="/samensteller" className="hover:text-terracotta-600">Stel samen</Link>
-          <Link href="/programmas" className="hover:text-terracotta-600">Voorbeeldprogramma's</Link>
-          <Link href="/aanbod" className="hover:text-terracotta-600">Activiteiten</Link>
+          <Link href="/pakketten" className="hover:text-terracotta-600">Pakketten</Link>
+          <Link href="/bouwstenen" className="hover:text-terracotta-600">Alle onderdelen</Link>
           <Link href="/blog" className="hover:text-terracotta-600">Inspiratie</Link>
           <Link href="/contact" className="hover:text-terracotta-600">Contact</Link>
         </nav>
         <Link
-          href="/samensteller"
+          href="/boeken"
           className="rounded-full bg-terracotta-500 hover:bg-terracotta-400 text-white text-sm px-4 py-2 mb-1"
         >
-          Plan mijn dag →
+          Stel je dag samen →
         </Link>
       </div>
     </header>
