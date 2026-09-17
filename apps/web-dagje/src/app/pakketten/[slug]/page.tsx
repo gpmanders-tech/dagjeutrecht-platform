@@ -97,7 +97,7 @@ export default function PakketPage({ params }: { params: { slug: string } }) {
             <p className="text-6xl font-black text-inkt">{formatEuro(pp)}</p>
             <p className="mt-1 text-lg font-bold text-inkt">per persoon, inclusief btw</p>
             <p className="mt-2 text-grijs">
-              {REGELS.minPers} tot {REGELS.maxPers} personen · donderdag, vrijdag of zaterdag · minimaal{' '}
+              vanaf {REGELS.minPers} personen · donderdag, vrijdag of zaterdag · minimaal{' '}
               {REGELS.minDagenVooruit} dagen vooruit
             </p>
           </div>

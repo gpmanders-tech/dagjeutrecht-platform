@@ -7,14 +7,18 @@ import { fotos, type Foto as FotoType } from '../lib/fotos';
 /** Het DagjeUtrecht-logo: woordmerk met de skyline van Utrecht erachter. */
 export function Logo({ wit = false, className = '' }: { wit?: boolean; className?: string }) {
   return (
-    <span className={`relative inline-flex items-end px-2 pb-1 pt-4 font-logo font-bold leading-none ${className}`}>
+    <span className={`relative inline-flex items-end px-2 pb-1 pt-5 font-black leading-none tracking-tight ${className}`}>
       <UtrechtSkyline
-        className={`pointer-events-none absolute inset-0 h-full w-full ${wit ? 'text-white opacity-20' : 'text-inkt opacity-[0.16]'}`}
+        className={`pointer-events-none absolute inset-0 h-full w-full ${wit ? 'text-zee-300 opacity-25' : 'text-zee-500 opacity-25'}`}
       />
       <span className="relative">
-        <span className={wit ? 'text-zon-300' : 'text-terracotta-500'}>Dagje</span>
+        <span className={wit ? 'text-zon-300' : 'text-vlam-500'}>Dagje</span>
         <span className={wit ? 'text-white' : 'text-inkt'}>Utrecht</span>
       </span>
+      <span
+        aria-hidden="true"
+        className="absolute inset-x-2 bottom-0 h-1 rounded-full bg-gradient-to-r from-zee-400 via-zon-400 to-vlam-500"
+      />
     </span>
   );
 }

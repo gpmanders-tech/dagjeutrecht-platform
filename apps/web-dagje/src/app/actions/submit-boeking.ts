@@ -158,7 +158,7 @@ ${data.opmerking || '(geen)'}
         onderwerp: `Je aanvraag bij DagjeUtrecht.nl (${code})`,
         tekst: `Hoi ${data.naam.split(' ')[0]},
 
-Bedankt voor je aanvraag bij DagjeUtrecht.nl. We controleren nu de beschikbaarheid bij onze partners. Binnen 2 werkdagen krijg je een bevestiging met betaallink. Pas na betaling is de boeking definitief.
+Bedankt voor je aanvraag bij DagjeUtrecht.nl. We controleren nu de beschikbaarheid bij onze partners. Binnen 3 werkdagen krijg je een bevestiging met betaallink. Pas na betaling is de boeking definitief.
 
 Jullie dag: ${formatDatum(data.datum)}, ${data.personen} personen
 

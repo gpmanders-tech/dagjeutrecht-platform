@@ -14,12 +14,11 @@ export default function VoorwaardenPage() {
       <h2 className="text-2xl font-black uppercase tracking-tight text-inkt mt-8 mb-3">Boeken</h2>
       <ul className="list-disc pl-5 space-y-1">
         <li>
-          Uitjes zijn mogelijk op donderdag, vrijdag en zaterdag, voor groepen van {REGELS.minPers}{' '}
-          tot {REGELS.maxPers} personen.
+          Uitjes zijn mogelijk op donderdag, vrijdag en zaterdag, voor groepen vanaf {REGELS.minPers} personen.
         </li>
         <li>Boek minimaal {REGELS.minDagenVooruit} dagen voor de gewenste datum.</li>
         <li>
-          Na je aanvraag controleren wij de beschikbaarheid bij onze partners. Binnen 2 werkdagen
+          Na je aanvraag controleren wij de beschikbaarheid bij onze partners. Binnen 3 werkdagen
           ontvang je een bevestiging met betaallink.
         </li>
         <li>De boeking is definitief zodra de betaling binnen is.</li>

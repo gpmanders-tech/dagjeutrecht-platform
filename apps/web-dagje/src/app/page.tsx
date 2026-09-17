@@ -3,13 +3,14 @@ import { BOUWSTENEN, CLUSTERS, PAKKETTEN, REGELS, formatEuro, prijsPerPersoon } 
 import { fotos, fotoVoorBouwsteen } from '../lib/fotos';
 import { PakketKaart } from '../components/pakket-kaart';
 import { Band, BoekBlok, Foto, HOEKEN, Knop, RondeSticker, Sticker } from '../components/ui';
+import { KaartUtrecht } from '../components/kaart-utrecht';
 
 const goedkoopste = Math.min(...PAKKETTEN.map((p) => prijsPerPersoon(p.blokken)));
 
 const cijfers = [
-  { getal: `${REGELS.minPers} tot ${REGELS.maxPers}`, label: 'personen per groep', kleur: 'bg-zee-400 text-inkt' },
+  { getal: `Vanaf ${REGELS.minPers}`, label: 'personen per groep', kleur: 'bg-zee-400 text-inkt' },
   { getal: `${BOUWSTENEN.length}`, label: 'onderdelen om te combineren', kleur: 'bg-zon-300 text-inkt' },
-  { getal: '2', label: 'werkdagen tot bevestiging', kleur: 'bg-vlam-400 text-inkt' },
+  { getal: '3', label: 'werkdagen tot bevestiging', kleur: 'bg-vlam-400 text-inkt' },
   { getal: 'Vast', label: 'prijs per persoon, incl. btw', kleur: 'bg-white text-inkt' },
 ];
 
@@ -21,7 +22,7 @@ const stappen = [
   },
   {
     titel: 'Wij regelen het',
-    tekst: 'Binnen 2 werkdagen bevestigen onze partners alles en krijg je een betaallink.',
+    tekst: 'Binnen 3 werkdagen bevestigen onze partners alles en krijg je een betaallink.',
     kleur: 'text-zon-400',
   },
   {
@@ -83,12 +84,14 @@ export default function Home() {
           prioriteit
         />
         <div className="absolute inset-0 bg-gradient-to-br from-inkt via-inkt/90 to-inkt/60" />
+        {/* Kaart van de Utrechtse binnenstad als watermerk, gegevens van OpenStreetMap */}
+        <KaartUtrecht className="absolute inset-0 h-full w-full opacity-25 [mask-image:radial-gradient(ellipse_at_55%_45%,black_35%,transparent_80%)]" />
         <div aria-hidden="true" className="absolute -right-24 top-10 h-80 w-80 rounded-full bg-zee-400/40 blur-3xl" />
         <div aria-hidden="true" className="absolute -bottom-40 -left-20 h-96 w-96 rounded-full bg-vlam-500/40 blur-3xl" />
 
         <div className="relative mx-auto grid max-w-5xl items-center gap-12 px-4 pb-24 pt-10 sm:px-6 md:grid-cols-2">
           <div>
-            <Sticker kleur="zon">Groepen van {REGELS.minPers} tot {REGELS.maxPers}</Sticker>
+            <Sticker kleur="zon">Groepen vanaf {REGELS.minPers} personen</Sticker>
             <h1 className="mt-5 text-5xl font-black uppercase leading-[0.92] tracking-tight sm:text-7xl">
               <span className="block">Een dagje</span>
               <span className="block text-zon-300">Utrecht</span>

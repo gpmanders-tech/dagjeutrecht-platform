@@ -18,7 +18,7 @@ export default function OverOns() {
       <p>
         Een groepsuitje regelen kost vaak veel mailen en bellen. Daarom werken we met vaste
         onderdelen bij vaste partners, zoals JEU de boules bar en Botenverhuur De Rijnstroom. Je
-        ziet meteen wat het kost en binnen 2 werkdagen is alles bevestigd.
+        ziet meteen wat het kost en binnen 3 werkdagen is alles bevestigd.
       </p>
       <h2 className="text-2xl font-black uppercase tracking-tight mt-8">Contact</h2>
       <ul>

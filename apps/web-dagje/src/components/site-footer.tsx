@@ -87,6 +87,15 @@ export function SiteFooter() {
           <Link href="/fotobronnen" className="underline underline-offset-2 hover:text-white">
             Wikimedia Commons
           </Link>
+          . Kaartgegevens:{' '}
+          <a
+            href="https://www.openstreetmap.org/copyright"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline underline-offset-2 hover:text-white"
+          >
+            © OpenStreetMap-bijdragers
+          </a>
           .
         </p>
       </div>

@@ -22,7 +22,7 @@ function prijs(slug: string) {
   return p ? formatEuro(prijsPerPersoon(p.blokken)) : '';
 }
 
-const GROEP = `Van ${REGELS.minPers} tot ${REGELS.maxPers} personen.`;
+const GROEP = `Vanaf ${REGELS.minPers} personen.`;
 
 const ALGEMENE_FAQ = [
   {

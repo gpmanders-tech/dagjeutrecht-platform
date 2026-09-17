@@ -102,7 +102,7 @@ export function BoekenFormulier({ startPakket }: { startPakket?: string }) {
           Aanvraagnummer <strong>{code}</strong>. Je krijgt zo een bevestiging per mail.
         </p>
         <p>
-          We controleren de beschikbaarheid bij onze partners en sturen binnen 2 werkdagen een
+          We controleren de beschikbaarheid bij onze partners en sturen binnen 3 werkdagen een
           bevestiging met betaallink. Pas na betaling is de boeking definitief.
         </p>
       </div>
@@ -116,8 +116,8 @@ export function BoekenFormulier({ startPakket }: { startPakket?: string }) {
         <section>
           <h2 className={`${stapKop} mb-1`}>1. Wanneer en met hoeveel?</h2>
           <p className="mb-5 text-grijs">
-            Op donderdag, vrijdag of zaterdag, minimaal {REGELS.minDagenVooruit} dagen vooruit. Van{' '}
-            {REGELS.minPers} tot {REGELS.maxPers} personen.
+            Op donderdag, vrijdag of zaterdag, minimaal {REGELS.minDagenVooruit} dagen vooruit. Vanaf{' '}
+            {REGELS.minPers} personen.
           </p>
           <div className="grid sm:grid-cols-2 gap-4">
             <label className="block">
@@ -320,7 +320,7 @@ export function BoekenFormulier({ startPakket }: { startPakket?: string }) {
             {bezig ? 'Versturen...' : 'Aanvraag versturen'}
           </button>
           <p className="text-xs text-zee-200">
-            Je betaalt nog niets. We bevestigen binnen 2 werkdagen de beschikbaarheid en sturen dan een
+            Je betaalt nog niets. We bevestigen binnen 3 werkdagen de beschikbaarheid en sturen dan een
             betaallink. Dieetwensen en maatwerk zijn niet mogelijk.
           </p>
         </form>

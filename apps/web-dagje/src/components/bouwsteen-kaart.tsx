@@ -41,7 +41,7 @@ export function BouwsteenKaart({ blok, hoek = '' }: { blok: Bouwsteen; hoek?: st
           <dd className="text-grijs">{tijden}</dd>
           <dt className="font-bold text-inkt">Groep</dt>
           <dd className="text-grijs">
-            {blok.minPers} tot {blok.maxPers} personen
+            vanaf {blok.minPers} personen
           </dd>
           {blok.seizoen && (
             <>

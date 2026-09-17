@@ -6,7 +6,7 @@ import { PaginaKop } from '../../components/ui';
 export const metadata: Metadata = {
   title: 'Stel je dag samen en boek',
   description:
-    'Kies een pakket of stel zelf je dag in Utrecht samen uit vaste onderdelen. Vaste prijs per persoon, bevestiging binnen 2 werkdagen.',
+    'Kies een pakket of stel zelf je dag in Utrecht samen uit vaste onderdelen. Vaste prijs per persoon, bevestiging binnen 3 werkdagen.',
   alternates: { canonical: '/boeken' },
   robots: { index: false, follow: true },
 };
