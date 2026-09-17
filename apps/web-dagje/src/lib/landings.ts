@@ -53,7 +53,7 @@ export const LANDINGS: Record<'bedrijfsuitje' | 'teambuilding' | 'schooluitje' |
     titel: 'Bedrijfsuitje in Utrecht, zonder gedoe',
     intro:
       'Kies een pakket of stel zelf een dag samen uit vaste onderdelen. Je ziet meteen wat het kost, wij regelen de reserveringen bij onze partners.',
-    pakketten: ['spel-en-borrel', 'amelisweerd-actief', 'water-naar-borrel'],
+    pakketten: ['warme-winterdag', 'spel-en-borrel', 'amelisweerd-actief', 'water-naar-borrel'],
     alineas: [
       {
         kop: 'Binnen of buiten',
@@ -88,7 +88,7 @@ export const LANDINGS: Record<'bedrijfsuitje' | 'teambuilding' | 'schooluitje' |
     titel: 'Teambuilding in Utrecht',
     intro:
       'Niets verbindt een team zo goed als samen iets doen. Speel in teams tegen elkaar op de boulesbaan, of werk samen in een kano op de Kromme Rijn.',
-    pakketten: ['spel-en-borrel', 'amelisweerd-actief'],
+    pakketten: ['warme-winterdag', 'spel-en-borrel', 'amelisweerd-actief'],
     alineas: [
       {
         kop: 'Competitie in het centrum',
@@ -155,7 +155,7 @@ export const LANDINGS: Record<'bedrijfsuitje' | 'teambuilding' | 'schooluitje' |
     titel: 'Vrijgezellenfeest in Utrecht',
     intro:
       'Een actieve dag die je samen niet vergeet. Kies een pakket, prik een datum en regel het in een paar minuten.',
-    pakketten: ['water-naar-borrel', 'amelisweerd-actief', 'spel-en-borrel'],
+    pakketten: ['water-naar-borrel', 'amelisweerd-actief', 'warme-winterdag', 'spel-en-borrel'],
     alineas: [
       {
         kop: 'Van het water naar de borrel',

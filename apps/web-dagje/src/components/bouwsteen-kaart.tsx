@@ -1,4 +1,4 @@
-import { CLUSTERS, TIJDVAKKEN, formatEuro, type Bouwsteen } from '../lib/aanbod';
+import { CLUSTERS, TIJDVAKKEN, formatEuro, maandenTekst, type Bouwsteen } from '../lib/aanbod';
 import { fotoVoorBouwsteen } from '../lib/fotos';
 import { Foto } from './ui';
 
@@ -46,7 +46,7 @@ export function BouwsteenKaart({ blok, hoek = '' }: { blok: Bouwsteen; hoek?: st
           {blok.seizoen && (
             <>
               <dt className="font-bold text-inkt">Seizoen</dt>
-              <dd className="text-grijs">april tot en met oktober</dd>
+              <dd className="text-grijs">{maandenTekst(blok.seizoen)}</dd>
             </>
           )}
           <dt className="font-bold text-inkt">Inclusief</dt>

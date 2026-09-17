@@ -5,10 +5,12 @@ import { useMemo, useState } from 'react';
 import {
   BOUWSTENEN,
   CLUSTERS,
-  PAKKETTEN,
   REGELS,
   TIJDVAKKEN,
   controleer,
+  buitenSeizoen,
+  pakkettenOpSeizoen,
+  uitgelichtSeizoen,
   formatEuro,
   prijsPerPersoon,
   vindBouwsteen,
@@ -149,7 +151,7 @@ export function BoekenFormulier({ startPakket }: { startPakket?: string }) {
           <h2 className={`${stapKop} mb-1`}>2. Start met een pakket</h2>
           <p className="mb-5 text-grijs">Of sla dit over en kies hieronder zelf per tijdvak.</p>
           <div className="grid sm:grid-cols-2 gap-3">
-            {PAKKETTEN.map((p) => (
+            {pakkettenOpSeizoen().map((p) => (
               <button
                 key={p.slug}
                 type="button"
@@ -160,6 +162,16 @@ export function BoekenFormulier({ startPakket }: { startPakket?: string }) {
               >
                 <span className="relative block aspect-[16/9]">
                   <Image src={fotoVoorPakket(p.slug).src} alt="" fill sizes="(min-width: 640px) 30vw, 100vw" className="object-cover" />
+                  {p.seizoen === uitgelichtSeizoen() && (
+                    <span className="absolute left-2 top-2 rounded-lg bg-zee-400 px-2 py-0.5 text-xs font-extrabold uppercase text-inkt shadow">
+                      {p.seizoen === 'winter' ? '❄️ Deze winter' : '☀️ Deze zomer'}
+                    </span>
+                  )}
+                  {buitenSeizoen(p) && (
+                    <span className="absolute left-2 top-2 rounded-lg bg-white px-2 py-0.5 text-xs font-extrabold uppercase text-inkt shadow">
+                      {p.seizoen === 'zomer' ? 'Vanaf april' : 'Vanaf november'}
+                    </span>
+                  )}
                   <span className="absolute bottom-2 right-2 rounded-full bg-white px-3 py-1 text-sm font-black text-inkt shadow">
                     {formatEuro(prijsPerPersoon(p.blokken))} p.p.
                   </span>

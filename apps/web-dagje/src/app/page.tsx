@@ -1,9 +1,24 @@
 import Link from 'next/link';
-import { BOUWSTENEN, CLUSTERS, PAKKETTEN, REGELS, formatEuro, prijsPerPersoon } from '../lib/aanbod';
-import { fotos, fotoVoorBouwsteen } from '../lib/fotos';
+import {
+  BOUWSTENEN,
+  CLUSTERS,
+  PAKKETTEN,
+  REGELS,
+  TIJDVAKKEN,
+  formatEuro,
+  maandenTekst,
+  pakketMaanden,
+  pakkettenOpSeizoen,
+  prijsPerPersoon,
+  uitgelichtSeizoen,
+  vindBouwsteen,
+} from '../lib/aanbod';
+import { fotos, fotoVoorBouwsteen, fotoVoorPakket } from '../lib/fotos';
 import { PakketKaart } from '../components/pakket-kaart';
 import { Band, BoekBlok, Foto, HOEKEN, Knop, RondeSticker, Sticker } from '../components/ui';
 import { KaartUtrecht } from '../components/kaart-utrecht';
+
+export const revalidate = 86400;
 
 const goedkoopste = Math.min(...PAKKETTEN.map((p) => prijsPerPersoon(p.blokken)));
 
@@ -73,6 +88,16 @@ const galerij = [
 ];
 
 export default function Home() {
+  const seizoen = uitgelichtSeizoen();
+  const winter = seizoen === 'winter';
+  const pakketten = pakkettenOpSeizoen(seizoen);
+  const uitgelicht = pakketten[0]!;
+  const maanden = pakketMaanden(uitgelicht);
+  const heroFotos = winter
+    ? { groot: fotos.boulesSpelers, klein: fotos.gluhwein, boven: fotos.domtoren }
+    : { groot: fotos.supGroep, klein: fotos.kickbikeDomkerk, boven: fotos.boules };
+  const clusters = winter ? (['centrum', 'amelisweerd'] as const) : (['amelisweerd', 'centrum'] as const);
+
   return (
     <main>
       <section className="op-donker relative isolate overflow-hidden bg-inkt text-white">
@@ -98,7 +123,9 @@ export default function Home() {
               <span className="block">met je groep</span>
             </h1>
             <p className="mt-6 max-w-md text-lg text-zee-100 sm:text-xl">
-              Suppen, kanoën, kickbiken, jeu de boules en borrelen. Kies je onderdelen, wij regelen de rest.
+              {winter
+                ? 'Glühwein, jeu de boules, de Domtoren op en borrelen. Kies je onderdelen, wij regelen de rest.'
+                : 'Suppen, kanoën, kickbiken, jeu de boules en borrelen. Kies je onderdelen, wij regelen de rest.'}
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-4">
               <Knop href="/pakketten" variant="zon" className="text-lg">
@@ -115,36 +142,53 @@ export default function Home() {
 
           <div className="relative mx-auto w-full max-w-[19rem] sm:max-w-sm md:ml-auto md:mr-4">
             <Foto
-              foto={fotos.supGroep}
+              foto={heroFotos.groot}
               verhouding="aspect-[4/5] -rotate-3"
               sizes="(min-width: 768px) 40vw, 90vw"
               className="kantel polaroid rounded-sm"
               prioriteit
             />
             <Foto
-              foto={fotos.kickbikeDomkerk}
+              foto={heroFotos.klein}
               verhouding="aspect-square absolute -bottom-10 -left-6 w-40 rotate-6 sm:w-48"
               sizes="200px"
               className="kantel polaroid rounded-sm"
             />
             <Foto
-              foto={fotos.boules}
+              foto={heroFotos.boven}
               verhouding="aspect-[4/3] absolute -right-4 -top-8 w-36 rotate-6 sm:w-44"
               sizes="180px"
               className="kantel polaroid hidden rounded-sm sm:block"
             />
-            <RondeSticker
-              boven="Pakketten"
-              midden={formatEuro(goedkoopste)}
-              onder="per persoon"
-              className="absolute -bottom-6 right-0 sm:-right-6"
-            />
+            {winter ? (
+              <Link href={`/pakketten/${uitgelicht.slug}`} aria-label={`${uitgelicht.naam} bekijken`}>
+                <RondeSticker
+                  boven="Nieuw: winter"
+                  midden={formatEuro(prijsPerPersoon(uitgelicht.blokken))}
+                  onder="per persoon"
+                  className="absolute -bottom-6 right-0 sm:-right-6"
+                />
+              </Link>
+            ) : (
+              <RondeSticker
+                boven="Pakketten"
+                midden={formatEuro(goedkoopste)}
+                onder="per persoon"
+                className="absolute -bottom-6 right-0 sm:-right-6"
+              />
+            )}
           </div>
         </div>
       </section>
 
       <div className="-mt-4 mb-4 sm:-mt-6">
-        <Band woorden={['Suppen', 'Kanoën', 'Kickbiken', 'Jeu de boules', 'Shuffleboard', 'Rondvaart', 'Borrel', 'BBQ']} />
+        <Band
+          woorden={
+            winter
+              ? ['Warme Winterdag', 'Glühwein', 'Jeu de boules', 'Domtoren', 'Erwtensoep', 'Shuffleboard', 'Borrel']
+              : ['Suppen', 'Kanoën', 'Kickbiken', 'Jeu de boules', 'Shuffleboard', 'Rondvaart', 'Borrel', 'BBQ']
+          }
+        />
       </div>
 
       <section aria-label="In het kort" className="mx-auto max-w-5xl px-4 py-10 sm:px-6">
@@ -158,6 +202,73 @@ export default function Home() {
         </ul>
       </section>
 
+      <section className={`op-donker relative isolate overflow-hidden text-white ${winter ? 'bg-zee-700' : 'bg-vlam-500'}`}>
+        <Foto
+          foto={winter ? fotos.winterUtrecht : fotos.supOudegracht}
+          verhouding="absolute inset-0 h-full w-full"
+          sizes="100vw"
+          className="opacity-25"
+        />
+        <div className={`absolute inset-0 bg-gradient-to-r ${winter ? 'from-zee-700 via-zee-700/90' : 'from-vlam-600 via-vlam-600/90'} to-transparent`} />
+        {winter && (
+          <div aria-hidden="true" className="pointer-events-none absolute inset-0 select-none text-4xl text-white/20">
+            <span className="zweef absolute left-[8%] top-6">❄</span>
+            <span className="zweef absolute left-[46%] top-16 text-2xl">❄</span>
+            <span className="zweef absolute right-[12%] top-8 text-5xl">❄</span>
+            <span className="zweef absolute bottom-10 left-[30%] text-3xl">❄</span>
+            <span className="zweef absolute bottom-6 right-[35%]">❄</span>
+          </div>
+        )}
+        <div className="relative mx-auto grid max-w-5xl items-center gap-12 px-4 py-16 sm:px-6 md:grid-cols-2">
+          <div>
+            <Sticker kleur="zon">{winter ? '❄️ Uitgelicht deze winter' : '☀️ Uitgelicht deze zomer'}</Sticker>
+            <h2 className="mt-5 text-5xl font-black uppercase leading-[0.95] tracking-tight sm:text-6xl">{uitgelicht.naam}</h2>
+            <p className="mt-4 max-w-md text-lg text-white/90">{uitgelicht.beschrijving}</p>
+            <ul className="mt-5 space-y-1">
+              {TIJDVAKKEN.map((t) => {
+                const b = vindBouwsteen(uitgelicht.blokken[t.id]);
+                return b ? (
+                  <li key={t.id} className="flex gap-3 text-lg">
+                    <span className="w-14 shrink-0 font-black text-zon-300">{t.van}</span>
+                    <span className="font-semibold">{b.naam}</span>
+                  </li>
+                ) : null;
+              })}
+            </ul>
+            <p className="mt-6 flex items-baseline gap-2">
+              <span className="text-5xl font-black">{formatEuro(prijsPerPersoon(uitgelicht.blokken))}</span>
+              <span className="text-white/80">per persoon</span>
+            </p>
+            {maanden && <p className="mt-1 text-sm text-white/80">Te boeken van {maandenTekst(maanden)}</p>}
+            <div className="mt-6 flex flex-wrap gap-4">
+              <Knop href={`/boeken?pakket=${uitgelicht.slug}`} variant="zon">
+                Boek deze dag
+              </Knop>
+              <Knop href={`/pakketten/${uitgelicht.slug}`} variant="lijn">
+                Bekijk programma
+              </Knop>
+            </div>
+          </div>
+          <div className="relative mx-auto w-full max-w-sm">
+            <Foto
+              foto={fotoVoorPakket(uitgelicht.slug)}
+              verhouding="aspect-[4/5] rotate-3"
+              sizes="(min-width: 768px) 40vw, 90vw"
+              className="kantel polaroid rounded-sm"
+            />
+            {(winter ? [fotos.erwtensoep, fotos.domtoren] : [fotos.picknick, fotos.kickbikeGracht]).map((f, i) => (
+              <Foto
+                key={f.src}
+                foto={f}
+                verhouding={`aspect-square absolute w-32 sm:w-40 ${i === 0 ? '-bottom-8 -left-8 -rotate-6' : '-right-6 -top-8 rotate-6'}`}
+                sizes="160px"
+                className="kantel polaroid rounded-sm"
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="bg-vlam-50">
         <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6">
           <div className="flex flex-wrap items-end justify-between gap-4">
@@ -165,9 +276,9 @@ export default function Home() {
             <p className="text-lg font-bold text-inkt">Vaste prijs per persoon, incl. btw</p>
           </div>
           <ul className="mt-10 grid gap-8 sm:grid-cols-2">
-            {PAKKETTEN.map((p, i) => (
+            {pakketten.map((p, i) => (
               <li key={p.slug}>
-                <PakketKaart pakket={p} hoek={HOEKEN[i % HOEKEN.length]} uitgelicht={i === 0} />
+                <PakketKaart pakket={p} hoek={HOEKEN[i % HOEKEN.length]} />
               </li>
             ))}
           </ul>
@@ -200,13 +311,14 @@ export default function Home() {
         </div>
       </section>
 
-      {(['amelisweerd', 'centrum'] as const).map((c, ci) => {
+      {clusters.map((c, ci) => {
         const blokken = BOUWSTENEN.filter((b) => b.cluster === c || (c === 'amelisweerd' && b.cluster === 'beide'));
+        const buiten = c === 'amelisweerd';
         return (
           <section key={c} className={ci === 0 ? 'bg-zee-50' : 'bg-white'}>
             <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6">
-              <Sticker kleur={ci === 0 ? 'zee' : 'vlam'} hoek={ci === 0 ? 'rotate-2' : '-rotate-2'}>
-                {ci === 0 ? 'Actief en buiten' : 'Spelen en borrelen'}
+              <Sticker kleur={buiten ? 'zee' : 'vlam'} hoek={ci === 0 ? 'rotate-2' : '-rotate-2'}>
+                {buiten ? (winter ? 'Actief en buiten, april tot en met oktober' : 'Actief en buiten') : winter ? 'Binnen, lekker warm' : 'Spelen en borrelen'}
               </Sticker>
               <h2 className="mt-4 text-4xl font-black uppercase tracking-tight text-inkt sm:text-5xl">{CLUSTERS[c].naam}</h2>
               <p className="mt-3 max-w-2xl text-lg text-grijs">{CLUSTERS[c].uitleg}</p>

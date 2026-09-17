@@ -36,10 +36,17 @@ export const fotos = {
   shuffleboard: f('shuffleboard', 'Schijven op een shuffleboardbaan'),
   bbq: f('bbq-grill', 'Worstjes en vlees op de barbecue'),
   koffie: f('koffie-en-gebak', 'Koffie met een punt taart'),
+  gluhwein: f('gluhwein', 'Dampende glühwein in glazen mokken'),
+  chocomel: f('warme-chocolademelk', 'Warme chocolademelk met slagroom'),
+  stamppot: f('stamppot-boerenkool', 'Boerenkoolstamppot met rookworst'),
+  erwtensoep: f('erwtensoep', 'Erwtensoep met roggebrood en spek'),
+  winterUtrecht: f('utrecht-winter-sneeuw', 'De Kromme Rijn in Utrecht met sneeuw'),
 } satisfies Record<string, Foto>;
 
 export const FOTO_PER_BOUWSTEEN: Record<string, Foto> = {
   'koffie-met-gebak': fotos.koffie,
+  gluhwein: fotos.gluhwein,
+  winterlunch: fotos.erwtensoep,
   'jeu-de-boules': fotos.boules,
   shuffleboard: fotos.shuffleboard,
   domtoren: fotos.domtoren,
@@ -54,6 +61,7 @@ export const FOTO_PER_BOUWSTEEN: Record<string, Foto> = {
 };
 
 export const FOTO_PER_PAKKET: Record<string, Foto> = {
+  'warme-winterdag': fotos.gluhwein,
   'amelisweerd-actief': fotos.kanoBrug,
   'spel-en-borrel': fotos.boulesSpelers,
   'water-naar-borrel': fotos.supVrijgezellen,
@@ -98,5 +106,35 @@ export const FOTO_BRONNEN = [
     maker: 'Bahnfrend',
     licentie: 'CC BY-SA 4.0',
     bron: 'https://commons.wikimedia.org/wiki/File:Caf%C3%A9_Mozart,_2019_(01).jpg',
+  },
+  {
+    foto: fotos.gluhwein,
+    maker: 'Basotxerri',
+    licentie: 'CC BY-SA 4.0',
+    bron: 'https://commons.wikimedia.org/wiki/File:Gl%C3%BChwein_Weinnachtsmarkt_OS.JPG',
+  },
+  {
+    foto: fotos.chocomel,
+    maker: 'Personal Creations',
+    licentie: 'CC BY 2.0',
+    bron: 'https://commons.wikimedia.org/wiki/File:Hot_cocoa_in_a_mug_with_a_hand_sprinkling_chili_pepper_flakes_onto_the_whipped_cream_(15852162626).jpg',
+  },
+  {
+    foto: fotos.stamppot,
+    maker: 'Amin',
+    licentie: 'CC BY-SA 4.0',
+    bron: 'https://commons.wikimedia.org/wiki/File:Boerenkool_met_worst.jpg',
+  },
+  {
+    foto: fotos.erwtensoep,
+    maker: 'Takeaway',
+    licentie: 'CC BY-SA 3.0',
+    bron: 'https://commons.wikimedia.org/wiki/File:Erwtensoep_roggebrood_katenspek.jpg',
+  },
+  {
+    foto: fotos.winterUtrecht,
+    maker: 'Jip de Kort',
+    licentie: 'CC BY-SA 3.0',
+    bron: 'https://commons.wikimedia.org/wiki/File:Krommerijn_met_sneeuw_-_panoramio.jpg',
   },
 ];

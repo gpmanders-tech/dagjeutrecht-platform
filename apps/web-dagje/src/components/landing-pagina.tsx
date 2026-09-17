@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { vindPakket } from '../lib/aanbod';
+import { uitgelichtSeizoen, vindPakket } from '../lib/aanbod';
 import type { Landing } from '../lib/landings';
 import { Breadcrumbs, FaqSchema } from './seo-jsonld';
 import { PakketKaart } from './pakket-kaart';
@@ -16,7 +16,12 @@ export function landingMetadata(l: Landing): Metadata {
 }
 
 export function LandingPagina({ landing: l }: { landing: Landing }) {
-  const pakketten = l.pakketten.map(vindPakket).filter((p) => p !== null);
+  const seizoen = uitgelichtSeizoen();
+  const rang = (s: string) => (s === seizoen ? 0 : s === 'jaarrond' ? 1 : 2);
+  const pakketten = l.pakketten
+    .map(vindPakket)
+    .filter((p) => p !== null)
+    .sort((a, b) => rang(a.seizoen) - rang(b.seizoen));
 
   return (
     <>

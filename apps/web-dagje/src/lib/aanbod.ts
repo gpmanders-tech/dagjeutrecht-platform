@@ -81,8 +81,8 @@ export type Bouwsteen = {
   verkoopCents: number;
   minPers: number;
   maxPers: number;
-  /** Maanden (1-12) waarin het blok boekbaar is. Leeg = hele jaar. */
-  seizoen?: { van: number; tot: number };
+  /** Maanden (1-12) waarin het blok boekbaar is, eventueel over de jaarwisseling. Leeg = hele jaar. */
+  seizoen?: Maanden;
   prijsBevestigd: boolean;
   inclusief: string[];
 };
@@ -92,7 +92,21 @@ function verkoop(inkoopCents: number) {
   return Math.round((inkoopCents * 1.3) / 100) * 100;
 }
 
-const ZOMER = { van: 4, tot: 10 };
+export type Maanden = { van: number; tot: number };
+export type Seizoen = 'zomer' | 'winter';
+
+const ZOMER: Maanden = { van: 4, tot: 10 };
+const WINTER: Maanden = { van: 11, tot: 3 };
+
+const MAANDNAMEN = ['januari', 'februari', 'maart', 'april', 'mei', 'juni', 'juli', 'augustus', 'september', 'oktober', 'november', 'december'];
+
+export function inMaanden(maand: number, m: Maanden) {
+  return m.van <= m.tot ? maand >= m.van && maand <= m.tot : maand >= m.van || maand <= m.tot;
+}
+
+export function maandenTekst(m: Maanden) {
+  return `${MAANDNAMEN[m.van - 1]} tot en met ${MAANDNAMEN[m.tot - 1]}`;
+}
 
 function blok(b: Omit<Bouwsteen, 'verkoopCents'>): Bouwsteen {
   return { ...b, verkoopCents: verkoop(b.inkoopCents) };
@@ -226,6 +240,46 @@ export const BOUWSTENEN: Bouwsteen[] = [
     inclusief: ['2 drankjes p.p.', 'bitterballen'],
   }),
 
+  // ============== Winter (centrum) ==============
+  blok({
+    slug: 'gluhwein',
+    naam: 'Ontvangst met glühwein',
+    kort: 'Opwarmen met glühwein of warme chocolademelk.',
+    beschrijving:
+      'De groep verzamelt bij JEU de boules bar aan Paardenveld. Iedereen krijgt een glühwein of warme chocolademelk met iets lekkers erbij.',
+    emoji: '🍷',
+    cluster: 'centrum',
+    leverancier: 'BHG',
+    locatie: 'JEU de boules bar, Paardenveld',
+    tijdvakken: ['ontvangst'],
+    duur: '30 min',
+    inkoopCents: 650,
+    minPers: 8,
+    maxPers: 40,
+    seizoen: WINTER,
+    prijsBevestigd: false,
+    inclusief: ['glühwein of warme chocolademelk', 'iets lekkers'],
+  }),
+  blok({
+    slug: 'winterlunch',
+    naam: 'Winterse lunch',
+    kort: 'Erwtensoep of stamppot, ook vegetarisch.',
+    beschrijving:
+      'Een stevige Hollandse winterlunch bij een van de zaken van Brothers Horeca Groep: erwtensoep of stamppot, met een vegetarische keuze.',
+    emoji: '🥣',
+    cluster: 'centrum',
+    leverancier: 'BHG',
+    locatie: 'BHG-locatie in het centrum',
+    tijdvakken: ['lunch'],
+    duur: '1 uur',
+    inkoopCents: 1750,
+    minPers: 8,
+    maxPers: 40,
+    seizoen: WINTER,
+    prijsBevestigd: false,
+    inclusief: ['erwtensoep of stamppot', 'frisdrank of koffie'],
+  }),
+
   // ============== Amelisweerd ==============
   blok({
     slug: 'kanoen',
@@ -327,6 +381,8 @@ export const BOUWSTENEN: Bouwsteen[] = [
 
 export type Pakket = {
   slug: string;
+  /** Zomer- en winterpakketten worden in hun seizoen uitgelicht. */
+  seizoen: Seizoen | 'jaarrond';
   naam: string;
   kort: string;
   beschrijving: string;
@@ -337,7 +393,25 @@ export type Pakket = {
 
 export const PAKKETTEN: Pakket[] = [
   {
+    slug: 'warme-winterdag',
+    seizoen: 'winter',
+    naam: 'Warme Winterdag',
+    kort: 'Glühwein, Domtoren, winterse lunch, jeu de boules en borrel.',
+    beschrijving:
+      'Een winterdag in het centrum van Utrecht, grotendeels binnen. Opwarmen met glühwein, de stad zien vanaf de Domtoren, erwtensoep of stamppot en daarna boulen tot de borrel.',
+    emoji: '❄️',
+    voorWie: 'Bedrijfsuitjes, teams en vriendengroepen',
+    blokken: {
+      ontvangst: 'gluhwein',
+      ochtend: 'domtoren',
+      lunch: 'winterlunch',
+      middag: 'jeu-de-boules',
+      afsluiting: 'borrel',
+    },
+  },
+  {
     slug: 'amelisweerd-actief',
+    seizoen: 'zomer',
     naam: 'Amelisweerd Actief',
     kort: 'Kanoën, picknick, kickbike-tocht en BBQ. De hele dag buiten.',
     beschrijving:
@@ -348,6 +422,7 @@ export const PAKKETTEN: Pakket[] = [
   },
   {
     slug: 'spel-en-borrel',
+    seizoen: 'jaarrond',
     naam: 'Utrecht Spel & Borrel',
     kort: 'Koffie, jeu de boules, lunch, shuffleboard en borrel.',
     beschrijving:
@@ -364,6 +439,7 @@ export const PAKKETTEN: Pakket[] = [
   },
   {
     slug: 'water-naar-borrel',
+    seizoen: 'zomer',
     naam: 'Van het water naar de borrel',
     kort: 'Suppen, picknick, per kickbike naar de stad en een borrel.',
     beschrijving:
@@ -374,6 +450,7 @@ export const PAKKETTEN: Pakket[] = [
   },
   {
     slug: 'schooluitje',
+    seizoen: 'jaarrond',
     naam: 'Schooluitje Utrecht',
     kort: 'Domtoren, groepslunch en een rondvaart.',
     beschrijving:
@@ -397,6 +474,36 @@ export const REGELS = {
 };
 
 export const DAGNAMEN = ['zondag', 'maandag', 'dinsdag', 'woensdag', 'donderdag', 'vrijdag', 'zaterdag'];
+
+/**
+ * Welk seizoen de site uitlicht. Mensen plannen een uitje een paar weken vooruit,
+ * daarom schuift de winter al half september naar voren en de zomer begin maart.
+ */
+export function uitgelichtSeizoen(nu = new Date()): Seizoen {
+  const [maand, dag] = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Amsterdam', month: 'numeric', day: 'numeric' })
+    .formatToParts(nu)
+    .filter((d) => d.type === 'month' || d.type === 'day')
+    .map((d) => Number(d.value));
+  if (maand! >= 3 && (maand! < 9 || (maand === 9 && dag! < 15))) return 'zomer';
+  return 'winter';
+}
+
+/** Maanden waarin een pakket te boeken is (doorsnede van de onderdelen). */
+export function pakketMaanden(p: Pakket): Maanden | null {
+  if (p.seizoen === 'zomer') return ZOMER;
+  if (p.seizoen === 'winter') return WINTER;
+  return null;
+}
+
+/** Pakketten van het uitgelichte seizoen eerst, dan jaarrond, dan buiten seizoen. */
+export function pakkettenOpSeizoen(seizoen = uitgelichtSeizoen()) {
+  const rang = (p: Pakket) => (p.seizoen === seizoen ? 0 : p.seizoen === 'jaarrond' ? 1 : 2);
+  return [...PAKKETTEN].sort((a, b) => rang(a) - rang(b));
+}
+
+export function buitenSeizoen(p: Pakket, seizoen = uitgelichtSeizoen()) {
+  return p.seizoen !== 'jaarrond' && p.seizoen !== seizoen;
+}
 
 export function vindBouwsteen(slug: string | undefined | null) {
   return slug ? BOUWSTENEN.find((b) => b.slug === slug) ?? null : null;
@@ -481,8 +588,8 @@ export function controleer(keuze: Keuze): string[] {
     if (keuze.personen < blok.minPers || keuze.personen > blok.maxPers) {
       fouten.push(`${blok.naam} kan met ${blok.minPers} tot ${blok.maxPers} personen.`);
     }
-    if (blok.seizoen && maand && (maand < blok.seizoen.van || maand > blok.seizoen.tot)) {
-      fouten.push(`${blok.naam} is alleen mogelijk van april tot en met oktober.`);
+    if (blok.seizoen && maand && !inMaanden(maand, blok.seizoen)) {
+      fouten.push(`${blok.naam} is alleen mogelijk van ${maandenTekst(blok.seizoen)}.`);
     }
   }
 

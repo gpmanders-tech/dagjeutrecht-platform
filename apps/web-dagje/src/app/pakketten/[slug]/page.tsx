@@ -6,6 +6,8 @@ import {
   REGELS,
   TIJDVAKKEN,
   formatEuro,
+  maandenTekst,
+  pakketMaanden,
   prijsPerPersoon,
   vindBouwsteen,
   vindPakket,
@@ -16,6 +18,7 @@ import { PakketKaart } from '../../../components/pakket-kaart';
 import { BoekBlok, Foto, HOEKEN, Knop, PaginaKop } from '../../../components/ui';
 
 export const dynamicParams = false;
+export const revalidate = 86400;
 
 export function generateStaticParams() {
   return PAKKETTEN.map((p) => ({ slug: p.slug }));
@@ -57,6 +60,7 @@ export default function PakketPage({ params }: { params: { slug: string } }) {
           <>
             <p>{p.beschrijving}</p>
             <p className="mt-2 font-bold">Voor: {p.voorWie}</p>
+            {pakketMaanden(p) && <p className="mt-1 font-bold">Te boeken van {maandenTekst(pakketMaanden(p)!)}</p>}
           </>
         }
         kleur="inkt"

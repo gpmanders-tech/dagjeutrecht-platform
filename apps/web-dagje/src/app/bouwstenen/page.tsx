@@ -17,6 +17,8 @@ const SECTIES: Array<{ cluster: Cluster; titel: string; sticker: string; kleur: 
   { cluster: 'beide', titel: 'Onderweg', sticker: 'Van A naar B', kleur: 'zon', achtergrond: 'bg-zon-100' },
 ];
 
+export const revalidate = 86400;
+
 export default function BouwstenenPage() {
   return (
     <>
