@@ -2,6 +2,7 @@ import '@utrecht/ui/styles';
 import './site.css';
 import { Inter, Playfair_Display } from 'next/font/google';
 import type { Metadata } from 'next';
+import { Analytics } from '@vercel/analytics/next';
 import { SiteHeader } from '../components/site-header';
 import { SiteFooter } from '../components/site-footer';
 
@@ -179,6 +180,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <SiteHeader />
         <div id="inhoud" className="flex-1">{children}</div>
         <SiteFooter />
+        <Analytics />
       </body>
     </html>
   );
