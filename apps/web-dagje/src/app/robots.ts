@@ -9,7 +9,7 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ['/boeken', '/api/', '/inkoop/', '/betaald'],
       },
     ],
-    sitemap: 'https://www.dagjeutrecht.nl/sitemap.xml',
-    host: 'https://www.dagjeutrecht.nl',
+    sitemap: 'https://dagjeutrecht.nl/sitemap.xml',
+    host: 'https://dagjeutrecht.nl',
   };
 }

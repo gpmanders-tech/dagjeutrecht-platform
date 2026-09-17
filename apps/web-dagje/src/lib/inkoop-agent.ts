@@ -36,7 +36,7 @@ function env(naam: string) {
 
 export function siteUrl() {
   if (env('NEXT_PUBLIC_SITE_URL')) return env('NEXT_PUBLIC_SITE_URL');
-  if (process.env.VERCEL_ENV === 'production') return 'https://www.dagjeutrecht.nl';
+  if (process.env.VERCEL_ENV === 'production') return 'https://dagjeutrecht.nl';
   if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`;
   return 'http://localhost:3001';
 }

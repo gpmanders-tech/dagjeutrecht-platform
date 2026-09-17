@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import { SiteHeader } from '../components/site-header';
 import { SiteFooter } from '../components/site-footer';
 
-const SITE_URL = 'https://www.dagjeutrecht.nl';
+const SITE_URL = 'https://dagjeutrecht.nl';
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

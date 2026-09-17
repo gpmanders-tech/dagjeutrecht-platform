@@ -2,7 +2,7 @@ import type { MetadataRoute } from 'next';
 import { prisma } from '@utrecht/db';
 import { PAKKETTEN } from '../lib/aanbod';
 
-const BASE = 'https://www.dagjeutrecht.nl';
+const BASE = 'https://dagjeutrecht.nl';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const vast: MetadataRoute.Sitemap = [
