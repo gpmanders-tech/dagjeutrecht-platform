@@ -2,8 +2,8 @@ export const metadata = { title: 'Over ons' };
 
 export default function OverOns() {
   return (
-    <main className="max-w-3xl mx-auto px-6 py-16 prose prose-canal">
-      <h1 className="font-serif text-4xl text-canal-900 mb-6">Over DagjeUtrecht</h1>
+    <main className="max-w-3xl mx-auto px-6 py-16 prose">
+      <h1 className="text-5xl font-black uppercase tracking-tight text-inkt mb-6">Over DagjeUtrecht</h1>
       <p>
         DagjeUtrecht is een handelsnaam van <strong>Handelsonderneming Manders</strong>, met
         jarenlange ervaring in georganiseerde groepsuitjes voor bedrijven, scholen en verenigingen
@@ -14,26 +14,26 @@ export default function OverOns() {
         een dag samen, wij regelen de reserveringen bij onze partners. Op de dag zelf is Ger jullie
         aanspreekpunt.
       </p>
-      <h2 className="font-serif text-2xl mt-8">Waarom deze site?</h2>
+      <h2 className="text-2xl font-black uppercase tracking-tight mt-8">Waarom deze site?</h2>
       <p>
         Een groepsuitje regelen kost vaak veel mailen en bellen. Daarom werken we met vaste
         onderdelen bij vaste partners, zoals JEU de boules bar en Botenverhuur De Rijnstroom. Je
         ziet meteen wat het kost en binnen 2 werkdagen is alles bevestigd.
       </p>
-      <h2 className="font-serif text-2xl mt-8">Contact</h2>
+      <h2 className="text-2xl font-black uppercase tracking-tight mt-8">Contact</h2>
       <ul>
         <li>
-          <a href="mailto:info@dagjeutrecht.nl" className="text-terracotta-600 underline">
+          <a href="mailto:info@dagjeutrecht.nl" className="text-vlam-700 underline">
             info@dagjeutrecht.nl
           </a>
         </li>
         <li>
-          <a href="tel:+31302271439" className="text-terracotta-600 underline">
+          <a href="tel:+31302271439" className="text-vlam-700 underline">
             030 - 227 14 39
           </a>
         </li>
       </ul>
-      <h2 className="font-serif text-2xl mt-8">Ons bedrijf</h2>
+      <h2 className="text-2xl font-black uppercase tracking-tight mt-8">Ons bedrijf</h2>
       <ul>
         <li>Handelsonderneming Manders</li>
         <li>KvK 63330393</li>

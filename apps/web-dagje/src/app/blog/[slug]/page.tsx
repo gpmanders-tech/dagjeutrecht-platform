@@ -69,15 +69,15 @@ export default async function BlogPost({ params }: { params: { slug: string } })
           className="w-full h-64 object-cover rounded-2xl mb-8"
         />
       )}
-      <h1 className="font-serif text-4xl text-canal-900 mb-3">{post.title}</h1>
+      <h1 className="text-5xl font-black uppercase tracking-tight text-inkt mb-3">{post.title}</h1>
       {post.publishedAt && (
-        <p className="text-sm text-canal-500 mb-6">
+        <p className="text-sm text-grijs mb-6">
           {new Intl.DateTimeFormat('nl-NL', { dateStyle: 'long' }).format(post.publishedAt)}
           {post.authorName ? ` · ${post.authorName}` : ''}
         </p>
       )}
       <div
-        className="prose prose-canal max-w-none text-canal-800 whitespace-pre-wrap"
+        className="prose max-w-none text-inkt whitespace-pre-wrap"
         // Markdown blijft ruw - de admin CMS mag deze pagina later omzetten met een MD-renderer.
       >
         {post.body}

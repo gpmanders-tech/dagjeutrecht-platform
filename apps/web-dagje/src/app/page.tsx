@@ -1,134 +1,278 @@
 import Link from 'next/link';
-import { UtrechtSkyline } from '@utrecht/ui';
-import { BOUWSTENEN, CLUSTERS, PAKKETTEN, REGELS } from '../lib/aanbod';
+import { BOUWSTENEN, CLUSTERS, PAKKETTEN, REGELS, formatEuro, prijsPerPersoon } from '../lib/aanbod';
+import { fotos, fotoVoorBouwsteen } from '../lib/fotos';
 import { PakketKaart } from '../components/pakket-kaart';
+import { Band, BoekBlok, Foto, HOEKEN, Knop, RondeSticker, Sticker } from '../components/ui';
 
-const STAPPEN = [
+const goedkoopste = Math.min(...PAKKETTEN.map((p) => prijsPerPersoon(p.blokken)));
+
+const cijfers = [
+  { getal: `${REGELS.minPers} tot ${REGELS.maxPers}`, label: 'personen per groep', kleur: 'bg-zee-400 text-inkt' },
+  { getal: `${BOUWSTENEN.length}`, label: 'onderdelen om te combineren', kleur: 'bg-zon-300 text-inkt' },
+  { getal: '2', label: 'werkdagen tot bevestiging', kleur: 'bg-vlam-400 text-inkt' },
+  { getal: 'Vast', label: 'prijs per persoon, incl. btw', kleur: 'bg-white text-inkt' },
+];
+
+const stappen = [
   {
-    titel: 'Kies een pakket of stel zelf samen',
-    tekst: 'Per tijdvak kies je een onderdeel. Je ziet meteen de vaste prijs per persoon.',
+    titel: 'Kies je dag',
+    tekst: 'Pak een pakket of stel zelf samen per tijdvak. Je ziet meteen wat het kost.',
+    kleur: 'text-zee-400',
   },
   {
-    titel: 'Wij regelen de reserveringen',
-    tekst: 'Binnen 2 werkdagen bevestigen we de beschikbaarheid bij onze partners en krijg je een betaallink.',
+    titel: 'Wij regelen het',
+    tekst: 'Binnen 2 werkdagen bevestigen onze partners alles en krijg je een betaallink.',
+    kleur: 'text-zon-400',
   },
   {
-    titel: 'Jullie hoeven alleen te komen',
-    tekst: 'De dag ervoor krijg je alle tijden, adressen en een telefoonnummer voor op de dag zelf.',
+    titel: 'Gaan met die banaan',
+    tekst: 'De dag ervoor krijg je alle tijden en adressen. Jullie hoeven alleen te komen.',
+    kleur: 'text-vlam-400',
   },
 ];
 
-const VOOR_WIE = [
-  { href: '/bedrijfsuitje-utrecht', naam: 'Bedrijfsuitje' },
-  { href: '/teambuilding-utrecht', naam: 'Teambuilding' },
-  { href: '/schooluitje-utrecht', naam: 'Schooluitje' },
-  { href: '/vrijgezellenfeest-utrecht', naam: 'Vrijgezellenfeest' },
+const voorWie = [
+  {
+    titel: 'Bedrijfsuitje',
+    tekst: 'Samen spelen, peddelen en afsluiten met een borrel.',
+    foto: fotos.boulesSpelers,
+    kleur: 'bg-zee-400',
+    href: '/bedrijfsuitje-utrecht',
+  },
+  {
+    titel: 'Vrijgezellenfeest',
+    tekst: 'Suppen, picknicken en per kickbike naar de borrel.',
+    foto: fotos.supVrijgezellen,
+    kleur: 'bg-vlam-500',
+    href: '/vrijgezellenfeest-utrecht',
+  },
+  {
+    titel: 'Teambuilding',
+    tekst: 'Samenwerken in de kano of strijden op de boulesbaan.',
+    foto: fotos.kanoDuo,
+    kleur: 'bg-zon-400',
+    href: '/teambuilding-utrecht',
+  },
+  {
+    titel: 'Schooluitje',
+    tekst: 'De Domtoren op, samen lunchen en de grachten over.',
+    foto: fotos.domtoren,
+    kleur: 'bg-inkt',
+    href: '/schooluitje-utrecht',
+  },
+];
+
+const galerij = [
+  fotos.supOudegracht,
+  fotos.kickbikeGracht,
+  fotos.kanoGracht,
+  fotos.oudegrachtDom,
+  fotos.supRood,
+  fotos.kickbikePark,
 ];
 
 export default function Home() {
   return (
     <main>
-      <section className="relative overflow-hidden bg-canal-900 text-white">
-        <UtrechtSkyline
-          className="absolute inset-x-0 bottom-0 w-full h-48 text-white opacity-[0.07] pointer-events-none"
-          aria-hidden="true"
+      <section className="op-donker relative isolate overflow-hidden bg-inkt text-white">
+        <Foto
+          foto={fotos.heroAchtergrond}
+          verhouding="absolute inset-0 h-full w-full"
+          sizes="100vw"
+          className="opacity-25"
+          prioriteit
         />
-        <div className="relative max-w-5xl mx-auto px-6 py-24 md:py-32">
-          <p className="text-cream/70 mb-3">Dagje Utrecht voor groepen van {REGELS.minPers} tot {REGELS.maxPers} personen</p>
-          <h1 className="font-serif text-5xl md:text-6xl mb-6 max-w-3xl">
-            Een dag Utrecht met je groep, zonder gedoe.
-          </h1>
-          <p className="text-xl text-cream/90 max-w-2xl">
-            Jeu de boules, kanoën, kickbiken, rondvaart en borrel. Kies een pakket of stel zelf je
-            dag samen, met een vaste prijs per persoon.
-          </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Link
-              href="/pakketten"
-              className="inline-flex items-center rounded-full bg-terracotta-500 hover:bg-terracotta-400 px-6 py-3 font-medium text-white shadow-lg"
-            >
-              Bekijk de pakketten →
-            </Link>
-            <Link
-              href="/boeken"
-              className="inline-flex items-center rounded-full border border-white/40 hover:border-white/70 px-6 py-3 font-medium text-white"
-            >
-              Zelf samenstellen
-            </Link>
+        <div className="absolute inset-0 bg-gradient-to-br from-inkt via-inkt/90 to-inkt/60" />
+        <div aria-hidden="true" className="absolute -right-24 top-10 h-80 w-80 rounded-full bg-zee-400/40 blur-3xl" />
+        <div aria-hidden="true" className="absolute -bottom-40 -left-20 h-96 w-96 rounded-full bg-vlam-500/40 blur-3xl" />
+
+        <div className="relative mx-auto grid max-w-5xl items-center gap-12 px-4 pb-24 pt-10 sm:px-6 md:grid-cols-2">
+          <div>
+            <Sticker kleur="zon">Groepen van {REGELS.minPers} tot {REGELS.maxPers}</Sticker>
+            <h1 className="mt-5 text-5xl font-black uppercase leading-[0.92] tracking-tight sm:text-7xl">
+              <span className="block">Een dagje</span>
+              <span className="block text-zon-300">Utrecht</span>
+              <span className="block">met je groep</span>
+            </h1>
+            <p className="mt-6 max-w-md text-lg text-zee-100 sm:text-xl">
+              Suppen, kanoën, kickbiken, jeu de boules en borrelen. Kies je onderdelen, wij regelen de rest.
+            </p>
+            <div className="mt-8 flex flex-wrap items-center gap-4">
+              <Knop href="/pakketten" variant="zon" className="text-lg">
+                Bekijk pakketten
+              </Knop>
+              <Link
+                href="/boeken"
+                className="text-lg font-extrabold uppercase tracking-wide text-white underline decoration-vlam-400 decoration-4 underline-offset-8 hover:text-zon-300"
+              >
+                Zelf samenstellen
+              </Link>
+            </div>
+          </div>
+
+          <div className="relative mx-auto w-full max-w-[19rem] sm:max-w-sm md:ml-auto md:mr-4">
+            <Foto
+              foto={fotos.supGroep}
+              verhouding="aspect-[4/5] -rotate-3"
+              sizes="(min-width: 768px) 40vw, 90vw"
+              className="kantel polaroid rounded-sm"
+              prioriteit
+            />
+            <Foto
+              foto={fotos.kickbikeDomkerk}
+              verhouding="aspect-square absolute -bottom-10 -left-6 w-40 rotate-6 sm:w-48"
+              sizes="200px"
+              className="kantel polaroid rounded-sm"
+            />
+            <Foto
+              foto={fotos.boules}
+              verhouding="aspect-[4/3] absolute -right-4 -top-8 w-36 rotate-6 sm:w-44"
+              sizes="180px"
+              className="kantel polaroid hidden rounded-sm sm:block"
+            />
+            <RondeSticker
+              boven="Pakketten"
+              midden={formatEuro(goedkoopste)}
+              onder="per persoon"
+              className="absolute -bottom-6 right-0 sm:-right-6"
+            />
           </div>
         </div>
       </section>
 
-      <section className="max-w-5xl mx-auto px-6 py-20">
-        <h2 className="font-serif text-3xl mb-10 text-canal-900">Zo werkt het</h2>
-        <ol className="grid md:grid-cols-3 gap-6">
-          {STAPPEN.map((s, i) => (
-            <li key={s.titel} className="flex gap-4">
-              <span className="flex-shrink-0 w-9 h-9 rounded-full bg-terracotta-500 text-white grid place-items-center font-semibold">
-                {i + 1}
-              </span>
-              <div>
-                <p className="font-medium text-canal-900">{s.titel}</p>
-                <p className="text-sm text-canal-700 mt-1">{s.tekst}</p>
-              </div>
+      <div className="-mt-4 mb-4 sm:-mt-6">
+        <Band woorden={['Suppen', 'Kanoën', 'Kickbiken', 'Jeu de boules', 'Shuffleboard', 'Rondvaart', 'Borrel', 'BBQ']} />
+      </div>
+
+      <section aria-label="In het kort" className="mx-auto max-w-5xl px-4 py-10 sm:px-6">
+        <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {cijfers.map((c) => (
+            <li key={c.label} className={`rounded-2xl border-2 border-inkt/10 p-5 shadow-md ${c.kleur}`}>
+              <p className="text-3xl font-black leading-none">{c.getal}</p>
+              <p className="mt-2 text-sm font-bold uppercase tracking-wide">{c.label}</p>
             </li>
           ))}
-        </ol>
+        </ul>
       </section>
 
-      <section className="bg-cream py-20">
-        <div className="max-w-5xl mx-auto px-6">
-          <h2 className="font-serif text-3xl mb-3 text-canal-900">Pakketten</h2>
-          <p className="text-canal-700 mb-10 max-w-2xl">
-            Kant-en-klare dagen. Boek ze zoals ze zijn of wissel onderdelen om.
-          </p>
-          <div className="grid md:grid-cols-2 gap-6">
-            {PAKKETTEN.map((p) => (
-              <PakketKaart key={p.slug} pakket={p} />
+      <section className="bg-vlam-50">
+        <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6">
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <h2 className="text-4xl font-black uppercase tracking-tight text-inkt sm:text-5xl">Pakketten</h2>
+            <p className="text-lg font-bold text-inkt">Vaste prijs per persoon, incl. btw</p>
+          </div>
+          <ul className="mt-10 grid gap-8 sm:grid-cols-2">
+            {PAKKETTEN.map((p, i) => (
+              <li key={p.slug}>
+                <PakketKaart pakket={p} hoek={HOEKEN[i % HOEKEN.length]} uitgelicht={i === 0} />
+              </li>
             ))}
+          </ul>
+        </div>
+      </section>
+
+      <section className="op-donker relative isolate overflow-hidden bg-inkt text-white">
+        <div aria-hidden="true" className="absolute -left-24 top-0 h-72 w-72 rounded-full bg-zee-400/30 blur-3xl" />
+        <div className="relative mx-auto max-w-5xl px-4 py-16 sm:px-6">
+          <h2 className="text-4xl font-black uppercase tracking-tight sm:text-5xl">Hoe werkt het?</h2>
+          <ol className="mt-12 grid gap-8 md:grid-cols-3">
+            {stappen.map((s, i) => (
+              <li key={s.titel} className="relative pl-4">
+                <span aria-hidden="true" className={`absolute -left-2 -top-8 text-8xl font-black leading-none opacity-40 ${s.kleur}`}>
+                  {i + 1}
+                </span>
+                <h3 className="relative text-2xl font-extrabold">
+                  <span className="sr-only">Stap {i + 1}: </span>
+                  {s.titel}
+                </h3>
+                <p className="relative mt-2 text-zee-100">{s.tekst}</p>
+              </li>
+            ))}
+          </ol>
+          <div className="mt-10">
+            <Knop href="/boeken" variant="zon">
+              Stel je dag samen
+            </Knop>
           </div>
         </div>
       </section>
 
-      <section className="max-w-5xl mx-auto px-6 py-20">
-        <h2 className="font-serif text-3xl mb-3 text-canal-900">Twee plekken, één dag</h2>
-        <p className="text-canal-700 mb-10 max-w-2xl">
-          Spelen en borrelen in het centrum, of actief op het water in Amelisweerd. Met de kickbike
-          ga je van het een naar het ander.
-        </p>
-        <div className="grid md:grid-cols-2 gap-6">
-          {(['centrum', 'amelisweerd'] as const).map((c) => (
-            <div key={c} className="rounded-2xl border border-canal-100 p-6">
-              <h3 className="font-serif text-2xl text-canal-900">{CLUSTERS[c].naam}</h3>
-              <p className="text-sm text-canal-600 mt-1 mb-4">{CLUSTERS[c].uitleg}</p>
-              <ul className="space-y-1 text-canal-800">
-                {BOUWSTENEN.filter((b) => b.cluster === c).map((b) => (
+      {(['amelisweerd', 'centrum'] as const).map((c, ci) => {
+        const blokken = BOUWSTENEN.filter((b) => b.cluster === c || (c === 'amelisweerd' && b.cluster === 'beide'));
+        return (
+          <section key={c} className={ci === 0 ? 'bg-zee-50' : 'bg-white'}>
+            <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6">
+              <Sticker kleur={ci === 0 ? 'zee' : 'vlam'} hoek={ci === 0 ? 'rotate-2' : '-rotate-2'}>
+                {ci === 0 ? 'Actief en buiten' : 'Spelen en borrelen'}
+              </Sticker>
+              <h2 className="mt-4 text-4xl font-black uppercase tracking-tight text-inkt sm:text-5xl">{CLUSTERS[c].naam}</h2>
+              <p className="mt-3 max-w-2xl text-lg text-grijs">{CLUSTERS[c].uitleg}</p>
+              <ul className="mt-10 grid grid-cols-2 gap-5 md:grid-cols-4">
+                {blokken.map((b, i) => (
                   <li key={b.slug}>
-                    <Link href={`/bouwstenen#${b.slug}`} className="hover:text-terracotta-600">
-                      <span aria-hidden="true">{b.emoji}</span> {b.naam}
+                    <Link href={`/bouwstenen#${b.slug}`} className="group block">
+                      <Foto
+                        foto={fotoVoorBouwsteen(b.slug)}
+                        verhouding={`aspect-square ${HOEKEN[i % HOEKEN.length]}`}
+                        sizes="(min-width: 768px) 25vw, 50vw"
+                        className="kantel polaroid rounded-sm transition-transform group-hover:rotate-0 group-hover:scale-105"
+                      />
+                      <p className="mt-4 font-extrabold uppercase leading-tight text-inkt group-hover:text-vlam-700">{b.naam}</p>
+                      <p className="text-sm font-bold text-grijs">{formatEuro(b.verkoopCents)} p.p.</p>
                     </Link>
                   </li>
                 ))}
               </ul>
             </div>
-          ))}
+          </section>
+        );
+      })}
+
+      <Band woorden={['Oudegracht', 'Amelisweerd', 'Kromme Rijn', 'Domtoren', 'Paardenveld', 'Rhijnauwen']} kleur="bg-zee-400 text-inkt" hoek="rotate-1" />
+
+      <section className="bg-zon-100">
+        <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6">
+          <h2 className="text-4xl font-black uppercase tracking-tight text-inkt sm:text-5xl">Voor wie?</h2>
+          <ul className="mt-10 grid gap-6 sm:grid-cols-2">
+            {voorWie.map((d, i) => (
+              <li
+                key={d.titel}
+                className={`kantel overflow-hidden rounded-2xl bg-white shadow-xl transition-transform hover:-translate-y-1 hover:rotate-0 ${i % 2 ? 'rotate-1' : '-rotate-1'}`}
+              >
+                <Link href={d.href} className="block">
+                  <Foto foto={d.foto} verhouding="aspect-[16/10]" sizes="(min-width: 640px) 50vw, 100vw" />
+                  <div className={`h-2 ${d.kleur}`} />
+                  <div className="p-5">
+                    <h3 className="text-2xl font-extrabold text-inkt underline decoration-vlam-400 decoration-4 underline-offset-4">
+                      {d.titel}
+                    </h3>
+                    <p className="mt-2 text-grijs">{d.tekst}</p>
+                  </div>
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 
-      <section className="max-w-5xl mx-auto px-6 pb-8">
-        <h2 className="font-serif text-3xl mb-6 text-canal-900">Voor wie?</h2>
-        <div className="flex flex-wrap gap-3">
-          {VOOR_WIE.map((v) => (
-            <Link
-              key={v.href}
-              href={v.href}
-              className="rounded-full border border-canal-200 hover:border-terracotta-500 hover:text-terracotta-600 px-5 py-2 text-canal-800"
-            >
-              {v.naam}
-            </Link>
+      <section className="mx-auto max-w-5xl px-4 py-16 sm:px-6">
+        <h2 className="text-4xl font-black uppercase tracking-tight text-inkt sm:text-5xl">Utrecht vanaf het water</h2>
+        <p className="mt-3 max-w-2xl text-lg text-grijs">Over de grachten, langs de Kromme Rijn en door de binnenstad.</p>
+        <ul className="mt-10 grid grid-cols-2 gap-6 md:grid-cols-3">
+          {galerij.map((foto, i) => (
+            <li key={foto.src}>
+              <Foto
+                foto={foto}
+                verhouding={`aspect-square ${HOEKEN[i % HOEKEN.length]}`}
+                sizes="(min-width: 768px) 33vw, 50vw"
+                className="kantel polaroid rounded-sm transition-transform hover:rotate-0"
+              />
+            </li>
           ))}
-        </div>
+        </ul>
       </section>
+
+      <BoekBlok />
     </main>
   );
 }

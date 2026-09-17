@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import { PAKKETTEN } from '../../lib/aanbod';
+import { fotos } from '../../lib/fotos';
 import { PakketKaart } from '../../components/pakket-kaart';
+import { Band, BoekBlok, HOEKEN, PaginaKop } from '../../components/ui';
 
 export const metadata: Metadata = {
   title: 'Pakketten voor een dagje Utrecht',
@@ -12,20 +13,28 @@ export const metadata: Metadata = {
 
 export default function PakkettenPage() {
   return (
-    <main className="max-w-6xl mx-auto px-6 py-14">
-      <h1 className="font-serif text-4xl md:text-5xl text-canal-900 mb-3">Pakketten</h1>
-      <p className="text-canal-700 max-w-2xl mb-10">
-        Vier dagen die goed werken. Boek ze zoals ze zijn, of wissel onderdelen om in de{' '}
-        <Link href="/boeken" className="underline hover:text-terracotta-600">
-          samensteller
-        </Link>
-        .
-      </p>
-      <div className="grid md:grid-cols-2 gap-6">
-        {PAKKETTEN.map((p) => (
-          <PakketKaart key={p.slug} pakket={p} />
-        ))}
+    <>
+      <PaginaKop
+        titel="Pakketten"
+        intro="Vier dagen die goed werken. Boek ze zoals ze zijn, of wissel onderdelen om in de samensteller."
+        kleur="zee"
+        foto={fotos.supVrijgezellen}
+        label="Vaste prijs per persoon"
+        knop={{ href: '/boeken', tekst: 'Zelf samenstellen' }}
+      />
+      <div className="-mt-3">
+        <Band woorden={PAKKETTEN.map((p) => p.naam)} />
       </div>
-    </main>
+      <section className="mx-auto max-w-5xl px-4 py-16 sm:px-6">
+        <ul className="grid gap-8 sm:grid-cols-2">
+          {PAKKETTEN.map((p, i) => (
+            <li key={p.slug}>
+              <PakketKaart pakket={p} hoek={HOEKEN[i % HOEKEN.length]} />
+            </li>
+          ))}
+        </ul>
+      </section>
+      <BoekBlok titel="Liever zelf kiezen?" tekst="Stel per tijdvak je eigen dag samen uit alle onderdelen." foto={fotos.kickbikeGracht} />
+    </>
   );
 }

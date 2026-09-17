@@ -1,7 +1,12 @@
 import '@utrecht/ui/styles';
+import './site.css';
+import { Inter, Playfair_Display } from 'next/font/google';
 import type { Metadata } from 'next';
 import { SiteHeader } from '../components/site-header';
 import { SiteFooter } from '../components/site-footer';
+
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' });
+const playfair = Playfair_Display({ subsets: ['latin'], weight: ['700'], variable: '--font-playfair', display: 'swap' });
 
 const SITE_URL = 'https://dagjeutrecht.nl';
 
@@ -147,7 +152,7 @@ const BING_TAG = process.env.NEXT_PUBLIC_BING_VERIFICATION;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="nl">
+    <html lang="nl" className={`${inter.variable} ${playfair.variable} antialiased`}>
       <head>
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         {GSC_TAG && <meta name="google-site-verification" content={GSC_TAG} />}
@@ -170,9 +175,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </>
         )}
       </head>
-      <body className="min-h-screen bg-white text-canal-900 flex flex-col">
+      <body className="flex min-h-screen flex-col bg-white font-sans text-inkt">
         <SiteHeader />
-        <div className="flex-1">{children}</div>
+        <div id="inhoud" className="flex-1">{children}</div>
         <SiteFooter />
       </body>
     </html>

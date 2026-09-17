@@ -1,4 +1,5 @@
 import { REGELS, formatEuro, prijsPerPersoon, vindPakket } from './aanbod';
+import { fotos, type Foto } from './fotos';
 
 export type Landing = {
   pad: string;
@@ -10,6 +11,10 @@ export type Landing = {
   pakketten: string[];
   alineas: Array<{ kop: string; tekst: string }>;
   faq: Array<{ q: string; a: string }>;
+  kleur: 'zee' | 'vlam' | 'zon' | 'inkt';
+  foto: Foto;
+  galerij: Foto[];
+  band: string[];
 };
 
 function prijs(slug: string) {
@@ -37,6 +42,10 @@ const ALGEMENE_FAQ = [
 export const LANDINGS: Record<'bedrijfsuitje' | 'teambuilding' | 'schooluitje' | 'vrijgezellenfeest', Landing> = {
   bedrijfsuitje: {
     pad: '/bedrijfsuitje-utrecht',
+    kleur: 'zee',
+    foto: fotos.boulesSpelers,
+    galerij: [fotos.boules, fotos.kanoDuo, fotos.terrassen, fotos.borrel],
+    band: ['Jeu de boules', 'Shuffleboard', 'Kanoën', 'Lunch', 'Borrel', 'Factuur op de zaak'],
     metaTitel: 'Bedrijfsuitje Utrecht: vaste pakketten met vaste prijs',
     metaOmschrijving:
       'Bedrijfsuitje in Utrecht zonder gedoe: jeu de boules, shuffleboard, kanoën of kickbiken met lunch en borrel. Vaste prijs per persoon, online samen te stellen.',
@@ -68,6 +77,10 @@ export const LANDINGS: Record<'bedrijfsuitje' | 'teambuilding' | 'schooluitje' |
 
   teambuilding: {
     pad: '/teambuilding-utrecht',
+    kleur: 'vlam',
+    foto: fotos.kanoDuo,
+    galerij: [fotos.kanoBrug, fotos.shuffleboard, fotos.kickbikePark, fotos.bbq],
+    band: ['Samenwerken', 'Strijden', 'Peddelen', 'Steppen', 'Borrelen'],
     metaTitel: 'Teambuilding Utrecht: spelen, peddelen en borrelen',
     metaOmschrijving:
       'Teambuilding in Utrecht met jeu de boules, shuffleboard, kanoën of een kickbike-tocht. Vaste pakketten en een vaste prijs per persoon.',
@@ -93,6 +106,10 @@ export const LANDINGS: Record<'bedrijfsuitje' | 'teambuilding' | 'schooluitje' |
 
   schooluitje: {
     pad: '/schooluitje-utrecht',
+    kleur: 'zon',
+    foto: fotos.domtoren,
+    galerij: [fotos.oudegrachtDom, fotos.rondvaart, fotos.terrassen, fotos.grachtAvond],
+    band: ['Domtoren', 'Rondvaart', 'Groepslunch', 'Oudegracht', 'Vo en mbo'],
     metaTitel: 'Schooluitje Utrecht: Domtoren, lunch en rondvaart',
     metaOmschrijving:
       'Schooluitje in Utrecht voor vo en mbo: beklimming van de Domtoren, groepslunch en een rondvaart door de grachten. Vaste prijs per leerling.',
@@ -127,6 +144,10 @@ export const LANDINGS: Record<'bedrijfsuitje' | 'teambuilding' | 'schooluitje' |
 
   vrijgezellenfeest: {
     pad: '/vrijgezellenfeest-utrecht',
+    kleur: 'inkt',
+    foto: fotos.supVrijgezellen,
+    galerij: [fotos.supOudegracht, fotos.picknick, fotos.kickbikeGracht, fotos.borrel],
+    band: ['Suppen', 'Picknick', 'Kickbike', 'Borrel', 'Vrijgezellen'],
     metaTitel: 'Vrijgezellenfeest Utrecht: suppen, kickbike en borrel',
     metaOmschrijving:
       'Vrijgezellenfeest in Utrecht: suppen of kanoën in Amelisweerd, per kickbike naar de stad en afsluiten met een borrel. Vaste prijs per persoon.',

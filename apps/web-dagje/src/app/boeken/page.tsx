@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 import { BoekenFormulier } from '../../components/boeken-formulier';
+import { fotos } from '../../lib/fotos';
+import { PaginaKop } from '../../components/ui';
 
 export const metadata: Metadata = {
   title: 'Stel je dag samen en boek',
@@ -11,13 +13,17 @@ export const metadata: Metadata = {
 
 export default function BoekenPage({ searchParams }: { searchParams: { pakket?: string } }) {
   return (
-    <main className="max-w-6xl mx-auto px-6 py-12">
-      <h1 className="font-serif text-4xl md:text-5xl text-canal-900 mb-3">Stel je dag samen</h1>
-      <p className="text-canal-700 max-w-2xl mb-10">
-        Kies per tijdvak een onderdeel. De prijs is vast en je ziet hem meteen. Wij regelen de
-        reserveringen bij onze partners.
-      </p>
-      <BoekenFormulier startPakket={searchParams.pakket} />
-    </main>
+    <>
+      <PaginaKop
+        titel="Stel je dag samen"
+        intro="Kies per tijdvak een onderdeel. De prijs is vast en je ziet hem meteen. Wij regelen de reserveringen bij onze partners."
+        kleur="zon"
+        foto={fotos.kickbikePoort}
+        label="In 3 stappen"
+      />
+      <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+        <BoekenFormulier startPakket={searchParams.pakket} />
+      </div>
+    </>
   );
 }

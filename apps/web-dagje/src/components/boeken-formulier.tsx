@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useMemo, useState } from 'react';
 import {
   BOUWSTENEN,
@@ -15,6 +16,7 @@ import {
   type TijdvakId,
 } from '../lib/aanbod';
 import { submitBoeking } from '../app/actions/submit-boeking';
+import { fotoVoorBouwsteen, fotoVoorPakket } from '../lib/fotos';
 
 const GROEPEN = [
   { id: 'TEAM', naam: 'Bedrijf of team' },
@@ -30,7 +32,10 @@ function eersteMogelijkeDatum() {
   return d.toISOString().slice(0, 10);
 }
 
-const invoer = 'mt-1 w-full rounded-lg border border-canal-200 px-3 py-2 bg-white';
+const invoer = 'mt-1 w-full rounded-xl border-2 border-zee-200 bg-white px-3 py-2.5 text-inkt focus:border-zee-500';
+const gekozenStijl = 'border-vlam-400 bg-vlam-50 ring-2 ring-vlam-400';
+const openStijl = 'border-inkt/10 bg-white hover:border-zee-400';
+const stapKop = 'text-3xl font-black uppercase tracking-tight text-inkt';
 
 export function BoekenFormulier({ startPakket }: { startPakket?: string }) {
   const [pakket, setPakket] = useState<string | undefined>(vindPakket(startPakket)?.slug);
@@ -91,8 +96,8 @@ export function BoekenFormulier({ startPakket }: { startPakket?: string }) {
 
   if (code) {
     return (
-      <div className="max-w-2xl mx-auto rounded-2xl bg-emerald-50 border border-emerald-200 p-8 text-emerald-900">
-        <h2 className="font-serif text-3xl mb-3">Bedankt, je aanvraag is binnen</h2>
+      <div className="mx-auto max-w-2xl rounded-2xl bg-zee-400 p-8 text-inkt shadow-xl">
+        <h2 className="mb-3 text-4xl font-black uppercase">Bedankt, je aanvraag is binnen</h2>
         <p className="mb-2">
           Aanvraagnummer <strong>{code}</strong>. Je krijgt zo een bevestiging per mail.
         </p>
@@ -109,14 +114,14 @@ export function BoekenFormulier({ startPakket }: { startPakket?: string }) {
       <div className="space-y-10">
         {/* Stap 1 */}
         <section>
-          <h2 className="font-serif text-2xl text-canal-900 mb-1">1. Wanneer en met hoeveel?</h2>
-          <p className="text-sm text-canal-600 mb-4">
+          <h2 className={`${stapKop} mb-1`}>1. Wanneer en met hoeveel?</h2>
+          <p className="mb-5 text-grijs">
             Op donderdag, vrijdag of zaterdag, minimaal {REGELS.minDagenVooruit} dagen vooruit. Van{' '}
             {REGELS.minPers} tot {REGELS.maxPers} personen.
           </p>
           <div className="grid sm:grid-cols-2 gap-4">
             <label className="block">
-              <span className="text-sm text-canal-800">Datum</span>
+              <span className="text-sm font-bold text-inkt">Datum</span>
               <input
                 type="date"
                 min={eersteMogelijkeDatum()}
@@ -126,7 +131,7 @@ export function BoekenFormulier({ startPakket }: { startPakket?: string }) {
               />
             </label>
             <label className="block">
-              <span className="text-sm text-canal-800">Aantal personen</span>
+              <span className="text-sm font-bold text-inkt">Aantal personen</span>
               <input
                 type="number"
                 min={REGELS.minPers}
@@ -141,25 +146,28 @@ export function BoekenFormulier({ startPakket }: { startPakket?: string }) {
 
         {/* Stap 2 */}
         <section>
-          <h2 className="font-serif text-2xl text-canal-900 mb-1">2. Start met een pakket</h2>
-          <p className="text-sm text-canal-600 mb-4">Of sla dit over en kies hieronder zelf per tijdvak.</p>
+          <h2 className={`${stapKop} mb-1`}>2. Start met een pakket</h2>
+          <p className="mb-5 text-grijs">Of sla dit over en kies hieronder zelf per tijdvak.</p>
           <div className="grid sm:grid-cols-2 gap-3">
             {PAKKETTEN.map((p) => (
               <button
                 key={p.slug}
                 type="button"
                 onClick={() => kiesPakket(p.slug)}
-                className={`text-left rounded-xl border p-4 transition-colors ${
-                  pakket === p.slug
-                    ? 'border-terracotta-500 bg-terracotta-50'
-                    : 'border-canal-100 bg-white hover:border-canal-300'
+                className={`overflow-hidden rounded-2xl border-2 text-left shadow-md transition-all hover:-translate-y-0.5 ${
+                  pakket === p.slug ? gekozenStijl : openStijl
                 }`}
               >
-                <p className="font-medium text-canal-900">
-                  {p.emoji} {p.naam}
-                </p>
-                <p className="text-sm text-canal-600 mt-1">{p.kort}</p>
-                <p className="text-sm text-canal-900 mt-2">{formatEuro(prijsPerPersoon(p.blokken))} p.p.</p>
+                <span className="relative block aspect-[16/9]">
+                  <Image src={fotoVoorPakket(p.slug).src} alt="" fill sizes="(min-width: 640px) 30vw, 100vw" className="object-cover" />
+                  <span className="absolute bottom-2 right-2 rounded-full bg-white px-3 py-1 text-sm font-black text-inkt shadow">
+                    {formatEuro(prijsPerPersoon(p.blokken))} p.p.
+                  </span>
+                </span>
+                <span className="block p-4">
+                  <span className="block text-lg font-extrabold text-inkt">{p.naam}</span>
+                  <span className="mt-1 block text-sm text-grijs">{p.kort}</span>
+                </span>
               </button>
             ))}
           </div>
@@ -167,8 +175,8 @@ export function BoekenFormulier({ startPakket }: { startPakket?: string }) {
 
         {/* Stap 3 */}
         <section>
-          <h2 className="font-serif text-2xl text-canal-900 mb-1">3. Kies per tijdvak</h2>
-          <p className="text-sm text-canal-600 mb-4">
+          <h2 className={`${stapKop} mb-1`}>3. Kies per tijdvak</h2>
+          <p className="mb-5 text-grijs">
             Verplaatsen tussen het centrum en Amelisweerd gaat met de kickbike-tocht.
           </p>
           <div className="space-y-6">
@@ -177,40 +185,42 @@ export function BoekenFormulier({ startPakket }: { startPakket?: string }) {
               const gekozen = blokken[t.id];
               return (
                 <fieldset key={t.id}>
-                  <legend className="text-sm font-medium text-canal-900 mb-2">
-                    {t.naam} <span className="text-canal-500 font-normal">{t.van} tot {t.tot}</span>
+                  <legend className="mb-3 flex items-center gap-3">
+                    <span className="rounded-lg bg-zee-400 px-3 py-1 text-sm font-extrabold uppercase tracking-wide text-inkt">{t.naam}</span>
+                    <span className="font-bold text-grijs">
+                      {t.van} tot {t.tot}
+                    </span>
                   </legend>
                   <div className="grid sm:grid-cols-2 gap-2">
                     <button
                       type="button"
                       onClick={() => kiesBlok(t.id, null)}
-                      className={`text-left rounded-xl border px-4 py-3 text-sm ${
-                        !gekozen
-                          ? 'border-terracotta-500 bg-terracotta-50'
-                          : 'border-canal-100 bg-white hover:border-canal-300'
+                      className={`flex min-h-[4.5rem] items-center justify-center rounded-xl border-2 border-dashed px-4 py-3 text-sm font-bold ${
+                        !gekozen ? gekozenStijl : 'border-inkt/15 bg-white text-grijs hover:border-zee-400'
                       }`}
                     >
-                      <span className="text-canal-700">Niets in dit tijdvak</span>
+                      Niets in dit tijdvak
                     </button>
                     {opties.map((b) => (
                       <button
                         key={b.slug}
                         type="button"
                         onClick={() => kiesBlok(t.id, b.slug)}
-                        className={`text-left rounded-xl border px-4 py-3 text-sm ${
-                          gekozen === b.slug
-                            ? 'border-terracotta-500 bg-terracotta-50'
-                            : 'border-canal-100 bg-white hover:border-canal-300'
+                        className={`flex items-center gap-3 overflow-hidden rounded-xl border-2 p-2 pr-3 text-left text-sm transition-all ${
+                          gekozen === b.slug ? gekozenStijl : openStijl
                         }`}
                       >
-                        <span className="flex justify-between gap-2">
-                          <span className="font-medium text-canal-900">
-                            {b.emoji} {b.naam}
-                          </span>
-                          <span className="text-canal-900 whitespace-nowrap">{formatEuro(b.verkoopCents)}</span>
+                        <span className="relative h-14 w-14 shrink-0 overflow-hidden rounded-lg">
+                          <Image src={fotoVoorBouwsteen(b.slug).src} alt="" fill sizes="56px" className="object-cover" />
                         </span>
-                        <span className="block text-canal-500 mt-1">
-                          {CLUSTERS[b.cluster].naam} · {b.duur}
+                        <span className="min-w-0 flex-1">
+                          <span className="flex justify-between gap-2">
+                            <span className="font-extrabold text-inkt">{b.naam}</span>
+                            <span className="whitespace-nowrap font-black text-inkt">{formatEuro(b.verkoopCents)}</span>
+                          </span>
+                          <span className="mt-0.5 block text-grijs">
+                            {b.cluster === 'beide' ? 'Onderweg' : CLUSTERS[b.cluster].naam} · {b.duur}
+                          </span>
                         </span>
                       </button>
                     ))}
@@ -223,9 +233,9 @@ export function BoekenFormulier({ startPakket }: { startPakket?: string }) {
       </div>
 
       {/* Overzicht en gegevens */}
-      <aside className="lg:sticky lg:top-24 rounded-2xl border border-canal-100 bg-cream/60 p-6 space-y-5">
+      <aside className="op-donker space-y-5 rounded-2xl bg-inkt p-6 text-white shadow-xl lg:sticky lg:top-24">
         <div>
-          <h2 className="font-serif text-2xl text-canal-900 mb-3">Jullie dag</h2>
+          <h2 className="mb-3 text-3xl font-black uppercase tracking-tight text-zon-300">Jullie dag</h2>
           <ul className="space-y-2 text-sm">
             {TIJDVAKKEN.map((t) => {
               const b = vindBouwsteen(blokken[t.id]);
@@ -233,28 +243,28 @@ export function BoekenFormulier({ startPakket }: { startPakket?: string }) {
               return (
                 <li key={t.id} className="flex justify-between gap-3">
                   <span>
-                    <span className="text-canal-500">{t.van}</span> {b.naam}
+                    <span className="font-bold text-zee-300">{t.van}</span> {b.naam}
                   </span>
                   <span className="whitespace-nowrap">{formatEuro(b.verkoopCents)}</span>
                 </li>
               );
             })}
           </ul>
-          <div className="border-t border-canal-200 mt-4 pt-3 text-sm space-y-1">
+          <div className="mt-4 space-y-1 border-t border-inkt-700 pt-3 text-sm">
             <p className="flex justify-between">
               <span>Per persoon</span>
               <span>{formatEuro(pp)}</span>
             </p>
-            <p className="flex justify-between font-medium text-canal-900 text-base">
+            <p className="flex justify-between text-2xl font-black text-white">
               <span>Totaal {personen > 0 ? `(${personen} pers.)` : ''}</span>
               <span>{formatEuro(pp * Math.max(personen, 0))}</span>
             </p>
-            <p className="text-xs text-canal-500">Inclusief btw. Vaste prijs, geen verrassingen achteraf.</p>
+            <p className="text-xs text-zee-200">Inclusief btw. Vaste prijs, geen verrassingen achteraf.</p>
           </div>
         </div>
 
         {fouten.length > 0 && (
-          <ul className="rounded-xl bg-white border border-amber-200 p-4 text-sm text-amber-800 space-y-1">
+          <ul className="space-y-1 rounded-xl bg-zon-300 p-4 text-sm font-semibold text-inkt">
             {fouten.map((f) => (
               <li key={f}>• {f}</li>
             ))}
@@ -263,7 +273,7 @@ export function BoekenFormulier({ startPakket }: { startPakket?: string }) {
 
         <form action={verstuur} className="space-y-3">
           <label className="block">
-            <span className="text-sm text-canal-800">Soort groep</span>
+            <span className="text-sm font-bold text-zee-100">Soort groep</span>
             <select name="groep" required className={invoer} defaultValue="TEAM">
               {GROEPEN.map((g) => (
                 <option key={g.id} value={g.id}>
@@ -273,29 +283,29 @@ export function BoekenFormulier({ startPakket }: { startPakket?: string }) {
             </select>
           </label>
           <label className="block">
-            <span className="text-sm text-canal-800">Naam</span>
+            <span className="text-sm font-bold text-zee-100">Naam</span>
             <input name="naam" required autoComplete="name" className={invoer} />
           </label>
           <label className="block">
-            <span className="text-sm text-canal-800">E-mail</span>
+            <span className="text-sm font-bold text-zee-100">E-mail</span>
             <input name="email" type="email" required autoComplete="email" className={invoer} />
           </label>
           <label className="block">
-            <span className="text-sm text-canal-800">Telefoon (voor op de dag zelf)</span>
+            <span className="text-sm font-bold text-zee-100">Telefoon (voor op de dag zelf)</span>
             <input name="telefoon" type="tel" required autoComplete="tel" className={invoer} />
           </label>
           <label className="block">
-            <span className="text-sm text-canal-800">Bedrijf of school (optioneel)</span>
+            <span className="text-sm font-bold text-zee-100">Bedrijf of school (optioneel)</span>
             <input name="bedrijf" autoComplete="organization" className={invoer} />
           </label>
           <label className="block">
-            <span className="text-sm text-canal-800">Opmerking (optioneel)</span>
+            <span className="text-sm font-bold text-zee-100">Opmerking (optioneel)</span>
             <textarea name="opmerking" rows={3} maxLength={1000} className={invoer} />
           </label>
           <input name="website" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
 
           {serverFouten.length > 0 && (
-            <ul className="text-sm text-red-700 space-y-1">
+            <ul className="space-y-1 rounded-xl bg-white p-3 text-sm font-semibold text-rose-700">
               {serverFouten.map((f) => (
                 <li key={f}>• {f}</li>
               ))}
@@ -305,11 +315,11 @@ export function BoekenFormulier({ startPakket }: { startPakket?: string }) {
           <button
             type="submit"
             disabled={bezig || fouten.length > 0}
-            className="w-full rounded-full bg-terracotta-500 hover:bg-terracotta-400 text-white px-6 py-3 font-medium disabled:opacity-40 disabled:cursor-not-allowed"
+            className="w-full rounded-full bg-zon-400 px-6 py-3.5 text-lg font-extrabold uppercase tracking-wide text-inkt shadow-lg hover:bg-zon-300 disabled:cursor-not-allowed disabled:opacity-40"
           >
             {bezig ? 'Versturen...' : 'Aanvraag versturen'}
           </button>
-          <p className="text-xs text-canal-500">
+          <p className="text-xs text-zee-200">
             Je betaalt nog niets. We bevestigen binnen 2 werkdagen de beschikbaarheid en sturen dan een
             betaallink. Dieetwensen en maatwerk zijn niet mogelijk.
           </p>

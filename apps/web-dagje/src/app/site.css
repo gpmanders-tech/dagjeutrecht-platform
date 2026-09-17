@@ -1,0 +1,78 @@
+/* Look and feel van stepverhuurutrecht.nl */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  overflow-x: clip;
+  background: #ffffff;
+  color: #07323c;
+  font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+}
+
+:focus-visible {
+  outline: 3px solid #bd5400;
+  outline-offset: 2px;
+}
+
+.op-donker :focus-visible {
+  outline-color: #ffb070;
+}
+
+/* Lopende band met woorden. De tekst staat er twee keer in, daarom -50%. */
+@keyframes schuif {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.band-inhoud {
+  animation: schuif 40s linear infinite;
+  will-change: transform;
+}
+
+/* Foto's als opgeplakte polaroids */
+.polaroid {
+  border: 8px solid #ffffff;
+  box-shadow: 0 18px 40px rgb(15 39 64 / 0.35);
+}
+
+/* Zachte zweef-animatie voor stickers */
+@keyframes zweef {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -6px;
+  }
+}
+
+.zweef {
+  animation: zweef 4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .band-inhoud,
+  .zweef {
+    animation: none;
+  }
+
+  .kantel {
+    transform: none !important;
+  }
+}

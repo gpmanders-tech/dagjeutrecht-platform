@@ -1,47 +1,94 @@
 import Link from 'next/link';
+import { Logo } from './ui';
 
 export function SiteFooter() {
   return (
-    <footer className="mt-24 bg-canal-900 text-cream/80">
-      <div className="max-w-6xl mx-auto px-6 py-14 grid md:grid-cols-4 gap-8 text-sm">
-        <div className="md:col-span-2">
-          <p className="font-serif text-xl text-white">
-            <span className="text-terracotta-400">Dagje</span>Utrecht
-          </p>
-          <p className="mt-3 max-w-sm">
-            Vaste dagpakketten in Utrecht voor bedrijven, scholen en vriendengroepen. Samen met
-            lokale partners, met een vaste prijs per persoon.
-          </p>
-          <p className="mt-4 text-xs text-cream/60">
-            <a href="mailto:info@dagjeutrecht.nl" className="hover:text-white">info@dagjeutrecht.nl</a>
-            {' · '}
-            <a href="tel:+31302271439" className="hover:text-white">030 - 227 14 39</a>
-          </p>
-        </div>
+    <footer className="op-donker bg-inkt text-zee-100">
+      <div className="h-1.5 bg-gradient-to-r from-vlam-500 via-zon-400 to-zee-400" />
+      <div className="mx-auto grid max-w-5xl gap-10 px-4 py-12 sm:grid-cols-3 sm:px-6">
         <div>
-          <p className="text-white font-medium mb-3">Site</p>
-          <ul className="space-y-2">
-            <li><Link href="/pakketten" className="hover:text-white">Pakketten</Link></li>
-            <li><Link href="/bouwstenen" className="hover:text-white">Alle onderdelen</Link></li>
-            <li><Link href="/boeken" className="hover:text-white">Zelf samenstellen</Link></li>
-            <li><Link href="/blog" className="hover:text-white">Inspiratie</Link></li>
+          <Logo wit className="text-3xl" />
+          <p className="mt-3 text-sm">
+            Vaste dagpakketten in Utrecht voor bedrijven, scholen en vriendengroepen. Met een vaste
+            prijs per persoon.
+          </p>
+          <Link
+            href="/boeken"
+            className="mt-4 inline-flex min-h-11 items-center rounded-full bg-zon-400 px-5 font-bold text-inkt hover:bg-zon-300"
+          >
+            Stel je dag samen
+          </Link>
+        </div>
+
+        <div>
+          <h2 className="font-bold text-zon-300">Contact</h2>
+          <ul className="mt-2 space-y-1 text-sm">
+            <li>
+              <a href="mailto:info@dagjeutrecht.nl" className="underline underline-offset-2 hover:text-white">
+                info@dagjeutrecht.nl
+              </a>
+            </li>
+            <li>
+              <a href="tel:+31302271439" className="underline underline-offset-2 hover:text-white">
+                030 227 14 39
+              </a>
+            </li>
+            <li>Utrecht</li>
+            <li>KvK 63330393</li>
           </ul>
         </div>
+
         <div>
-          <p className="text-white font-medium mb-3">Zakelijk</p>
-          <ul className="space-y-2">
-            <li><Link href="/over-ons" className="hover:text-white">Over ons</Link></li>
-            <li><Link href="/contact" className="hover:text-white">Contact</Link></li>
-            <li><Link href="/voorwaarden" className="hover:text-white">Voorwaarden</Link></li>
-            <li><Link href="/privacy" className="hover:text-white">Privacy</Link></li>
+          <h2 className="font-bold text-zon-300">Pagina&apos;s</h2>
+          <ul className="mt-2 space-y-1 text-sm">
+            {[
+              { href: '/pakketten', label: 'Pakketten' },
+              { href: '/bouwstenen', label: 'Alle onderdelen' },
+              { href: '/boeken', label: 'Zelf samenstellen' },
+              { href: '/blog', label: 'Inspiratie' },
+              { href: '/over-ons', label: 'Over ons' },
+              { href: '/voorwaarden', label: 'Voorwaarden' },
+              { href: '/privacy', label: 'Privacy' },
+            ].map((l) => (
+              <li key={l.href}>
+                <Link href={l.href} className="underline underline-offset-2 hover:text-white">
+                  {l.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="sm:col-span-3">
+          <h2 className="font-bold text-zon-300">Voor wie?</h2>
+          <ul className="mt-3 flex flex-wrap gap-2 text-sm">
+            {[
+              { href: '/bedrijfsuitje-utrecht', label: 'Bedrijfsuitje' },
+              { href: '/teambuilding-utrecht', label: 'Teambuilding' },
+              { href: '/schooluitje-utrecht', label: 'Schooluitje' },
+              { href: '/vrijgezellenfeest-utrecht', label: 'Vrijgezellenfeest' },
+            ].map((l) => (
+              <li key={l.href}>
+                <Link
+                  href={l.href}
+                  className="inline-flex rounded-full border border-inkt-700 px-3 py-1.5 hover:border-zon-300 hover:text-white"
+                >
+                  {l.label}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
       </div>
-      <div className="border-t border-white/10">
-        <div className="max-w-6xl mx-auto px-6 py-4 text-xs text-cream/50 flex flex-wrap justify-between gap-2">
-          <span>DagjeUtrecht is een handelsnaam van Handelsonderneming Manders</span>
-          <span>KvK 63330393</span>
-        </div>
+      <div className="border-t border-inkt-700">
+        <p className="mx-auto max-w-5xl px-4 py-4 text-xs text-zee-200 sm:px-6">
+          © {new Date().getFullYear()} DagjeUtrecht, een handelsnaam van Handelsonderneming Manders. Prijzen
+          per persoon inclusief btw. Foto&apos;s: DagjeSuppen.nl en{' '}
+          <Link href="/fotobronnen" className="underline underline-offset-2 hover:text-white">
+            Wikimedia Commons
+          </Link>
+          .
+        </p>
       </div>
     </footer>
   );

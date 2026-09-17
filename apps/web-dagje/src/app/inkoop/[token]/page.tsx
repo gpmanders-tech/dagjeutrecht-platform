@@ -37,17 +37,17 @@ export default async function InkoopPage({
   const code = eerste.enquiry.publicCode.slice(-6).toUpperCase();
 
   return (
-    <main className="max-w-xl mx-auto px-6 py-14 text-canal-800">
-      <p className="text-sm text-canal-500 mb-1">Bestelling {code} voor {lev}</p>
-      <h1 className="font-serif text-3xl text-canal-900 mb-6">
+    <main className="max-w-xl mx-auto px-6 py-14 text-inkt">
+      <p className="text-sm text-grijs mb-1">Bestelling {code} voor {lev}</p>
+      <h1 className="text-3xl font-black uppercase tracking-tight text-inkt mb-6">
         {formatDatum(eerste.datum.toISOString().slice(0, 10))}
       </h1>
 
       <ul className="space-y-2 mb-8">
         {gesorteerd.map((o) => (
-          <li key={o.id} className="rounded-xl border border-canal-100 bg-white p-4">
-            <p className="font-medium text-canal-900">{vindBouwsteen(o.bouwsteen)?.naam ?? o.bouwsteen}</p>
-            <p className="text-sm text-canal-600">
+          <li key={o.id} className="rounded-xl border border-inkt/10 bg-white p-4">
+            <p className="font-medium text-inkt">{vindBouwsteen(o.bouwsteen)?.naam ?? o.bouwsteen}</p>
+            <p className="text-sm text-grijs">
               {o.van} tot {o.tot} · {o.personen} personen
             </p>
             {o.status === 'BEVESTIGD' && <p className="text-sm text-emerald-700 mt-1">Bevestigd</p>}
@@ -71,7 +71,7 @@ export default async function InkoopPage({
               name="opmerking"
               rows={3}
               maxLength={1000}
-              className="mt-1 w-full rounded-lg border border-canal-200 px-3 py-2"
+              className="mt-1 w-full rounded-lg border border-inkt/10 px-3 py-2"
             />
           </label>
           <div className="flex flex-wrap gap-3">
@@ -85,17 +85,17 @@ export default async function InkoopPage({
             <button
               name="antwoord"
               value="nee"
-              className="rounded-full border border-canal-300 hover:border-red-500 hover:text-red-700 px-6 py-3 font-medium"
+              className="rounded-full border border-inkt/10 hover:border-red-500 hover:text-red-700 px-6 py-3 font-medium"
             >
               Kan helaas niet
             </button>
           </div>
         </form>
       ) : (
-        !searchParams.klaar && <p className="text-canal-600">Deze bestelling is al beantwoord.</p>
+        !searchParams.klaar && <p className="text-grijs">Deze bestelling is al beantwoord.</p>
       )}
 
-      <p className="text-xs text-canal-500 mt-10">
+      <p className="text-xs text-grijs mt-10">
         Vragen? Bel Ger Manders van DagjeUtrecht.nl: 030 227 14 39.
       </p>
     </main>

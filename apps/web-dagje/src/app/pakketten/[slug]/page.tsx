@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import {
+  CLUSTERS,
   PAKKETTEN,
   REGELS,
   TIJDVAKKEN,
@@ -10,7 +10,10 @@ import {
   vindBouwsteen,
   vindPakket,
 } from '../../../lib/aanbod';
+import { fotoVoorBouwsteen, fotoVoorPakket } from '../../../lib/fotos';
 import { Breadcrumbs } from '../../../components/seo-jsonld';
+import { PakketKaart } from '../../../components/pakket-kaart';
+import { BoekBlok, Foto, HOEKEN, Knop, PaginaKop } from '../../../components/ui';
 
 export const dynamicParams = false;
 
@@ -28,13 +31,19 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   };
 }
 
+const TIJD_KLEUR = ['bg-zee-400', 'bg-zon-400', 'bg-vlam-400', 'bg-zee-400', 'bg-inkt text-white'];
+
 export default function PakketPage({ params }: { params: { slug: string } }) {
   const p = vindPakket(params.slug);
   if (!p) notFound();
   const pp = prijsPerPersoon(p.blokken);
+  const onderdelen = TIJDVAKKEN.flatMap((t, i) => {
+    const b = vindBouwsteen(p.blokken[t.id]);
+    return b ? [{ t, b, i }] : [];
+  });
 
   return (
-    <main className="max-w-4xl mx-auto px-6 py-14">
+    <>
       <Breadcrumbs
         trail={[
           { name: 'Home', url: '/' },
@@ -42,64 +51,79 @@ export default function PakketPage({ params }: { params: { slug: string } }) {
           { name: p.naam, url: `/pakketten/${p.slug}` },
         ]}
       />
-      <p className="text-sm text-canal-500 mb-2">
-        <Link href="/pakketten" className="hover:underline">
-          Pakketten
-        </Link>{' '}
-        / {p.naam}
-      </p>
-      <h1 className="font-serif text-4xl md:text-5xl text-canal-900 mb-3">
-        <span aria-hidden="true">{p.emoji}</span> {p.naam}
-      </h1>
-      <p className="text-lg text-canal-700 mb-2">{p.beschrijving}</p>
-      <p className="text-sm text-canal-500 mb-10">Geschikt voor: {p.voorWie}</p>
+      <PaginaKop
+        titel={p.naam}
+        intro={
+          <>
+            <p>{p.beschrijving}</p>
+            <p className="mt-2 font-bold">Voor: {p.voorWie}</p>
+          </>
+        }
+        kleur="inkt"
+        foto={fotoVoorPakket(p.slug)}
+        label={`${formatEuro(pp)} per persoon`}
+        knop={{ href: `/boeken?pakket=${p.slug}`, tekst: 'Kies datum en boek' }}
+      />
 
-      <h2 className="font-serif text-2xl text-canal-900 mb-4">Het programma</h2>
-      <ol className="space-y-3 mb-10">
-        {TIJDVAKKEN.map((t) => {
-          const b = vindBouwsteen(p.blokken[t.id]);
-          if (!b) return null;
-          return (
-            <li
-              key={t.id}
-              className="grid grid-cols-[4rem_1fr] gap-4 rounded-2xl border border-canal-100 bg-white p-4"
-            >
-              <span className="text-canal-500 text-sm pt-1">
-                {t.van}
-                <br />
-                {t.tot}
-              </span>
-              <div>
-                <p className="font-medium text-canal-900">
-                  <span aria-hidden="true">{b.emoji}</span> {b.naam}
+      <section className="mx-auto max-w-5xl px-4 py-16 sm:px-6">
+        <h2 className="text-4xl font-black uppercase tracking-tight text-inkt sm:text-5xl">Het programma</h2>
+        <ol className="mt-10 space-y-10">
+          {onderdelen.map(({ t, b, i }, n) => (
+            <li key={t.id} className="grid items-center gap-6 md:grid-cols-5">
+              <Foto
+                foto={fotoVoorBouwsteen(b.slug)}
+                verhouding={`aspect-[4/3] md:col-span-2 ${HOEKEN[n % HOEKEN.length]} ${n % 2 ? 'md:order-2' : ''}`}
+                sizes="(min-width: 768px) 40vw, 100vw"
+                className="kantel polaroid rounded-sm"
+              />
+              <div className="md:col-span-3">
+                <span className={`inline-flex rounded-lg px-3 py-1 text-sm font-extrabold uppercase tracking-wide text-inkt ${TIJD_KLEUR[i]}`}>
+                  {t.van} tot {t.tot}
+                </span>
+                <h3 className="mt-3 text-3xl font-black uppercase leading-none tracking-tight text-inkt">{b.naam}</h3>
+                <p className="mt-3 text-lg text-grijs">{b.beschrijving}</p>
+                <p className="mt-2 text-sm font-bold text-inkt">
+                  {b.cluster === 'beide' ? 'Onderweg' : CLUSTERS[b.cluster].naam} · {b.locatie}
                 </p>
-                <p className="text-sm text-canal-700 mt-1">{b.beschrijving}</p>
-                <p className="text-xs text-canal-500 mt-2">{b.locatie}</p>
               </div>
             </li>
-          );
-        })}
-      </ol>
+          ))}
+        </ol>
+      </section>
 
-      <div className="rounded-3xl bg-canal-900 text-white p-8 md:flex md:items-center md:justify-between gap-6">
-        <div>
-          <p className="text-3xl font-semibold">
-            {formatEuro(pp)} <span className="text-base font-normal text-cream/70">per persoon</span>
-          </p>
-          <p className="text-sm text-cream/70 mt-1">
-            Inclusief btw · {REGELS.minPers} tot {REGELS.maxPers} personen · donderdag, vrijdag of zaterdag
-          </p>
+      <section className="bg-vlam-50">
+        <div className="relative mx-auto flex max-w-5xl flex-col items-start gap-6 px-4 py-14 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+          <div>
+            <p className="text-6xl font-black text-inkt">{formatEuro(pp)}</p>
+            <p className="mt-1 text-lg font-bold text-inkt">per persoon, inclusief btw</p>
+            <p className="mt-2 text-grijs">
+              {REGELS.minPers} tot {REGELS.maxPers} personen · donderdag, vrijdag of zaterdag · minimaal{' '}
+              {REGELS.minDagenVooruit} dagen vooruit
+            </p>
+          </div>
+          <div className="flex flex-col items-start gap-3">
+            <Knop href={`/boeken?pakket=${p.slug}`} className="text-lg">
+              Kies datum en boek
+            </Knop>
+            <Knop href="/boeken" variant="secundair">
+              Onderdelen wisselen
+            </Knop>
+          </div>
         </div>
-        <Link
-          href={`/boeken?pakket=${p.slug}`}
-          className="mt-6 md:mt-0 inline-flex items-center rounded-full bg-terracotta-500 hover:bg-terracotta-400 px-6 py-3 font-medium whitespace-nowrap"
-        >
-          Kies datum en boek →
-        </Link>
-      </div>
-      <p className="text-sm text-canal-500 mt-4">
-        Liever iets anders in de middag? In de samensteller wissel je onderdelen om.
-      </p>
-    </main>
+      </section>
+
+      <section className="mx-auto max-w-5xl px-4 py-16 sm:px-6">
+        <h2 className="text-3xl font-black uppercase tracking-tight text-inkt">Andere pakketten</h2>
+        <ul className="mt-8 grid gap-8 md:grid-cols-3">
+          {PAKKETTEN.filter((x) => x.slug !== p.slug).map((x, i) => (
+            <li key={x.slug}>
+              <PakketKaart pakket={x} hoek={HOEKEN[i % HOEKEN.length]} />
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <BoekBlok foto={fotoVoorPakket(p.slug)} />
+    </>
   );
 }

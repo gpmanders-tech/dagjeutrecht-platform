@@ -3,8 +3,8 @@ import Link from 'next/link';
 import { vindPakket } from '../lib/aanbod';
 import type { Landing } from '../lib/landings';
 import { Breadcrumbs, FaqSchema } from './seo-jsonld';
-import { LandingCTA } from './landing-cta';
 import { PakketKaart } from './pakket-kaart';
+import { Band, BoekBlok, Foto, HOEKEN, Knop, PaginaKop } from './ui';
 
 export function landingMetadata(l: Landing): Metadata {
   return {
@@ -19,7 +19,7 @@ export function LandingPagina({ landing: l }: { landing: Landing }) {
   const pakketten = l.pakketten.map(vindPakket).filter((p) => p !== null);
 
   return (
-    <main>
+    <>
       <Breadcrumbs
         trail={[
           { name: 'Home', url: '/' },
@@ -28,63 +28,109 @@ export function LandingPagina({ landing: l }: { landing: Landing }) {
       />
       <FaqSchema items={l.faq} />
 
-      <section className="bg-canal-900 text-white py-20">
-        <div className="max-w-4xl mx-auto px-6">
-          <p className="text-cream/70 text-sm mb-2">{l.boven}</p>
-          <h1 className="font-serif text-5xl md:text-6xl mb-6">{l.titel}</h1>
-          <p className="text-xl text-cream/90 max-w-2xl">{l.intro}</p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Link
-              href="#pakketten"
-              className="inline-flex items-center rounded-full bg-terracotta-500 hover:bg-terracotta-400 px-6 py-3 font-medium text-white shadow-lg"
-            >
-              Bekijk de pakketten →
-            </Link>
-            <Link
-              href="/boeken"
-              className="inline-flex items-center rounded-full border border-white/40 hover:border-white/70 px-6 py-3 font-medium text-white"
-            >
-              Zelf samenstellen
-            </Link>
-          </div>
-        </div>
-      </section>
+      <PaginaKop
+        titel={l.titel}
+        intro={l.intro}
+        kleur={l.kleur}
+        foto={l.foto}
+        label={l.boven}
+        knop={{ href: '#pakketten', tekst: 'Bekijk de pakketten' }}
+      />
+      <div className="-mt-3">
+        <Band woorden={l.band} kleur={l.kleur === 'vlam' ? 'bg-zee-400 text-inkt' : 'bg-vlam-400 text-inkt'} />
+      </div>
 
-      <section id="pakketten" className="max-w-5xl mx-auto px-6 py-16 scroll-mt-24">
-        <h2 className="font-serif text-3xl text-canal-900 mb-8">Pakketten die goed passen</h2>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {pakketten.map((p) => (
-            <PakketKaart key={p.slug} pakket={p} />
-          ))}
-        </div>
-      </section>
-
-      <article className="max-w-3xl mx-auto px-6 pb-8 text-canal-800 space-y-6 leading-relaxed">
-        {l.alineas.map((a) => (
-          <div key={a.kop}>
-            <h2 className="font-serif text-3xl text-canal-900 mb-3">{a.kop}</h2>
-            <p>{a.tekst}</p>
-          </div>
-        ))}
-
-        <h2 className="font-serif text-3xl text-canal-900 pt-6">Veelgestelde vragen</h2>
-        <dl className="space-y-6">
-          {l.faq.map((f) => (
-            <div key={f.q}>
-              <dt className="font-semibold text-canal-900">{f.q}</dt>
-              <dd className="mt-1 text-canal-700">{f.a}</dd>
+      <section className="mx-auto max-w-5xl px-4 py-14 sm:px-6">
+        <div className="grid gap-10 md:grid-cols-2">
+          {l.alineas.map((a) => (
+            <div key={a.kop}>
+              <h2 className="text-3xl font-black uppercase leading-none tracking-tight text-inkt">{a.kop}</h2>
+              <p className="mt-3 text-lg text-grijs">{a.tekst}</p>
             </div>
           ))}
-        </dl>
+        </div>
+      </section>
 
-        <LandingCTA
-          title="Klaar om een datum te prikken?"
-          text="Kies een pakket of stel zelf samen. Je ziet meteen de prijs en we bevestigen binnen 2 werkdagen."
-          href="/boeken"
-          primaryLabel="Stel jullie dag samen"
-          variant="canal"
-        />
-      </article>
-    </main>
+      <section id="pakketten" className="scroll-mt-24 bg-zee-50">
+        <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6">
+          <h2 className="text-4xl font-black uppercase tracking-tight text-inkt sm:text-5xl">Pakketten die passen</h2>
+          <ul className="mt-10 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+            {pakketten.map((p, i) => (
+              <li key={p.slug}>
+                <PakketKaart pakket={p} hoek={HOEKEN[i % HOEKEN.length]} />
+              </li>
+            ))}
+          </ul>
+          <div className="mt-10 flex flex-wrap gap-4">
+            <Knop href="/boeken">Zelf samenstellen</Knop>
+            <Knop href="/bouwstenen" variant="secundair">
+              Alle onderdelen
+            </Knop>
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-5xl px-4 py-14 sm:px-6">
+        <ul className="grid grid-cols-2 gap-6 md:grid-cols-4">
+          {l.galerij.map((foto, i) => (
+            <li key={foto.src}>
+              <Foto
+                foto={foto}
+                verhouding={`aspect-square ${HOEKEN[i % HOEKEN.length]}`}
+                sizes="(min-width: 768px) 25vw, 50vw"
+                className="kantel polaroid rounded-sm transition-transform hover:rotate-0"
+              />
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section className="bg-vlam-50">
+        <div className="mx-auto max-w-3xl px-4 py-14 sm:px-6">
+          <h2 className="text-4xl font-black uppercase tracking-tight text-inkt sm:text-5xl">Veelgestelde vragen</h2>
+          <div className="mt-8 divide-y divide-vlam-100 overflow-hidden rounded-2xl bg-white shadow-lg">
+            {l.faq.map((v) => (
+              <details key={v.q} className="group px-5 py-4">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-bold text-inkt [&::-webkit-details-marker]:hidden">
+                  <h3 className="text-lg">{v.q}</h3>
+                  <span
+                    aria-hidden="true"
+                    className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-vlam-400 text-xl leading-none text-inkt transition-transform group-open:rotate-45"
+                  >
+                    +
+                  </span>
+                </summary>
+                <p className="mt-3 text-grijs">{v.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-5xl px-4 py-12 sm:px-6">
+        <h2 className="text-2xl font-black uppercase tracking-tight text-inkt">Ook interessant</h2>
+        <ul className="mt-4 flex flex-wrap gap-3">
+          {[
+            { href: '/bedrijfsuitje-utrecht', label: 'Bedrijfsuitje' },
+            { href: '/teambuilding-utrecht', label: 'Teambuilding' },
+            { href: '/schooluitje-utrecht', label: 'Schooluitje' },
+            { href: '/vrijgezellenfeest-utrecht', label: 'Vrijgezellenfeest' },
+          ]
+            .filter((x) => x.href !== l.pad)
+            .map((x) => (
+              <li key={x.href}>
+                <Link
+                  href={x.href}
+                  className="inline-flex rounded-full border-2 border-zee-400 px-4 py-2 font-bold text-inkt transition-colors hover:bg-zee-400"
+                >
+                  {x.label}
+                </Link>
+              </li>
+            ))}
+        </ul>
+      </section>
+
+      <BoekBlok titel="Klaar om een datum te prikken?" foto={l.galerij[0]} />
+    </>
   );
 }
