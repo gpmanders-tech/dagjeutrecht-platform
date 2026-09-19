@@ -80,9 +80,8 @@ export const metadata: Metadata = {
     description:
       'Jeu de boules, kanoën, kickbike, rondvaart en borrel met een vaste prijs per persoon.',
   },
-  alternates: {
-    canonical: SITE_URL,
-  },
+  // Geen canonical hier: die is per pagina gezet. Een canonical in de root layout
+  // erft naar alle pagina's en laat ze allemaal naar de homepage wijzen.
   category: 'travel',
   formatDetection: {
     email: true,

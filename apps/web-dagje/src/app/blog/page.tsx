@@ -1,5 +1,13 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { prisma } from '@utrecht/db';
+
+export const metadata: Metadata = {
+  title: 'Inspiratie voor een dagje Utrecht',
+  description:
+    'Verhalen en tips over uitjes in Utrecht: waar je het beste kunt kanoën, jeu de boulen of borrelen, en hoe je er een compleet dagprogramma van maakt.',
+  alternates: { canonical: '/blog' },
+};
 
 export const revalidate = 300;
 

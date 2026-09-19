@@ -1,6 +1,12 @@
+import type { Metadata } from 'next';
 import { REGELS } from '../../lib/aanbod';
 
-export const metadata = { title: 'Voorwaarden' };
+export const metadata: Metadata = {
+  title: 'Voorwaarden',
+  description:
+    'De voorwaarden van DagjeUtrecht: hoe ver van tevoren je boekt, betalen vooraf, het aantal personen wijzigen, annuleren, slecht weer en de dag zelf.',
+  alternates: { canonical: '/voorwaarden' },
+};
 
 export default function VoorwaardenPage() {
   return (
