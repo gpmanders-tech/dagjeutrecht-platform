@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import {
   BOUWSTENEN,
@@ -17,6 +18,10 @@ import { fotos, fotoVoorBouwsteen, fotoVoorPakket } from '../lib/fotos';
 import { PakketKaart } from '../components/pakket-kaart';
 import { Band, BoekBlok, Foto, HOEKEN, Knop, RondeSticker, Sticker } from '../components/ui';
 import { KaartUtrecht } from '../components/kaart-utrecht';
+
+export const metadata: Metadata = {
+  alternates: { canonical: '/' },
+};
 
 export const revalidate = 86400;
 

@@ -1,4 +1,11 @@
-export const metadata = { title: 'Privacy' };
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Privacyverklaring',
+  description:
+    'Welke gegevens DagjeUtrecht van je verzamelt als je een dag aanvraagt of boekt, waar we ze voor gebruiken, met wie we ze delen en hoe lang we ze bewaren.',
+  alternates: { canonical: '/privacy' },
+};
 
 export default function PrivacyPage() {
   return (
