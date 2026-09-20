@@ -8,8 +8,11 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     where: { domain: 'DAGJEUTRECHT', locale: 'nl', slug: params.slug, published: true },
   });
   if (!p) return {};
+  // De merknaam uit de template maakt deze titels boven de 65 tekens, en dan kapt
+  // Google ze af. Bij een korte titel past de merknaam er nog wel bij.
+  const titel = p.metaTitle ?? p.title;
   return {
-    title: p.metaTitle ?? p.title,
+    title: titel.length > 45 ? { absolute: titel } : titel,
     description: p.metaDesc ?? p.excerpt ?? undefined,
     alternates: { canonical: `https://dagjeutrecht.nl/blog/${p.slug}` },
     openGraph: p.heroImage

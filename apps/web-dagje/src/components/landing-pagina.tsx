@@ -7,11 +7,27 @@ import { PakketKaart } from './pakket-kaart';
 import { Band, BoekBlok, Foto, HOEKEN, Knop, PaginaKop } from './ui';
 
 export function landingMetadata(l: Landing): Metadata {
+  // openGraph uit de layout wordt hier niet aangevuld maar vervangen, dus type,
+  // locale, siteName en de afbeelding moeten er zelf bij staan.
   return {
     title: l.metaTitel,
     description: l.metaOmschrijving,
     alternates: { canonical: l.pad },
-    openGraph: { title: l.metaTitel, description: l.metaOmschrijving, url: l.pad },
+    openGraph: {
+      type: 'website',
+      locale: 'nl_NL',
+      siteName: 'DagjeUtrecht',
+      title: l.metaTitel,
+      description: l.metaOmschrijving,
+      url: l.pad,
+      images: [{ url: l.foto.src, alt: l.foto.alt }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: l.metaTitel,
+      description: l.metaOmschrijving,
+      images: [l.foto.src],
+    },
   };
 }
 

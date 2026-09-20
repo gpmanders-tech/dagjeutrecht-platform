@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Contact',
+  title: 'Contact: vraag je dagje Utrecht aan',
   description:
     'Vragen over een dagje Utrecht voor je groep? Bel 030 2271439 of mail info@dagjeutrecht.nl. We denken graag mee over datum, groepsgrootte en programma.',
   alternates: { canonical: '/contact' },

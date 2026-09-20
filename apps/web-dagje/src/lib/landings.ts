@@ -46,7 +46,7 @@ export const LANDINGS: Record<'bedrijfsuitje' | 'teambuilding' | 'schooluitje' |
     foto: fotos.boulesSpelers,
     galerij: [fotos.boules, fotos.kanoDuo, fotos.terrassen, fotos.borrel],
     band: ['Jeu de boules', 'Shuffleboard', 'Kanoën', 'Lunch', 'Borrel', 'Factuur op de zaak'],
-    metaTitel: 'Bedrijfsuitje Utrecht: vaste pakketten met vaste prijs',
+    metaTitel: 'Bedrijfsuitje Utrecht: pakketten met vaste prijs',
     metaOmschrijving:
       'Bedrijfsuitje in Utrecht zonder gedoe: jeu de boules, shuffleboard, kanoën of kickbiken met lunch en borrel. Vaste prijs per persoon, online samen te stellen.',
     boven: 'Voor HR, teamleiders en personeelsverenigingen',
@@ -81,7 +81,7 @@ export const LANDINGS: Record<'bedrijfsuitje' | 'teambuilding' | 'schooluitje' |
     foto: fotos.kanoDuo,
     galerij: [fotos.kanoBrug, fotos.shuffleboard, fotos.kickbikePark, fotos.bbq],
     band: ['Samenwerken', 'Strijden', 'Peddelen', 'Steppen', 'Borrelen'],
-    metaTitel: 'Teambuilding Utrecht: spelen, peddelen en borrelen',
+    metaTitel: 'Teambuilding Utrecht: spelen, peddelen, borrelen',
     metaOmschrijving:
       'Teambuilding in Utrecht met jeu de boules, shuffleboard, kanoën of een kickbike-tocht. Vaste pakketten en een vaste prijs per persoon.',
     boven: 'Samen spelen, samen peddelen',
@@ -110,7 +110,7 @@ export const LANDINGS: Record<'bedrijfsuitje' | 'teambuilding' | 'schooluitje' |
     foto: fotos.domtoren,
     galerij: [fotos.oudegrachtDom, fotos.rondvaart, fotos.terrassen, fotos.grachtAvond],
     band: ['Domtoren', 'Rondvaart', 'Groepslunch', 'Oudegracht', 'Vo en mbo'],
-    metaTitel: 'Schooluitje Utrecht: Domtoren, lunch en rondvaart',
+    metaTitel: 'Schooluitje Utrecht: Domtoren, lunch, rondvaart',
     metaOmschrijving:
       'Schooluitje in Utrecht voor vo en mbo: beklimming van de Domtoren, groepslunch en een rondvaart door de grachten. Vaste prijs per leerling.',
     boven: 'Voor docenten en mentoren',
@@ -148,7 +148,7 @@ export const LANDINGS: Record<'bedrijfsuitje' | 'teambuilding' | 'schooluitje' |
     foto: fotos.supVrijgezellen,
     galerij: [fotos.supOudegracht, fotos.picknick, fotos.kickbikeGracht, fotos.borrel],
     band: ['Suppen', 'Picknick', 'Kickbike', 'Borrel', 'Vrijgezellen'],
-    metaTitel: 'Vrijgezellenfeest Utrecht: suppen, kickbike en borrel',
+    metaTitel: 'Vrijgezellenfeest Utrecht: suppen en kickbiken',
     metaOmschrijving:
       'Vrijgezellenfeest in Utrecht: suppen of kanoën in Amelisweerd, per kickbike naar de stad en afsluiten met een borrel. Vaste prijs per persoon.',
     boven: 'Voor getuigen en vriendengroepen',

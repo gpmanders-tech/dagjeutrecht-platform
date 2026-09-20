@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Over ons',
+  title: 'Over ons: dagje Utrecht voor groepen',
   description:
     'DagjeUtrecht regelt dagprogramma’s in Utrecht voor groepen. Wie we zijn, met welke partners in de stad we werken en hoe we de dag voor je organiseren.',
   alternates: { canonical: '/over-ons' },
