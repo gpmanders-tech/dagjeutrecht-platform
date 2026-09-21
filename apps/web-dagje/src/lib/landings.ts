@@ -15,6 +15,13 @@ export type Landing = {
   foto: Foto;
   galerij: Foto[];
   band: string[];
+  /**
+   * De zusterpagina over hetzelfde onderwerp op Stepverhuur Utrecht (ALG-07).
+   * DagjeUtrecht geeft het hoofdantwoord over het complete dagje, Stepverhuur
+   * over het huren van steps. De pagina's verwijzen naar elkaar in plaats van
+   * in Google om dezelfde zoekterm te vechten.
+   */
+  zuster?: { href: string; label: string; tekst: string };
 };
 
 function prijs(slug: string) {
@@ -46,6 +53,11 @@ export const LANDINGS: Record<'bedrijfsuitje' | 'teambuilding' | 'schooluitje' |
     foto: fotos.boulesSpelers,
     galerij: [fotos.boules, fotos.kanoDuo, fotos.terrassen, fotos.borrel],
     band: ['Jeu de boules', 'Shuffleboard', 'Kanoën', 'Lunch', 'Borrel', 'Factuur op de zaak'],
+    zuster: {
+      href: 'https://stepverhuurutrecht.nl/bedrijfsuitje-utrecht',
+      label: 'Bedrijfsuitje op de step',
+      tekst: 'Alleen kickbikes huren voor het team, zonder lunch en borrel erbij?',
+    },
     metaTitel: 'Bedrijfsuitje Utrecht: pakketten met vaste prijs',
     metaOmschrijving:
       'Bedrijfsuitje in Utrecht zonder gedoe: jeu de boules, shuffleboard, kanoën of kickbiken met lunch en borrel. Vaste prijs per persoon, online samen te stellen.',
@@ -148,11 +160,16 @@ export const LANDINGS: Record<'bedrijfsuitje' | 'teambuilding' | 'schooluitje' |
     foto: fotos.supVrijgezellen,
     galerij: [fotos.supOudegracht, fotos.picknick, fotos.kickbikeGracht, fotos.borrel],
     band: ['Suppen', 'Picknick', 'Kickbike', 'Borrel', 'Vrijgezellen'],
-    metaTitel: 'Vrijgezellenfeest Utrecht: suppen en kickbiken',
+    zuster: {
+      href: 'https://stepverhuurutrecht.nl/vrijgezellenfeest-utrecht',
+      label: 'Vrijgezellenfeest met steps',
+      tekst: 'Alleen steps huren en de rest van de dag zelf invullen?',
+    },
+    metaTitel: 'Vrijgezellenfeest Utrecht: het hele dagje',
     metaOmschrijving:
-      'Vrijgezellenfeest in Utrecht: suppen of kanoën in Amelisweerd, per kickbike naar de stad en afsluiten met een borrel. Vaste prijs per persoon.',
+      'Vrijgezellenfeest in Utrecht als compleet dagje: suppen of kanoën in Amelisweerd, per kickbike naar de stad en afsluiten met een borrel. Vaste prijs per persoon.',
     boven: 'Voor getuigen en vriendengroepen',
-    titel: 'Vrijgezellenfeest in Utrecht',
+    titel: 'Vrijgezellenfeest in Utrecht, het hele dagje',
     intro:
       'Een actieve dag die je samen niet vergeet. Kies een pakket, prik een datum en regel het in een paar minuten.',
     pakketten: ['water-naar-borrel', 'amelisweerd-actief', 'warme-winterdag', 'spel-en-borrel'],

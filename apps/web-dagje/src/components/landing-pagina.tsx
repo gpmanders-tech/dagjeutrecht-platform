@@ -149,6 +149,18 @@ export function LandingPagina({ landing: l }: { landing: Landing }) {
               </li>
             ))}
         </ul>
+        {l.zuster && (
+          <p className="mt-6 text-lg text-grijs">
+            {l.zuster.tekst}{' '}
+            <a
+              href={l.zuster.href}
+              className="font-extrabold text-inkt underline decoration-vlam-400 decoration-2 underline-offset-4"
+            >
+              {l.zuster.label}
+            </a>{' '}
+            op Stepverhuur Utrecht.
+          </p>
+        )}
       </section>
 
       <BoekBlok titel="Klaar om een datum te prikken?" foto={l.galerij[0]} />
