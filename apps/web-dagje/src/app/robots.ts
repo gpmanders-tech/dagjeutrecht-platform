@@ -6,7 +6,10 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: '*',
         allow: '/',
-        disallow: ['/boeken', '/api/', '/inkoop/', '/betaald'],
+        // /boeken, /inkoop en /betaald dragen zelf een noindex in de pagina.
+        // Die kan Google alleen zien als hij de pagina mag ophalen, dus staan ze
+        // hier niet meer op disallow. Alleen /api/ blijft dicht.
+        disallow: ['/api/'],
       },
     ],
     sitemap: 'https://dagjeutrecht.nl/sitemap.xml',
