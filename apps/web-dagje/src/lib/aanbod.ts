@@ -10,7 +10,7 @@
 
 export type TijdvakId = 'ontvangst' | 'ochtend' | 'lunch' | 'middag' | 'afsluiting';
 export type Cluster = 'centrum' | 'amelisweerd' | 'beide';
-export type LeverancierId = 'BHG' | 'RIJNSTROOM' | 'STEPVERHUUR' | 'DOMTOREN' | 'SCHUTTEVAER';
+export type LeverancierId = 'BHG' | 'RIJNSTROOM' | 'STEPVERHUUR' | 'DOMTOREN' | 'SCHUTTEVAER' | 'EIGEN';
 
 export const TIJDVAKKEN: Array<{ id: TijdvakId; naam: string; van: string; tot: string }> = [
   { id: 'ontvangst', naam: 'Ontvangst', van: '09:30', tot: '10:00' },
@@ -48,6 +48,11 @@ export const LEVERANCIERS: Record<
     naam: 'Botenverhuur De Rijnstroom',
     inkoopNiveau: 1,
     inkoopWijze: 'Online reserveren via rijnstroom.i-reserve.net',
+  },
+  EIGEN: {
+    naam: 'DagjeUtrecht zelf',
+    inkoopNiveau: 1,
+    inkoopWijze: 'Eigen materiaal en begeleiding; er hoeft niets ingekocht te worden',
   },
   STEPVERHUUR: {
     naam: 'Stepverhuur Utrecht (eigen kickbikes)',
@@ -108,8 +113,14 @@ export function maandenTekst(m: Maanden) {
   return `${MAANDNAMEN[m.van - 1]} tot en met ${MAANDNAMEN[m.tot - 1]}`;
 }
 
-function blok(b: Omit<Bouwsteen, 'verkoopCents'>): Bouwsteen {
-  return { ...b, verkoopCents: verkoop(b.inkoopCents) };
+/**
+ * verkoopCentsVast: alleen voor bouwstenen die we zelf draaien. Daar is niets in
+ * te kopen, dus de opslag van 30 procent op de inkoop zegt niets en bepaalt Ger
+ * de prijs rechtstreeks. Bij alle andere bouwstenen blijft de prijs de inkoop x 1,30.
+ */
+function blok(b: Omit<Bouwsteen, 'verkoopCents'> & { verkoopCentsVast?: number }): Bouwsteen {
+  const { verkoopCentsVast, ...rest } = b;
+  return { ...rest, verkoopCents: verkoopCentsVast ?? verkoop(rest.inkoopCents) };
 }
 
 export const BOUWSTENEN: Bouwsteen[] = [
@@ -278,6 +289,26 @@ export const BOUWSTENEN: Bouwsteen[] = [
     seizoen: WINTER,
     prijsBevestigd: false,
     inclusief: ['erwtensoep of stamppot', 'frisdrank of koffie'],
+  }),
+
+  blok({
+    slug: 'city-challenge',
+    naam: 'City Challenge door de binnenstad',
+    kort: 'In teams op pad door het oude centrum, met opdrachten onderweg.',
+    beschrijving:
+      'De groep gaat in teams de binnenstad in met een reeks opdrachten en vragen over wat ze tegenkomen: de Dom, de werfkelders en de Oudegracht. Te voet, op eigen tempo, met een vaste start en finish. Wij zorgen voor de opdrachten en staan bij start en finish klaar.',
+    emoji: '\u{1F9ED}',
+    cluster: 'centrum',
+    leverancier: 'EIGEN',
+    locatie: 'Start bij Paardenveld, finish op de Neude',
+    tijdvakken: ['ochtend', 'middag'],
+    duur: '1,5 tot 2 uur',
+    inkoopCents: 0,
+    verkoopCentsVast: 750,
+    minPers: 8,
+    maxPers: 40,
+    prijsBevestigd: true,
+    inclusief: ['opdrachten per team', 'begeleiding bij start en finish', 'uitslag aan het eind'],
   }),
 
   // ============== Amelisweerd ==============
@@ -518,10 +549,10 @@ export const PAKKETTEN: Pakket[] = [
     naam: 'Schoolreis basisschool',
     kort: 'Rondvaart door de grachten en een groepslunch.',
     beschrijving:
-      'Utrecht vanaf het water, met een schipper die onderweg vertelt over de werfkelders en de Dom. Daarna samen lunchen in het centrum. Geen trappen en geen lange loopafstanden, dus geschikt vanaf groep 6.',
+      "Utrecht vanaf het water, met een schipper die onderweg vertelt over de werfkelders en de Dom. 's Middags in teams de binnenstad in met de City Challenge. Geen trappen en geen lange loopafstanden, dus geschikt vanaf groep 6. Eigen lunch mee, of voeg de groepslunch toe in de samensteller.",
     emoji: '🚸',
     voorWie: 'Basisscholen, groep 6 tot en met 8',
-    blokken: { ochtend: 'rondvaart', lunch: 'groepslunch' },
+    blokken: { ochtend: 'rondvaart', middag: 'city-challenge' },
   },
   // ============== Vrijgezellen in de winter ==============
   // Het zomerpakket (suppen, picknick, kickbike, borrel) kan van november tot en
@@ -607,7 +638,10 @@ export function prijsPerPersoon(blokken: Keuze['blokken']) {
 }
 
 export function formatEuro(cents: number) {
-  return `€ ${(cents / 100).toLocaleString('nl-NL', { minimumFractionDigits: 0, maximumFractionDigits: 2 })}`;
+  // Hele euro's zonder komma, bedragen met centen altijd met twee cijfers,
+  // zodat er geen 24,5 op de site komt te staan.
+  const decimalen = cents % 100 === 0 ? 0 : 2;
+  return `€ ${(cents / 100).toLocaleString('nl-NL', { minimumFractionDigits: decimalen, maximumFractionDigits: 2 })}`;
 }
 
 function vandaagIso() {
