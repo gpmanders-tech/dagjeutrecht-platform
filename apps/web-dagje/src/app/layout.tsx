@@ -115,7 +115,9 @@ const jsonLd = {
         '@type': 'City',
         name: 'Utrecht',
       },
-      sameAs: [],
+      // Verwijzing naar het Google-bedrijfsprofiel, zodat Google de site en het
+      // profiel aan elkaar koppelt. Het nummer is de cid van het profiel.
+      sameAs: ['https://www.google.com/maps?cid=9905427139979114669'],
       parentOrganization: {
         '@type': 'Organization',
         name: 'Handelsonderneming Manders',

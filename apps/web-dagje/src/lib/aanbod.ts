@@ -459,6 +459,89 @@ export const PAKKETTEN: Pakket[] = [
     voorWie: 'Schoolklassen (vo en mbo)',
     blokken: { ochtend: 'domtoren', lunch: 'groepslunch', middag: 'rondvaart' },
   },
+
+  // ============== Halve dagen ==============
+  // Toegevoegd 21-9-2026 op verzoek van Ger: een groep die niet de hele dag wil,
+  // of een kleiner budget heeft, kon tot nu toe niets boeken. De vanafprijs zakt
+  // hiermee van 78 naar 29 euro, waarmee we in dezelfde vergelijking staan als de
+  // uitjesbureaus die met bedragen vanaf 20 tot 30 euro adverteren.
+  {
+    slug: 'boules-en-borrel',
+    seizoen: 'jaarrond',
+    naam: 'Boules & Borrel',
+    kort: 'Halve dag: jeu de boules met bites en een afsluitende borrel.',
+    beschrijving:
+      'Een middag zonder gedoe: om twee uur de banen op bij JEU de boules bar aan Paardenveld, bites erbij, en afsluiten met een borrel. Op vijf minuten lopen van Utrecht Centraal, dus iedereen kan zo aanschuiven en zo weer weg.',
+    emoji: '🍻',
+    voorWie: 'Teams en vriendengroepen die een middag vrij hebben',
+    blokken: { middag: 'jeu-de-boules', afsluiting: 'borrel' },
+  },
+  {
+    slug: 'dom-en-grachten',
+    seizoen: 'jaarrond',
+    naam: 'Dom & Grachten',
+    kort: 'Halve dag: de Domtoren op en een rondvaart door de grachten.',
+    beschrijving:
+      'Het oude hart van Utrecht in een halve dag: eerst de 465 treden van de Domtoren op voor het uitzicht, daarna vanaf het water langs de werfkelders. Weinig regelwerk, veel stad.',
+    emoji: '🏰',
+    voorWie: 'Schoolklassen, families en groepen van buiten de stad',
+    blokken: { ochtend: 'domtoren', middag: 'rondvaart' },
+  },
+  {
+    slug: 'water-en-picknick',
+    seizoen: 'zomer',
+    naam: 'Water & Picknick',
+    kort: 'Halve dag: kanoën door Amelisweerd en een picknick aan het water.',
+    beschrijving:
+      'Een ochtend op de Kromme Rijn met twee personen per kano, en daarna een verzorgde picknick aan het water bij De Rijnstroom. Om half twee is iedereen weer vrij.',
+    emoji: '🛶',
+    voorWie: 'Teams en vriendengroepen, van april tot en met oktober',
+    blokken: { ochtend: 'kanoen', lunch: 'picknick' },
+  },
+  {
+    slug: 'winterborrel',
+    seizoen: 'winter',
+    naam: 'Winterborrel',
+    kort: 'Halve dag: glühwein, jeu de boules binnen en een borrel.',
+    beschrijving:
+      'Een winterse middag die niet afhankelijk is van het weer: binnenkomen met glühwein, boulen op de overdekte banen en afsluiten met een borrel. Alles binnen, alles in het centrum.',
+    emoji: '🔥',
+    voorWie: 'Teams en vriendengroepen, van november tot en met maart',
+    blokken: { ontvangst: 'gluhwein', middag: 'jeu-de-boules', afsluiting: 'borrel' },
+  },
+  // ============== School ==============
+  // Basisscholen konden tot nu toe niets boeken: het schooluitje met Domtoren is
+  // bedoeld voor vo en mbo, en 465 treden is te veel voor jongere kinderen.
+  {
+    slug: 'schoolreis-basisschool',
+    seizoen: 'jaarrond',
+    naam: 'Schoolreis basisschool',
+    kort: 'Rondvaart door de grachten en een groepslunch.',
+    beschrijving:
+      'Utrecht vanaf het water, met een schipper die onderweg vertelt over de werfkelders en de Dom. Daarna samen lunchen in het centrum. Geen trappen en geen lange loopafstanden, dus geschikt vanaf groep 6.',
+    emoji: '🚸',
+    voorWie: 'Basisscholen, groep 6 tot en met 8',
+    blokken: { ochtend: 'rondvaart', lunch: 'groepslunch' },
+  },
+  // ============== Vrijgezellen in de winter ==============
+  // Het zomerpakket (suppen, picknick, kickbike, borrel) kan van november tot en
+  // met maart niet. Dit pakket kost hetzelfde, zodat vanaf 68 euro het hele jaar klopt.
+  {
+    slug: 'vrijgezellen-winterdag',
+    seizoen: 'winter',
+    naam: 'Vrijgezellen Winterdag',
+    kort: 'Glühwein, shuffleboard, winterse lunch en een borrel.',
+    beschrijving:
+      'De winterversie van het vrijgezellendagje, helemaal binnen. Beginnen met glühwein, dan shuffleboard bij The Grand Shuffle, een warme lunch en afsluiten met een borrel bij JEU. Zelfde prijs als het zomerpakket.',
+    emoji: '🎉',
+    voorWie: 'Vrijgezellenfeesten en vriendengroepen, van november tot en met maart',
+    blokken: {
+      ontvangst: 'gluhwein',
+      ochtend: 'shuffleboard',
+      lunch: 'winterlunch',
+      afsluiting: 'borrel',
+    },
+  },
 ];
 
 // ============== Spelregels ==============
