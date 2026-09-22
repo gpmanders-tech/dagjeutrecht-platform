@@ -540,6 +540,17 @@ export const PAKKETTEN: Pakket[] = [
     voorWie: 'Teams en vriendengroepen, van november tot en met maart',
     blokken: { ontvangst: 'gluhwein', middag: 'jeu-de-boules', afsluiting: 'borrel' },
   },
+  {
+    slug: 'koffie-en-city-challenge',
+    seizoen: 'jaarrond',
+    naam: 'Koffie & City Challenge',
+    kort: 'Halve ochtend: koffie met gebak en in teams de binnenstad in.',
+    beschrijving:
+      'De goedkoopste manier om met een groep iets samen te doen in Utrecht. Om half tien koffie met gebak bij JEU de boules bar, om tien uur in teams de binnenstad in met de City Challenge, rond twaalf uur klaar. Geen reserveringen bij derden, dus ook op korte termijn te regelen.',
+    emoji: '☕',
+    voorWie: 'Teams, klassen en vriendengroepen met een ochtend en een klein budget',
+    blokken: { ontvangst: 'koffie-met-gebak', ochtend: 'city-challenge' },
+  },
   // ============== School ==============
   // Basisscholen konden tot nu toe niets boeken: het schooluitje met Domtoren is
   // bedoeld voor vo en mbo, en 465 treden is te veel voor jongere kinderen.

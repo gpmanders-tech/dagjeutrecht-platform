@@ -43,9 +43,9 @@ function vanaf(slugs: string[]) {
   return formatEuro(Math.min(...centen));
 }
 
-const P_BEDRIJF = ['boules-en-borrel', 'spel-en-borrel', 'warme-winterdag', 'winterborrel', 'amelisweerd-actief', 'water-naar-borrel'];
-const P_TEAM = ['boules-en-borrel', 'spel-en-borrel', 'warme-winterdag', 'winterborrel', 'amelisweerd-actief'];
-const P_SCHOOL = ['schoolreis-basisschool', 'dom-en-grachten', 'schooluitje', 'spel-en-borrel'];
+const P_BEDRIJF = ['koffie-en-city-challenge', 'boules-en-borrel', 'spel-en-borrel', 'warme-winterdag', 'winterborrel', 'amelisweerd-actief', 'water-naar-borrel'];
+const P_TEAM = ['koffie-en-city-challenge', 'boules-en-borrel', 'spel-en-borrel', 'warme-winterdag', 'winterborrel', 'amelisweerd-actief'];
+const P_SCHOOL = ['koffie-en-city-challenge', 'schoolreis-basisschool', 'dom-en-grachten', 'schooluitje', 'spel-en-borrel'];
 const P_VRIJGEZEL = ['boules-en-borrel', 'water-naar-borrel', 'vrijgezellen-winterdag', 'amelisweerd-actief', 'spel-en-borrel'];
 
 const GROEP = `Vanaf ${REGELS.minPers} personen.`;
@@ -78,7 +78,7 @@ export const LANDINGS: Record<'bedrijfsuitje' | 'teambuilding' | 'schooluitje' |
       tekst: 'Alleen kickbikes huren voor het team, zonder lunch en borrel erbij?',
     },
     metaTitel: `Bedrijfsuitje Utrecht vanaf ${vanaf(P_BEDRIJF)} per persoon`,
-    metaOmschrijving: `Bedrijfsuitje in Utrecht met een vaste prijs per persoon: vanaf ${vanaf(P_BEDRIJF)} voor een middag boulen en borrelen, ${prijs('spel-en-borrel')} voor een hele dag. Vanaf ${REGELS.minPers} personen.`,
+    metaOmschrijving: `Bedrijfsuitje in Utrecht met een vaste prijs per persoon: vanaf ${vanaf(P_BEDRIJF)} voor een ochtend, ${prijs('spel-en-borrel')} voor een hele dag. Vanaf ${REGELS.minPers} personen, inclusief btw.`,
     boven: 'Voor HR, teamleiders en personeelsverenigingen',
     titel: 'Bedrijfsuitje in Utrecht, zonder gedoe',
     intro:
@@ -92,7 +92,7 @@ export const LANDINGS: Record<'bedrijfsuitje' | 'teambuilding' | 'schooluitje' |
       },
       {
         kop: 'Wat het kost',
-        tekst: `Een hele dag begint bij ${prijs('spel-en-borrel')} per persoon voor Utrecht Spel & Borrel, inclusief koffie, lunch en borrel. Amelisweerd Actief kost ${prijs('amelisweerd-actief')} per persoon, inclusief picknick en BBQ met drankjes. Heeft het team maar een middag? Boules & Borrel kost ${prijs('boules-en-borrel')} per persoon. Alle prijzen zijn inclusief btw, vanaf ${REGELS.minPers} personen.`,
+        tekst: `Een hele dag begint bij ${prijs('spel-en-borrel')} per persoon voor Utrecht Spel & Borrel, inclusief koffie, lunch en borrel. Amelisweerd Actief kost ${prijs('amelisweerd-actief')} per persoon, inclusief picknick en BBQ met drankjes. Heeft het team maar een dagdeel? Boules & Borrel kost ${prijs('boules-en-borrel')} per persoon voor een middag, Koffie & City Challenge ${prijs('koffie-en-city-challenge')} voor een ochtend. Alle prijzen zijn inclusief btw, vanaf ${REGELS.minPers} personen.`,
       },
     ],
     faq: [
@@ -112,7 +112,7 @@ export const LANDINGS: Record<'bedrijfsuitje' | 'teambuilding' | 'schooluitje' |
     galerij: [fotos.kanoBrug, fotos.shuffleboard, fotos.kickbikePark, fotos.bbq],
     band: ['Samenwerken', 'Strijden', 'Peddelen', 'Steppen', 'Borrelen'],
     metaTitel: `Teambuilding Utrecht vanaf ${vanaf(P_TEAM)} per persoon`,
-    metaOmschrijving: `Teambuilding in Utrecht: jeu de boules, shuffleboard, kanoën of kickbiken. Vaste prijs per persoon vanaf ${vanaf(P_TEAM)} voor een middag, ${prijs('spel-en-borrel')} voor een hele dag.`,
+    metaOmschrijving: `Teambuilding in Utrecht: City Challenge, jeu de boules, shuffleboard of kanoën. Vanaf ${vanaf(P_TEAM)} per persoon voor een dagdeel, ${prijs('spel-en-borrel')} voor een hele dag.`,
     boven: 'Samen spelen, samen peddelen',
     titel: 'Teambuilding in Utrecht',
     intro:
