@@ -27,7 +27,7 @@ export function RegistrationForm() {
     setError(null);
     startTransition(async () => {
       const result = await registerPartner(form);
-      if ('error' in result) setError(result.error);
+      if ('error' in result) setError(result.error ?? 'Es ist ein Fehler aufgetreten.');
       else setDone(true);
     });
   }

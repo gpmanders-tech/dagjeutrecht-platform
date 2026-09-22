@@ -15,10 +15,10 @@ export default function Home() {
           Reiseveranstalter, DMC und Schulreise-Spezialisten willkommen.
         </p>
         <div className="flex gap-3">
-          <a href="/de/registrieren">
+          <a href="/registrieren">
             <Button variant="incoming" size="lg">Als Partner registrieren</Button>
           </a>
-          <a href="/de/login">
+          <a href="/login">
             <Button variant="outline" size="lg" className="border-white text-white hover:bg-white/10">
               Login
             </Button>

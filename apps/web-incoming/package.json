@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "dotenv -e ../../.env -- next dev -p 3003",
-    "build": "dotenv -e ../../.env -- next build",
-    "start": "dotenv -e ../../.env -- next start -p 3003",
+    "build": "next build",
+    "start": "next start -p 3003",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
@@ -16,7 +16,8 @@
     "next": "^14.2.13",
     "next-intl": "^3.21.0",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@types/node": "^22.7.4",
