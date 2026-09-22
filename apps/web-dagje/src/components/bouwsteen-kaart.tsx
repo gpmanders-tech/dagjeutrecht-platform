@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { CLUSTERS, TIJDVAKKEN, formatEuro, maandenTekst, type Bouwsteen } from '../lib/aanbod';
 import { fotoVoorBouwsteen } from '../lib/fotos';
 import { Foto } from './ui';
@@ -32,7 +33,11 @@ export function BouwsteenKaart({ blok, hoek = '' }: { blok: Bouwsteen; hoek?: st
         {blok.cluster === 'beide' ? 'Onderweg' : CLUSTERS[blok.cluster].naam} · {blok.duur}
       </div>
       <div className="p-5">
-        <h3 className="text-2xl font-extrabold leading-tight text-inkt">{blok.naam}</h3>
+        <h3 className="text-2xl font-extrabold leading-tight text-inkt">
+          <Link href={`/bouwstenen/${blok.slug}`} className="hover:underline">
+            {blok.naam}
+          </Link>
+        </h3>
         <p className="mt-2 text-grijs">{blok.beschrijving}</p>
         <dl className="mt-4 grid grid-cols-[6rem_1fr] gap-x-3 gap-y-1 text-sm">
           <dt className="font-bold text-inkt">Waar</dt>
@@ -52,6 +57,11 @@ export function BouwsteenKaart({ blok, hoek = '' }: { blok: Bouwsteen; hoek?: st
           <dt className="font-bold text-inkt">Inclusief</dt>
           <dd className="text-grijs">{blok.inclusief.join(', ')}</dd>
         </dl>
+        <p className="mt-4">
+          <Link href={`/bouwstenen/${blok.slug}`} className="font-bold text-inkt underline">
+            Meer over {blok.naam.toLowerCase()}
+          </Link>
+        </p>
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next';
 import { prisma } from '@utrecht/db';
-import { PAKKETTEN } from '../lib/aanbod';
+import { BOUWSTENEN, PAKKETTEN } from '../lib/aanbod';
 
 const BASE = 'https://dagjeutrecht.nl';
 
@@ -32,6 +32,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   }));
 
+  const bouwstenen: MetadataRoute.Sitemap = BOUWSTENEN.map((b) => ({
+    url: `${BASE}/bouwstenen/${b.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly' as const,
+    priority: 0.8,
+  }));
+
   let blog: MetadataRoute.Sitemap = [];
   try {
     const posts = await prisma.blogPost.findMany({
@@ -48,5 +55,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     console.error('Sitemap DB fetch failed:', e);
   }
 
-  return [...vast, ...pakketten, ...blog];
+  return [...vast, ...pakketten, ...bouwstenen, ...blog];
 }

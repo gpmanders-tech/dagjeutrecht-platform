@@ -16,7 +16,32 @@ export default {
       { source: '/samensteller', destination: '/boeken', permanent: true },
       { source: '/aanvraag', destination: '/boeken', permanent: true },
       { source: '/aanbod', destination: '/bouwstenen', permanent: true },
-      { source: '/aanbod/:slug', destination: '/bouwstenen', permanent: true },
+
+      // Oude cataloguspagina's die een echte opvolger hebben, gaan daar per stuk
+      // naartoe. Alles naar /bouwstenen sturen leek netjes, maar Google ziet een
+      // permanente doorverwijzing naar een algemene pagina als een verdwenen
+      // pagina (soft 404) en draagt de positie dan niet over. De rest van de oude
+      // /aanbod-pagina's zijn leveranciers die we niet meer verkopen; die geven
+      // voortaan gewoon een 404, want dat is eerlijker dan doorsturen naar iets
+      // anders.
+      { source: '/aanbod/suppen-kromme-rijn', destination: '/bouwstenen/suppen', permanent: true },
+      { source: '/aanbod/sup-sup-club', destination: '/bouwstenen/suppen', permanent: true },
+      { source: '/aanbod/sup-en-kanoverhuur', destination: '/bouwstenen/suppen', permanent: true },
+      { source: '/aanbod/dagjesuppen', destination: '/bouwstenen/suppen', permanent: true },
+      { source: '/aanbod/kanohuren-utrecht', destination: '/bouwstenen/kanoen', permanent: true },
+      { source: '/aanbod/jeu-de-boules-bar', destination: '/bouwstenen/jeu-de-boules', permanent: true },
+      { source: '/aanbod/boules-club-oudegracht', destination: '/bouwstenen/jeu-de-boules', permanent: true },
+      { source: '/aanbod/mooie-boules', destination: '/bouwstenen/jeu-de-boules', permanent: true },
+      { source: '/aanbod/grand-shuffle', destination: '/bouwstenen/shuffleboard', permanent: true },
+      { source: '/aanbod/domtoren', destination: '/bouwstenen/domtoren', permanent: true },
+      { source: '/aanbod/high-tea-domtoren', destination: '/bouwstenen/domtoren', permanent: true },
+      { source: '/aanbod/canal-cruising', destination: '/bouwstenen/rondvaart', permanent: true },
+      { source: '/aanbod/utrecht-canal-cruises', destination: '/bouwstenen/rondvaart', permanent: true },
+      { source: '/aanbod/stromma-peddelboot', destination: '/bouwstenen/rondvaart', permanent: true },
+      { source: '/aanbod/pannenkoekenboot-utrecht', destination: '/bouwstenen/rondvaart', permanent: true },
+      { source: '/aanbod/domstadboot-bbq', destination: '/bouwstenen/bbq', permanent: true },
+      { source: '/aanbod/fietsverhuur-utrecht-cs', destination: '/bouwstenen/kickbike-tocht', permanent: true },
+      { source: '/aanbod/team-building', destination: '/teambuilding-utrecht', permanent: true },
       { source: '/programmas', destination: '/pakketten', permanent: true },
       { source: '/programma/:slug', destination: '/pakketten', permanent: true },
       { source: '/doelgroep/teamuitje', destination: '/bedrijfsuitje-utrecht', permanent: true },
