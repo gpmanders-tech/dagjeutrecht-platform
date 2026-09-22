@@ -16,7 +16,7 @@ export function LoginForm() {
     setError(null);
     startTransition(async () => {
       const result = await login(email);
-      if ('error' in result) setError(result.error);
+      if ('error' in result) setError(result.error ?? 'Es ist ein Fehler aufgetreten.');
       else router.push('/katalog');
     });
   }
