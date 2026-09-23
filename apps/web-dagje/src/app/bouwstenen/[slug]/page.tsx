@@ -4,6 +4,8 @@ import Link from 'next/link';
 import {
   BOUWSTENEN,
   CLUSTERS,
+  PAKKETTEN,
+  prijsPerPersoon,
   REGELS,
   TIJDVAKKEN,
   formatEuro,
@@ -27,10 +29,23 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   const b = vindBouwsteen(params.slug);
   if (!b) return {};
   const seo = seoVoorBouwsteen(b.slug);
+  const titel = seo?.titel ?? `${b.naam} in Utrecht`;
+  const beschrijving = seo?.beschrijving ?? `${b.kort} Vanaf ${b.minPers} personen, ${formatEuro(b.verkoopCents)} per persoon.`;
+  const foto = fotoVoorBouwsteen(b.slug);
   return {
-    title: seo?.titel ?? `${b.naam} in Utrecht`,
-    description: seo?.beschrijving ?? `${b.kort} Vanaf ${b.minPers} personen, ${formatEuro(b.verkoopCents)} per persoon.`,
+    title: titel,
+    description: beschrijving,
     alternates: { canonical: `/bouwstenen/${b.slug}` },
+    openGraph: {
+      type: 'website',
+      locale: 'nl_NL',
+      siteName: 'DagjeUtrecht',
+      title: titel,
+      description: beschrijving,
+      url: `/bouwstenen/${b.slug}`,
+      images: [{ url: foto.src, alt: foto.alt }],
+    },
+    twitter: { card: 'summary_large_image', title: titel, description: beschrijving, images: [foto.src] },
   };
 }
 
@@ -40,6 +55,7 @@ export default function BouwsteenPage({ params }: { params: { slug: string } }) 
   const seo = seoVoorBouwsteen(b.slug);
   const foto = fotoVoorBouwsteen(b.slug);
   const tijden = TIJDVAKKEN.filter((t) => b.tijdvakken.includes(t.id));
+  const inPakketten = PAKKETTEN.filter((p) => Object.values(p.blokken).includes(b.slug));
   const verwant = BOUWSTENEN.filter((x) => x.slug !== b.slug && x.cluster === b.cluster).slice(0, 3);
 
   const praktisch: Array<[string, string]> = [
@@ -64,7 +80,7 @@ export default function BouwsteenPage({ params }: { params: { slug: string } }) 
         name={b.naam}
         description={b.beschrijving}
         price={b.verkoopCents}
-        image={foto?.src}
+        image={foto ? `https://dagjeutrecht.nl${foto.src}` : undefined}
         category={CLUSTERS[b.cluster].naam}
         url={`/bouwstenen/${b.slug}`}
       />
@@ -144,6 +160,22 @@ export default function BouwsteenPage({ params }: { params: { slug: string } }) 
               </div>
             ))}
           </dl>
+        </section>
+      )}
+
+      {inPakketten.length > 0 && (
+        <section className="mx-auto max-w-3xl px-4 pb-16 sm:px-6">
+          <h2 className="text-3xl font-black uppercase tracking-tight text-inkt">Zit in deze pakketten</h2>
+          <ul className="mt-6 space-y-3">
+            {inPakketten.map((p) => (
+              <li key={p.slug} className="text-lg text-grijs">
+                <Link href={`/pakketten/${p.slug}`} className="font-extrabold text-inkt underline decoration-vlam-400 decoration-2 underline-offset-4">
+                  {p.naam}
+                </Link>{' '}
+                ({formatEuro(prijsPerPersoon(p.blokken))} per persoon): {p.kort}
+              </li>
+            ))}
+          </ul>
         </section>
       )}
 

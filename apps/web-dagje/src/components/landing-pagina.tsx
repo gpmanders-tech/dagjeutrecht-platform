@@ -1,7 +1,16 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { uitgelichtSeizoen, vindPakket } from '../lib/aanbod';
-import type { Landing } from '../lib/landings';
+import {
+  CLUSTERS,
+  REGELS,
+  TIJDVAKKEN,
+  formatEuro,
+  prijsPerPersoon,
+  uitgelichtSeizoen,
+  vindBouwsteen,
+  vindPakket,
+} from '../lib/aanbod';
+import { LANDING_LIJST, type Landing } from '../lib/landings';
 import { Breadcrumbs, FaqSchema } from './seo-jsonld';
 import { PakketKaart } from './pakket-kaart';
 import { Band, BoekBlok, Foto, HOEKEN, Knop, PaginaKop } from './ui';
@@ -38,6 +47,14 @@ export function LandingPagina({ landing: l }: { landing: Landing }) {
     .map(vindPakket)
     .filter((p) => p !== null)
     .sort((a, b) => rang(a.seizoen) - rang(b.seizoen));
+  const prijzen = pakketten.map((p) => prijsPerPersoon(p.blokken));
+  const voorbeeld = vindPakket(l.voorbeeld);
+  const dag = voorbeeld
+    ? TIJDVAKKEN.flatMap((t) => {
+        const b = vindBouwsteen(voorbeeld.blokken[t.id]);
+        return b ? [{ t, b }] : [];
+      })
+    : [];
 
   return (
     <>
@@ -48,6 +65,10 @@ export function LandingPagina({ landing: l }: { landing: Landing }) {
         ]}
       />
       <FaqSchema items={l.faq} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(dienstSchema(l, prijzen)) }}
+      />
 
       <PaginaKop
         titel={l.titel}
@@ -71,6 +92,43 @@ export function LandingPagina({ landing: l }: { landing: Landing }) {
           ))}
         </div>
       </section>
+
+      {voorbeeld && dag.length > 0 && (
+        <section className="mx-auto max-w-5xl px-4 pb-14 sm:px-6">
+          <h2 className="text-4xl font-black uppercase tracking-tight text-inkt sm:text-5xl">Zo ziet de dag eruit</h2>
+          <p className="mt-3 max-w-2xl text-lg text-grijs">
+            Een voorbeeld: {voorbeeld.naam}, voor {formatEuro(prijsPerPersoon(voorbeeld.blokken))} per persoon
+            inclusief btw. Elk onderdeel kun je in de samensteller omwisselen.
+          </p>
+          <ol className="mt-8 divide-y-2 divide-zee-100 rounded-2xl border-2 border-zee-100 bg-white">
+            {dag.map(({ t, b }) => (
+              <li key={t.id} className="grid gap-2 px-5 py-4 sm:grid-cols-[8rem_1fr]">
+                <p className="font-black text-vlam-700">
+                  {t.van} tot {t.tot}
+                </p>
+                <div>
+                  <h3 className="text-lg font-extrabold text-inkt">
+                    <Link href={`/bouwstenen/${b.slug}`} className="underline decoration-zee-400 decoration-2 underline-offset-4 hover:text-vlam-700">
+                      {b.naam}
+                    </Link>
+                  </h3>
+                  <p className="text-grijs">{b.kort}</p>
+                  <p className="mt-1 text-sm text-grijs">
+                    Inbegrepen: {b.inclusief.join(', ')}. {b.cluster === 'beide' ? 'Onderweg' : CLUSTERS[b.cluster].naam}, {b.locatie}.
+                  </p>
+                </div>
+              </li>
+            ))}
+          </ol>
+          <p className="mt-4 text-grijs">
+            Vanaf {REGELS.minPers} personen, op donderdag, vrijdag of zaterdag, minimaal {REGELS.minDagenVooruit} dagen
+            vooruit.{' '}
+            <Link href={`/pakketten/${voorbeeld.slug}`} className="font-bold text-inkt underline decoration-vlam-400 decoration-2 underline-offset-4">
+              Bekijk {voorbeeld.naam}
+            </Link>
+          </p>
+        </section>
+      )}
 
       <section id="pakketten" className="scroll-mt-24 bg-zee-50">
         <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6">
@@ -132,10 +190,9 @@ export function LandingPagina({ landing: l }: { landing: Landing }) {
         <h2 className="text-2xl font-black uppercase tracking-tight text-inkt">Ook interessant</h2>
         <ul className="mt-4 flex flex-wrap gap-3">
           {[
-            { href: '/bedrijfsuitje-utrecht', label: 'Bedrijfsuitje' },
-            { href: '/teambuilding-utrecht', label: 'Teambuilding' },
-            { href: '/schooluitje-utrecht', label: 'Schooluitje' },
-            { href: '/vrijgezellenfeest-utrecht', label: 'Vrijgezellenfeest' },
+            ...LANDING_LIJST.map((x) => ({ href: x.pad, label: x.link })),
+            { href: '/pakketten', label: 'Alle pakketten' },
+            { href: '/bouwstenen', label: 'Alle activiteiten' },
           ]
             .filter((x) => x.href !== l.pad)
             .map((x) => (
@@ -166,4 +223,32 @@ export function LandingPagina({ landing: l }: { landing: Landing }) {
       <BoekBlok titel="Klaar om een datum te prikken?" foto={l.galerij[0]} />
     </>
   );
+}
+
+/**
+ * Service met de echte prijzen van de pakketten op deze pagina, zodat Google de
+ * prijsrange kent. Laagste en hoogste bedrag rollen uit de bouwstenen.
+ */
+function dienstSchema(l: Landing, prijzen: number[]) {
+  const url = `https://dagjeutrecht.nl${l.pad}`;
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: l.titel,
+    description: l.metaOmschrijving,
+    url,
+    image: `https://dagjeutrecht.nl${l.foto.src}`,
+    provider: { '@id': 'https://dagjeutrecht.nl#organization' },
+    areaServed: { '@type': 'City', name: 'Utrecht' },
+    offers: prijzen.length
+      ? {
+          '@type': 'AggregateOffer',
+          priceCurrency: 'EUR',
+          lowPrice: (Math.min(...prijzen) / 100).toFixed(2),
+          highPrice: (Math.max(...prijzen) / 100).toFixed(2),
+          offerCount: prijzen.length,
+          url,
+        }
+      : undefined,
+  };
 }

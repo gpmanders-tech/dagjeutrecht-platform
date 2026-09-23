@@ -1,6 +1,13 @@
 import { LoginForm } from '@/components/login-form';
 
-export const metadata = { title: 'Login — Utrecht Incoming' };
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Partner-Login',
+  description: 'Login für registrierte Partner von Utrecht Incoming: Partnertarife, Gruppenanfragen und Vouchers.',
+  alternates: { canonical: '/login' },
+  robots: { index: false, follow: true },
+};
 
 export default function LoginPage() {
   return (

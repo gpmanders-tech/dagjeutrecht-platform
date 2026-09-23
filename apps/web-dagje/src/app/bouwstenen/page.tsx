@@ -2,13 +2,36 @@ import type { Metadata } from 'next';
 import { BOUWSTENEN, CLUSTERS, type Cluster } from '../../lib/aanbod';
 import { fotos } from '../../lib/fotos';
 import { BouwsteenKaart } from '../../components/bouwsteen-kaart';
+import { Breadcrumbs } from '../../components/seo-jsonld';
 import { Band, BoekBlok, HOEKEN, PaginaKop, Sticker } from '../../components/ui';
 
 export const metadata: Metadata = {
-  title: 'Alle onderdelen voor je dagje Utrecht',
+  title: `Activiteiten Utrecht voor groepen: ${BOUWSTENEN.length} onderdelen`,
   description:
-    'Jeu de boules, shuffleboard, Domtoren, rondvaart, kanoën, suppen, kickbike-tocht, lunch, BBQ en borrel in Utrecht. Vaste prijzen per persoon.',
+    'Activiteiten in Utrecht voor groepen: jeu de boules, shuffleboard, Domtoren, rondvaart, kanoën, suppen, City Challenge, BBQ en borrel. Vaste prijs p.p.',
   alternates: { canonical: '/bouwstenen' },
+  openGraph: {
+    type: 'website',
+    locale: 'nl_NL',
+    siteName: 'DagjeUtrecht',
+    title: `Activiteiten Utrecht voor groepen: ${BOUWSTENEN.length} onderdelen`,
+    description: 'Jeu de boules, shuffleboard, Domtoren, rondvaart, kanoën, suppen, City Challenge, lunch, BBQ en borrel. Vaste prijs per persoon.',
+    url: '/bouwstenen',
+    images: [{ url: fotos.kanoGracht.src, alt: fotos.kanoGracht.alt }],
+  },
+};
+
+const lijst = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Activiteiten in Utrecht voor groepen',
+  numberOfItems: BOUWSTENEN.length,
+  itemListElement: BOUWSTENEN.map((b, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    url: `https://dagjeutrecht.nl/bouwstenen/${b.slug}`,
+    name: b.naam,
+  })),
 };
 
 const SECTIES: Array<{ cluster: Cluster; titel: string; sticker: string; kleur: 'zee' | 'vlam' | 'zon'; achtergrond: string }> = [
@@ -22,8 +45,15 @@ export const revalidate = 86400;
 export default function BouwstenenPage() {
   return (
     <>
+      <Breadcrumbs
+        trail={[
+          { name: 'Home', url: '/' },
+          { name: 'Onderdelen', url: '/bouwstenen' },
+        ]}
+      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(lijst) }} />
       <PaginaKop
-        titel="Alle onderdelen"
+        titel="Activiteiten in Utrecht"
         intro="Hiermee bouw je jullie dag. Alles heeft een vaste prijs per persoon en een vast tijdstip."
         kleur="vlam"
         foto={fotos.kanoGracht}

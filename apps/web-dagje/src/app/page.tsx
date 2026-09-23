@@ -18,14 +18,19 @@ import { fotos, fotoVoorBouwsteen, fotoVoorPakket } from '../lib/fotos';
 import { PakketKaart } from '../components/pakket-kaart';
 import { Band, BoekBlok, Foto, HOEKEN, Knop, RondeSticker, Sticker } from '../components/ui';
 import { KaartUtrecht } from '../components/kaart-utrecht';
+import { FaqSchema } from '../components/seo-jsonld';
+
+const goedkoopste = Math.min(...PAKKETTEN.map((p) => prijsPerPersoon(p.blokken)));
 
 export const metadata: Metadata = {
+  // Merknaam en zoekterm vallen samen; het bedrag in de titel trekt de klik, net als bij
+  // de concurrenten die op dagje uit utrecht met groep bovenaan staan.
+  title: { absolute: `Dagje uit Utrecht met je groep vanaf ${formatEuro(goedkoopste)} | DagjeUtrecht` },
+  description: `Dagje uit in Utrecht met je groep: jeu de boules, kanoën, rondvaart, City Challenge en borrel. Vaste pakketten vanaf ${formatEuro(goedkoopste)} per persoon, incl. btw.`,
   alternates: { canonical: '/' },
 };
 
 export const revalidate = 86400;
-
-const goedkoopste = Math.min(...PAKKETTEN.map((p) => prijsPerPersoon(p.blokken)));
 
 const cijfers = [
   { getal: `Vanaf ${REGELS.minPers}`, label: 'personen per groep', kleur: 'bg-zee-400 text-inkt' },
@@ -81,6 +86,20 @@ const voorWie = [
     kleur: 'bg-inkt',
     href: '/schooluitje-utrecht',
   },
+  {
+    titel: 'Personeelsuitje',
+    tekst: 'Een middag boulen en borrelen waar iedereen aan mee kan doen.',
+    foto: fotos.terrassen,
+    kleur: 'bg-zee-400',
+    href: '/personeelsuitje-utrecht',
+  },
+  {
+    titel: 'Bedrijfsfeest',
+    tekst: 'Eerst samen spelen, dan proosten op het jubileum of het goede jaar.',
+    foto: fotos.borrel,
+    kleur: 'bg-vlam-500',
+    href: '/bedrijfsfeest-utrecht',
+  },
 ];
 
 const galerij = [
@@ -90,6 +109,33 @@ const galerij = [
   fotos.oudegrachtDom,
   fotos.supRood,
   fotos.kickbikePark,
+];
+
+const HOME_FAQ = [
+  {
+    q: 'Wat kun je met een groep doen in Utrecht?',
+    a: 'In het centrum: jeu de boules, shuffleboard, de Domtoren op, een rondvaart door de grachten en de City Challenge door de binnenstad. In Amelisweerd: kanoën en suppen op de Kromme Rijn, een picknick en een BBQ. Met de kickbike ga je van het een naar het ander.',
+  },
+  {
+    q: 'Wat kost een dagje Utrecht met een groep?',
+    a: `De goedkoopste halve dag kost ${formatEuro(goedkoopste)} per persoon. Elk pakket heeft een vaste prijs per persoon, inclusief btw. Wat een onderdeel kost, zie je op de pagina met alle onderdelen.`,
+  },
+  {
+    q: 'Vanaf hoeveel personen kan het?',
+    a: `Vanaf ${REGELS.minPers} personen. Online boeken kan tot ${REGELS.maxPers} personen.`,
+  },
+  {
+    q: 'Op welke dagen kan het?',
+    a: `Op donderdag, vrijdag en zaterdag. Boek minimaal ${REGELS.minDagenVooruit} dagen vooruit.`,
+  },
+  {
+    q: 'Wat als het slecht weer is?',
+    a: 'Jeu de boules, shuffleboard, de lunch en de borrel zijn binnen. Utrecht Spel & Borrel is een hele dag binnen in het centrum, dus die gaat altijd door.',
+  },
+  {
+    q: 'Voor wie zijn de pakketten?',
+    a: 'Voor bedrijven, personeelsverenigingen, scholen en vriendengroepen. Er zijn aparte pagina’s voor een bedrijfsuitje, personeelsuitje, teambuilding, bedrijfsfeest, schooluitje en vrijgezellenfeest.',
+  },
 ];
 
 export default function Home() {
@@ -391,6 +437,29 @@ export default function Home() {
           ))}
         </ul>
       </section>
+
+      <section className="bg-vlam-50">
+        <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
+          <h2 className="text-4xl font-black uppercase tracking-tight text-inkt sm:text-5xl">Veelgestelde vragen</h2>
+          <div className="mt-8 divide-y divide-vlam-100 overflow-hidden rounded-2xl bg-white shadow-lg">
+            {HOME_FAQ.map((v) => (
+              <details key={v.q} className="group px-5 py-4">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-bold text-inkt [&::-webkit-details-marker]:hidden">
+                  <h3 className="text-lg">{v.q}</h3>
+                  <span
+                    aria-hidden="true"
+                    className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-vlam-400 text-xl leading-none text-inkt transition-transform group-open:rotate-45"
+                  >
+                    +
+                  </span>
+                </summary>
+                <p className="mt-3 text-grijs">{v.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+      <FaqSchema items={HOME_FAQ} />
 
       <BoekBlok />
     </main>
