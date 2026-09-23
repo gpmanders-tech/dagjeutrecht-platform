@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { LANDING_LIJST } from '../lib/landings';
 import { Logo } from './ui';
 
 export function SiteFooter() {
@@ -62,12 +63,7 @@ export function SiteFooter() {
         <div className="sm:col-span-3">
           <h2 className="font-bold text-zon-300">Voor wie?</h2>
           <ul className="mt-3 flex flex-wrap gap-2 text-sm">
-            {[
-              { href: '/bedrijfsuitje-utrecht', label: 'Bedrijfsuitje' },
-              { href: '/teambuilding-utrecht', label: 'Teambuilding' },
-              { href: '/schooluitje-utrecht', label: 'Schooluitje' },
-              { href: '/vrijgezellenfeest-utrecht', label: 'Vrijgezellenfeest' },
-            ].map((l) => (
+            {LANDING_LIJST.map((x) => ({ href: x.pad, label: x.link })).map((l) => (
               <li key={l.href}>
                 <Link
                   href={l.href}

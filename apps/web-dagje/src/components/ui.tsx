@@ -40,7 +40,16 @@ export function Foto({
   const positie = verhouding.includes('absolute') ? '' : 'relative';
   return (
     <div className={`${positie} overflow-hidden ${verhouding} ${className}`}>
-      <Image src={foto.src} alt={foto.alt} fill sizes={sizes} priority={prioriteit} className="object-cover" />
+      {/* Sierfoto's (lege alt) worden voor schermlezers verborgen. */}
+      <Image
+        src={foto.src}
+        alt={foto.alt}
+        aria-hidden={foto.alt ? undefined : true}
+        fill
+        sizes={sizes}
+        priority={prioriteit}
+        className="object-cover"
+      />
     </div>
   );
 }

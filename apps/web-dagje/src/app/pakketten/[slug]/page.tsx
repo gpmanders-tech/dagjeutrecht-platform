@@ -13,7 +13,9 @@ import {
   vindPakket,
 } from '../../../lib/aanbod';
 import { fotoVoorBouwsteen, fotoVoorPakket } from '../../../lib/fotos';
-import { Breadcrumbs } from '../../../components/seo-jsonld';
+import { Breadcrumbs, EventOrProductSchema, FaqSchema } from '../../../components/seo-jsonld';
+import { LANDING_LIJST } from '../../../lib/landings';
+import Link from 'next/link';
 import { PakketKaart } from '../../../components/pakket-kaart';
 import { BoekBlok, Foto, HOEKEN, Knop, PaginaKop } from '../../../components/ui';
 
@@ -24,13 +26,51 @@ export function generateStaticParams() {
   return PAKKETTEN.map((p) => ({ slug: p.slug }));
 }
 
+const klein = (t: string) => t.charAt(0).toLowerCase() + t.slice(1);
+
+/** Titel met het bedrag erin als dat binnen 65 tekens past (met ' | DagjeUtrecht' erachter). */
+function pakketTitel(naam: string, prijs: string) {
+  const plek = naam.includes('Utrecht') ? naam : `${naam} Utrecht`;
+  const metPrijs = `${plek}: ${prijs} per persoon`;
+  if (metPrijs.length + 15 <= 65) return metPrijs;
+  const kort = `${plek}, ${prijs} p.p.`;
+  if (kort.length + 15 <= 65) return kort;
+  return `${naam}: dagpakket Utrecht`;
+}
+
+/** Beschrijving van 120 tot 155 tekens, opgebouwd uit wat er echt in het pakket zit. */
+function pakketBeschrijving(naam: string, kort: string, voorWie: string, prijs: string) {
+  const staart = `${prijs} per persoon incl. btw, vanaf ${REGELS.minPers} personen.`;
+  const kop = naam.includes('Utrecht') ? naam : `${naam} in Utrecht`;
+  const kandidaten = [
+    `${kop}. ${kort} Voor ${klein(voorWie)}. ${staart}`,
+    `${kop}. ${kort} ${staart}`,
+    `${kort} ${staart}`,
+  ];
+  return kandidaten.find((k) => k.length <= 155) ?? kandidaten[kandidaten.length - 1]!;
+}
+
 export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
   const p = vindPakket(params.slug);
   if (!p) return {};
+  const prijs = formatEuro(prijsPerPersoon(p.blokken));
+  const titel = pakketTitel(p.naam, prijs);
+  const beschrijving = pakketBeschrijving(p.naam, p.kort, p.voorWie, prijs);
+  const foto = fotoVoorPakket(p.slug);
   return {
-    title: `${p.naam}: dagpakket Utrecht`,
-    description: `${p.kort} Vaste prijs ${formatEuro(prijsPerPersoon(p.blokken))} per persoon.`,
+    title: titel,
+    description: beschrijving,
     alternates: { canonical: `/pakketten/${p.slug}` },
+    openGraph: {
+      type: 'website',
+      locale: 'nl_NL',
+      siteName: 'DagjeUtrecht',
+      title: titel,
+      description: beschrijving,
+      url: `/pakketten/${p.slug}`,
+      images: [{ url: foto.src, alt: foto.alt }],
+    },
+    twitter: { card: 'summary_large_image', title: titel, description: beschrijving, images: [foto.src] },
   };
 }
 
@@ -44,6 +84,34 @@ export default function PakketPage({ params }: { params: { slug: string } }) {
     const b = vindBouwsteen(p.blokken[t.id]);
     return b ? [{ t, b, i }] : [];
   });
+  const maanden = pakketMaanden(p);
+  const eerste = onderdelen[0]?.t.van;
+  const laatste = onderdelen[onderdelen.length - 1]?.t.tot;
+  const minimum = Math.max(REGELS.minPers, ...onderdelen.map((o) => o.b.minPers));
+  const maximum = Math.min(REGELS.maxPers, ...onderdelen.map((o) => o.b.maxPers));
+  const pastBij = LANDING_LIJST.filter((l) => l.pakketten.includes(p.slug));
+  const vragen = [
+    {
+      q: `Wat zit er bij ${p.naam} inbegrepen?`,
+      a: onderdelen.map(({ b }) => `${b.naam}: ${b.inclusief.join(', ')}`).join('. ') + '. Prijzen zijn inclusief btw.',
+    },
+    {
+      q: 'Hoe laat begint en eindigt het?',
+      a: `Het programma begint om ${eerste} en is om ${laatste} afgelopen.`,
+    },
+    {
+      q: 'Met hoeveel personen kan het?',
+      a: `Met ${minimum} tot ${maximum} personen. Je betaalt ${formatEuro(pp)} per persoon.`,
+    },
+    {
+      q: 'Wanneer kan het?',
+      a: `${maanden ? `Van ${maandenTekst(maanden)}, ` : 'Het hele jaar, '}op donderdag, vrijdag en zaterdag. Boek minimaal ${REGELS.minDagenVooruit} dagen vooruit.`,
+    },
+    {
+      q: 'Kan ik een onderdeel omwisselen?',
+      a: 'Ja. Kies in de samensteller per tijdvak een ander onderdeel; de prijs rekent zich meteen opnieuw uit.',
+    },
+  ];
 
   return (
     <>
@@ -54,6 +122,15 @@ export default function PakketPage({ params }: { params: { slug: string } }) {
           { name: p.naam, url: `/pakketten/${p.slug}` },
         ]}
       />
+      <EventOrProductSchema
+        name={p.naam}
+        description={p.beschrijving}
+        price={pp}
+        image={`https://dagjeutrecht.nl${fotoVoorPakket(p.slug).src}`}
+        category="Groepsuitje Utrecht"
+        url={`/pakketten/${p.slug}`}
+      />
+      <FaqSchema items={vragen} />
       <PaginaKop
         titel={p.naam}
         intro={
@@ -114,6 +191,32 @@ export default function PakketPage({ params }: { params: { slug: string } }) {
             </Knop>
           </div>
         </div>
+      </section>
+
+      <section className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
+        <h2 className="text-3xl font-black uppercase tracking-tight text-inkt">Veelgestelde vragen</h2>
+        <dl className="mt-6 space-y-5">
+          {vragen.map((v) => (
+            <div key={v.q}>
+              <dt className="text-lg font-extrabold text-inkt">{v.q}</dt>
+              <dd className="mt-1 text-grijs">{v.a}</dd>
+            </div>
+          ))}
+        </dl>
+        {pastBij.length > 0 && (
+          <p className="mt-8 text-lg text-grijs">
+            Past bij:{' '}
+            {pastBij.map((l, i) => (
+              <span key={l.pad}>
+                {i > 0 && ', '}
+                <Link href={l.pad} className="font-bold text-inkt underline decoration-vlam-400 decoration-2 underline-offset-4">
+                  {l.link.toLowerCase()} in Utrecht
+                </Link>
+              </span>
+            ))}
+            .
+          </p>
+        )}
       </section>
 
       <section className="mx-auto max-w-5xl px-4 py-16 sm:px-6">

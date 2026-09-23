@@ -5,7 +5,10 @@ import { redirect } from 'next/navigation';
 import { getPartner } from '@/lib/session';
 import { LogoutButton } from '@/components/logout-button';
 
-export const metadata = { title: 'Katalog — Utrecht Incoming' };
+export const metadata = {
+  title: 'Partnerkatalog',
+  robots: { index: false, follow: false },
+};
 
 export default async function CatalogPage() {
   const partner = await getPartner();
