@@ -42,7 +42,7 @@ export function SiteHeader() {
             href="/boeken"
             className="ml-2 inline-flex min-h-11 items-center rounded-full bg-vlam-400 px-5 font-bold text-inkt hover:bg-vlam-500"
           >
-            Boeken
+            Aanvragen
           </Link>
         </nav>
 
@@ -52,7 +52,7 @@ export function SiteHeader() {
             onClick={() => setOpen(false)}
             className="inline-flex min-h-11 items-center rounded-full bg-vlam-400 px-4 text-sm font-bold text-inkt hover:bg-vlam-500"
           >
-            Boeken
+            Aanvragen
           </Link>
           <button
             type="button"
