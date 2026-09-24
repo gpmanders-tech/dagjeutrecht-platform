@@ -41,13 +41,15 @@ export const fotos = {
   stamppot: f('stamppot-boerenkool', 'Boerenkoolstamppot met rookworst'),
   erwtensoep: f('erwtensoep', 'Erwtensoep met roggebrood en spek'),
   winterUtrecht: f('utrecht-winter-sneeuw', 'De Kromme Rijn in Utrecht met sneeuw'),
+  boulesBinnen: f('jeu-de-boules-binnen', 'Groep speelt jeu de boules binnen in een hal met lampjes'),
+  domtorenKlok: f('domtoren-klok-binnen', 'Een van de grote klokken binnen in de Domtoren'),
 } satisfies Record<string, Foto>;
 
 export const FOTO_PER_BOUWSTEEN: Record<string, Foto> = {
   'koffie-met-gebak': fotos.koffie,
   gluhwein: fotos.gluhwein,
   winterlunch: fotos.erwtensoep,
-  'jeu-de-boules': fotos.boules,
+  'jeu-de-boules': fotos.boulesBinnen,
   shuffleboard: fotos.shuffleboard,
   domtoren: fotos.domtoren,
   rondvaart: fotos.rondvaart,
@@ -68,7 +70,13 @@ export const FOTO_PER_PAKKET: Record<string, Foto> = {
   schooluitje: fotos.oudegrachtDom,
 };
 
-export function fotoVoorBouwsteen(slug: string) {
+/** In de winter geen zomerse buitenfoto's: binnen, bij de klok of aan de borrel. */
+const FOTO_WINTER: Record<string, Foto> = {
+  domtoren: fotos.domtorenKlok,
+};
+
+export function fotoVoorBouwsteen(slug: string, seizoen?: string) {
+  if (seizoen === 'winter' && FOTO_WINTER[slug]) return FOTO_WINTER[slug];
   return FOTO_PER_BOUWSTEEN[slug] ?? fotos.oudegrachtDom;
 }
 
@@ -77,6 +85,18 @@ export function fotoVoorPakket(slug: string) {
 }
 
 export const FOTO_BRONNEN = [
+  {
+    foto: fotos.boulesBinnen,
+    maker: 'Brunobuisson',
+    licentie: 'CC BY-SA 4.0',
+    bron: 'https://commons.wikimedia.org/wiki/File:P%C3%A9tanque_being_played_indoor_in_Rotterdam..jpg',
+  },
+  {
+    foto: fotos.domtorenKlok,
+    maker: 'Pepijntje',
+    licentie: 'CC BY-SA 3.0',
+    bron: 'https://commons.wikimedia.org/wiki/File:Martinus_1.JPG',
+  },
   {
     foto: fotos.boules,
     maker: 'Nicholas Babaian',

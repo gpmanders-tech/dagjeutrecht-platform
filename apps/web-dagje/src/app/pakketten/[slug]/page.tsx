@@ -152,7 +152,7 @@ export default function PakketPage({ params }: { params: { slug: string } }) {
           {onderdelen.map(({ t, b, i }, n) => (
             <li key={t.id} className="grid items-center gap-6 md:grid-cols-5">
               <Foto
-                foto={fotoVoorBouwsteen(b.slug)}
+                foto={fotoVoorBouwsteen(b.slug, p.seizoen)}
                 verhouding={`aspect-[4/3] md:col-span-2 ${HOEKEN[n % HOEKEN.length]} ${n % 2 ? 'md:order-2' : ''}`}
                 sizes="(min-width: 768px) 40vw, 100vw"
                 className="kantel polaroid rounded-sm"

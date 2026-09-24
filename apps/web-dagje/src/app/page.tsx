@@ -145,7 +145,7 @@ export default function Home() {
   const uitgelicht = pakketten[0]!;
   const maanden = pakketMaanden(uitgelicht);
   const heroFotos = winter
-    ? { groot: fotos.boulesSpelers, klein: fotos.gluhwein, boven: fotos.domtoren }
+    ? { groot: fotos.boulesBinnen, klein: fotos.gluhwein, boven: fotos.borrel }
     : { groot: fotos.supGroep, klein: fotos.kickbikeDomkerk, boven: fotos.boules };
   const clusters = winter ? (['centrum', 'amelisweerd'] as const) : (['amelisweerd', 'centrum'] as const);
 
@@ -307,7 +307,7 @@ export default function Home() {
               sizes="(min-width: 768px) 40vw, 90vw"
               className="kantel polaroid rounded-sm"
             />
-            {(winter ? [fotos.erwtensoep, fotos.domtoren] : [fotos.picknick, fotos.kickbikeGracht]).map((f, i) => (
+            {(winter ? [fotos.erwtensoep, fotos.borrel] : [fotos.picknick, fotos.kickbikeGracht]).map((f, i) => (
               <Foto
                 key={f.src}
                 foto={f}
@@ -378,7 +378,7 @@ export default function Home() {
                   <li key={b.slug}>
                     <Link href={`/bouwstenen#${b.slug}`} className="group block">
                       <Foto
-                        foto={fotoVoorBouwsteen(b.slug)}
+                        foto={fotoVoorBouwsteen(b.slug, winter ? 'winter' : undefined)}
                         verhouding={`aspect-square ${HOEKEN[i % HOEKEN.length]}`}
                         sizes="(min-width: 768px) 25vw, 50vw"
                         className="kantel polaroid rounded-sm transition-transform group-hover:rotate-0 group-hover:scale-105"
