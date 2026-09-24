@@ -2,6 +2,7 @@ import '@utrecht/ui/styles';
 import './site.css';
 import { Inter, Playfair_Display } from 'next/font/google';
 import type { Metadata } from 'next';
+import Script from 'next/script';
 import { SiteHeader } from '../components/site-header';
 import { SiteFooter } from '../components/site-footer';
 
@@ -162,24 +163,27 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+      </head>
+      <body className="flex min-h-screen flex-col bg-white font-sans text-inkt">
+        <SiteHeader />
+        <div id="inhoud" className="flex-1">{children}</div>
+        <SiteFooter />
         {GA_ID && (
           <>
-            <script
-              async
+            {/* afterInteractive: laadt en draait pas na de eerste render, zodat GA niet meetelt in blokkerende JS op mobiel (DAG-04) */}
+            <Script
+              strategy="afterInteractive"
               src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
             />
-            <script
+            <Script
+              id="ga-init"
+              strategy="afterInteractive"
               dangerouslySetInnerHTML={{
                 __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GA_ID}',{anonymize_ip:true});`,
               }}
             />
           </>
         )}
-      </head>
-      <body className="flex min-h-screen flex-col bg-white font-sans text-inkt">
-        <SiteHeader />
-        <div id="inhoud" className="flex-1">{children}</div>
-        <SiteFooter />
       </body>
     </html>
   );
