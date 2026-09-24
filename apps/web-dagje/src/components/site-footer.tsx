@@ -19,6 +19,13 @@ export function SiteFooter() {
           >
             Stel je dag samen
           </Link>
+          <p className="mt-4 text-sm">
+            Alleen steps huren? Boek direct bij{' '}
+            <a href="https://stepverhuurutrecht.nl" className="font-bold underline underline-offset-2 hover:text-white">
+              stepverhuurutrecht.nl
+            </a>
+            .
+          </p>
         </div>
 
         <div>
@@ -47,6 +54,7 @@ export function SiteFooter() {
               { href: '/bouwstenen', label: 'Alle onderdelen' },
               { href: '/boeken', label: 'Zelf samenstellen' },
               { href: '/blog', label: 'Inspiratie' },
+              { href: '/alleen-steppen', label: 'Alleen steps huren' },
               { href: '/over-ons', label: 'Over ons' },
               { href: '/voorwaarden', label: 'Voorwaarden' },
               { href: '/privacy', label: 'Privacy' },
