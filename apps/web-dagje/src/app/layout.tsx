@@ -184,6 +184,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             />
           </>
         )}
+        {/* Dommie, de chatbot van de Customer Service Agent (live sinds 25-9-2026, akkoord Ger) */}
+        <Script src="https://klantenservice-chi.vercel.app/widget.js" data-project="DAG" strategy="lazyOnload" />
       </body>
     </html>
   );
