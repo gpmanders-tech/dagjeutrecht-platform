@@ -14,7 +14,7 @@ import {
   vindPakket,
   type TijdvakId,
 } from '../../lib/aanbod';
-import { OPS_MAIL_TO, stuurMail } from '../../lib/mail';
+import { OPS_MAIL_TO, REPLY_TO, stuurMail } from '../../lib/mail';
 import { startInkoop } from '../../lib/inkoop-agent';
 
 const GROEPEN = {
@@ -130,6 +130,7 @@ export async function submitBoeking(
 
     await stuurMail({
         aan: OPS_MAIL_TO,
+        replyTo: data.email,
         onderwerp: `[DagjeUtrecht] Boeking ${code}: ${formatDatum(data.datum)}, ${data.personen} pers.`,
         tekst: `Nieuwe boekingsaanvraag ${code}
 
@@ -154,7 +155,7 @@ ${data.opmerking || '(geen)'}
 
     await stuurMail({
         aan: data.email,
-        replyTo: OPS_MAIL_TO,
+        replyTo: REPLY_TO,
         onderwerp: `Je aanvraag bij DagjeUtrecht.nl (${code})`,
         tekst: `Hoi ${data.naam.split(' ')[0]},
 

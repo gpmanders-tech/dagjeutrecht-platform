@@ -7,6 +7,8 @@ const SMTP_PASS = (process.env.SMTP_PASS || '').trim();
 
 export const MAIL_FROM = (process.env.MAIL_FROM || 'info@dagjeutrecht.nl').trim();
 export const OPS_MAIL_TO = (process.env.OPS_MAIL_TO || 'info@dagjeutrecht.nl').trim();
+/** Waar klanten op antwoorden; los van de afzender, want die kan een ander (verzend)adres zijn. */
+export const REPLY_TO = (process.env.MAIL_REPLY_TO || 'info@dagjeutrecht.nl').trim();
 
 /** Alleen met INKOOP_AGENT_LIVE=true gaan agent-mails echt naar leveranciers en klanten. */
 export const AGENT_LIVE = (process.env.INKOOP_AGENT_LIVE || '').trim() === 'true';
