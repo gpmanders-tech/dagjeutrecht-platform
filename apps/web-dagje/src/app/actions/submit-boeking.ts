@@ -14,7 +14,7 @@ import {
   vindPakket,
   type TijdvakId,
 } from '../../lib/aanbod';
-import { OPS_MAIL_TO, REPLY_TO, stuurMail } from '../../lib/mail';
+import { INKOOP_AGENT_AAN, OPS_MAIL_TO, REPLY_TO, stuurMail } from '../../lib/mail';
 import { startInkoop } from '../../lib/inkoop-agent';
 
 const GROEPEN = {
@@ -179,11 +179,14 @@ DagjeUtrecht.nl
       });
   }
 
-  // Inkoop-agent direct laten starten; lukt dat niet, dan pakt de dagelijkse ronde het op
-  try {
-    await startInkoop(enquiry.id);
-  } catch (e) {
-    console.error('startInkoop mislukt:', e);
+  // Inkoop-agent direct laten starten; lukt dat niet, dan pakt de dagelijkse ronde het op.
+  // Staat hij op pauze, dan blijft de opdracht in de notitie staan voor later.
+  if (INKOOP_AGENT_AAN) {
+    try {
+      await startInkoop(enquiry.id);
+    } catch (e) {
+      console.error('startInkoop mislukt:', e);
+    }
   }
 
   return { ok: true, code };

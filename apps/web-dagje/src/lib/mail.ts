@@ -10,6 +10,12 @@ export const OPS_MAIL_TO = (process.env.OPS_MAIL_TO || 'info@dagjeutrecht.nl').t
 /** Waar klanten op antwoorden; los van de afzender, want die kan een ander (verzend)adres zijn. */
 export const REPLY_TO = (process.env.MAIL_REPLY_TO || 'info@dagjeutrecht.nl').trim();
 
+/**
+ * De inkoop-agent staat op pauze tot Ger hem aanzet (keuze 25-9-2026): geen mails over of aan
+ * leveranciers, ook geen testmails. Aanzetten met INKOOP_AGENT_AAN=true in Vercel.
+ */
+export const INKOOP_AGENT_AAN = (process.env.INKOOP_AGENT_AAN || '').trim() === 'true';
+
 /** Alleen met INKOOP_AGENT_LIVE=true gaan agent-mails echt naar leveranciers en klanten. */
 export const AGENT_LIVE = (process.env.INKOOP_AGENT_LIVE || '').trim() === 'true';
 
