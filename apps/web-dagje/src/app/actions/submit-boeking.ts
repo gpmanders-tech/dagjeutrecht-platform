@@ -173,7 +173,7 @@ Aanvraagnummer: ${code}
 Vragen? Antwoord op deze mail of bel 030 227 14 39.
 
 Groet,
-Ger Manders
+Ger
 DagjeUtrecht.nl
 `,
       });

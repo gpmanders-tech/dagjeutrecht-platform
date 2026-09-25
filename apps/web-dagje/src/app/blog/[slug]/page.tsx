@@ -35,6 +35,9 @@ export default async function BlogPost({ params }: { params: { slug: string } })
   }
   if (!post) notFound();
 
+  // Geen achternaam op de site: van de auteur tonen we alleen de voornaam.
+  const auteur = post.authorName?.replace(/\s+Manders$/i, '') || null;
+
   const articleLd = {
     '@context': 'https://schema.org',
     '@type': 'Article',
@@ -43,7 +46,9 @@ export default async function BlogPost({ params }: { params: { slug: string } })
     image: post.heroImage,
     datePublished: post.publishedAt?.toISOString(),
     dateModified: post.updatedAt.toISOString(),
-    author: { '@type': 'Person', name: post.authorName ?? 'Ger Manders' },
+    author: auteur
+      ? { '@type': 'Person', name: auteur }
+      : { '@type': 'Organization', name: 'DagjeUtrecht' },
     publisher: {
       '@type': 'Organization',
       name: 'DagjeUtrecht',
@@ -76,7 +81,7 @@ export default async function BlogPost({ params }: { params: { slug: string } })
       {post.publishedAt && (
         <p className="text-sm text-grijs mb-6">
           {new Intl.DateTimeFormat('nl-NL', { dateStyle: 'long' }).format(post.publishedAt)}
-          {post.authorName ? ` · ${post.authorName}` : ''}
+          {auteur ? ` · ${auteur}` : ''}
         </p>
       )}
       <div

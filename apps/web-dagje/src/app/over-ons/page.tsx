@@ -41,7 +41,7 @@ export default function OverOns() {
       />
       <h1 className="text-5xl font-black uppercase tracking-tight text-inkt mb-6">Over DagjeUtrecht</h1>
       <p>
-        DagjeUtrecht is een handelsnaam van <strong>Handelsonderneming Manders</strong>, met
+        DagjeUtrecht is een handelsnaam van <strong>Traxeo</strong>, met
         jarenlange ervaring in georganiseerde groepsuitjes voor bedrijven, scholen en verenigingen
         in Utrecht.
       </p>
@@ -112,7 +112,7 @@ export default function OverOns() {
       </ul>
       <h2 className="text-2xl font-black uppercase tracking-tight mt-8">Ons bedrijf</h2>
       <ul>
-        <li>Handelsonderneming Manders</li>
+        <li>Traxeo</li>
         <li>KvK 63330393</li>
         <li>Utrecht</li>
       </ul>

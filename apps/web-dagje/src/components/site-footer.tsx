@@ -86,7 +86,7 @@ export function SiteFooter() {
       </div>
       <div className="border-t border-inkt-700">
         <p className="mx-auto max-w-5xl px-4 py-4 text-xs text-zee-200 sm:px-6">
-          © {new Date().getFullYear()} DagjeUtrecht, een handelsnaam van Handelsonderneming Manders. Prijzen
+          © {new Date().getFullYear()} DagjeUtrecht, een handelsnaam van Traxeo. Prijzen
           per persoon inclusief btw. Foto&apos;s: DagjeSuppen.nl en{' '}
           <Link href="/fotobronnen" className="underline underline-offset-2 hover:text-white">
             Wikimedia Commons

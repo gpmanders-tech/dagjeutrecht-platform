@@ -22,7 +22,7 @@ export default function ContactPage() {
         <p>
           <strong>DagjeUtrecht</strong>
         </p>
-        <p>Ger Manders</p>
+        <p>Ger</p>
         <p>
           <a href="mailto:info@dagjeutrecht.nl" className="text-vlam-700 underline">
             info@dagjeutrecht.nl
@@ -35,7 +35,7 @@ export default function ContactPage() {
         </p>
       </div>
       <p className="text-xs text-grijs mt-3">
-        DagjeUtrecht is een handelsnaam van Handelsonderneming Manders, KvK 63330393.
+        DagjeUtrecht is een handelsnaam van Traxeo, KvK 63330393.
       </p>
     </main>
   );

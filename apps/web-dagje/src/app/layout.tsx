@@ -44,8 +44,8 @@ export const metadata: Metadata = {
     'Domtoren',
     'DagjeUtrecht',
   ],
-  authors: [{ name: 'Ger Manders', url: SITE_URL }],
-  creator: 'Handelsonderneming Manders',
+  authors: [{ name: 'DagjeUtrecht', url: SITE_URL }],
+  creator: 'Traxeo',
   publisher: 'DagjeUtrecht',
   robots: {
     index: true,
@@ -121,7 +121,7 @@ const jsonLd = {
       sameAs: ['https://www.google.com/maps?cid=9905427139979114669'],
       parentOrganization: {
         '@type': 'Organization',
-        name: 'Handelsonderneming Manders',
+        name: 'Traxeo',
         identifier: 'KvK 63330393',
       },
     },

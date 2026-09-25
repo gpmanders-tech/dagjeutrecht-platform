@@ -13,7 +13,7 @@ export default function PrivacyPage() {
       <h1 className="text-5xl font-black uppercase tracking-tight text-inkt mb-6">Privacyverklaring</h1>
 
       <p className="mb-4">
-        DagjeUtrecht (handelsnaam van Handelsonderneming Manders, KvK 63330393) verwerkt
+        DagjeUtrecht (handelsnaam van Traxeo, KvK 63330393) verwerkt
         persoonsgegevens alleen voor het verwerken van aanvragen en het uitvoeren van boekingen.
       </p>
 

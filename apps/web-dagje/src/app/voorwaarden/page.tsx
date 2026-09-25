@@ -13,7 +13,7 @@ export default function VoorwaardenPage() {
     <main className="max-w-3xl mx-auto px-6 py-16 text-inkt">
       <h1 className="text-5xl font-black uppercase tracking-tight text-inkt mb-6">Voorwaarden</h1>
       <p className="mb-4">
-        DagjeUtrecht is een handelsnaam van Handelsonderneming Manders (KvK 63330393). Deze
+        DagjeUtrecht is een handelsnaam van Traxeo (KvK 63330393). Deze
         voorwaarden gelden voor alle boekingen via DagjeUtrecht.nl.
       </p>
 

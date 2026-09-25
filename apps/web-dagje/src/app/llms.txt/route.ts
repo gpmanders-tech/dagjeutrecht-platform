@@ -18,7 +18,7 @@ export function GET() {
     '',
     `> Vaste dagpakketten in Utrecht voor groepen vanaf ${REGELS.minPers} personen: bedrijfsuitjes, personeelsuitjes, teambuilding, schooluitjes en vrijgezellenfeesten. Elk pakket heeft een vaste prijs per persoon, inclusief btw.`,
     '',
-    `DagjeUtrecht is een handelsnaam van Handelsonderneming Manders (KvK 63330393), Utrecht. Contact: info@dagjeutrecht.nl, 030 227 14 39.`,
+    `DagjeUtrecht is een handelsnaam van Traxeo (KvK 63330393), Utrecht. Contact: info@dagjeutrecht.nl, 030 227 14 39.`,
     `Boeken kan voor ${REGELS.minPers} tot ${REGELS.maxPers} personen, op donderdag, vrijdag en zaterdag, minimaal ${REGELS.minDagenVooruit} dagen vooruit. Binnen 3 werkdagen bevestigen de partners alles.`,
     '',
     '## Per gelegenheid',

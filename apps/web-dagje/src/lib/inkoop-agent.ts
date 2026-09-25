@@ -172,7 +172,7 @@ Referentie: ${kortCode(e)}
 Bevestigen of doorgeven dat het niet kan, doe je met één klik:
 ${link}
 
-Contactpersoon op de dag zelf is Ger Manders, ${GER_TELEFOON}.
+Contactpersoon op de dag zelf is Ger, ${GER_TELEFOON}.
 
 Met vriendelijke groet,
 DagjeUtrecht.nl
@@ -326,7 +326,7 @@ ${
 De dag voor het uitje sturen we alle praktische informatie.
 
 Groet,
-Ger Manders
+Ger
 DagjeUtrecht.nl
 `,
   });

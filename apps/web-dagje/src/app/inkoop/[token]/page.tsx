@@ -96,7 +96,7 @@ export default async function InkoopPage({
       )}
 
       <p className="text-xs text-grijs mt-10">
-        Vragen? Bel Ger Manders van DagjeUtrecht.nl: 030 227 14 39.
+        Vragen? Bel Ger van DagjeUtrecht.nl: 030 227 14 39.
       </p>
     </main>
   );
