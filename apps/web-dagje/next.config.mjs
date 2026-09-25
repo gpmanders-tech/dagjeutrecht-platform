@@ -38,7 +38,7 @@ export default {
       { source: '/aanbod/canal-cruising', destination: '/bouwstenen/rondvaart', permanent: true },
       { source: '/aanbod/utrecht-canal-cruises', destination: '/bouwstenen/rondvaart', permanent: true },
       { source: '/aanbod/stromma-peddelboot', destination: '/bouwstenen/rondvaart', permanent: true },
-      { source: '/aanbod/pannenkoekenboot-utrecht', destination: '/bouwstenen/rondvaart', permanent: false },
+      { source: '/aanbod/pannenkoekenboot-utrecht', destination: '/pannenkoekenboot-utrecht', permanent: true },
       { source: '/aanbod/domstadboot-bbq', destination: '/bouwstenen/bbq', permanent: true },
       { source: '/aanbod/fietsverhuur-utrecht-cs', destination: '/bouwstenen/kickbike-tocht', permanent: true },
       { source: '/aanbod/team-building', destination: '/teambuilding-utrecht', permanent: true },
@@ -52,6 +52,8 @@ export default {
       // kaasproeverij) staat de doorverwijzing daarom op permanent: false (307): het oude
       // adres blijft dan in Google staan tot de echte pagina er is. Zodra die bouwsteen
       // live staat gaat hij op true en verhuist de positie alsnog mee.
+      // 25-9-2026 (DAG-15, keuze Ger): die onderwerpen hebben nu een eigen pagina op aanvraag
+      // (lib/op-aanvraag.ts), dus alle twaalf staan op permanent: true naar die pagina.
       //
       // Keuzes van Ger uit de besliskaart, 22-9-2026. Search Console liet zien dat
       // 71 oude adressen nog vertoningen kregen en een 404 gaven; 62 daarvan stonden
@@ -62,24 +64,24 @@ export default {
       // Wat Ger wil laten vallen (webshop, wellness, kinderen) krijgt met opzet geen
       // regel en blijft een 404, zodat Google die adressen loslaat.
       { source: '/aanbod/varen-in-utrecht', destination: '/bouwstenen/rondvaart', permanent: true },
-      { source: '/aanbod/kaasproeverij-utrecht', destination: '/bouwstenen/groepslunch', permanent: false },
-      { source: '/aanbod/ping-pong-club', destination: '/bouwstenen/city-challenge', permanent: false },
-      { source: '/aanbod/the-park-vr', destination: '/bouwstenen/city-challenge', permanent: false },
-      { source: '/aanbod/boulderhal-energiehaven', destination: '/bouwstenen/city-challenge', permanent: false },
+      { source: '/aanbod/kaasproeverij-utrecht', destination: '/kaasproeverij-utrecht', permanent: true },
+      { source: '/aanbod/ping-pong-club', destination: '/pingpong-en-vr-utrecht', permanent: true },
+      { source: '/aanbod/the-park-vr', destination: '/pingpong-en-vr-utrecht', permanent: true },
+      { source: '/aanbod/boulderhal-energiehaven', destination: '/boulderen-utrecht', permanent: true },
       { source: '/aanbod/oude-muntkelder', destination: '/schooluitje-utrecht', permanent: true },
       { source: '/aanbod/utours', destination: '/schooluitje-utrecht', permanent: true },
-      { source: '/aanbod/doloris-anoma-maze', destination: '/bouwstenen/city-challenge', permanent: false },
+      { source: '/aanbod/doloris-anoma-maze', destination: '/escape-room-utrecht', permanent: true },
       { source: '/aanbod/black-bikes-utrecht', destination: '/bouwstenen/kickbike-tocht', permanent: true },
-      { source: '/aanbod/queen-escape-room', destination: '/bouwstenen/city-challenge', permanent: false },
+      { source: '/aanbod/queen-escape-room', destination: '/escape-room-utrecht', permanent: true },
       { source: '/aanbod/keramiek-kafee', destination: '/bouwstenen/city-challenge', permanent: true },
-      { source: '/aanbod/vechtsebanen-bowling', destination: '/bouwstenen/shuffleboard', permanent: false },
+      { source: '/aanbod/vechtsebanen-bowling', destination: '/bowlen-utrecht', permanent: true },
       { source: '/aanbod/ruby-rose', destination: '/bouwstenen/groepslunch', permanent: true },
-      { source: '/aanbod/boulderhal-sterk-spoor', destination: '/bouwstenen/city-challenge', permanent: false },
+      { source: '/aanbod/boulderhal-sterk-spoor', destination: '/boulderen-utrecht', permanent: true },
       { source: '/aanbod/biercafe-olivier', destination: '/bouwstenen/borrel', permanent: true },
       { source: '/aanbod/kartoffel', destination: '/bouwstenen/groepslunch', permanent: true },
       { source: '/aanbod/buiten-bij-de-sluis', destination: '/bouwstenen/groepslunch', permanent: true },
       { source: '/aanbod/comedyclub-utrecht', destination: '/schooluitje-utrecht', permanent: true },
-      { source: '/aanbod/padel-utrecht', destination: '/bouwstenen/city-challenge', permanent: false },
+      { source: '/aanbod/padel-utrecht', destination: '/padel-utrecht', permanent: true },
       { source: '/aanbod/kayak-utrecht', destination: '/bouwstenen/kanoen', permanent: true },
       { source: '/aanbod/landhuis-in-de-stad', destination: '/bouwstenen/groepslunch', permanent: true },
       { source: '/aanbod/humphreys', destination: '/bouwstenen/groepslunch', permanent: true },
@@ -89,7 +91,7 @@ export default {
       { source: '/aanbod/theehuis-rhijnauwen', destination: '/bouwstenen/koffie-met-gebak', permanent: true },
       { source: '/aanbod/water-tower-wt', destination: '/bouwstenen/groepslunch', permanent: true },
       { source: '/aanbod/spoorwegmuseum', destination: '/schooluitje-utrecht', permanent: true },
-      { source: '/aanbod/boulderhal-zuidhaven', destination: '/bouwstenen/city-challenge', permanent: false },
+      { source: '/aanbod/boulderhal-zuidhaven', destination: '/boulderen-utrecht', permanent: true },
       { source: '/aanbod/amara', destination: '/bouwstenen/groepslunch', permanent: true },
       { source: '/aanbod/grachtenatelier-schilderen', destination: '/bouwstenen/city-challenge', permanent: true },
       { source: '/aanbod/kookfabriek', destination: '/bouwstenen/city-challenge', permanent: true },
@@ -97,7 +99,7 @@ export default {
       { source: '/aanbod/free-walking-tour', destination: '/schooluitje-utrecht', permanent: true },
       { source: '/aanbod/louis-hartlooper', destination: '/schooluitje-utrecht', permanent: true },
       { source: '/aanbod/aboriginal-art-museum', destination: '/schooluitje-utrecht', permanent: true },
-      { source: '/aanbod/escape-domplein', destination: '/bouwstenen/city-challenge', permanent: false },
+      { source: '/aanbod/escape-domplein', destination: '/escape-room-utrecht', permanent: true },
       { source: '/aanbod/utrecht-food-tour', destination: '/bouwstenen/groepslunch', permanent: true },
       { source: '/aanbod/silk-road', destination: '/bouwstenen/groepslunch', permanent: true },
       { source: '/aanbod/beers-barrels', destination: '/bouwstenen/borrel', permanent: true },
