@@ -558,7 +558,7 @@ export const PAKKETTEN: Pakket[] = [
     slug: 'schoolreis-basisschool',
     seizoen: 'jaarrond',
     naam: 'Schoolreis basisschool',
-    kort: 'Rondvaart door de grachten en een groepslunch.',
+    kort: 'Rondvaart door de grachten en een City Challenge, lunch zelf meenemen.',
     beschrijving:
       "Utrecht vanaf het water, met een schipper die onderweg vertelt over de werfkelders en de Dom. 's Middags in teams de binnenstad in met de City Challenge. Geen trappen en geen lange loopafstanden, dus geschikt vanaf groep 6. Eigen lunch mee, of voeg de groepslunch toe in de samensteller.",
     emoji: '🚸',
