@@ -10,15 +10,15 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@utrecht/db": "workspace:*",
-    "@utrecht/ui": "workspace:*",
-    "@utrecht/i18n": "workspace:*",
-    "@utrecht/booking-engine": "workspace:*",
-    "@utrecht/integrations": "workspace:*",
     "@anthropic-ai/sdk": "^0.32.1",
+    "@utrecht/booking-engine": "workspace:*",
+    "@utrecht/db": "workspace:*",
+    "@utrecht/i18n": "workspace:*",
+    "@utrecht/integrations": "workspace:*",
+    "@utrecht/ui": "workspace:*",
+    "marked": "^14.1.3",
     "next": "^14.2.13",
     "next-intl": "^3.21.0",
-    "marked": "^14.1.3",
     "qrcode": "^1.5.4",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -31,7 +31,7 @@
     "@types/react-dom": "^18.3.0",
     "autoprefixer": "^10.4.20",
     "dotenv-cli": "^7.4.2",
-    "postcss": "^8.4.47",
+    "postcss": "^8.5.28",
     "tailwindcss": "^3.4.13",
     "typescript": "^5.6.2"
   }
