@@ -197,7 +197,6 @@ export default function Home() {
               verhouding="aspect-[4/5] -rotate-3"
               sizes="(min-width: 768px) 40vw, 90vw"
               className="kantel polaroid rounded-sm"
-              prioriteit
             />
             <Foto
               foto={heroFotos.klein}
