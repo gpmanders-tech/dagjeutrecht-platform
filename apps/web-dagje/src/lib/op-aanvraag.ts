@@ -19,6 +19,8 @@ export type OpAanvraag = {
   combineer: Array<{ slug: string; naam: string }>;
   faq: Array<{ q: string; a: string }>;
   foto?: Foto;
+  /** Verwante pagina, bijvoorbeeld de familiedag bij onderwerpen die families zoeken. */
+  zieOok?: { href: string; tekst: string; label: string };
   kleur: 'zee' | 'vlam' | 'zon' | 'inkt';
 };
 
@@ -29,37 +31,49 @@ const PRIJS_FAQ = {
 
 export const OP_AANVRAAG: OpAanvraag[] = [
   {
+    // Er is geen vaste pannenkoekenboot waar we mee werken (28-9-2026). Daarom eerlijk:
+    // een rondvaart door de grachten plus pannenkoeken, op aanvraag. Geen rederij
+    // noemen en niet beloven dat er aan boord gebakken wordt.
     slug: 'pannenkoekenboot-utrecht',
     metaTitel: 'Pannenkoekenboot Utrecht met je groep',
     metaOmschrijving:
-      'Met je groep op de pannenkoekenboot in Utrecht? Wij regelen de vaart en maken er een hele dag van, met borrel of activiteit erbij. Prijs op aanvraag.',
+      'Pannenkoekenboot in Utrecht met je groep: een rondvaart door de grachten, gecombineerd met pannenkoeken. Wij regelen het op aanvraag. Prijs op aanvraag.',
     titel: 'Pannenkoekenboot met je groep',
     label: 'Op aanvraag',
     intro:
-      'Varen en ondertussen onbeperkt pannenkoeken eten: een van de leukste manieren om Utrecht vanaf het water te zien. Wij regelen de pannenkoekenboot voor je groep en maken er desgewenst een hele dag van.',
+      'Varen door de Utrechtse grachten en samen pannenkoeken eten: dat combineren we voor je groep. We hebben geen eigen pannenkoekenboot, maar regelen een rondvaart langs de werven van de Oudegracht en pannenkoeken erbij, afgestemd op jullie groep. Alles op aanvraag.',
     watWeRegelen: [
-      'De vaart op de pannenkoekenboot voor je hele groep',
-      'Een activiteit ervoor of erna, zoals jeu de boules of een city challenge',
-      'Een afsluitende borrel in de binnenstad',
+      'Een rondvaart door de grachten en over de singels voor je hele groep',
+      'Pannenkoeken erbij, in overleg met jou geregeld',
+      'Desgewenst een activiteit ervoor of erna, zoals een City Challenge of jeu de boules',
       'Eén contactpersoon en één factuur voor de hele dag',
     ],
     combineer: [
-      { slug: 'jeu-de-boules', naam: 'Jeu de boules met bites' },
+      { slug: 'rondvaart', naam: 'Rondvaart door de grachten' },
       { slug: 'city-challenge', naam: 'City Challenge door de binnenstad' },
-      { slug: 'borrel', naam: 'Afsluitende borrel' },
+      { slug: 'jeu-de-boules', naam: 'Jeu de boules met bites' },
     ],
     faq: [
       PRIJS_FAQ,
+      {
+        q: 'Worden de pannenkoeken aan boord gebakken?',
+        a: 'Dat beloven we niet. We combineren een rondvaart door de grachten met pannenkoeken en spreken met jou af hoe en waar dat het beste past bij je groep en je planning.',
+      },
       {
         q: 'Voor hoeveel personen kan het?',
         a: 'Vertel ons hoe groot je groep is. Voor kleine en grote groepen zoeken we de vaart die past.',
       },
       {
         q: 'Kunnen kinderen mee?',
-        a: 'Ja, de pannenkoekenboot is juist bij families en kinderfeestjes geliefd. Zet het bij je aanvraag, dan houden we er rekening mee.',
+        a: 'Ja, varen en pannenkoeken eten is juist bij families en kinderen geliefd. Zet de leeftijden bij je aanvraag, dan houden we er rekening mee.',
+      },
+      {
+        q: 'Kan de rondvaart ook zonder pannenkoeken?',
+        a: 'Ja. De rondvaart door de grachten staat als vast onderdeel in ons aanbod, met een vaste prijs per persoon.',
       },
     ],
     foto: fotos.rondvaart,
+    zieOok: { href: '/familiedag-utrecht', tekst: 'Organiseer je een dag voor collega’s met hun gezin?', label: 'Familiedag voor je bedrijf' },
     kleur: 'zee',
   },
   {
@@ -112,6 +126,7 @@ export const OP_AANVRAAG: OpAanvraag[] = [
     ],
     faq: [PRIJS_FAQ],
     foto: fotos.shuffleboard,
+    zieOok: { href: '/familiedag-utrecht', tekst: 'Organiseer je een dag voor collega’s met hun gezin?', label: 'Familiedag voor je bedrijf' },
     kleur: 'vlam',
   },
   {
@@ -160,6 +175,7 @@ export const OP_AANVRAAG: OpAanvraag[] = [
       { slug: 'borrel', naam: 'Afsluitende borrel' },
     ],
     faq: [PRIJS_FAQ],
+    zieOok: { href: '/familiedag-utrecht', tekst: 'Organiseer je een dag voor collega’s met hun gezin?', label: 'Familiedag voor je bedrijf' },
     kleur: 'vlam',
   },
   {

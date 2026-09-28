@@ -29,6 +29,8 @@ export type Landing = {
    * in Google om dezelfde zoekterm te vechten.
    */
   zuster?: { href: string; label: string; tekst: string };
+  /** Slugs uit op-aanvraag.ts die op deze pagina passen: zonder vaste prijs, alleen een link. */
+  opAanvraag?: string[];
 };
 
 function prijs(slug: string) {
@@ -56,6 +58,7 @@ const P_SCHOOL = ['koffie-en-city-challenge', 'schoolreis-basisschool', 'dom-en-
 const P_VRIJGEZEL = ['boules-en-borrel', 'water-naar-borrel', 'vrijgezellen-winterdag', 'amelisweerd-actief', 'spel-en-borrel'];
 
 const P_PERSONEEL = ['boules-en-borrel', 'koffie-en-city-challenge', 'spel-en-borrel', 'winterborrel', 'warme-winterdag', 'water-en-picknick', 'amelisweerd-actief'];
+const P_FAMILIE = ['dom-en-grachten', 'koffie-en-city-challenge', 'spel-en-borrel', 'water-en-picknick', 'amelisweerd-actief'];
 const P_FEEST = ['boules-en-borrel', 'winterborrel', 'spel-en-borrel', 'warme-winterdag', 'amelisweerd-actief', 'water-naar-borrel'];
 
 const GROEP = `Vanaf ${REGELS.minPers} personen.`;
@@ -94,6 +97,7 @@ const BEVESTIGING = {
 export type LandingSleutel =
   | 'bedrijfsuitje'
   | 'personeelsuitje'
+  | 'familiedag'
   | 'teambuilding'
   | 'bedrijfsfeest'
   | 'schooluitje'
@@ -211,6 +215,73 @@ export const LANDINGS: Record<LandingSleutel, Landing> = {
       },
       WEER,
       BEVESTIGING,
+      ...ALGEMENE_FAQ,
+    ],
+  },
+
+  // DAG-SEO-13: zoekterm "familiedag utrecht bedrijf". Alleen bestaande pakketten en
+  // prijzen uit aanbod.ts; de extra's zonder vaste prijs staan er als op aanvraag bij.
+  familiedag: {
+    pad: '/familiedag-utrecht',
+    link: 'Familiedag',
+    voorbeeld: 'dom-en-grachten',
+    kleur: 'zee',
+    foto: fotos.rondvaart,
+    galerij: [fotos.picknick, fotos.kanoAmelisweerd, fotos.oudegrachtDom, fotos.boulesSpelers],
+    band: ['Collega’s', 'Partners', 'Kinderen welkom', 'Rondvaart', 'City Challenge', 'Eén factuur'],
+    opAanvraag: ['pannenkoekenboot-utrecht', 'bowlen-utrecht', 'pingpong-en-vr-utrecht'],
+    metaTitel: `Familiedag bedrijf Utrecht vanaf ${vanaf(P_FAMILIE)} p.p.`,
+    metaOmschrijving: `Familiedag voor je bedrijf in Utrecht met collega’s, partners en kinderen: rondvaart, City Challenge of kanoën. Vanaf ${vanaf(P_FAMILIE)} p.p., incl. btw.`,
+    boven: 'Voor bedrijven, met partners en kinderen',
+    titel: 'Familiedag voor je bedrijf in Utrecht',
+    intro:
+      'Een dag waarop collega’s hun gezin meenemen. Kies een pakket met een vaste prijs per persoon, of vraag een extra aan zoals een pannenkoekenboot. Wij regelen de reserveringen, jij krijgt één factuur.',
+    pakketten: P_FAMILIE,
+    alineas: [
+      {
+        kop: 'Voor jong en oud',
+        tekst:
+          'Op een familiedag gaan partners en kinderen mee, dus het programma moet voor iedereen werken. Kies onderdelen zonder drempel: een rondvaart door de grachten, de City Challenge te voet door de binnenstad of jeu de boules op overdekte banen. In de zomer kan de groep ook kanoën op de Kromme Rijn in Amelisweerd.',
+      },
+      {
+        kop: 'Wat het kost',
+        tekst: `Dom & Grachten kost ${prijs('dom-en-grachten')} per persoon voor een halve dag, Koffie & City Challenge ${prijs('koffie-en-city-challenge')} voor een ochtend. Een hele dag binnen in het centrum, Utrecht Spel & Borrel, kost ${prijs('spel-en-borrel')} per persoon. Van april tot en met oktober is er Amelisweerd Actief voor ${prijs('amelisweerd-actief')} per persoon. Alle prijzen zijn inclusief btw. De prijs is per persoon: in de samensteller telt iedereen die meedoet mee, ook kinderen.`,
+      },
+      {
+        kop: 'Met jonge kinderen',
+        tekst:
+          'De Domtoren heeft 465 treden en is niet geschikt voor wie hoogtevrees heeft of slecht ter been is. Met jonge kinderen kies je liever de rondvaart, die zonder trappen gaat. Suppen kan alleen als iedereen kan zwemmen. Zet de leeftijden van de kinderen bij de aanvraag, dan denken we mee.',
+      },
+      {
+        kop: 'Iets extra’s op aanvraag',
+        tekst:
+          'Een rondvaart met pannenkoeken, bowlen, pingpong of virtual reality zijn populair bij families. Die staan niet in de samensteller en hebben geen vaste prijs: vraag een offerte aan, dan krijg je binnen een werkdag een voorstel met een prijs per persoon.',
+      },
+      {
+        kop: 'Eén aanspreekpunt, één factuur',
+        tekst:
+          'Je hoeft niet zelf met de rederij, de boulesbar en de lunchzaak te mailen. Wij reserveren alles bij onze vaste partners en je krijgt één factuur op naam van het bedrijf.',
+      },
+    ],
+    faq: [
+      {
+        q: 'Kunnen kinderen mee?',
+        a: 'Ja. De pakketten op deze pagina zijn gekozen omdat ze ook met kinderen goed te doen zijn. Zet de leeftijden bij je aanvraag, dan houden we er rekening mee.',
+      },
+      {
+        q: 'Tellen kinderen mee in het aantal personen?',
+        a: `Ja. De prijs is per persoon en in de samensteller telt iedereen die meedoet mee, ook kinderen. ${GROEP}`,
+      },
+      GROTER,
+      {
+        q: 'Krijgen we een factuur op naam van het bedrijf?',
+        a: 'Ja. Vul bij de aanvraag de bedrijfsnaam in, dan staat de factuur op naam van het bedrijf, met btw.',
+      },
+      {
+        q: 'Kan er een pannenkoekenboot bij?',
+        a: 'Ja, op aanvraag. We combineren een rondvaart door de grachten met pannenkoeken. De prijs is op aanvraag: je krijgt binnen een werkdag een voorstel.',
+      },
+      WEER,
       ...ALGEMENE_FAQ,
     ],
   },

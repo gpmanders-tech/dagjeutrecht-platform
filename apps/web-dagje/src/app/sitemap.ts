@@ -11,6 +11,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/bouwstenen',
     '/bedrijfsuitje-utrecht',
     '/personeelsuitje-utrecht',
+    '/familiedag-utrecht',
     '/teambuilding-utrecht',
     '/bedrijfsfeest-utrecht',
     '/schooluitje-utrecht',

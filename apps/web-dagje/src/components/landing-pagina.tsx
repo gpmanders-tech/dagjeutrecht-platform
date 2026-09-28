@@ -11,6 +11,7 @@ import {
   vindPakket,
 } from '../lib/aanbod';
 import { LANDING_LIJST, type Landing } from '../lib/landings';
+import { vindOpAanvraag } from '../lib/op-aanvraag';
 import { Breadcrumbs, FaqSchema } from './seo-jsonld';
 import { PakketKaart } from './pakket-kaart';
 import { Band, BoekBlok, Foto, HOEKEN, Knop, PaginaKop } from './ui';
@@ -48,6 +49,7 @@ export function LandingPagina({ landing: l }: { landing: Landing }) {
     .filter((p) => p !== null)
     .sort((a, b) => rang(a.seizoen) - rang(b.seizoen));
   const prijzen = pakketten.map((p) => prijsPerPersoon(p.blokken));
+  const extras = (l.opAanvraag ?? []).map(vindOpAanvraag).filter((o) => o !== undefined);
   const voorbeeld = vindPakket(l.voorbeeld);
   const dag = voorbeeld
     ? TIJDVAKKEN.flatMap((t) => {
@@ -148,6 +150,34 @@ export function LandingPagina({ landing: l }: { landing: Landing }) {
           </div>
         </div>
       </section>
+
+      {extras.length > 0 && (
+        <section className="mx-auto max-w-5xl px-4 pt-14 sm:px-6">
+          <h2 className="text-4xl font-black uppercase tracking-tight text-inkt sm:text-5xl">Extra op aanvraag</h2>
+          <p className="mt-3 max-w-2xl text-lg text-grijs">
+            Geen vaste prijs en niet in de samensteller. Vraag een offerte aan, dan krijg je binnen een werkdag een
+            voorstel met een prijs per persoon.
+          </p>
+          <ul className="mt-8 grid gap-6 md:grid-cols-3">
+            {extras.map((o) => (
+              <li key={o.slug} className="rounded-2xl border-2 border-inkt bg-white p-5">
+                <h3 className="text-xl font-black uppercase tracking-tight text-inkt">
+                  <Link href={`/${o.slug}`} className="hover:text-vlam-700">
+                    {o.titel.replace(/ met je groep$/, '')}
+                  </Link>
+                </h3>
+                <p className="mt-2 font-bold text-inkt">Prijs op aanvraag</p>
+                <Link
+                  href={`/${o.slug}#aanvragen`}
+                  className="mt-3 inline-flex rounded-full bg-zon-400 px-4 py-2 font-extrabold text-inkt hover:bg-zon-300"
+                >
+                  Offerte aanvragen
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
 
       <section className="mx-auto max-w-5xl px-4 py-14 sm:px-6">
         <ul className="grid grid-cols-2 gap-6 md:grid-cols-4">
