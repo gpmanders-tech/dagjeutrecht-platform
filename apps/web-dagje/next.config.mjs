@@ -38,7 +38,9 @@ export default {
       { source: '/aanbod/canal-cruising', destination: '/bouwstenen/rondvaart', permanent: true },
       { source: '/aanbod/utrecht-canal-cruises', destination: '/bouwstenen/rondvaart', permanent: true },
       { source: '/aanbod/stromma-peddelboot', destination: '/bouwstenen/rondvaart', permanent: true },
-      { source: '/aanbod/pannenkoekenboot-utrecht', destination: '/pannenkoekenboot-utrecht', permanent: true },
+      { source: '/aanbod/pannenkoekenboot-utrecht', destination: '/bouwstenen/rondvaart', permanent: true },
+      // Er is geen pannenkoekenboot in Utrecht (Ger 2-10-2026): de pagina is weg, bezoekers naar de rondvaart
+      { source: '/pannenkoekenboot-utrecht', destination: '/bouwstenen/rondvaart', permanent: true },
       { source: '/aanbod/domstadboot-bbq', destination: '/bouwstenen/bbq', permanent: true },
       { source: '/aanbod/fietsverhuur-utrecht-cs', destination: '/bouwstenen/kickbike-tocht', permanent: true },
       { source: '/aanbod/team-building', destination: '/teambuilding-utrecht', permanent: true },
@@ -118,6 +120,7 @@ export default {
       { source: '/doelgroep/teamuitje', destination: '/bedrijfsuitje-utrecht', permanent: true },
       { source: '/doelgroep/schoolgroep', destination: '/schooluitje-utrecht', permanent: true },
       { source: '/doelgroep/vrijgezel', destination: '/vrijgezellenfeest-utrecht', permanent: true },
+      { source: '/doelgroep/gezin', destination: '/familiedag-utrecht', permanent: true },
       { source: '/doelgroep/:slug', destination: '/pakketten', permanent: true },
       { source: '/cadeau', destination: '/', permanent: false },
     ];

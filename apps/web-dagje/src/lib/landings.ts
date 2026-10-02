@@ -100,6 +100,7 @@ export type LandingSleutel =
   | 'familiedag'
   | 'teambuilding'
   | 'bedrijfsfeest'
+  | 'bedrijfsevenement'
   | 'schooluitje'
   | 'vrijgezellenfeest';
 
@@ -229,13 +230,13 @@ export const LANDINGS: Record<LandingSleutel, Landing> = {
     foto: fotos.rondvaart,
     galerij: [fotos.picknick, fotos.kanoAmelisweerd, fotos.oudegrachtDom, fotos.boulesSpelers],
     band: ['Collega’s', 'Partners', 'Kinderen welkom', 'Rondvaart', 'City Challenge', 'Eén factuur'],
-    opAanvraag: ['pannenkoekenboot-utrecht', 'bowlen-utrecht', 'pingpong-en-vr-utrecht'],
+    opAanvraag: ['bowlen-utrecht', 'pingpong-en-vr-utrecht'],
     metaTitel: `Familiedag bedrijf Utrecht vanaf ${vanaf(P_FAMILIE)} p.p.`,
     metaOmschrijving: `Familiedag voor je bedrijf in Utrecht met collega’s, partners en kinderen: rondvaart, City Challenge of kanoën. Vanaf ${vanaf(P_FAMILIE)} p.p., incl. btw.`,
     boven: 'Voor bedrijven, met partners en kinderen',
     titel: 'Familiedag voor je bedrijf in Utrecht',
     intro:
-      'Een dag waarop collega’s hun gezin meenemen. Kies een pakket met een vaste prijs per persoon, of vraag een extra aan zoals een pannenkoekenboot. Wij regelen de reserveringen, jij krijgt één factuur.',
+      'Een dag waarop collega’s hun gezin meenemen. Kies een pakket met een vaste prijs per persoon, of vraag een extra aan zoals bowlen. Wij regelen de reserveringen, jij krijgt één factuur.',
     pakketten: P_FAMILIE,
     alineas: [
       {
@@ -255,7 +256,7 @@ export const LANDINGS: Record<LandingSleutel, Landing> = {
       {
         kop: 'Iets extra’s op aanvraag',
         tekst:
-          'Een rondvaart met pannenkoeken, bowlen, pingpong of virtual reality zijn populair bij families. Die staan niet in de samensteller en hebben geen vaste prijs: vraag een offerte aan, dan krijg je binnen een werkdag een voorstel met een prijs per persoon.',
+          'Bowlen, pingpong of virtual reality zijn populair bij families. Die staan niet in de samensteller en hebben geen vaste prijs: vraag een offerte aan, dan krijg je binnen een werkdag een voorstel met een prijs per persoon.',
       },
       {
         kop: 'Eén aanspreekpunt, één factuur',
@@ -276,10 +277,6 @@ export const LANDINGS: Record<LandingSleutel, Landing> = {
       {
         q: 'Krijgen we een factuur op naam van het bedrijf?',
         a: 'Ja. Vul bij de aanvraag de bedrijfsnaam in, dan staat de factuur op naam van het bedrijf, met btw.',
-      },
-      {
-        q: 'Kan er een pannenkoekenboot bij?',
-        a: 'Ja, op aanvraag. We combineren een rondvaart door de grachten met pannenkoeken. De prijs is op aanvraag: je krijgt binnen een werkdag een voorstel.',
       },
       WEER,
       ...ALGEMENE_FAQ,
@@ -392,6 +389,65 @@ export const LANDINGS: Record<LandingSleutel, Landing> = {
     ],
   },
 
+  // Eigen pagina voor bedrijfsevenement (2-10-2026): de startpagina stond hier al op plek 18 tot 22 met zo'n
+  // 370 vertoningen per maand, zonder pagina die er echt over gaat. Alleen bestaande pakketten en prijzen.
+  bedrijfsevenement: {
+    pad: '/bedrijfsevenement-utrecht',
+    link: 'Bedrijfsevenement',
+    voorbeeld: 'spel-en-borrel',
+    kleur: 'zee',
+    foto: fotos.shuffleboard,
+    galerij: [fotos.boulesSpelers, fotos.terrassen, fotos.borrel, fotos.grachtAvond],
+    band: ['Kick-off', 'Jubileum', 'Afdelingsdag', 'Klantendag', 'Spel', 'Borrel'],
+    metaTitel: `Bedrijfsevenement Utrecht vanaf ${vanaf(P_FEEST)} per persoon`,
+    metaOmschrijving: `Bedrijfsevenement in Utrecht organiseren: een kick-off, jubileum of afdelingsdag met spel, lunch en borrel in het centrum. Vanaf ${vanaf(P_FEEST)} per persoon, inclusief btw.`,
+    boven: 'Voor HR, office managers en events',
+    titel: 'Bedrijfsevenement in Utrecht',
+    intro:
+      'Een kick-off, een jubileum of een dag met de hele afdeling: wij zetten het programma neer met vaste onderdelen en een vaste prijs per persoon, midden in Utrecht.',
+    pakketten: P_FEEST,
+    alineas: [
+      {
+        kop: 'Wat voor evenement',
+        tekst:
+          'Een seizoensstart of kick-off, het vieren van een jubileum, een afscheid of het einde van een project, of een dag om twee afdelingen beter te laten samenwerken. Het werkt het best voor groepen die samen iets willen doen en daarna willen napraten: eerst een spel, dan een borrel.',
+      },
+      {
+        kop: 'Het programma',
+        tekst: `Een hele dag ziet er zo uit: koffie bij aankomst, jeu de boules op de overdekte banen van JEU, een lunch, shuffleboard in The Grand Shuffle en afsluiten met een borrel. Dat is Utrecht Spel & Borrel, voor ${prijs('spel-en-borrel')} per persoon. Een middag met jeu de boules en een borrel kost ${prijs('boules-en-borrel')} per persoon. Alle prijzen zijn inclusief btw.`,
+      },
+      {
+        kop: 'Midden in de stad',
+        tekst:
+          'De dagen in het centrum beginnen aan Paardenveld, op vijf minuten lopen van Utrecht Centraal. Collega’s uit het hele land zijn er dus makkelijk, en na afloop zit je meteen in de binnenstad. In de zomer kan het evenement ook buiten, met kanoën en een BBQ in Amelisweerd.',
+      },
+      {
+        kop: 'Met de hele organisatie',
+        tekst: `Online boeken kan voor ${REGELS.minPers} tot ${REGELS.maxPers} personen. Is het evenement groter, mail of bel ons dan: we kijken samen wat er kan en hoe de groep verdeeld wordt over de onderdelen.`,
+      },
+      {
+        kop: 'Wat we niet doen',
+        tekst:
+          'Onze dagen eindigen rond zes uur. Een zaal met podium, diner en dj tot laat regelen we niet. Wel kun je de dag bij ons beginnen en daarna zelf verder in de stad.',
+      },
+    ],
+    faq: [
+      {
+        q: 'Krijgen we een factuur op naam van het bedrijf?',
+        a: 'Ja. Vul bij de aanvraag de bedrijfsnaam in, dan staat de factuur op naam van het bedrijf, met btw.',
+      },
+      { q: 'Met hoeveel personen kan het?', a: GROEP },
+      GROTER,
+      {
+        q: 'Kan het ook alleen een middag of een werkborrel?',
+        a: `Ja. Boules & Borrel is een middag van twee tot zes uur met jeu de boules, bites en een borrel, voor ${prijs('boules-en-borrel')} per persoon.`,
+      },
+      WEER,
+      BEVESTIGING,
+      ...ALGEMENE_FAQ,
+    ],
+  },
+
   schooluitje: {
     pad: '/schooluitje-utrecht',
     link: 'Schooluitje',
@@ -496,12 +552,36 @@ export const LANDINGS: Record<LandingSleutel, Landing> = {
         tekst:
           'Jij regelt het, maar je wilt ook zelf meedoen. Daarom staat de prijs per persoon vooraf vast en reserveren wij alles bij onze partners. Tot een week voor de datum kan het aantal nog veranderen, handig als er nog iemand twijfelt.',
       },
+      // Lange zoektermen waar de site al op plek 17 tot 28 stond (2-10-2026): organiseren, arrangement, locatie, avond
+      {
+        kop: 'Een vrijgezellenfeest organiseren in drie stappen',
+        tekst:
+          'Kies een pakket of stel zelf een dag samen, prik een donderdag, vrijdag of zaterdag en vul het aantal personen in. Daarna reserveren wij alles bij onze partners en krijg je binnen drie werkdagen de bevestiging met een betaallink. De dag ervoor krijg je alle tijden en adressen, zodat jij je alleen nog met de bruid of bruidegom bezig hoeft te houden.',
+      },
+      {
+        kop: 'Een arrangement met een vaste prijs',
+        tekst: `Elk pakket is een compleet arrangement met een vaste prijs per persoon, inclusief btw: van een middag Boules & Borrel voor ${prijs('boules-en-borrel')} tot een hele dag Van het water naar de borrel voor ${prijs('water-naar-borrel')}. Je weet vooraf wat iedereen betaalt, dus geen gedoe met rekeningen achteraf.`,
+      },
+      {
+        kop: 'De locaties',
+        tekst:
+          'In het centrum speel je jeu de boules bij JEU aan Paardenveld en shuffleboard in The Grand Shuffle, op loopafstand van Utrecht Centraal en de terrassen aan de Oudegracht. Buiten de stad ga je suppen of kanoën op de Kromme Rijn in Amelisweerd, vanaf Botenverhuur De Rijnstroom.',
+      },
+      {
+        kop: 'En ’s avonds?',
+        tekst:
+          'Onze dagen eindigen rond zes uur met een borrel in het centrum. Daarna zit je midden in de binnenstad, dus de avond plannen jullie zelf: uit eten aan de werf of verder de stad in.',
+      },
     ],
     faq: [
       { q: 'Met hoeveel personen kan het?', a: GROEP },
       {
         q: 'Moet iedereen kunnen zwemmen?',
         a: 'Voor suppen wel: kunnen zwemmen is verplicht. Iedereen krijgt een zwemvest. Kan niet iedereen zwemmen, kies dan een pakket in het centrum.',
+      },
+      {
+        q: 'Wat kost een vrijgezellenfeest in Utrecht?',
+        a: `Bij ons vanaf ${vanaf(P_VRIJGEZEL)} per persoon voor een middag en ${prijs('water-naar-borrel')} voor een hele dag, inclusief btw. Je ziet de prijs per pakket vooraf.`,
       },
       {
         q: 'Kan het ook voor een vrijgezellenfeest voor mannen?',
