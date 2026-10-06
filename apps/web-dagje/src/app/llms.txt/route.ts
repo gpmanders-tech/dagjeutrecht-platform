@@ -1,6 +1,7 @@
 import { BOUWSTENEN, PAKKETTEN, REGELS, formatEuro, maandenTekst, pakketMaanden, prijsPerPersoon } from '../../lib/aanbod';
 import { seoVoorBouwsteen } from '../../lib/bouwsteen-seo';
 import { LANDING_LIJST } from '../../lib/landings';
+import { PADEN } from '../../lib/talen';
 
 /**
  * llms.txt: een korte, feitelijke samenvatting van de site voor AI-zoekmachines
@@ -45,6 +46,11 @@ export function GET() {
     `- [Inspiratie en tips](${SITE}/blog)`,
     `- [Over DagjeUtrecht en de partners](${SITE}/over-ons)`,
     `- [Voorwaarden](${SITE}/voorwaarden)`,
+    '',
+    '## English and Deutsch',
+    '',
+    `- [DagjeUtrecht in English: group days out in Utrecht](${SITE}${PADEN.home.en})`,
+    `- [DagjeUtrecht auf Deutsch: Gruppenausflüge in Utrecht](${SITE}${PADEN.home.de})`,
     '',
     'Steps of kickbikes los huren gaat via stepverhuurutrecht.nl.',
     '',

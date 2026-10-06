@@ -16,6 +16,8 @@ import {
 } from '../../lib/aanbod';
 import { INKOOP_AGENT_AAN, OPS_MAIL_TO, REPLY_TO, stuurMail } from '../../lib/mail';
 import { startInkoop } from '../../lib/inkoop-agent';
+import { bouwsteenIn, controleerIn, ui } from '../../lib/i18n';
+import { formatDatumIn, formatPrijs } from '../../lib/i18n/opmaak';
 
 const GROEPEN = {
   TEAM: 'Bedrijf of team',
@@ -38,6 +40,8 @@ const schema = z.object({
   opmerking: z.string().trim().max(1000).optional(),
   /** Honeypot: echte bezoekers laten dit leeg. */
   website: z.string().optional(),
+  /** Taal van de bezoeker op de Engelse of Duitse site; leeg = Nederlands. */
+  taal: z.enum(['en', 'de']).optional(),
 });
 
 export type BoekingInput = z.input<typeof schema>;
@@ -47,6 +51,13 @@ export async function submitBoeking(
 ): Promise<{ ok: true; code: string } | { ok: false; fouten: string[] }> {
   const parsed = schema.safeParse(input);
   if (!parsed.success) {
+    const taal = input.taal === 'en' || input.taal === 'de' ? input.taal : null;
+    if (taal) {
+      // Meldingen in de taal van de bezoeker, op het veld waar het om gaat.
+      const v = ui(taal).formulier.veldFouten;
+      const veld = (pad: unknown) => (pad === 'naam' || pad === 'email' || pad === 'telefoon' ? v[pad] : v.algemeen);
+      return { ok: false, fouten: [...new Set(parsed.error.issues.map((i) => veld(i.path[0])))] };
+    }
     return { ok: false, fouten: parsed.error.issues.map((i) => i.message) };
   }
   const data = parsed.data;
@@ -56,7 +67,9 @@ export async function submitBoeking(
     TIJDVAKKEN.filter((t) => data.blokken[t.id]).map((t) => [t.id, data.blokken[t.id]])
   ) as Partial<Record<TijdvakId, string>>;
 
-  const fouten = controleer({ datum: data.datum, personen: data.personen, blokken });
+  const fouten = data.taal
+    ? controleerIn(data.taal, { datum: data.datum, personen: data.personen, blokken })
+    : controleer({ datum: data.datum, personen: data.personen, blokken });
   if (fouten.length) return { ok: false, fouten };
 
   const pp = prijsPerPersoon(blokken);
@@ -74,6 +87,8 @@ export async function submitBoeking(
     datum: data.datum,
     personen: data.personen,
     pakket: pakket?.slug ?? null,
+    // Alleen bij een boeking via de Engelse of Duitse site, zodat later bekend is in welke taal de klant mail wil.
+    ...(data.taal ? { taal: data.taal } : {}),
     prijsPerPersoonCents: pp,
     totaalCents: totaal,
     onderdelen: regels.map(({ tijdvak, blok }) => ({
@@ -131,9 +146,9 @@ export async function submitBoeking(
     await stuurMail({
         aan: OPS_MAIL_TO,
         replyTo: data.email,
-        onderwerp: `[DagjeUtrecht] Boeking ${code}: ${formatDatum(data.datum)}, ${data.personen} pers.`,
+        onderwerp: `[DagjeUtrecht] Boeking ${code}${data.taal ? ` [${data.taal.toUpperCase()}]` : ''}: ${formatDatum(data.datum)}, ${data.personen} pers.`,
         tekst: `Nieuwe boekingsaanvraag ${code}
-
+${data.taal ? `\nTaal klant: ${ui(data.taal).mail.taalNaam} (geboekt via /${data.taal}; de bevestiging aan de klant ging in het ${ui(data.taal).mail.taalNaam}).\n` : ''}
 Datum: ${formatDatum(data.datum)}
 Personen: ${data.personen}
 Pakket: ${pakket?.naam ?? 'zelf samengesteld'}
@@ -153,7 +168,9 @@ ${data.opmerking || '(geen)'}
 `,
       });
 
-    await stuurMail({
+    if (data.taal) {
+      await stuurKlantMailVertaald(data.taal, { ...data, code, blokken, pp, totaal });
+    } else await stuurMail({
         aan: data.email,
         replyTo: REPLY_TO,
         onderwerp: `Je aanvraag bij DagjeUtrecht.nl (${code})`,
@@ -190,4 +207,41 @@ DagjeUtrecht.nl
   }
 
   return { ok: true, code };
+}
+
+/** Bevestiging aan de klant in het Engels of Duits; zelfde inhoud als de Nederlandse mail. */
+async function stuurKlantMailVertaald(
+  taal: 'en' | 'de',
+  b: {
+    naam: string;
+    email: string;
+    datum: string;
+    personen: number;
+    code: string;
+    blokken: Partial<Record<TijdvakId, string>>;
+    pp: number;
+    totaal: number;
+  }
+) {
+  const m = ui(taal).mail;
+  const programma = TIJDVAKKEN.flatMap((t) => {
+    const blok = bouwsteenIn(taal, vindBouwsteen(b.blokken[t.id]));
+    return blok
+      ? [`${t.van}-${t.tot}  ${blok.tekst.naam} (${blok.tekst.locatie})  ${formatPrijs(taal, blok.verkoopCents)} ${m.perPersoon}`]
+      : [];
+  }).join('\n');
+  await stuurMail({
+    aan: b.email,
+    replyTo: REPLY_TO,
+    onderwerp: m.onderwerp(b.code),
+    tekst: m.tekst({
+      voornaam: b.naam.split(' ')[0]!,
+      datum: formatDatumIn(taal, b.datum),
+      personen: b.personen,
+      programma,
+      totaal: formatPrijs(taal, b.totaal),
+      pp: formatPrijs(taal, b.pp),
+      code: b.code,
+    }),
+  });
 }
