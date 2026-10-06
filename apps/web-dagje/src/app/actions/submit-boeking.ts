@@ -166,7 +166,7 @@ Jullie dag: ${formatDatum(data.datum)}, ${data.personen} personen
 ${programma}
 
 Totaal: ${formatEuro(totaal)} (${formatEuro(pp)} per persoon)
-
+${data.opmerking ? `\nJouw opmerking:\n${data.opmerking}\nHier kijken we naar bij het controleren van de beschikbaarheid.\n` : ''}
 Het aantal personen kan tot ${REGELS.aantalDefinitiefDagenVooraf} dagen voor de datum worden aangepast.
 
 Aanvraagnummer: ${code}
