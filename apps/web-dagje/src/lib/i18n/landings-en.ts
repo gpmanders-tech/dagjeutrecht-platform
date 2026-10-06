@@ -44,7 +44,7 @@ const ALGEMENE_FAQ: Vraag[] = [
   },
   {
     q: 'Can you cater for dietary requirements?',
-    a: 'A vegetarian option is available for lunch. Unfortunately we cannot arrange other dietary requirements or custom programmes.',
+    a: 'Yes, you can pass on dietary requirements when you book. A vegetarian option is also available for lunch. We cannot arrange custom programmes.',
   },
 ];
 

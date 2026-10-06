@@ -47,7 +47,7 @@ const formulier: FormulierTekst = {
   versturen: 'Anfrage senden',
   bezig: 'Wird gesendet...',
   kleineletters:
-    'Sie zahlen jetzt noch nichts. Innerhalb von 3 Werktagen bestätigen wir die Verfügbarkeit und senden Ihnen einen Zahlungslink. Ernährungswünsche und individuelle Programme sind nicht möglich.',
+    'Sie zahlen jetzt noch nichts. Innerhalb von 3 Werktagen bestätigen wir die Verfügbarkeit und senden Ihnen einen Zahlungslink. Ernährungswünsche können Sie in der Anmerkung angeben. Individuelle Programme sind nicht möglich.',
   foutVersturen:
     'Beim Senden ist etwas schiefgegangen. Bitte versuchen Sie es erneut oder rufen Sie uns an: +31 30 227 14 39.',
   bedanktKop: 'Vielen Dank, Ihre Anfrage ist eingegangen',
@@ -185,7 +185,7 @@ export const UI_DE: UiTekst = {
       {
         titel: 'Wir organisieren',
         tekst:
-          'Innerhalb von 3 Werktagen bestätigen unsere Partner alles, und Sie erhalten einen Zahlungslink.',
+          'Innerhalb von 3 Werktagen bestätigen unsere Partner alles, und Sie erhalten einen Zahlungslink. Unsere Partner sind an internationale Gruppen gewöhnt.',
       },
       {
         titel: 'Los geht’s',
@@ -571,7 +571,7 @@ export const UI_DE: UiTekst = {
       `Buchen Sie mindestens ${R.minDagenVooruit} Tage vor dem gewünschten Datum.`,
       'Nach Ihrer Anfrage prüfen wir die Verfügbarkeit bei unseren Partnern. Innerhalb von 3 Werktagen erhalten Sie eine Bestätigung mit Zahlungslink.',
       'Die Buchung ist verbindlich, sobald die Zahlung eingegangen ist.',
-      'Das Programm besteht aus festen Programmpunkten zu festen Zeiten. Individuelle Programme und Ernährungswünsche (außer einem vegetarischen Mittagessen) sind nicht möglich.',
+      'Das Programm besteht aus festen Programmpunkten zu festen Zeiten. Individuelle Programme sind nicht möglich. Ernährungswünsche können Sie bei der Buchung angeben.',
     ],
     prijzenKop: 'Preise und Zahlung',
     prijzen: [
@@ -633,6 +633,7 @@ export const UI_DE: UiTekst = {
       totaal: string;
       pp: string;
       code: string;
+      opmerking?: string;
     }) => `Hallo ${m.voornaam},
 
 vielen Dank für Ihre Anfrage bei DagjeUtrecht.nl. Wir prüfen jetzt die Verfügbarkeit bei unseren Partnern. Innerhalb von 3 Werktagen erhalten Sie eine Bestätigung mit Zahlungslink. Die Buchung ist verbindlich, sobald die Zahlung eingegangen ist.
@@ -642,7 +643,11 @@ Ihr Tag: ${m.datum}, ${m.personen} Personen
 ${m.programma}
 
 Gesamt: ${m.totaal} (${m.pp} pro Person, inklusive niederländischer MwSt.)
-
+${m.opmerking ? `
+Ihre Anmerkung:
+${m.opmerking}
+Das berücksichtigen wir bei der Prüfung der Verfügbarkeit.
+` : ''}
 Die Teilnehmerzahl kann bis ${R.aantalDefinitiefDagenVooraf} Tage vor dem Termin angepasst werden.
 
 Anfragenummer: ${m.code}

@@ -221,6 +221,7 @@ async function stuurKlantMailVertaald(
     blokken: Partial<Record<TijdvakId, string>>;
     pp: number;
     totaal: number;
+    opmerking?: string;
   }
 ) {
   const m = ui(taal).mail;
@@ -242,6 +243,7 @@ async function stuurKlantMailVertaald(
       totaal: formatPrijs(taal, b.totaal),
       pp: formatPrijs(taal, b.pp),
       code: b.code,
+      opmerking: b.opmerking,
     }),
   });
 }

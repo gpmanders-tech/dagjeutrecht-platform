@@ -70,7 +70,7 @@ const NL: FormulierTekst = {
   versturen: 'Aanvraag versturen',
   bezig: 'Versturen...',
   kleineletters:
-    'Je betaalt nog niets. We bevestigen binnen 3 werkdagen de beschikbaarheid en sturen dan een betaallink. Dieetwensen en maatwerk zijn niet mogelijk.',
+    'Je betaalt nog niets. We bevestigen binnen 3 werkdagen de beschikbaarheid en sturen dan een betaallink. Dieetwensen kun je doorgeven bij de opmerking. Maatwerk is niet mogelijk.',
   foutVersturen: 'Er ging iets mis bij het versturen. Probeer het opnieuw of bel 030 227 14 39.',
   bedanktKop: 'Bedankt, je aanvraag is binnen',
   bedanktNummer: 'Aanvraagnummer {code}. Je krijgt zo een bevestiging per mail.',

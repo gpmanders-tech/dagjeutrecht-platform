@@ -46,7 +46,7 @@ const formulier: FormulierTekst = {
   versturen: 'Send request',
   bezig: 'Sending...',
   kleineletters:
-    'You do not pay anything yet. Within 3 working days we confirm availability and send you a payment link. Dietary requirements and custom programmes are not possible.',
+    'You do not pay anything yet. Within 3 working days we confirm availability and send you a payment link. You can pass on dietary requirements in the comments. Custom programmes are not possible.',
   foutVersturen: 'Something went wrong while sending. Please try again or call +31 30 227 14 39.',
   bedanktKop: 'Thank you, we have received your request',
   bedanktNummer: 'Request number {code}. You will receive a confirmation by email shortly.',
@@ -182,7 +182,7 @@ export const UI_EN = {
       {
         titel: 'We arrange it',
         tekst:
-          'Within 3 working days our partners confirm everything and you receive a payment link.',
+          'Within 3 working days our partners confirm everything and you receive a payment link. Our partners are used to international groups.',
       },
       {
         titel: 'Off you go',
@@ -562,7 +562,7 @@ export const UI_EN = {
       `Book at least ${R.minDagenVooruit} days before the date you would like.`,
       'After your request, we check availability with our partners. Within 3 working days you receive a confirmation with a payment link.',
       'The booking is final once payment has been received.',
-      'The programme consists of fixed activities at fixed times. Custom programmes and dietary requirements (other than a vegetarian lunch) are not possible.',
+      'The programme consists of fixed activities at fixed times. Custom programmes are not possible. You can pass on dietary requirements when you book.',
     ],
     prijzenKop: 'Prices and payment',
     prijzen: [
@@ -622,6 +622,7 @@ export const UI_EN = {
       totaal: string;
       pp: string;
       code: string;
+      opmerking?: string;
     }) => `Hi ${m.voornaam},
 
 Thank you for your request with DagjeUtrecht.nl. We are now checking availability with our partners. Within 3 working days you will receive a confirmation with a payment link. The booking is final once payment has been received.
@@ -631,7 +632,11 @@ Your day: ${m.datum}, ${m.personen} people
 ${m.programma}
 
 Total: ${m.totaal} (${m.pp} per person, including Dutch VAT)
-
+${m.opmerking ? `
+Your comments:
+${m.opmerking}
+We will take this into account when checking availability.
+` : ''}
 The number of people can be changed up to ${R.aantalDefinitiefDagenVooraf} days before the date.
 
 Request number: ${m.code}

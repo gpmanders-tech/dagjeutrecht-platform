@@ -84,7 +84,7 @@ const ALGEMENE_FAQ = [
   },
   {
     q: 'Kunnen jullie rekening houden met dieetwensen?',
-    a: 'Bij de lunch is een vegetarische keuze mogelijk. Andere dieetwensen en maatwerk kunnen we helaas niet regelen.',
+    a: 'Ja, dieetwensen kun je doorgeven bij het boeken. Bij de lunch is ook een vegetarische keuze. Maatwerk in het programma kunnen we niet regelen.',
   },
 ];
 

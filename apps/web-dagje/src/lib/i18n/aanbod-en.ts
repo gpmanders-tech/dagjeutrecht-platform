@@ -208,7 +208,7 @@ export const AANBOD_EN: AanbodTekst = {
       naam: 'Group lunch',
       kort: 'Set lunch menu, vegetarian available.',
       beschrijving:
-        'A set group lunch at one of the venues of Brothers Horeca Groep in the city centre. A vegetarian option is available; other dietary requirements unfortunately are not.',
+        'A set group lunch at one of the venues of Brothers Horeca Groep in the city centre. A vegetarian option is available; you can pass on other dietary requirements when you book.',
       locatie: 'BHG venue in the city centre',
       duur: '1 hour',
       inclusief: ['set lunch menu', 'soft drink or coffee'],

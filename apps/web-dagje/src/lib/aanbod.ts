@@ -220,7 +220,7 @@ export const BOUWSTENEN: Bouwsteen[] = [
     naam: 'Groepslunch',
     kort: 'Vast lunchmenu, ook vegetarisch.',
     beschrijving:
-      'Een vaste groepslunch bij een van de zaken van Brothers Horeca Groep in het centrum. Vegetarisch kan; overige dieetwensen helaas niet.',
+      'Een vaste groepslunch bij een van de zaken van Brothers Horeca Groep in het centrum. Vegetarisch kan; andere dieetwensen kun je doorgeven bij het boeken.',
     emoji: '🥪',
     cluster: 'centrum',
     leverancier: 'BHG',

@@ -211,7 +211,7 @@ export const AANBOD_DE: AanbodTekst = {
       naam: 'Gruppen-Mittagessen',
       kort: 'Festes Mittagsmenü, auch vegetarisch.',
       beschrijving:
-        'Ein festes Gruppen-Mittagessen in einem der Lokale der Brothers Horeca Groep in der Innenstadt. Vegetarisch ist möglich; andere Ernährungswünsche leider nicht.',
+        'Ein festes Gruppen-Mittagessen in einem der Lokale der Brothers Horeca Groep in der Innenstadt. Vegetarisch ist möglich; andere Ernährungswünsche können Sie bei der Buchung angeben.',
       locatie: 'BHG-Lokal in der Innenstadt',
       duur: '1 Stunde',
       inclusief: ['festes Mittagsmenü', 'Softdrink oder Kaffee'],

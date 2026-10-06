@@ -30,8 +30,8 @@ export default function VoorwaardenPage() {
         </li>
         <li>De boeking is definitief zodra de betaling binnen is.</li>
         <li>
-          Het programma bestaat uit vaste onderdelen op vaste tijden. Maatwerk en dieetwensen
-          (behalve een vegetarische lunch) zijn niet mogelijk.
+          Het programma bestaat uit vaste onderdelen op vaste tijden. Maatwerk is niet mogelijk.
+          Dieetwensen kun je doorgeven bij het boeken.
         </li>
       </ul>
 

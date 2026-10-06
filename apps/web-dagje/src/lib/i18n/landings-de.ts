@@ -38,7 +38,7 @@ const ALGEMENE_FAQ: Vraag[] = [
   },
   {
     q: 'Können Sie Ernährungswünsche berücksichtigen?',
-    a: 'Beim Mittagessen ist eine vegetarische Variante möglich. Andere Ernährungswünsche und individuelle Programme können wir leider nicht anbieten.',
+    a: 'Ja, Ernährungswünsche können Sie bei der Buchung angeben. Beim Mittagessen ist außerdem eine vegetarische Variante möglich. Individuelle Programme können wir nicht anbieten.',
   },
 ];
 
