@@ -220,7 +220,7 @@ export const BOUWSTENEN: Bouwsteen[] = [
     naam: 'Groepslunch',
     kort: 'Vast lunchmenu, ook vegetarisch.',
     beschrijving:
-      'Een vaste groepslunch bij een van de zaken van Brothers Horeca Groep in het centrum. Vegetarisch kan; overige dieetwensen helaas niet.',
+      'Een vaste groepslunch bij een van de zaken van Brothers Horeca Groep in het centrum. Vegetarisch kan; andere dieetwensen kun je doorgeven bij het boeken.',
     emoji: '🥪',
     cluster: 'centrum',
     leverancier: 'BHG',
@@ -669,28 +669,47 @@ export function formatDatum(iso: string) {
 }
 
 /**
- * Controleert een keuze. Wordt zowel in de browser als op de server gebruikt,
- * zodat er nooit een boeking binnenkomt die de inkoop-agent niet kan uitvoeren.
+ * Een fout in een keuze, los van de taal. controleer() maakt er de Nederlandse
+ * zinnen van; de Engelse en Duitse site (lib/i18n) gebruiken dezelfde codes, zodat
+ * de spelregels maar op één plek staan.
  */
-export function controleer(keuze: Keuze): string[] {
-  const fouten: string[] = [];
+export type KeuzeFout =
+  | { code: 'geen-datum' }
+  | { code: 'verkeerde-dag' }
+  | { code: 'te-kort-vooruit'; dagen: number }
+  | { code: 'aantal'; min: number; max: number }
+  | { code: 'onbekend-onderdeel'; tijdvak: TijdvakId }
+  | { code: 'geen-activiteit' }
+  | { code: 'verkeerd-tijdvak'; blok: string; tijdvak: TijdvakId }
+  | { code: 'aantal-blok'; blok: string; min: number; max: number }
+  | { code: 'seizoen'; blok: string; seizoen: Maanden }
+  | { code: 'kickbike-nodig'; van: Exclude<Cluster, 'beide'>; naar: Exclude<Cluster, 'beide'> }
+  | { code: 'te-veel-wissels' };
+
+/**
+ * Controleert een keuze en geeft de fouten als codes terug, in volgorde.
+ * Wordt zowel in de browser als op de server gebruikt, zodat er nooit een boeking
+ * binnenkomt die de inkoop-agent niet kan uitvoeren.
+ */
+export function controleerKeuze(keuze: Keuze): KeuzeFout[] {
+  const fouten: KeuzeFout[] = [];
 
   // Datum
   if (!/^\d{4}-\d{2}-\d{2}$/.test(keuze.datum)) {
-    fouten.push('Kies een datum.');
+    fouten.push({ code: 'geen-datum' });
   } else {
     const dag = new Date(`${keuze.datum}T12:00:00Z`).getUTCDay();
     if (!REGELS.dagen.includes(dag)) {
-      fouten.push('Uitjes zijn mogelijk op donderdag, vrijdag en zaterdag.');
+      fouten.push({ code: 'verkeerde-dag' });
     }
     if (dagenTussen(vandaagIso(), keuze.datum) < REGELS.minDagenVooruit) {
-      fouten.push(`Boek minimaal ${REGELS.minDagenVooruit} dagen vooruit.`);
+      fouten.push({ code: 'te-kort-vooruit', dagen: REGELS.minDagenVooruit });
     }
   }
 
   // Aantal personen
   if (!Number.isInteger(keuze.personen) || keuze.personen < REGELS.minPers || keuze.personen > REGELS.maxPers) {
-    fouten.push(`Het aantal personen ligt tussen ${REGELS.minPers} en ${REGELS.maxPers}.`);
+    fouten.push({ code: 'aantal', min: REGELS.minPers, max: REGELS.maxPers });
   }
 
   const gekozen = TIJDVAKKEN.flatMap((t) => {
@@ -698,31 +717,31 @@ export function controleer(keuze: Keuze): string[] {
     if (!slug) return [];
     const b = vindBouwsteen(slug);
     if (!b) {
-      fouten.push(`Onbekend onderdeel bij ${t.naam.toLowerCase()}.`);
+      fouten.push({ code: 'onbekend-onderdeel', tijdvak: t.id });
       return [];
     }
     return [{ tijdvak: t, blok: b }];
   });
 
   if (!gekozen.some((g) => g.tijdvak.id === 'ochtend' || g.tijdvak.id === 'middag')) {
-    fouten.push('Kies minimaal één activiteit in de ochtend of middag.');
+    fouten.push({ code: 'geen-activiteit' });
   }
 
   const maand = Number(keuze.datum.slice(5, 7));
   for (const { tijdvak, blok } of gekozen) {
     if (!blok.tijdvakken.includes(tijdvak.id)) {
-      fouten.push(`${blok.naam} kan niet in het tijdvak ${tijdvak.naam.toLowerCase()}.`);
+      fouten.push({ code: 'verkeerd-tijdvak', blok: blok.slug, tijdvak: tijdvak.id });
     }
     if (keuze.personen < blok.minPers || keuze.personen > blok.maxPers) {
-      fouten.push(`${blok.naam} kan met ${blok.minPers} tot ${blok.maxPers} personen.`);
+      fouten.push({ code: 'aantal-blok', blok: blok.slug, min: blok.minPers, max: blok.maxPers });
     }
     if (blok.seizoen && maand && !inMaanden(maand, blok.seizoen)) {
-      fouten.push(`${blok.naam} is alleen mogelijk van ${maandenTekst(blok.seizoen)}.`);
+      fouten.push({ code: 'seizoen', blok: blok.slug, seizoen: blok.seizoen });
     }
   }
 
   // Verplaatsen tussen centrum en Amelisweerd kan alleen met de kickbike
-  let huidig: Cluster | null = null;
+  let huidig: Exclude<Cluster, 'beide'> | null = null;
   let kickbikeSindsdien = false;
   let wissels = 0;
   for (const { blok } of gekozen) {
@@ -732,9 +751,7 @@ export function controleer(keuze: Keuze): string[] {
     }
     if (huidig && blok.cluster !== huidig) {
       if (!kickbikeSindsdien) {
-        fouten.push(
-          `Van ${CLUSTERS[huidig].naam} naar ${CLUSTERS[blok.cluster].naam} gaat met de kickbike: kies de kickbike-tocht als tussenstap.`
-        );
+        fouten.push({ code: 'kickbike-nodig', van: huidig, naar: blok.cluster });
       }
       wissels++;
     }
@@ -742,8 +759,47 @@ export function controleer(keuze: Keuze): string[] {
     kickbikeSindsdien = false;
   }
   if (wissels > REGELS.maxClusterWissels) {
-    fouten.push('Wissel maximaal één keer tussen centrum en Amelisweerd.');
+    fouten.push({ code: 'te-veel-wissels' });
   }
 
-  return [...new Set(fouten)];
+  return fouten;
+}
+
+/** De Nederlandse zin bij een fout. */
+function foutTekst(f: KeuzeFout): string {
+  const naam = (slug: string) => vindBouwsteen(slug)?.naam ?? slug;
+  const tijdvakNaam = (id: TijdvakId) => TIJDVAKKEN.find((t) => t.id === id)!.naam.toLowerCase();
+  switch (f.code) {
+    case 'geen-datum':
+      return 'Kies een datum.';
+    case 'verkeerde-dag':
+      return 'Uitjes zijn mogelijk op donderdag, vrijdag en zaterdag.';
+    case 'te-kort-vooruit':
+      return `Boek minimaal ${f.dagen} dagen vooruit.`;
+    case 'aantal':
+      return `Het aantal personen ligt tussen ${f.min} en ${f.max}.`;
+    case 'onbekend-onderdeel':
+      return `Onbekend onderdeel bij ${tijdvakNaam(f.tijdvak)}.`;
+    case 'geen-activiteit':
+      return 'Kies minimaal één activiteit in de ochtend of middag.';
+    case 'verkeerd-tijdvak':
+      return `${naam(f.blok)} kan niet in het tijdvak ${tijdvakNaam(f.tijdvak)}.`;
+    case 'aantal-blok':
+      return `${naam(f.blok)} kan met ${f.min} tot ${f.max} personen.`;
+    case 'seizoen':
+      return `${naam(f.blok)} is alleen mogelijk van ${maandenTekst(f.seizoen)}.`;
+    case 'kickbike-nodig':
+      return `Van ${CLUSTERS[f.van].naam} naar ${CLUSTERS[f.naar].naam} gaat met de kickbike: kies de kickbike-tocht als tussenstap.`;
+    case 'te-veel-wissels':
+      return 'Wissel maximaal één keer tussen centrum en Amelisweerd.';
+  }
+}
+
+/**
+ * Controleert een keuze en geeft de fouten als Nederlandse zinnen, zonder dubbele.
+ * Wordt zowel in de browser als op de server gebruikt, zodat er nooit een boeking
+ * binnenkomt die de inkoop-agent niet kan uitvoeren.
+ */
+export function controleer(keuze: Keuze): string[] {
+  return [...new Set(controleerKeuze(keuze).map(foutTekst))];
 }

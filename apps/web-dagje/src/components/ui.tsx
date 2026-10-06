@@ -228,10 +228,13 @@ export function BoekBlok({
   titel = 'Klaar voor een dagje Utrecht?',
   tekst = 'Kies een pakket of stel zelf jullie dag samen. Je ziet meteen wat het kost.',
   foto = fotos.kanoBrug,
+  knop = { href: '/boeken', tekst: 'Stel je dag samen' },
 }: {
   titel?: string;
   tekst?: string;
   foto?: FotoType;
+  /** Voor de Engelse en Duitse pagina's: vertaalde knop naar het eigen boekadres. */
+  knop?: { href: string; tekst: string };
 }) {
   return (
     <section className="op-donker relative isolate overflow-hidden bg-inkt text-white">
@@ -243,8 +246,8 @@ export function BoekBlok({
           <h2 className="text-4xl font-black uppercase leading-none tracking-tight sm:text-5xl">{titel}</h2>
           <p className="mt-3 max-w-xl text-lg text-zee-100">{tekst}</p>
         </div>
-        <Knop href="/boeken" variant="zon" className="shrink-0 text-lg">
-          Stel je dag samen
+        <Knop href={knop.href} variant="zon" className="shrink-0 text-lg">
+          {knop.tekst}
         </Knop>
       </div>
     </section>

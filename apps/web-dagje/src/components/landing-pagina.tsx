@@ -14,7 +14,18 @@ import { LANDING_LIJST, type Landing } from '../lib/landings';
 import { vindOpAanvraag } from '../lib/op-aanvraag';
 import { Breadcrumbs, FaqSchema } from './seo-jsonld';
 import { PakketKaart } from './pakket-kaart';
+import { PADEN, paginaAlternates, type PaginaSleutel } from '../lib/talen';
 import { Band, BoekBlok, Foto, HOEKEN, Knop, PaginaKop } from './ui';
+
+/**
+ * Canonical van een gelegenheidspagina, met hreflang als er een Engelse en Duitse
+ * versie van is (bedrijfsuitje, teambuilding, personeelsuitje, vrijgezellenfeest,
+ * familiedag). De andere blijven alleen Nederlands.
+ */
+function landingAlternates(pad: string) {
+  const sleutel = (Object.keys(PADEN) as PaginaSleutel[]).find((k) => PADEN[k].nl === pad);
+  return sleutel ? paginaAlternates('nl', sleutel) : { canonical: pad };
+}
 
 export function landingMetadata(l: Landing): Metadata {
   // openGraph uit de layout wordt hier niet aangevuld maar vervangen, dus type,
@@ -22,7 +33,7 @@ export function landingMetadata(l: Landing): Metadata {
   return {
     title: l.metaTitel,
     description: l.metaOmschrijving,
-    alternates: { canonical: l.pad },
+    alternates: landingAlternates(l.pad),
     openGraph: {
       type: 'website',
       locale: 'nl_NL',
