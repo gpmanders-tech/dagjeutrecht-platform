@@ -573,6 +573,13 @@ export const AANBOD_DE: AanbodTekst = {
         'Ein Vormittag auf der Kromme Rijn, zu zweit im Kanu, und danach ein Picknick am Wasser bei De Rijnstroom. Um halb zwei sind alle wieder frei.',
       voorWie: 'Teams und Freundesgruppen, April bis Oktober',
     },
+    'winter-op-de-grachten': {
+      naam: 'Winter auf den Grachten',
+      kort: 'Halber Tag: Glühwein, eine Grachtenfahrt mit Schuttevaer und ein winterliches Mittagessen.',
+      beschrijving:
+        'Utrecht im Winter vom Wasser aus. Aufwärmen mit Glühwein in der JEU de boules bar, eine Stunde mit der Rederij Schuttevaer über die Oudegracht und die Singel, und zum Abschluss Erbsensuppe oder Stamppot. Um halb zwei sind alle wieder frei.',
+      voorWie: 'Firmenausflüge, Teams und Familien, November bis März',
+    },
     winterborrel: {
       naam: 'Winter-Umtrunk',
       kort: 'Halber Tag: Glühwein, Boule drinnen und ein Umtrunk.',

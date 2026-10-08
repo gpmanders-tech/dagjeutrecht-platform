@@ -95,6 +95,7 @@ export const SLUGS: Record<'pakket' | 'bouwsteen', Record<string, Record<Vertaal
     'boules-en-borrel': { en: 'boules-and-drinks', de: 'boule-und-umtrunk' },
     'dom-en-grachten': { en: 'dom-tower-and-canals', de: 'domturm-und-grachten' },
     'water-en-picknick': { en: 'water-and-picnic', de: 'wasser-und-picknick' },
+    'winter-op-de-grachten': { en: 'winter-on-the-canals', de: 'winter-auf-den-grachten' },
     winterborrel: { en: 'winter-drinks', de: 'winter-umtrunk' },
     'koffie-en-city-challenge': {
       en: 'coffee-and-city-challenge',

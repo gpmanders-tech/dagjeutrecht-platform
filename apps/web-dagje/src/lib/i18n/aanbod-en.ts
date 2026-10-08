@@ -570,6 +570,13 @@ export const AANBOD_EN: AanbodTekst = {
         'A morning on the Kromme Rijn with two people per canoe, followed by a picnic by the water at De Rijnstroom. Everyone is free again by half past one.',
       voorWie: 'Teams and groups of friends, April to October',
     },
+    'winter-op-de-grachten': {
+      naam: 'Winter on the Canals',
+      kort: 'Half day: mulled wine, a canal cruise with Schuttevaer and a winter lunch.',
+      beschrijving:
+        'Utrecht in winter, seen from the water. Warm up with mulled wine at JEU de boules bar, spend an hour with Rederij Schuttevaer on the Oudegracht and the city canals, and finish with pea soup or stamppot. Everyone is free again at half past one.',
+      voorWie: 'Company outings, teams and families, November to March',
+    },
     winterborrel: {
       naam: 'Winter Drinks',
       kort: 'Half day: mulled wine, indoor jeu de boules and drinks.',

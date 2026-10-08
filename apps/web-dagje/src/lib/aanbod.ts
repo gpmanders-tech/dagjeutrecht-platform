@@ -530,6 +530,17 @@ export const PAKKETTEN: Pakket[] = [
     blokken: { ochtend: 'kanoen', lunch: 'picknick' },
   },
   {
+    slug: 'winter-op-de-grachten',
+    seizoen: 'winter',
+    naam: 'Winter op de Grachten',
+    kort: 'Halve dag: glühwein, een rondvaart met Schuttevaer en een winterse lunch.',
+    beschrijving:
+      'Utrecht in de winter vanaf het water. Opwarmen met glühwein bij JEU de boules bar, dan een uur met Rederij Schuttevaer over de Oudegracht en de singels, en afsluiten met erwtensoep of stamppot. Om half twee is iedereen weer vrij.',
+    emoji: '⛴️',
+    voorWie: 'Bedrijfsuitjes, teams en families, van november tot en met maart',
+    blokken: { ontvangst: 'gluhwein', ochtend: 'rondvaart', lunch: 'winterlunch' },
+  },
+  {
     slug: 'winterborrel',
     seizoen: 'winter',
     naam: 'Winterborrel',

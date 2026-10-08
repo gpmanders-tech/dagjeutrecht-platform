@@ -52,13 +52,13 @@ function vanaf(slugs: string[]) {
   return formatEuro(Math.min(...centen));
 }
 
-const P_BEDRIJF = ['koffie-en-city-challenge', 'boules-en-borrel', 'spel-en-borrel', 'warme-winterdag', 'winterborrel', 'amelisweerd-actief', 'water-naar-borrel'];
-const P_TEAM = ['koffie-en-city-challenge', 'boules-en-borrel', 'spel-en-borrel', 'warme-winterdag', 'winterborrel', 'amelisweerd-actief'];
+const P_BEDRIJF = ['koffie-en-city-challenge', 'boules-en-borrel', 'spel-en-borrel', 'warme-winterdag', 'winter-op-de-grachten', 'winterborrel', 'amelisweerd-actief', 'water-naar-borrel'];
+const P_TEAM = ['koffie-en-city-challenge', 'boules-en-borrel', 'spel-en-borrel', 'warme-winterdag', 'winter-op-de-grachten', 'winterborrel', 'amelisweerd-actief'];
 const P_SCHOOL = ['koffie-en-city-challenge', 'schoolreis-basisschool', 'dom-en-grachten', 'schooluitje', 'spel-en-borrel'];
 const P_VRIJGEZEL = ['boules-en-borrel', 'water-naar-borrel', 'vrijgezellen-winterdag', 'amelisweerd-actief', 'spel-en-borrel'];
 
-const P_PERSONEEL = ['boules-en-borrel', 'koffie-en-city-challenge', 'spel-en-borrel', 'winterborrel', 'warme-winterdag', 'water-en-picknick', 'amelisweerd-actief'];
-const P_FAMILIE = ['dom-en-grachten', 'koffie-en-city-challenge', 'spel-en-borrel', 'water-en-picknick', 'amelisweerd-actief'];
+const P_PERSONEEL = ['boules-en-borrel', 'koffie-en-city-challenge', 'spel-en-borrel', 'winter-op-de-grachten', 'winterborrel', 'warme-winterdag', 'water-en-picknick', 'amelisweerd-actief'];
+const P_FAMILIE = ['dom-en-grachten', 'winter-op-de-grachten', 'koffie-en-city-challenge', 'spel-en-borrel', 'water-en-picknick', 'amelisweerd-actief'];
 const P_FEEST = ['boules-en-borrel', 'winterborrel', 'spel-en-borrel', 'warme-winterdag', 'amelisweerd-actief', 'water-naar-borrel'];
 
 const GROEP = `Vanaf ${REGELS.minPers} personen.`;
