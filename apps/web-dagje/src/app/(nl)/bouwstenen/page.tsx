@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { OP_AANVRAAG } from '../../../lib/op-aanvraag';
 import { BouwsteenKaart } from '../../../components/bouwsteen-kaart';
 import { Breadcrumbs } from '../../../components/seo-jsonld';
-import { Band, BoekBlok, HOEKEN, PaginaKop, Sticker } from '../../../components/ui';
+import { Band, BoekBlok, HOEKEN, Knop, PaginaKop, Sticker } from '../../../components/ui';
 
 export const metadata: Metadata = {
   title: `Activiteiten Utrecht voor groepen: ${BOUWSTENEN.length} onderdelen`,
@@ -85,6 +85,20 @@ export default function BouwstenenPage() {
           </div>
         </section>
       ))}
+      <section className="bg-zee-400">
+        <div className="mx-auto flex max-w-5xl flex-col items-start gap-6 px-4 py-12 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+          <div>
+            <h2 className="text-3xl font-black uppercase leading-none tracking-tight text-inkt sm:text-4xl">Alleen een rondvaart?</h2>
+            <p className="mt-3 max-w-2xl text-lg text-inkt">
+              Door de grachten, met een diner of lunch erbij of met een privé boot voor je groep: die vaarten boek je
+              direct bij onze partner Rederij Schuttevaer.
+            </p>
+          </div>
+          <Knop href="/rondvaart-utrecht" variant="wit" className="shrink-0">
+            Rondvaart boeken
+          </Knop>
+        </div>
+      </section>
       <section id="op-aanvraag" className="scroll-mt-24 bg-white">
         <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6">
           <Sticker kleur="zee" hoek="-rotate-2">

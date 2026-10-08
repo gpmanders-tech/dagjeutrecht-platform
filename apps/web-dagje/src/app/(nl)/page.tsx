@@ -424,7 +424,13 @@ export default function Home() {
 
       <section className="mx-auto max-w-5xl px-4 py-16 sm:px-6">
         <h2 className="text-4xl font-black uppercase tracking-tight text-inkt sm:text-5xl">Utrecht vanaf het water</h2>
-        <p className="mt-3 max-w-2xl text-lg text-grijs">Over de grachten, langs de Kromme Rijn en door de binnenstad.</p>
+        <p className="mt-3 max-w-2xl text-lg text-grijs">
+          Over de grachten, langs de Kromme Rijn en door de binnenstad. Alleen een rondvaart?{' '}
+          <Link href="/rondvaart-utrecht" className="font-bold text-inkt underline decoration-vlam-400 decoration-2 underline-offset-4">
+            Boek hem direct
+          </Link>
+          .
+        </p>
         <ul className="mt-10 grid grid-cols-2 gap-6 md:grid-cols-3">
           {galerij.map((foto, i) => (
             <li key={foto.src}>

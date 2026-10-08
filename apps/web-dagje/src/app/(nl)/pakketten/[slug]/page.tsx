@@ -167,6 +167,14 @@ export default function PakketPage({ params }: { params: { slug: string } }) {
                 <p className="mt-2 text-sm font-bold text-inkt">
                   {b.cluster === 'beide' ? 'Onderweg' : CLUSTERS[b.cluster].naam} · {b.locatie}
                 </p>
+                {b.slug === 'rondvaart' && (
+                  <p className="mt-2 text-sm text-grijs">
+                    Liever los varen of met eten erbij?{' '}
+                    <Link href="/rondvaart-utrecht" className="font-bold text-inkt underline decoration-vlam-400 decoration-2 underline-offset-4">
+                      Bekijk alle rondvaarten
+                    </Link>
+                  </p>
+                )}
               </div>
             </li>
           ))}

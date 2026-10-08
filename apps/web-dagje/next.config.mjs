@@ -45,6 +45,8 @@ export default {
       { source: '/aanbod/fietsverhuur-utrecht-cs', destination: '/bouwstenen/kickbike-tocht', permanent: true },
       { source: '/aanbod/team-building', destination: '/teambuilding-utrecht', permanent: true },
       { source: '/programmas', destination: '/pakketten', permanent: true },
+      // Rondvaarten van Schuttevaer, direct te boeken via FareHarbor (8-10-2026)
+      { source: '/rondvaart', destination: '/rondvaart-utrecht', permanent: true },
       { source: '/programma/:slug', destination: '/pakketten', permanent: true },
       // Tijdelijk of blijvend, en waarom dat uitmaakt (keuze Ger 22-9-2026, DAG-SEO-38):
       // een blijvende doorverwijzing (permanent: true, 308) zegt tegen Google dat het oude

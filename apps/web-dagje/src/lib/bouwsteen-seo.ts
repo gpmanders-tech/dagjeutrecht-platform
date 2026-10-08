@@ -120,6 +120,11 @@ export const BOUWSTEEN_SEO: Record<string, BouwsteenSeo> = {
       { q: 'Is de boot overdekt?', a: 'Ja, er is een overkapping, dus de vaart gaat ook door bij regen.' },
       { q: 'Kan er onderweg gedronken worden?', a: 'Drankjes zitten niet in deze bouwsteen. Voor een borrel combineer je met het borrelblok na afloop.' },
     ],
+    verwijzing: {
+      tekst: 'Liever los een rondvaart boeken, met eten erbij of met een eigen boot voor je groep?',
+      href: '/rondvaart-utrecht',
+      link: 'Boek direct bij Rederij Schuttevaer',
+    },
   },
 
   bbq: {

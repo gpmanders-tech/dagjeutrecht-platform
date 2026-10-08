@@ -88,6 +88,13 @@ export default function PakkettenPage() {
               per persoon is de som van de onderdelen, inclusief btw. Je ziet dus vooraf precies wat het uitje kost.
             </p>
             <p className="mt-3 text-lg text-grijs">
+              Alleen een rondvaart, met een diner erbij of met een eigen boot?{' '}
+              <Link href="/rondvaart-utrecht" className="font-bold text-inkt underline decoration-vlam-400 decoration-2 underline-offset-4">
+                Boek een rondvaart direct bij Rederij Schuttevaer
+              </Link>
+              .
+            </p>
+            <p className="mt-3 text-lg text-grijs">
               Pakketten zijn te boeken vanaf {REGELS.minPers} personen, op donderdag, vrijdag en zaterdag, minimaal{' '}
               {REGELS.minDagenVooruit} dagen vooruit. Een hele dag loopt van {TIJDVAKKEN[0]!.van} tot{' '}
               {TIJDVAKKEN[TIJDVAKKEN.length - 1]!.tot}.

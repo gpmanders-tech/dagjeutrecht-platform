@@ -88,6 +88,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/bowlen-utrecht',
     '/padel-utrecht',
     '/kaasproeverij-utrecht',
+    '/rondvaart-utrecht',
     '/contact',
     '/voorwaarden',
     '/privacy',

@@ -43,6 +43,7 @@ export function GET() {
     '## Meer',
     '',
     `- [Zelf een dag samenstellen](${SITE}/boeken)`,
+    `- [Rondvaart Utrecht direct boeken bij Rederij Schuttevaer](${SITE}/rondvaart-utrecht): rondvaarten door de grachten, varen en eten, een privé fluisterboot en vaarten naar Amelisweerd.`,
     `- [Inspiratie en tips](${SITE}/blog)`,
     `- [Over DagjeUtrecht en de partners](${SITE}/over-ons)`,
     `- [Voorwaarden](${SITE}/voorwaarden)`,

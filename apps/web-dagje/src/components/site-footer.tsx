@@ -28,6 +28,7 @@ const NL: VoetTekst = {
   links: [
     { href: '/pakketten', label: 'Pakketten' },
     { href: '/bouwstenen', label: 'Alle onderdelen' },
+    { href: '/rondvaart-utrecht', label: 'Rondvaart boeken' },
     { href: '/boeken', label: 'Zelf samenstellen' },
     { href: '/blog', label: 'Inspiratie' },
     { href: '/alleen-steppen', label: 'Alleen steps huren' },
@@ -38,7 +39,7 @@ const NL: VoetTekst = {
   voorWieKop: 'Voor wie?',
   voorWie: LANDING_LIJST.map((x) => ({ href: x.pad, label: x.link })),
   onder: {
-    handelsnaam: "DagjeUtrecht, een handelsnaam van Traxeo. Prijzen per persoon inclusief btw. Foto's: DagjeSuppen.nl en",
+    handelsnaam: "DagjeUtrecht, een handelsnaam van Traxeo. Prijzen per persoon inclusief btw. Foto's: DagjeSuppen.nl, Rederij Schuttevaer en",
     kaart: 'Kaartgegevens:',
     osm: '© OpenStreetMap-bijdragers',
   },

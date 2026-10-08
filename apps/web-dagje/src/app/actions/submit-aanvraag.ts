@@ -30,6 +30,14 @@ const schema = z.object({
 export type AanvraagInput = z.input<typeof schema>;
 
 /**
+ * Pagina's die het korte formulier gebruiken maar geen onderwerp op aanvraag zijn.
+ * /rondvaart-utrecht: losse vaarten boekt de klant zelf bij Schuttevaer, groepen en hele dagen vragen hier aan.
+ */
+const EXTRA_ONDERWERPEN: Record<string, { slug: string; titel: string }> = {
+  'rondvaart-utrecht': { slug: 'rondvaart-utrecht', titel: 'Rondvaart met je groep' },
+};
+
+/**
  * Korte aanvraag voor een onderwerp op aanvraag (DAG-15): geen programma, geen prijs.
  * Wordt net als een boeking als Enquiry opgeslagen, zodat niets verloren gaat als de mail hapert.
  * De inkoop-agent start hier bewust niet: er is nog geen leverancier vastgelegd.
@@ -42,7 +50,7 @@ export async function submitAanvraag(
   const data = parsed.data;
   if (data.website) return { ok: true, code: 'ONTVANGEN' };
 
-  const onderwerp = vindOpAanvraag(data.onderwerp);
+  const onderwerp = vindOpAanvraag(data.onderwerp) ?? EXTRA_ONDERWERPEN[data.onderwerp];
   if (!onderwerp) return { ok: false, fouten: ['Onbekend onderwerp'] };
 
   const datum = data.datum && /^\d{4}-\d{2}-\d{2}$/.test(data.datum) ? data.datum : null;
