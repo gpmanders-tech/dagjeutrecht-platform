@@ -3,6 +3,8 @@ import Link from 'next/link';
 import { prisma } from '@utrecht/db';
 import { LANDING_LIJST } from '../../../lib/landings';
 import { Breadcrumbs } from '../../../components/seo-jsonld';
+import { Foto } from '../../../components/ui';
+import { fotoVoorBlog } from '../../../lib/fotos';
 
 export const metadata: Metadata = {
   title: 'Inspiratie voor een dagje Utrecht',
@@ -93,9 +95,7 @@ export default async function BlogIndex() {
               href={`/blog/${p.slug}`}
               className="block bg-white rounded-2xl overflow-hidden shadow-xl border border-inkt/10 hover:border-vlam-400 transition-colors"
             >
-              {p.heroImage && (
-                <img src={p.heroImage} alt={p.title} className="w-full h-40 object-cover" />
-              )}
+              <Foto foto={{ ...fotoVoorBlog(p), alt: p.title }} verhouding="h-40 w-full" sizes="(min-width: 768px) 28rem, 100vw" />
               <div className="p-5">
                 <h2 className="text-xl font-extrabold text-inkt">{p.title}</h2>
                 {p.excerpt && (

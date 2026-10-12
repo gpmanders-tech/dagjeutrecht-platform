@@ -6,6 +6,14 @@ import type { Foto } from '../fotos';
 import type { Vertaald } from '../talen';
 
 const ALT: Record<string, Record<Vertaald, string>> = {
+  'sfeer-collegas-terras-oudegracht': {
+    en: 'Colleagues raising a toast on a wharf terrace by the Oudegracht, with the Dom Tower',
+    de: 'Kollegen stoßen auf einer Werftterrasse an der Oudegracht an, mit dem Domturm',
+  },
+  'sfeer-team-jeu-de-boules-binnen': {
+    en: 'A team playing jeu de boules indoors under string lights',
+    de: 'Ein Team spielt drinnen Boule unter Lichterketten',
+  },
   'suppen-utrecht-groep-gracht': {
     en: 'Group on SUP boards on a canal in Utrecht',
     de: 'Gruppe auf SUP-Boards auf einer Gracht in Utrecht',
@@ -125,7 +133,7 @@ const ALT: Record<string, Record<Vertaald, string>> = {
 
 /** De foto met de alt-tekst in de gevraagde taal. */
 export function fotoIn(taal: Vertaald, foto: Foto): Foto {
-  const naam = foto.src.replace(/^\/fotos\//, '').replace(/\.jpg$/, '');
+  const naam = foto.src.replace(/^\/fotos\//, '').replace(/\.(jpg|webp)$/, '');
   const alt = foto.alt ? (ALT[naam]?.[taal] ?? foto.alt) : foto.alt;
   return { src: foto.src, alt };
 }

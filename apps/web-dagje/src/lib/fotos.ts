@@ -1,11 +1,15 @@
 /**
  * Alle foto's staan in `public/fotos/`.
  * Eigen beeld komt van dagjesuppen.nl; een paar foto's komen van Wikimedia Commons
- * (zie FOTO_BRONNEN, die staan ook op /fotobronnen).
+ * (zie FOTO_BRONNEN, die staan ook op /fotobronnen). De bestanden die met `sfeer-`
+ * beginnen zijn sfeerbeelden, gemaakt met Canva (DAG-01, oktober 2026): geen foto's
+ * van een echte groep of een echte dag. Dat staat ook op /fotobronnen.
  */
 export type Foto = { src: string; alt: string };
 
 const f = (naam: string, alt: string): Foto => ({ src: `/fotos/${naam}.jpg`, alt });
+/** Sfeerbeeld (Canva), als webp. */
+const sfeer = (naam: string, alt: string): Foto => ({ src: `/fotos/sfeer-${naam}.webp`, alt });
 
 export const fotos = {
   heroAchtergrond: f('hero-achtergrond', ''),
@@ -43,7 +47,27 @@ export const fotos = {
   winterUtrecht: f('utrecht-winter-sneeuw', 'De Kromme Rijn in Utrecht met sneeuw'),
   boulesBinnen: f('jeu-de-boules-binnen', 'Groep speelt jeu de boules binnen in een hal met lampjes'),
   domtorenKlok: f('domtoren-klok-binnen', 'Een van de grote klokken binnen in de Domtoren'),
+  sfeerCollegasTerras: sfeer('collegas-terras-oudegracht', 'Collega’s proosten op een werfterras aan de Oudegracht, met de Domtoren'),
+  sfeerTeamBoules: sfeer('team-jeu-de-boules-binnen', 'Een team speelt binnen jeu de boules onder lichtslingers'),
 } satisfies Record<string, Foto>;
+
+/**
+ * Foto bij een blogartikel. De artikelen in de database hadden tijdelijke beelden van
+ * loremflickr.com, die vaak een fout gaven (DAG-01). Een eigen foto uit public/fotos
+ * wint altijd; anders kiezen we per artikel een foto die erbij past.
+ */
+const FOTO_PER_BLOG: Record<string, Foto> = {
+  'bedrijfsuitje-utrecht-10-beste-opties': fotos.sfeerCollegasTerras,
+  'teamuitje-ideeen-utrecht': fotos.sfeerTeamBoules,
+  'vrijgezellenfeest-utrecht-ideeen': fotos.supVrijgezellen,
+  'schoolreis-utrecht-educatief-veilig': fotos.domtoren,
+  'wat-te-doen-utrecht-groep-gids': fotos.oudegrachtDom,
+};
+
+export function fotoVoorBlog(post: { slug: string; title: string; heroImage?: string | null }): Foto {
+  if (post.heroImage?.startsWith('/fotos/')) return { src: post.heroImage, alt: post.title };
+  return FOTO_PER_BLOG[post.slug] ?? fotos.oudegrachtDom;
+}
 
 export const FOTO_PER_BOUWSTEEN: Record<string, Foto> = {
   'koffie-met-gebak': fotos.koffie,

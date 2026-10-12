@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
-import { FOTO_BRONNEN } from '../../../lib/fotos';
+import { FOTO_BRONNEN, fotos } from '../../../lib/fotos';
+
+const SFEERBEELDEN = Object.values(fotos).filter((f) => f.src.startsWith('/fotos/sfeer-'));
 import { Foto } from '../../../components/ui';
 
 export const metadata: Metadata = {
@@ -18,6 +20,17 @@ export default function FotobronnenPage() {
           Rondvaart Utrecht
         </a>{' '}
         zijn van Rederij Schuttevaer.
+      </p>
+      <p className="mt-4 text-lg text-grijs">
+        Een deel van de beelden zijn sfeerbeelden: die zijn met Canva gemaakt en laten geen echte groep of echte dag
+        van ons zien. Het gaat om de foto&apos;s{' '}
+        {SFEERBEELDEN.map((f, i) => (
+          <span key={f.src}>
+            {i > 0 && (i === SFEERBEELDEN.length - 1 ? ' en ' : ', ')}
+            <em>{f.alt.charAt(0).toLowerCase() + f.alt.slice(1)}</em>
+          </span>
+        ))}
+        .
       </p>
       <ul className="mt-10 space-y-6">
         {FOTO_BRONNEN.map((b) => (

@@ -306,11 +306,23 @@ Wij regelen alles op een factuur, met één contactpersoon (Ger). Geen 12 losse 
   },
 ];
 
+/**
+ * Eigen foto's uit apps/web-dagje/public/fotos (DAG-01). Eerder stonden hier
+ * loremflickr-adressen, maar die dienst gaf vaak een fout.
+ */
+const BLOG_FOTO: Record<string, string> = {
+  'bedrijfsuitje-utrecht-10-beste-opties': '/fotos/sfeer-collegas-terras-oudegracht.webp',
+  'teamuitje-ideeen-utrecht': '/fotos/sfeer-team-jeu-de-boules-binnen.webp',
+  'vrijgezellenfeest-utrecht-ideeen': '/fotos/suppen-vrijgezellen-utrecht.jpg',
+  'schoolreis-utrecht-educatief-veilig': '/fotos/domtoren-utrecht.jpg',
+  'wat-te-doen-utrecht-groep-gids': '/fotos/oudegracht-terrassen-domtoren.jpg',
+};
+
 async function main() {
   console.log(`Seed ${POSTS.length} SEO-blog artikelen...\n`);
 
   for (const post of POSTS) {
-    const heroImage = `https://loremflickr.com/1200/600/${post.heroImageQuery}?lock=${post.slug.length}`;
+    const heroImage = BLOG_FOTO[post.slug] ?? null;
     await prisma.blogPost.upsert({
       where: {
         domain_locale_slug: {

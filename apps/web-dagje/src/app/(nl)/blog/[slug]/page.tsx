@@ -2,6 +2,8 @@ import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { prisma } from '@utrecht/db';
 import { Breadcrumbs } from '../../../../components/seo-jsonld';
+import { Foto } from '../../../../components/ui';
+import { fotoVoorBlog } from '../../../../lib/fotos';
 
 export async function generateMetadata(props: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const params = await props.params;
@@ -16,9 +18,11 @@ export async function generateMetadata(props: { params: Promise<{ slug: string }
     title: titel.length > 45 ? { absolute: titel } : titel,
     description: p.metaDesc ?? p.excerpt ?? undefined,
     alternates: { canonical: `https://dagjeutrecht.nl/blog/${p.slug}` },
-    openGraph: p.heroImage
-      ? { images: [{ url: p.heroImage }], type: 'article', publishedTime: p.publishedAt?.toISOString() }
-      : undefined,
+    openGraph: {
+      images: [{ url: fotoVoorBlog(p).src, alt: p.title }],
+      type: 'article',
+      publishedTime: p.publishedAt?.toISOString(),
+    },
   };
 }
 
@@ -38,6 +42,8 @@ export default async function BlogPost(props: { params: Promise<{ slug: string }
   if (!post) notFound();
 
   // Geen achternaam op de site: van de auteur tonen we alleen de voornaam.
+  const foto = { ...fotoVoorBlog(post), alt: post.title };
+
   const auteur = post.authorName?.replace(/\s+Manders$/i, '') || null;
 
   const articleLd = {
@@ -45,7 +51,7 @@ export default async function BlogPost(props: { params: Promise<{ slug: string }
     '@type': 'Article',
     headline: post.title,
     description: post.excerpt,
-    image: post.heroImage,
+    image: `https://dagjeutrecht.nl${foto.src}`,
     datePublished: post.publishedAt?.toISOString(),
     dateModified: post.updatedAt.toISOString(),
     author: auteur
@@ -72,13 +78,7 @@ export default async function BlogPost(props: { params: Promise<{ slug: string }
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleLd) }}
       />
-      {post.heroImage && (
-        <img
-          src={post.heroImage}
-          alt={post.title}
-          className="w-full h-64 object-cover rounded-2xl mb-8"
-        />
-      )}
+      <Foto foto={foto} verhouding="mb-8 h-64 w-full" className="rounded-2xl" sizes="(min-width: 768px) 48rem, 100vw" prioriteit />
       <h1 className="text-5xl font-black uppercase tracking-tight text-inkt mb-3">{post.title}</h1>
       {post.publishedAt && (
         <p className="text-sm text-grijs mb-6">
