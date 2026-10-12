@@ -2,7 +2,13 @@ import { prisma } from '@utrecht/db';
 import { notFound } from 'next/navigation';
 import { ReviewForm } from '@/components/review-form';
 
-export default async function ReviewPage({ params: { token } }: { params: { token: string } }) {
+export default async function ReviewPage(props: { params: Promise<{ token: string }> }) {
+  const params = await props.params;
+
+  const {
+    token
+  } = params;
+
   const order = await prisma.order.findUnique({
     where: { portalToken: token },
     include: { items: { include: { product: { include: { provider: true } } } } },

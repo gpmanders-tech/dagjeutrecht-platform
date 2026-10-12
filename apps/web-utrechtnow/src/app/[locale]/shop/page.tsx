@@ -24,7 +24,13 @@ function emojiFor(slug: string) {
   return '🛍️';
 }
 
-export default async function ShopPage({ params: { locale } }: { params: { locale: string } }) {
+export default async function ShopPage(props: { params: Promise<{ locale: string }> }) {
+  const params = await props.params;
+
+  const {
+    locale
+  } = params;
+
   const items = await prisma.provider.findMany({
     where: { active: true, category: { in: ['SHOP', 'GIFTCARD'] } },
     include: { products: { where: { active: true }, take: 1 } },

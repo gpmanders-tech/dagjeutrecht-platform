@@ -1,4 +1,4 @@
-import nodemailer from 'nodemailer';
+import nodemailer, { type Transporter } from 'nodemailer';
 
 const SMTP_HOST = (process.env.SMTP_HOST || 'mail.dagjeutrecht.nl').trim();
 const SMTP_PORT = Number((process.env.SMTP_PORT || '587').trim());
@@ -19,7 +19,7 @@ export const INKOOP_AGENT_AAN = (process.env.INKOOP_AGENT_AAN || '').trim() === 
 /** Alleen met INKOOP_AGENT_LIVE=true gaan agent-mails echt naar leveranciers en klanten. */
 export const AGENT_LIVE = (process.env.INKOOP_AGENT_LIVE || '').trim() === 'true';
 
-let _transport: nodemailer.Transporter | null | undefined;
+let _transport: Transporter | null | undefined;
 function transport() {
   if (_transport !== undefined) return _transport;
   _transport =

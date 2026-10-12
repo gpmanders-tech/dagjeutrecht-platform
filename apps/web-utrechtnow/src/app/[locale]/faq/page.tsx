@@ -6,7 +6,13 @@ export const metadata = {
   title: 'Veelgestelde vragen — Utrecht Now',
 };
 
-export default async function FaqPage({ params: { locale } }: { params: { locale: string } }) {
+export default async function FaqPage(props: { params: Promise<{ locale: string }> }) {
+  const params = await props.params;
+
+  const {
+    locale
+  } = params;
+
   const items = await prisma.faqItem.findMany({
     where: { domain: 'UTRECHTNOW', locale: locale as any },
     orderBy: [{ category: 'asc' }, { position: 'asc' }],

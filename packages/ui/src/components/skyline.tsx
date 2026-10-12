@@ -11,7 +11,7 @@ export function UtrechtSkyline({
       className={className}
       viewBox="0 0 1200 320"
       xmlns="http://www.w3.org/2000/svg"
-      preserveAspectRatio="xMidYEnd slice"
+      preserveAspectRatio="xMidYMax slice"
       aria-hidden="true"
     >
       <g fill={color}>

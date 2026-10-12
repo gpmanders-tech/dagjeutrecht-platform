@@ -16,13 +16,14 @@ async function beantwoord(fd: FormData) {
   redirect(`/inkoop/${token}?klaar=1`);
 }
 
-export default async function InkoopPage({
-  params,
-  searchParams,
-}: {
-  params: { token: string };
-  searchParams: { klaar?: string };
-}) {
+export default async function InkoopPage(
+  props: {
+    params: Promise<{ token: string }>;
+    searchParams: Promise<{ klaar?: string }>;
+  }
+) {
+  const searchParams = await props.searchParams;
+  const params = await props.params;
   const orders = await prisma.inkooporder.findMany({
     where: { token: params.token },
     include: { enquiry: { select: { publicCode: true } } },

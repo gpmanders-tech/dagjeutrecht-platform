@@ -3,7 +3,8 @@ import type { Metadata } from 'next';
 import { prisma } from '@utrecht/db';
 import { Breadcrumbs } from '../../../../components/seo-jsonld';
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+export async function generateMetadata(props: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const params = await props.params;
   const p = await prisma.blogPost.findFirst({
     where: { domain: 'DAGJEUTRECHT', locale: 'nl', slug: params.slug, published: true },
   });
@@ -23,7 +24,8 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 
 export const revalidate = 300;
 
-export default async function BlogPost({ params }: { params: { slug: string } }) {
+export default async function BlogPost(props: { params: Promise<{ slug: string }> }) {
+  const params = await props.params;
   let post;
   try {
     post = await prisma.blogPost.findFirst({

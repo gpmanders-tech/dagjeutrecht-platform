@@ -5,7 +5,13 @@ import Link from 'next/link';
 
 export const revalidate = 60;
 
-export default async function AanbodPage({ params: { locale } }: { params: { locale: string } }) {
+export default async function AanbodPage(props: { params: Promise<{ locale: string }> }) {
+  const params = await props.params;
+
+  const {
+    locale
+  } = params;
+
   const providers = await prisma.provider.findMany({
     where: { active: true },
     include: { products: { where: { active: true }, take: 1 } },

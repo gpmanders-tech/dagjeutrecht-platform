@@ -12,7 +12,8 @@ export const metadata: Metadata = {
   robots: { index: false, follow: true },
 };
 
-export default function BoekenPage({ searchParams }: { searchParams: { pakket?: string } }) {
+export default async function BoekenPage(props: { searchParams: Promise<{ pakket?: string }> }) {
+  const searchParams = await props.searchParams;
   return (
     <>
       <PaginaKop

@@ -3,7 +3,8 @@ import Link from 'next/link';
 
 export const metadata: Metadata = { title: 'Bedankt voor je betaling', robots: { index: false, follow: false } };
 
-export default function BetaaldPage({ searchParams }: { searchParams: { code?: string } }) {
+export default async function BetaaldPage(props: { searchParams: Promise<{ code?: string }> }) {
+  const searchParams = await props.searchParams;
   const code = (searchParams.code || '').replace(/[^A-Z0-9]/gi, '').slice(0, 12);
   return (
     <main className="max-w-xl mx-auto px-6 py-20 text-inkt">

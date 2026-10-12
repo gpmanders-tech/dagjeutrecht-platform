@@ -3,7 +3,13 @@ import { formatEuro, Badge, Button } from '@utrecht/ui';
 import { notFound } from 'next/navigation';
 import { confirmSupplier } from '@/app/actions/supplier';
 
-export default async function OrderDetail({ params: { id } }: { params: { id: string } }) {
+export default async function OrderDetail(props: { params: Promise<{ id: string }> }) {
+  const params = await props.params;
+
+  const {
+    id
+  } = params;
+
   const order = await prisma.order.findUnique({
     where: { id },
     include: {

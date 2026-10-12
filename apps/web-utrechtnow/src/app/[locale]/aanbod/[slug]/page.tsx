@@ -6,11 +6,18 @@ import { BookingForm } from '@/components/booking-form';
 
 export const revalidate = 60;
 
-export default async function ProviderPage({
-  params: { slug, locale },
-}: {
-  params: { slug: string; locale: string };
-}) {
+export default async function ProviderPage(
+  props: {
+    params: Promise<{ slug: string; locale: string }>;
+  }
+) {
+  const params = await props.params;
+
+  const {
+    slug,
+    locale
+  } = params;
+
   const provider = await prisma.provider.findUnique({
     where: { slug },
     include: {

@@ -6,7 +6,13 @@ import { HotelBookingForm } from '@/components/hotel-booking-form';
 
 export const revalidate = 60;
 
-export default async function HotelPage({ params: { slug } }: { params: { slug: string } }) {
+export default async function HotelPage(props: { params: Promise<{ slug: string }> }) {
+  const params = await props.params;
+
+  const {
+    slug
+  } = params;
+
   const hotel = await prisma.provider.findUnique({
     where: { slug },
     include: { products: { where: { active: true }, take: 1 } },

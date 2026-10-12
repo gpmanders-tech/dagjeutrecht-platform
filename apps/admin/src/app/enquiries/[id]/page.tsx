@@ -4,7 +4,8 @@ import { updateStatus, addNote } from '../../actions/enquiry';
 
 export const dynamic = 'force-dynamic';
 
-export default async function EnquiryDetail({ params }: { params: { id: string } }) {
+export default async function EnquiryDetail(props: { params: Promise<{ id: string }> }) {
+  const params = await props.params;
   const e = await prisma.enquiry.findUnique({
     where: { id: params.id },
     include: {

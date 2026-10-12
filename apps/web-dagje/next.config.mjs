@@ -143,15 +143,14 @@ export default {
     ];
   },
 
-  // Prisma op Vercel serverless: houd het uit de Next.js-bundle en trace de binaries mee
-  experimental: {
-    serverComponentsExternalPackages: ['@prisma/client', 'prisma'],
-    outputFileTracingRoot: path.join(__dirname, '../..'),
-    outputFileTracingIncludes: {
-      '/**/*': [
-        '../../node_modules/.pnpm/@prisma+client@5.22.0_prisma@5.22.0/node_modules/.prisma/client/**/*',
-        '../../node_modules/.pnpm/@prisma+client@5.22.0_prisma@5.22.0/node_modules/@prisma/client/**/*',
-      ],
-    },
+  // Prisma op Vercel serverless: houd het uit de Next.js-bundle en trace de binaries mee.
+  // Sinds Next 15 staan deze drie opties niet meer onder `experimental`.
+  serverExternalPackages: ['@prisma/client', 'prisma'],
+  outputFileTracingRoot: path.join(__dirname, '../..'),
+  outputFileTracingIncludes: {
+    '/**/*': [
+      '../../node_modules/.pnpm/@prisma+client@5.22.0_prisma@5.22.0/node_modules/.prisma/client/**/*',
+      '../../node_modules/.pnpm/@prisma+client@5.22.0_prisma@5.22.0/node_modules/@prisma/client/**/*',
+    ],
   },
 };

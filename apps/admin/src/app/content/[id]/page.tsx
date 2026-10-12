@@ -2,7 +2,13 @@ import { prisma } from '@utrecht/db';
 import { notFound } from 'next/navigation';
 import { BlogEditor } from '@/components/blog-editor';
 
-export default async function EditPost({ params: { id } }: { params: { id: string } }) {
+export default async function EditPost(props: { params: Promise<{ id: string }> }) {
+  const params = await props.params;
+
+  const {
+    id
+  } = params;
+
   const post = await prisma.blogPost.findUnique({ where: { id } });
   if (!post) notFound();
   return (

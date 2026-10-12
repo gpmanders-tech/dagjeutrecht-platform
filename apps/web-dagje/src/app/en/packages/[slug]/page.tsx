@@ -11,10 +11,12 @@ export function generateStaticParams() {
   return pakketParams('en');
 }
 
-export function generateMetadata({ params }: { params: { slug: string } }) {
+export async function generateMetadata(props: { params: Promise<{ slug: string }> }) {
+  const params = await props.params;
   return pakketMetadata('en', params.slug);
 }
 
-export default function Page({ params }: { params: { slug: string } }) {
+export default async function Page(props: { params: Promise<{ slug: string }> }) {
+  const params = await props.params;
   return <PakketDetail taal="en" slug={params.slug} />;
 }

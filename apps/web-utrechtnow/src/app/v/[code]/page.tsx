@@ -3,7 +3,13 @@ import { notFound } from 'next/navigation';
 import QRCode from 'qrcode';
 import { formatEuro } from '@utrecht/ui';
 
-export default async function VoucherPage({ params: { code } }: { params: { code: string } }) {
+export default async function VoucherPage(props: { params: Promise<{ code: string }> }) {
+  const params = await props.params;
+
+  const {
+    code
+  } = params;
+
   const voucher = await prisma.voucher.findUnique({
     where: { code },
     include: {

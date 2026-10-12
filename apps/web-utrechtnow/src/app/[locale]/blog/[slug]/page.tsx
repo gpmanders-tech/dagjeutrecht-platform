@@ -4,7 +4,14 @@ import { marked } from 'marked';
 
 export const revalidate = 60;
 
-export async function generateMetadata({ params: { slug, locale } }: { params: { slug: string; locale: string } }) {
+export async function generateMetadata(props: { params: Promise<{ slug: string; locale: string }> }) {
+  const params = await props.params;
+
+  const {
+    slug,
+    locale
+  } = params;
+
   const post = await prisma.blogPost.findUnique({
     where: { domain_locale_slug: { domain: 'UTRECHTNOW', locale: locale as any, slug } },
   });
@@ -15,7 +22,14 @@ export async function generateMetadata({ params: { slug, locale } }: { params: {
   };
 }
 
-export default async function BlogPost({ params: { slug, locale } }: { params: { slug: string; locale: string } }) {
+export default async function BlogPost(props: { params: Promise<{ slug: string; locale: string }> }) {
+  const params = await props.params;
+
+  const {
+    slug,
+    locale
+  } = params;
+
   const post = await prisma.blogPost.findUnique({
     where: { domain_locale_slug: { domain: 'UTRECHTNOW', locale: locale as any, slug } },
   });

@@ -16,11 +16,12 @@ const CHANNEL_LABEL: Record<string, string> = {
   INCOMING: 'UtrechtIncoming.nl',
 };
 
-export default async function EnquiriesPage({
-  searchParams,
-}: {
-  searchParams: { status?: string; channel?: string };
-}) {
+export default async function EnquiriesPage(
+  props: {
+    searchParams: Promise<{ status?: string; channel?: string }>;
+  }
+) {
+  const searchParams = await props.searchParams;
   const where: any = {};
   if (searchParams.status) where.status = searchParams.status;
   if (searchParams.channel) where.channel = searchParams.channel;

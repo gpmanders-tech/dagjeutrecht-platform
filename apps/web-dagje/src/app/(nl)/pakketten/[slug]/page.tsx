@@ -51,7 +51,8 @@ function pakketBeschrijving(naam: string, kort: string, voorWie: string, prijs: 
   return kandidaten.find((k) => k.length <= 155) ?? kandidaten[kandidaten.length - 1]!;
 }
 
-export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
+export async function generateMetadata(props: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const params = await props.params;
   const p = vindPakket(params.slug);
   if (!p) return {};
   const prijs = formatEuro(prijsPerPersoon(p.blokken));
@@ -77,7 +78,8 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
 
 const TIJD_KLEUR = ['bg-zee-400', 'bg-zon-400', 'bg-vlam-400', 'bg-zee-400', 'bg-inkt text-white'];
 
-export default function PakketPage({ params }: { params: { slug: string } }) {
+export default async function PakketPage(props: { params: Promise<{ slug: string }> }) {
+  const params = await props.params;
   const p = vindPakket(params.slug);
   if (!p) notFound();
   const pp = prijsPerPersoon(p.blokken);

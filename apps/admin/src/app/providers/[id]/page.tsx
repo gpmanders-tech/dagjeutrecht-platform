@@ -2,7 +2,13 @@ import { prisma } from '@utrecht/db';
 import { notFound } from 'next/navigation';
 import { ProviderEditor } from '@/components/provider-editor';
 
-export default async function ProviderEdit({ params: { id } }: { params: { id: string } }) {
+export default async function ProviderEdit(props: { params: Promise<{ id: string }> }) {
+  const params = await props.params;
+
+  const {
+    id
+  } = params;
+
   const provider = await prisma.provider.findUnique({
     where: { id },
     include: { products: { take: 1 } },

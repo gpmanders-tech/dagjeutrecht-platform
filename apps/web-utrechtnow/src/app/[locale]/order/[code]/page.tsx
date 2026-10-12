@@ -5,13 +5,20 @@ import { handlePaidOrder } from '@/lib/fulfilment';
 import Link from 'next/link';
 import { MapPin } from 'lucide-react';
 
-export default async function OrderConfirmationPage({
-  params: { code, locale },
-  searchParams,
-}: {
-  params: { code: string; locale: string };
-  searchParams: { mock?: string };
-}) {
+export default async function OrderConfirmationPage(
+  props: {
+    params: Promise<{ code: string; locale: string }>;
+    searchParams: Promise<{ mock?: string }>;
+  }
+) {
+  const searchParams = await props.searchParams;
+  const params = await props.params;
+
+  const {
+    code,
+    locale
+  } = params;
+
   const order = await prisma.order.findUnique({
     where: { publicCode: code },
     include: {

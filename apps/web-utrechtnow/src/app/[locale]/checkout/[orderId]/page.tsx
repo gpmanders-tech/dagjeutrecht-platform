@@ -4,11 +4,18 @@ import { formatEuro } from '@utrecht/ui';
 import { CheckoutForm } from '@/components/checkout-form';
 import { GiftcardField } from '@/components/giftcard-field';
 
-export default async function CheckoutPage({
-  params: { orderId, locale },
-}: {
-  params: { orderId: string; locale: string };
-}) {
+export default async function CheckoutPage(
+  props: {
+    params: Promise<{ orderId: string; locale: string }>;
+  }
+) {
+  const params = await props.params;
+
+  const {
+    orderId,
+    locale
+  } = params;
+
   const order = await prisma.order.findUnique({
     where: { id: orderId },
     include: { items: { include: { product: { include: { provider: true } } } } },

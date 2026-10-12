@@ -6,9 +6,14 @@ import Link from 'next/link';
 import { MapPin } from 'lucide-react';
 import { ModifyItemForm } from '@/components/modify-item-form';
 
-export default async function CustomerPortal({
-  params: { token, locale },
-}: { params: { token: string; locale: string } }) {
+export default async function CustomerPortal(props: { params: Promise<{ token: string; locale: string }> }) {
+  const params = await props.params;
+
+  const {
+    token,
+    locale
+  } = params;
+
   const order = await prisma.order.findUnique({
     where: { portalToken: token },
     include: {

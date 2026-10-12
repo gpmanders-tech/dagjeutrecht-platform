@@ -8,7 +8,13 @@ export const metadata = {
   description: 'Inspiratie, tips en gidsen voor je bezoek aan Utrecht.',
 };
 
-export default async function BlogIndex({ params: { locale } }: { params: { locale: string } }) {
+export default async function BlogIndex(props: { params: Promise<{ locale: string }> }) {
+  const params = await props.params;
+
+  const {
+    locale
+  } = params;
+
   const posts = await prisma.blogPost.findMany({
     where: { domain: 'UTRECHTNOW', locale: locale as any, published: true },
     orderBy: { publishedAt: 'desc' },
