@@ -6,7 +6,7 @@
  * Doelgroep: internationale bedrijven en expats in Utrecht. Wat een Nederlander niet
  * hoeft te weten (borrel, btw, waar Utrecht Centraal ligt) wordt kort uitgelegd.
  */
-import { REGELS } from '../aanbod';
+import { REGELS, pakketMaanden, vindPakket } from '../aanbod';
 import { LANDINGS } from '../landings';
 import { pakketPrijs, vanafPrijs } from './opmaak';
 import type { LandingTekst, Vraag } from './types';
@@ -16,12 +16,19 @@ export type VertaaldeLanding =
   | 'teambuilding'
   | 'personeelsuitje'
   | 'vrijgezellenfeest'
-  | 'familiedag';
+  | 'familiedag'
+  | 'winteruitje';
 
 const prijs = (slug: string) => pakketPrijs('en', slug);
 const vanaf = (sleutel: VertaaldeLanding) => vanafPrijs('en', LANDINGS[sleutel].pakketten);
 
 const GROEP = `From ${REGELS.minPers} people.`;
+
+const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+const winterMaanden = pakketMaanden(vindPakket('warme-winterdag')!)!;
+/** "From November to March", from the season of the winter packages in aanbod.ts. */
+const WINTER = `From ${MONTHS[winterMaanden.van - 1]} to ${MONTHS[winterMaanden.tot - 1]}`;
+const klein = (t: string) => t.charAt(0).toLowerCase() + t.slice(1);
 
 const GROTER: Vraag = {
   q: `What if we are more than ${REGELS.maxPers} people?`,
@@ -339,6 +346,69 @@ export const LANDINGS_EN: Record<VertaaldeLanding, LandingTekst> = {
       },
       WEER,
       ...ALGEMENE_FAQ,
+    ],
+  },
+
+  winteruitje: {
+    link: 'Winter outing',
+    band: ['Mulled wine', 'Christmas outing', 'Canal cruise', 'Indoor jeu de boules', 'Pea soup', 'Drinks'],
+    metaTitel: `Winter outing in Utrecht from ${vanaf('winteruitje')} per person`,
+    metaOmschrijving: `Winter or Christmas outing in Utrecht with your company or team: mulled wine, a canal cruise, indoor jeu de boules and drinks. ${WINTER}, from ${vanaf('winteruitje')} p.p.`,
+    boven: WINTER,
+    titel: 'Winter outing in Utrecht',
+    intro:
+      'Warm up with mulled wine, see the city from the water or the Dom Tower, enjoy a hearty Dutch winter lunch and play jeu de boules indoors. Fixed packages at a fixed price per person, for your company, team or friends.',
+    alineas: [
+      {
+        kop: 'Made for winter',
+        tekst: `The winter packages run ${klein(WINTER)}. They all start with mulled wine (glühwein) or hot chocolate at JEU de boules bar on Paardenveld, a five-minute walk from Utrecht Centraal station. Most activities are indoors, so a cold or wet day hardly matters.`,
+      },
+      {
+        kop: 'Four packages',
+        tekst: `Winter on the Canals is half a day with mulled wine, a canal cruise with Rederij Schuttevaer and a winter lunch, for ${prijs('winter-op-de-grachten')} per person. Winter Drinks is an afternoon with mulled wine, jeu de boules and drinks, for ${prijs('winterborrel')}. The Warm Winter Day takes the whole day, with the Dom Tower, a winter lunch, jeu de boules and drinks, for ${prijs('warme-winterdag')}. For bachelor parties there is the Bachelor Party Winter Day with shuffleboard, for ${prijs('vrijgezellen-winterdag')}.`,
+      },
+      {
+        kop: 'As a Christmas outing',
+        tekst:
+          'In December a winter outing is a good way to close the year with your team. Choose Winter Drinks if you want to start after work, or the Warm Winter Day if you can take the whole day. Our days end around six o’clock in the city centre, so anyone who wants to can go out for dinner in town afterwards.',
+      },
+      {
+        kop: 'A company outing in winter',
+        tekst:
+          'You see the price per person in advance, including Dutch VAT, and the invoice is made out to your company. The number of participants can still change up to a week before the date. We book everything with our partners, and on the day itself Ger is your contact person.',
+      },
+      {
+        kop: 'A hearty lunch',
+        tekst:
+          'The winter lunch is typically Dutch: pea soup (erwtensoep) or stamppot, a mash of potatoes and vegetables, with a vegetarian option. Other dietary requirements can be passed on when you book.',
+      },
+    ],
+    faq: [
+      {
+        q: 'When can we book a winter outing?',
+        a: `The winter packages can be booked ${klein(WINTER)}, on Thursday, Friday and Saturday, at least ${REGELS.minDagenVooruit} days in advance.`,
+      },
+      {
+        q: 'What does a winter outing in Utrecht cost?',
+        a: `From ${vanaf('winteruitje')} per person for half a day and ${prijs('warme-winterdag')} for the full Warm Winter Day, VAT included.`,
+      },
+      {
+        q: 'Is a Christmas outing in December possible?',
+        a: 'Yes. All winter packages are available in December, on Thursday, Friday and Saturday.',
+      },
+      {
+        q: 'Is there a non-alcoholic option?',
+        a: 'Yes. At the welcome, everyone can choose between mulled wine and hot chocolate.',
+      },
+      {
+        q: 'Does it go ahead in snow or rain?',
+        a: 'Jeu de boules, shuffleboard, lunch and drinks are indoors. Only the canal cruise and the top of the Dom Tower are in the open air; in case of a storm or thunder, please get in touch with us.',
+      },
+      { q: 'How many people can take part?', a: GROEP },
+      GROTER,
+      BEVESTIGING,
+      ALGEMENE_FAQ[1]!,
+      ALGEMENE_FAQ[2]!,
     ],
   },
 };

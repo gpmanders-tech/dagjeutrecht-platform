@@ -6,7 +6,7 @@
  * Doelgroep: Duitse groepen en bedrijven op stedentrip naar Utrecht, altijd met 'Sie'.
  * Wat een Nederlander niet hoeft te weten (Borrel, MwSt., bereikbaarheid) wordt kort uitgelegd.
  */
-import { REGELS } from '../aanbod';
+import { REGELS, pakketMaanden, vindPakket } from '../aanbod';
 import { LANDINGS } from '../landings';
 import { pakketPrijs, vanafPrijs } from './opmaak';
 import type { LandingTekst, Vraag } from './types';
@@ -16,6 +16,12 @@ const prijs = (slug: string) => pakketPrijs('de', slug);
 const vanaf = (sleutel: VertaaldeLanding) => vanafPrijs('de', LANDINGS[sleutel].pakketten);
 
 const GROEP = `Ab ${REGELS.minPers} Personen.`;
+
+const MONATE = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
+const winterMaanden = pakketMaanden(vindPakket('warme-winterdag')!)!;
+/** "Von November bis März", aus der Saison der Winterpakete in aanbod.ts. */
+const WINTER = `Von ${MONATE[winterMaanden.van - 1]} bis ${MONATE[winterMaanden.tot - 1]}`;
+const klein = (t: string) => t.charAt(0).toLowerCase() + t.slice(1);
 
 const GROTER: Vraag = {
   q: `Was ist, wenn wir mehr als ${REGELS.maxPers} Personen sind?`,
@@ -340,6 +346,69 @@ export const LANDINGS_DE: Record<VertaaldeLanding, LandingTekst> = {
       },
       WEER,
       ...ALGEMENE_FAQ,
+    ],
+  },
+
+  winteruitje: {
+    link: 'Winterausflug',
+    band: ['Glühwein', 'Weihnachtsfeier', 'Grachtenfahrt', 'Boule drinnen', 'Erbsensuppe', 'Umtrunk'],
+    metaTitel: `Winterausflug Utrecht ab ${vanaf('winteruitje')} pro Person`,
+    metaOmschrijving: `Winterausflug oder Weihnachtsfeier in Utrecht mit Firma oder Team: Glühwein, Grachtenfahrt, Boule drinnen und Umtrunk. ${WINTER}, ab ${vanaf('winteruitje')} p. P.`,
+    boven: WINTER,
+    titel: 'Winterausflug nach Utrecht',
+    intro:
+      'Aufwärmen mit Glühwein, die Stadt vom Wasser oder vom Domturm aus sehen, ein deftiges niederländisches Wintermittagessen und Boule in der Halle. Feste Pakete mit festem Preis pro Person, für Firma, Team oder Freundeskreis.',
+    alineas: [
+      {
+        kop: 'Gemacht für den Winter',
+        tekst: `Die Winterpakete gibt es ${klein(WINTER)}. Alle beginnen mit Glühwein oder heißer Schokolade in der JEU de boules bar am Paardenveld, fünf Gehminuten vom Bahnhof Utrecht Centraal. Die meisten Programmpunkte sind drinnen, ein kalter oder nasser Tag macht also wenig aus.`,
+      },
+      {
+        kop: 'Vier Pakete',
+        tekst: `Winter auf den Grachten ist ein halber Tag mit Glühwein, einer Grachtenfahrt mit Rederij Schuttevaer und einem Wintermittagessen, für ${prijs('winter-op-de-grachten')} pro Person. Der Winter-Umtrunk ist ein Nachmittag mit Glühwein, Boule und Umtrunk, für ${prijs('winterborrel')}. Der Warme Wintertag dauert den ganzen Tag, mit Domturm, Wintermittagessen, Boule und Umtrunk, für ${prijs('warme-winterdag')}. Für Junggesellenabschiede gibt es den JGA-Wintertag mit Shuffleboard, für ${prijs('vrijgezellen-winterdag')}.`,
+      },
+      {
+        kop: 'Als Weihnachtsfeier',
+        tekst:
+          'Im Dezember ist ein Winterausflug ein schöner Jahresabschluss mit dem Team. Wählen Sie den Winter-Umtrunk, wenn Sie nach der Arbeit beginnen möchten, oder den Warmen Wintertag, wenn Sie sich den ganzen Tag Zeit nehmen. Unsere Tage enden gegen 18 Uhr in der Innenstadt, wer möchte, geht danach in der Stadt essen.',
+      },
+      {
+        kop: 'Firmenausflug im Winter',
+        tekst:
+          'Sie sehen den Preis pro Person vorab, inklusive niederländischer MwSt., und die Rechnung wird auf Ihr Unternehmen ausgestellt. Bis eine Woche vor dem Termin kann sich die Teilnehmerzahl noch ändern. Wir reservieren alles bei unseren Partnern, am Tag selbst ist Ger Ihr Ansprechpartner.',
+      },
+      {
+        kop: 'Ein deftiges Mittagessen',
+        tekst:
+          'Das Wintermittagessen ist typisch niederländisch: Erbsensuppe (Erwtensoep) oder Stamppot, ein Eintopf aus Kartoffelpüree und Gemüse, mit vegetarischer Variante. Weitere Ernährungswünsche können Sie bei der Buchung angeben.',
+      },
+    ],
+    faq: [
+      {
+        q: 'Wann ist ein Winterausflug möglich?',
+        a: `Die Winterpakete sind ${klein(WINTER)} buchbar, donnerstags, freitags und samstags, mindestens ${REGELS.minDagenVooruit} Tage im Voraus.`,
+      },
+      {
+        q: 'Was kostet ein Winterausflug nach Utrecht?',
+        a: `Ab ${vanaf('winteruitje')} pro Person für einen halben Tag und ${prijs('warme-winterdag')} für den ganzen Warmen Wintertag, inklusive MwSt.`,
+      },
+      {
+        q: 'Geht es auch als Weihnachtsfeier im Dezember?',
+        a: 'Ja. Alle Winterpakete sind im Dezember buchbar, donnerstags, freitags und samstags.',
+      },
+      {
+        q: 'Gibt es auch etwas ohne Alkohol?',
+        a: 'Ja. Beim Empfang kann jeder zwischen Glühwein und heißer Schokolade wählen.',
+      },
+      {
+        q: 'Findet es bei Schnee oder Regen statt?',
+        a: 'Boule, Shuffleboard, Mittagessen und Umtrunk sind drinnen. Nur die Grachtenfahrt und die Spitze des Domturms sind unter freiem Himmel; bei Sturm oder Gewitter melden Sie sich bitte bei uns.',
+      },
+      { q: 'Mit wie vielen Personen ist es möglich?', a: GROEP },
+      GROTER,
+      BEVESTIGING,
+      ALGEMENE_FAQ[1]!,
+      ALGEMENE_FAQ[2]!,
     ],
   },
 };

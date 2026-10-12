@@ -1,5 +1,6 @@
-import { REGELS, formatEuro, prijsPerPersoon, vindPakket } from './aanbod';
+import { REGELS, formatEuro, maandenTekst, pakketMaanden, prijsPerPersoon, vindPakket } from './aanbod';
 import { fotos, type Foto } from './fotos';
+import { RONDVAARTEN } from './rondvaarten';
 
 export type Landing = {
   pad: string;
@@ -31,6 +32,17 @@ export type Landing = {
   zuster?: { href: string; label: string; tekst: string };
   /** Slugs uit op-aanvraag.ts die op deze pagina passen: zonder vaste prijs, alleen een link. */
   opAanvraag?: string[];
+  /**
+   * Kader met links naar een verwante pagina op de eigen site, onder de alinea's.
+   * Bijvoorbeeld: de rondvaart voor groepen verwijst naar /rondvaart-utrecht, waar je
+   * direct bij de rederij boekt.
+   */
+  verwijzing?: { kop: string; tekst: string; links: Array<{ href: string; label: string }> };
+  /**
+   * Kort aanvraagformulier op de pagina. Het onderwerp moet bekend zijn in
+   * app/actions/submit-aanvraag.ts (EXTRA_ONDERWERPEN of op-aanvraag.ts).
+   */
+  aanvraag?: { onderwerp: string; kop: string; titel: string; tekst: string };
 };
 
 function prijs(slug: string) {
@@ -60,6 +72,15 @@ const P_VRIJGEZEL = ['boules-en-borrel', 'water-naar-borrel', 'vrijgezellen-wint
 const P_PERSONEEL = ['boules-en-borrel', 'koffie-en-city-challenge', 'spel-en-borrel', 'winter-op-de-grachten', 'winterborrel', 'warme-winterdag', 'water-en-picknick', 'amelisweerd-actief'];
 const P_FAMILIE = ['dom-en-grachten', 'winter-op-de-grachten', 'koffie-en-city-challenge', 'spel-en-borrel', 'water-en-picknick', 'amelisweerd-actief'];
 const P_FEEST = ['boules-en-borrel', 'winterborrel', 'spel-en-borrel', 'warme-winterdag', 'amelisweerd-actief', 'water-naar-borrel'];
+
+const P_RONDVAART = ['dom-en-grachten', 'winter-op-de-grachten', 'schoolreis-basisschool', 'schooluitje'];
+const P_WINTER = ['winter-op-de-grachten', 'warme-winterdag', 'winterborrel', 'vrijgezellen-winterdag'];
+
+/** De privé fluisterboot van Schuttevaer; groepsgrootte, duur en opstapplaats komen uit rondvaarten.ts. */
+const FLUISTERBOOT = RONDVAARTEN.find((r) => r.id === 'prive-fluisterboot')!;
+
+/** De maanden van de winterpakketten als tekst ("november tot en met maart"), uit aanbod.ts. */
+const WINTERMAANDEN = maandenTekst(pakketMaanden(vindPakket('warme-winterdag')!)!);
 
 const GROEP = `Vanaf ${REGELS.minPers} personen.`;
 
@@ -102,7 +123,9 @@ export type LandingSleutel =
   | 'bedrijfsfeest'
   | 'bedrijfsevenement'
   | 'schooluitje'
-  | 'vrijgezellenfeest';
+  | 'vrijgezellenfeest'
+  | 'rondvaartGroep'
+  | 'winteruitje';
 
 export const LANDINGS: Record<LandingSleutel, Landing> = {
   bedrijfsuitje: {
@@ -589,6 +612,179 @@ export const LANDINGS: Record<LandingSleutel, Landing> = {
       },
       WEER,
       ...ALGEMENE_FAQ,
+    ],
+  },
+
+  // Rondvaart voor groepen (oktober 2026). Zoektermen: rondvaart groep utrecht, boot huren groep
+  // utrecht, rondvaart bedrijfsuitje utrecht. /rondvaart-utrecht blijft de pagina om een losse vaart
+  // direct bij Schuttevaer te boeken; deze pagina gaat over de groep: een eigen boot, varen in een
+  // dagprogramma en een voorstel voor grotere groepen. Daarom hier geen lijst met alle vaarten.
+  rondvaartGroep: {
+    pad: '/rondvaart-groep-utrecht',
+    link: 'Rondvaart met je groep',
+    voorbeeld: 'dom-en-grachten',
+    kleur: 'zee',
+    foto: fotos.schuttevaerFluisterboot,
+    galerij: [fotos.schuttevaerSloep, fotos.rondvaart, fotos.schuttevaerCatharijnesingel, fotos.grachtAvond],
+    band: ['Eigen boot', 'Fluisterboot', 'Bedrijfsuitje', 'Varen en lunchen', 'Voorstel binnen een werkdag', 'Oudegracht'],
+    metaTitel: `Rondvaart met je groep in Utrecht vanaf ${vanaf(P_RONDVAART)} p.p.`,
+    metaOmschrijving: `Met je groep of bedrijf varen in Utrecht: een privé fluisterboot voor jullie alleen, of de rondvaart in een dagprogramma met lunch, vanaf ${vanaf(P_RONDVAART)} p.p.`,
+    boven: 'Voor bedrijven, teams en verenigingen',
+    titel: 'Rondvaart met je groep in Utrecht',
+    intro:
+      'Met collega’s, de vereniging of de familie het water op? Huur een eigen boot met schipper, of maak van de rondvaart een dag met lunch, een spel en een borrel. Wij helpen kiezen en regelen de rest.',
+    pakketten: P_RONDVAART,
+    alineas: [
+      {
+        kop: 'Een eigen boot voor de groep',
+        tekst: `Met de privé fluisterboot van Rederij Schuttevaer heb je de boot voor jezelf: een stille, elektrische boot met een bank in U-vorm, zodat iedereen elkaar ziet. Een schipper vaart jullie ${FLUISTERBOOT.duur} over de grachten en singels. Er passen ${FLUISTERBOOT.groep}. Opstappen doe je aan de ${FLUISTERBOOT.vertrek}.`,
+      },
+      {
+        kop: 'Varen als onderdeel van de dag',
+        tekst: `In onze pakketten is de rondvaart een vast onderdeel met een vaste prijs per persoon. Dom & Grachten combineert de Domtoren met een uur varen, voor ${prijs('dom-en-grachten')} per persoon. Van ${WINTERMAANDEN} is er Winter op de Grachten: glühwein, de rondvaart en een winterse lunch, voor ${prijs('winter-op-de-grachten')} per persoon. In de samensteller zet je de rondvaart naast jeu de boules, een lunch of een borrel.`,
+      },
+      {
+        kop: 'Varen met het bedrijf',
+        tekst:
+          'Een rondvaart werkt goed als begin van een bedrijfsuitje of personeelsuitje. Iedereen kan mee, je ziet de stad vanaf het water en er is tijd om bij te praten met collega’s die je anders weinig spreekt. Na het aanmeren loop je zo door naar de lunch of naar de boulesbaan in het centrum.',
+      },
+      {
+        kop: 'Groter dan één boot?',
+        tekst: `In de pakketten varen groepen van ${REGELS.minPers} tot ${REGELS.maxPers} personen mee. Past jullie gezelschap niet op één boot, of wil je een eigen boot met lunch en een borrel erbij? Vraag dan onderaan deze pagina een voorstel aan. Je krijgt binnen een werkdag een voorstel met een prijs per persoon.`,
+      },
+      {
+        kop: 'Twee manieren om te boeken',
+        tekst:
+          'Alleen varen? Dan boek je de boot rechtstreeks bij Schuttevaer en betaal je daar. Wil je er een dag van maken, dan boek je een pakket bij ons: wij reserveren de boot, de lunch en de rest bij onze partners en je krijgt één factuur.',
+      },
+    ],
+    verwijzing: {
+      kop: 'Direct een boot boeken',
+      tekst:
+        'De privé fluisterboot, varen en eten en de vaarten naar Amelisweerd boek je direct bij Rederij Schuttevaer, op onze pagina met alle rondvaarten. Daar zie je meteen welke dagen en tijden vrij zijn.',
+      links: [
+        { href: '/rondvaart-utrecht#prive-fluisterboot', label: 'Privé fluisterboot boeken' },
+        { href: '/rondvaart-utrecht', label: 'Alle rondvaarten in Utrecht' },
+        { href: '/bouwstenen/rondvaart', label: 'De rondvaart in een dagprogramma' },
+      ],
+    },
+    aanvraag: {
+      onderwerp: 'rondvaart-groep-utrecht',
+      kop: 'Met een grote groep?',
+      // Het formulier maakt hier "Vraag een voorstel aan" van.
+      titel: 'Een voorstel',
+      tekst:
+        'Een grote groep, een eigen boot met lunch erbij of de rondvaart in een hele dag? Laat weten wanneer en met hoeveel jullie zijn, dan krijg je binnen een werkdag een voorstel met een prijs per persoon.',
+    },
+    faq: [
+      {
+        q: 'Hoeveel personen passen er op een boot?',
+        a: `Op de privé fluisterboot van Schuttevaer ${FLUISTERBOOT.groep}. In onze pakketten varen groepen van ${REGELS.minPers} tot ${REGELS.maxPers} personen mee. Zijn jullie met meer, vraag dan een voorstel aan.`,
+      },
+      {
+        q: 'Kunnen we alleen een boot huren, zonder verder programma?',
+        a: 'Ja. De privé fluisterboot boek je direct bij Rederij Schuttevaer op onze rondvaartpagina. Je kiest daar een datum en tijd en betaalt bij de rederij.',
+      },
+      {
+        q: 'Kan er eten en drinken mee aan boord?',
+        a: 'Bij de privé fluisterboot zijn catering en drankjes mogelijk; met catering past er een kleinere groep op de boot. Wil je liever aan tafel, kies dan een vaart met diner of lunch op de rondvaartpagina, of een pakket met een groepslunch.',
+      },
+      {
+        q: 'Is er een toilet aan boord?',
+        a: `${FLUISTERBOOT.letOp ?? 'Vraag dat bij het boeken na.'} Ga dus even voor vertrek, bijvoorbeeld bij de koffie of de lunch.`,
+      },
+      {
+        q: 'Krijgen we een factuur op naam van het bedrijf?',
+        a: 'Bij een pakket via DagjeUtrecht wel: vul bij de aanvraag de bedrijfsnaam in, dan staat de factuur op naam van het bedrijf, met btw. Boek je de boot direct bij Schuttevaer, dan regel je de betaling met de rederij.',
+      },
+      {
+        q: 'Gaat de rondvaart door bij slecht weer?',
+        a: 'Boek je direct bij Schuttevaer, dan regel je omboeken of afzeggen met de rederij, want daar staat je boeking. Zit de rondvaart in een pakket van ons, neem dan contact met ons op. De onderdelen in het centrum, zoals jeu de boules en de lunch, zijn binnen.',
+      },
+      {
+        q: 'Op welke dagen kan het?',
+        a: `Onze pakketten kunnen op donderdag, vrijdag en zaterdag, minimaal ${REGELS.minDagenVooruit} dagen vooruit. Bij Schuttevaer zie je in het boekvenster welke dagen en tijden vrij zijn.`,
+      },
+    ],
+  },
+
+  // Winteruitje (oktober 2026). Zoektermen: winteruitje utrecht, kerstuitje utrecht, bedrijfsuitje
+  // winter utrecht. Alleen de winterpakketten uit aanbod.ts; prijzen en maanden rollen daaruit.
+  winteruitje: {
+    pad: '/winteruitje-utrecht',
+    link: 'Winteruitje',
+    voorbeeld: 'warme-winterdag',
+    kleur: 'zee',
+    foto: fotos.winterUtrecht,
+    galerij: [fotos.gluhwein, fotos.boulesBinnen, fotos.erwtensoep, fotos.chocomel],
+    band: ['Glühwein', 'Kerstuitje', 'Rondvaart', 'Jeu de boules binnen', 'Erwtensoep', 'Borrel'],
+    metaTitel: `Winteruitje en kerstuitje Utrecht vanaf ${vanaf(P_WINTER)} p.p.`,
+    metaOmschrijving: `Winteruitje of kerstuitje in Utrecht met je bedrijf of team: glühwein, rondvaart, jeu de boules binnen en een borrel. Van ${WINTERMAANDEN}, vanaf ${vanaf(P_WINTER)} p.p.`,
+    boven: `Van ${WINTERMAANDEN}`,
+    titel: 'Winteruitje in Utrecht',
+    intro:
+      'Opwarmen met glühwein, de stad zien vanaf het water of de Domtoren, een stevige winterlunch en jeu de boules binnen. Vaste pakketten met een vaste prijs per persoon, voor het bedrijf, het team of de vrienden.',
+    pakketten: P_WINTER,
+    alineas: [
+      {
+        kop: 'Gemaakt voor de winter',
+        tekst: `De winterpakketten zijn er van ${WINTERMAANDEN}. Ze beginnen allemaal met glühwein of warme chocolademelk bij JEU de boules bar aan Paardenveld, op vijf minuten lopen van Utrecht Centraal. De meeste onderdelen zijn binnen, dus een koude of natte dag maakt weinig uit.`,
+      },
+      {
+        kop: 'Vier pakketten',
+        tekst: `Winter op de Grachten is een halve dag met glühwein, een rondvaart met Schuttevaer en een winterse lunch, voor ${prijs('winter-op-de-grachten')} per persoon. De Winterborrel is een middag met glühwein, jeu de boules en een borrel, voor ${prijs('winterborrel')}. De Warme Winterdag duurt de hele dag, met de Domtoren, een winterlunch, jeu de boules en een borrel, voor ${prijs('warme-winterdag')}. Voor vrijgezellen is er de Vrijgezellen Winterdag met shuffleboard, voor ${prijs('vrijgezellen-winterdag')}.`,
+      },
+      {
+        kop: 'Als kerstuitje of eindejaarsborrel',
+        tekst:
+          'In december is een winteruitje een mooie afsluiting van het jaar met het team. Kies de Winterborrel als jullie na het werk willen beginnen, of de Warme Winterdag als jullie er een hele dag voor vrijmaken. Onze dagen eindigen rond zes uur in het centrum, dus wie wil kan daarna uit eten in de stad.',
+      },
+      {
+        kop: 'Bedrijfsuitje in de winter',
+        tekst:
+          'Je ziet de prijs per persoon vooraf, inclusief btw, en de factuur staat op naam van het bedrijf. Tot een week voor de datum kan het aantal deelnemers nog veranderen. Wij reserveren alles bij onze partners, op de dag zelf is Ger jullie aanspreekpunt.',
+      },
+      {
+        kop: 'Een stevige lunch',
+        tekst:
+          'De winterse lunch is Hollands: erwtensoep of stamppot, met een vegetarische keuze. Andere dieetwensen geef je door bij het boeken.',
+      },
+    ],
+    verwijzing: {
+      kop: 'Liever alleen varen?',
+      tekst:
+        'Een rondvaart door de grachten kan ook in de winter. Losse vaarten en een eigen boot voor de groep boek je direct bij Rederij Schuttevaer.',
+      links: [
+        { href: '/rondvaart-utrecht', label: 'Rondvaart Utrecht boeken' },
+        { href: '/rondvaart-groep-utrecht', label: 'Rondvaart met je groep' },
+      ],
+    },
+    faq: [
+      {
+        q: 'Wanneer kan een winteruitje?',
+        a: `De winterpakketten zijn te boeken van ${WINTERMAANDEN}, op donderdag, vrijdag en zaterdag, minimaal ${REGELS.minDagenVooruit} dagen vooruit.`,
+      },
+      {
+        q: 'Wat kost een winteruitje in Utrecht?',
+        a: `Vanaf ${vanaf(P_WINTER)} per persoon voor een halve dag en ${prijs('warme-winterdag')} voor de hele Warme Winterdag, inclusief btw.`,
+      },
+      {
+        q: 'Kan het ook als kerstuitje in december?',
+        a: 'Ja. Alle winterpakketten kunnen in december, op donderdag, vrijdag en zaterdag.',
+      },
+      {
+        q: 'Is er ook iets zonder alcohol?',
+        a: 'Ja. Bij de ontvangst kan iedereen kiezen tussen glühwein en warme chocolademelk.',
+      },
+      {
+        q: 'Gaat het door bij sneeuw of regen?',
+        a: 'Jeu de boules, shuffleboard, de lunch en de borrel zijn binnen. Alleen de rondvaart en de top van de Domtoren zijn in de buitenlucht; bij storm of onweer neem je contact met ons op.',
+      },
+      { q: 'Met hoeveel personen kan het?', a: GROEP },
+      GROTER,
+      BEVESTIGING,
+      ALGEMENE_FAQ[1]!,
+      ALGEMENE_FAQ[2]!,
     ],
   },
 };

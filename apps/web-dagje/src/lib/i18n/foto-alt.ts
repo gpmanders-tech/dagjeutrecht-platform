@@ -6,6 +6,14 @@ import type { Foto } from '../fotos';
 import type { Vertaald } from '../talen';
 
 const ALT: Record<string, Record<Vertaald, string>> = {
+  'schuttevaer-rondvaartboot-gracht': {
+    en: 'Schuttevaer canal boat on the canal in the sun',
+    de: 'Grachtenboot von Schuttevaer auf der Gracht in der Sonne',
+  },
+  'schuttevaer-fluisterboot': {
+    en: 'Canal boat on a green canal in Utrecht',
+    de: 'Grachtenboot auf einer grünen Gracht in Utrecht',
+  },
   'sfeer-collegas-terras-oudegracht': {
     en: 'Colleagues raising a toast on a wharf terrace by the Oudegracht, with the Dom Tower',
     de: 'Kollegen stoßen auf einer Werftterrasse an der Oudegracht an, mit dem Domturm',

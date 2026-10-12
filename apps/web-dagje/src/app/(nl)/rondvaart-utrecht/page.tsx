@@ -140,6 +140,9 @@ export default function RondvaartPagina() {
               <Link href="/bouwstenen/rondvaart" className="font-bold text-vlam-700 underline underline-offset-2">
                 Rondvaart in een dagprogramma
               </Link>
+              <Link href="/rondvaart-groep-utrecht" className="font-bold text-vlam-700 underline underline-offset-2">
+                Rondvaart voor groepen en bedrijven
+              </Link>
             </p>
           </div>
         </div>

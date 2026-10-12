@@ -12,6 +12,7 @@ import {
 } from '../lib/aanbod';
 import { LANDING_LIJST, type Landing } from '../lib/landings';
 import { vindOpAanvraag } from '../lib/op-aanvraag';
+import { AanvraagKort } from './aanvraag-kort';
 import { Breadcrumbs, FaqSchema } from './seo-jsonld';
 import { PakketKaart } from './pakket-kaart';
 import { PADEN, paginaAlternates, type PaginaSleutel } from '../lib/talen';
@@ -104,6 +105,21 @@ export function LandingPagina({ landing: l }: { landing: Landing }) {
             </div>
           ))}
         </div>
+        {l.verwijzing && (
+          <div className="mt-12 rounded-2xl border-2 border-inkt bg-zon-100 p-6 sm:p-8">
+            <h2 className="text-2xl font-black uppercase leading-none tracking-tight text-inkt">{l.verwijzing.kop}</h2>
+            <p className="mt-3 max-w-3xl text-lg text-inkt">{l.verwijzing.tekst}</p>
+            <ul className="mt-4 flex flex-wrap gap-x-6 gap-y-2">
+              {l.verwijzing.links.map((x) => (
+                <li key={x.href}>
+                  <Link href={x.href} className="font-bold text-vlam-700 underline underline-offset-2 hover:text-inkt">
+                    {x.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </section>
 
       {voorbeeld && dag.length > 0 && (
@@ -204,6 +220,18 @@ export function LandingPagina({ landing: l }: { landing: Landing }) {
           ))}
         </ul>
       </section>
+
+      {l.aanvraag && (
+        <section id="aanvragen" className="scroll-mt-24 bg-zee-50">
+          <div className="mx-auto grid max-w-5xl gap-10 px-4 py-16 sm:px-6 md:grid-cols-2">
+            <div>
+              <h2 className="text-4xl font-black uppercase tracking-tight text-inkt sm:text-5xl">{l.aanvraag.kop}</h2>
+              <p className="mt-3 text-lg text-grijs">{l.aanvraag.tekst}</p>
+            </div>
+            <AanvraagKort onderwerp={l.aanvraag.onderwerp} titel={l.aanvraag.titel} />
+          </div>
+        </section>
+      )}
 
       <section className="bg-vlam-50">
         <div className="mx-auto max-w-3xl px-4 py-14 sm:px-6">

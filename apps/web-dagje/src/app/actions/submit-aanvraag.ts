@@ -35,6 +35,7 @@ export type AanvraagInput = z.input<typeof schema>;
  */
 const EXTRA_ONDERWERPEN: Record<string, { slug: string; titel: string }> = {
   'rondvaart-utrecht': { slug: 'rondvaart-utrecht', titel: 'Rondvaart met je groep' },
+  'rondvaart-groep-utrecht': { slug: 'rondvaart-groep-utrecht', titel: 'Rondvaart of eigen boot voor een groep' },
 };
 
 /**

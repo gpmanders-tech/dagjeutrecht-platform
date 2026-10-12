@@ -39,7 +39,8 @@ export type PaginaSleutel =
   | 'teambuilding'
   | 'personeelsuitje'
   | 'vrijgezellenfeest'
-  | 'familiedag';
+  | 'familiedag'
+  | 'winteruitje';
 
 export const PADEN: Record<PaginaSleutel, Record<Taal, string>> = {
   home: { nl: '/', en: '/en', de: '/de' },
@@ -75,6 +76,11 @@ export const PADEN: Record<PaginaSleutel, Record<Taal, string>> = {
     nl: '/familiedag-utrecht',
     en: '/en/family-day-utrecht',
     de: '/de/familientag-utrecht',
+  },
+  winteruitje: {
+    nl: '/winteruitje-utrecht',
+    en: '/en/winter-outing-utrecht',
+    de: '/de/winterausflug-utrecht',
   },
 };
 

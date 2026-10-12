@@ -47,6 +47,11 @@ export const fotos = {
   winterUtrecht: f('utrecht-winter-sneeuw', 'De Kromme Rijn in Utrecht met sneeuw'),
   boulesBinnen: f('jeu-de-boules-binnen', 'Groep speelt jeu de boules binnen in een hal met lampjes'),
   domtorenKlok: f('domtoren-klok-binnen', 'Een van de grote klokken binnen in de Domtoren'),
+  // Foto's van Rederij Schuttevaer (zie /fotobronnen); dezelfde staan in rondvaarten.ts
+  schuttevaerFluisterboot: f('schuttevaer-fluisterboot', 'Rondvaartboot op een groene singel in Utrecht'),
+  schuttevaerSloep: f('schuttevaer-sloep', 'Open sloep op de Oudegracht met de Domtoren op de achtergrond'),
+  schuttevaerCatharijnesingel: f('schuttevaer-catharijnesingel', 'De Catharijnesingel in Utrecht met de kerk van Bunk Hotel'),
+  schuttevaerRondvaartboot: f('schuttevaer-rondvaartboot-gracht', 'Rondvaartboot van Schuttevaer op de gracht in de zon'),
   sfeerCollegasTerras: sfeer('collegas-terras-oudegracht', 'Collega’s proosten op een werfterras aan de Oudegracht, met de Domtoren'),
   sfeerTeamBoules: sfeer('team-jeu-de-boules-binnen', 'Een team speelt binnen jeu de boules onder lichtslingers'),
 } satisfies Record<string, Foto>;
@@ -92,6 +97,15 @@ export const FOTO_PER_PAKKET: Record<string, Foto> = {
   'spel-en-borrel': fotos.boulesSpelers,
   'water-naar-borrel': fotos.supVrijgezellen,
   schooluitje: fotos.oudegrachtDom,
+  // Oktober 2026: deze pakketten vielen terug op de supfoto, ook de winter- en rondvaartpakketten.
+  'winter-op-de-grachten': fotos.rondvaart,
+  'dom-en-grachten': fotos.domtoren,
+  'schoolreis-basisschool': fotos.schuttevaerRondvaartboot,
+  winterborrel: fotos.boulesBinnen,
+  'vrijgezellen-winterdag': fotos.shuffleboard,
+  'boules-en-borrel': fotos.boules,
+  'koffie-en-city-challenge': fotos.koffieTerras,
+  'water-en-picknick': fotos.picknick,
 };
 
 /** In de winter geen zomerse buitenfoto's: binnen, bij de klok of aan de borrel. */

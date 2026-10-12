@@ -46,6 +46,7 @@ export const VERTAALDE_LANDINGS: VertaaldeLanding[] = [
   'personeelsuitje',
   'vrijgezellenfeest',
   'familiedag',
+  'winteruitje',
 ];
 
 export function ui(taal: Vertaald) {
