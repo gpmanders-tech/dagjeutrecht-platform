@@ -180,7 +180,8 @@ export const BOUWSTENEN: Bouwsteen[] = [
     locatie: 'The Grand Shuffle, centrum Utrecht',
     tijdvakken: ['ochtend', 'middag'],
     duur: '1,5 uur',
-    inkoopCents: 2200,
+    // thegrandshuffle.nl 15-10-2026: Bronze 1 uur 24,50 p.p. incl. (cava, charcuterie), 2 uur 35,50; groepen vanaf 20
+    inkoopCents: 2450,
     minPers: 8,
     maxPers: 40,
     prijsBevestigd: false,
@@ -217,7 +218,8 @@ export const BOUWSTENEN: Bouwsteen[] = [
     locatie: 'Opstapplaats Oudegracht',
     tijdvakken: ['ochtend', 'middag'],
     duur: '1 uur',
-    inkoopCents: 1300,
+    // schuttevaer.com 15-10-2026: rondvaart vanaf 18,50 (1 uur); commissie affiliate nog onbekend
+    inkoopCents: 1850,
     minPers: 8,
     maxPers: 40,
     prijsBevestigd: false,
@@ -392,7 +394,8 @@ export const BOUWSTENEN: Bouwsteen[] = [
     locatie: 'De Rijnstroom, Weg naar Rhijnauwen 2',
     tijdvakken: ['afsluiting'],
     duur: '2 uur',
-    inkoopCents: 3900,
+    // rijnstroom.nl/prijzen 15-10-2026: BBQ 24 + 2 uur alle dranken 20; vanaf 15 pers, alleen ma t/m vr
+    inkoopCents: 4400,
     minPers: 15,
     maxPers: 40,
     seizoen: ZOMER,
