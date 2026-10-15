@@ -113,19 +113,19 @@ export const AANBOD_DE: AanbodTekst = {
 
     shuffleboard: {
       naam: 'Shuffleboard',
-      kort: '1,5 Stunden Shuffleboard in The Grand Shuffle.',
+      kort: '1 Stunde Shuffleboard in The Grand Shuffle.',
       beschrijving:
         'Das Spiel, das Sie vielleicht von Kreuzfahrtschiffen kennen, in der ersten Shuffleboard-Bar der Niederlande. Schnell gelernt, mit viel Ehrgeiz gespielt.',
       locatie: 'The Grand Shuffle, Innenstadt Utrecht',
-      duur: '1,5 Stunden',
+      duur: '1 Stunde',
       inclusief: ['Bahnen', 'Einführung'],
       seo: {
         titel: 'Shuffleboard in Utrecht für Gruppen',
         beschrijving:
-          'Anderthalb Stunden Shuffleboard in der Innenstadt von Utrecht, für Gruppen ab 8 Personen. Bahnen und Einführung inklusive.',
+          'Eine Stunde Shuffleboard in der Innenstadt von Utrecht, für Gruppen ab 20 Personen. Bahnen und Einführung inklusive.',
         tekst: [
           'Shuffleboard ist schneller erklärt als Bowling, und man kann sich beim Spielen gut unterhalten. Deshalb eignet es sich für Gruppen, in denen sich nicht alle kennen, oder für Teams mit unterschiedlichen Altersgruppen.',
-          'Sie spielen anderthalb Stunden auf den Bahnen von The Grand Shuffle in der Innenstadt. Alles findet drinnen statt. Ein Umtrunk am selben Tag lässt sich leicht anschließen, denn die Orte liegen zu Fuß nah beieinander.',
+          'Sie spielen eine Stunde auf den Bahnen von The Grand Shuffle in der Innenstadt. Alles findet drinnen statt. Ein Umtrunk am selben Tag lässt sich leicht anschließen, denn die Orte liegen zu Fuß nah beieinander.',
         ],
         vragen: [
           {

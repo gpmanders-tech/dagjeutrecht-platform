@@ -171,7 +171,7 @@ export const BOUWSTENEN: Bouwsteen[] = [
   blok({
     slug: 'shuffleboard',
     naam: 'Shuffleboard',
-    kort: '1,5 uur shuffleboard in The Grand Shuffle.',
+    kort: '1 uur shuffleboard in The Grand Shuffle.',
     beschrijving:
       'Het spel dat je van cruiseschepen kent, in de eerste shuffleboardbar van Nederland. Makkelijk te leren, fanatiek te spelen.',
     emoji: '🥌',
@@ -179,10 +179,10 @@ export const BOUWSTENEN: Bouwsteen[] = [
     leverancier: 'BHG',
     locatie: 'The Grand Shuffle, centrum Utrecht',
     tijdvakken: ['ochtend', 'middag'],
-    duur: '1,5 uur',
+    duur: '1 uur',
     // thegrandshuffle.nl 15-10-2026: Bronze 1 uur 24,50 p.p. incl. (cava, charcuterie), 2 uur 35,50; groepen vanaf 20
     inkoopCents: 2450,
-    minPers: 8,
+    minPers: 20,
     maxPers: 40,
     prijsBevestigd: false,
     inclusief: ['banen', 'uitleg'],

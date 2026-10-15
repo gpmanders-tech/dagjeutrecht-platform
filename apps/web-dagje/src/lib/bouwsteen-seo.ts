@@ -79,10 +79,10 @@ export const BOUWSTEEN_SEO: Record<string, BouwsteenSeo> = {
   shuffleboard: {
     titel: 'Shuffleboard in Utrecht met een groep',
     beschrijving:
-      'Anderhalf uur shuffleboard in het centrum van Utrecht, voor groepen vanaf 8 personen. Banen en uitleg inbegrepen.',
+      'Een uur shuffleboard in het centrum van Utrecht, voor groepen vanaf 20 personen. Banen en uitleg inbegrepen.',
     tekst: [
       'Shuffleboard is makkelijker uit te leggen dan bowlen en je kunt er tijdens het spelen bij praten. Daarom werkt het goed voor groepen waarin niet iedereen elkaar kent, of voor teams met verschillende leeftijden.',
-      'Je speelt anderhalf uur op de banen van The Grand Shuffle in het centrum. Alles is binnen. Combineren met een borrel op dezelfde avond kan, want de locaties liggen op loopafstand van elkaar.',
+      'Je speelt een uur op de banen van The Grand Shuffle in het centrum. Alles is binnen. Combineren met een borrel op dezelfde avond kan, want de locaties liggen op loopafstand van elkaar.',
     ],
     vragen: [
       { q: 'Wat is shuffleboard?', a: 'Een tafelspel waarbij je schijven over een lange gladde baan schuift en zo dicht mogelijk bij de rand probeert te komen zonder eraf te gaan.' },
