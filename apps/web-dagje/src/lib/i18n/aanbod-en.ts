@@ -79,16 +79,16 @@ export const AANBOD_EN: AanbodTekst = {
 
     'jeu-de-boules': {
       naam: 'Jeu de boules with bites',
-      kort: '1.5 hours of boules on indoor courts, with bites.',
+      kort: '1 hour of boules on indoor courts, with bites.',
       beschrijving:
         'Play indoors on the courts of JEU de boules bar. You get an explanation on the spot and the group plays in teams against each other. Rain makes no difference.',
       locatie: 'JEU de boules bar, Paardenveld',
-      duur: '1.5 hours',
+      duur: '1 hour',
       inclusief: ['court hire', 'explanation', 'bites'],
       seo: {
         titel: 'Jeu de boules in Utrecht for groups',
         beschrijving:
-          'An hour and a half of indoor jeu de boules (pétanque) at Paardenveld, with bites. For groups of 8 or more. Rain makes no difference.',
+          'One hour of indoor jeu de boules (pétanque) at Paardenveld, with bites. For groups of 8 or more. Rain makes no difference.',
         tekst: [
           'Jeu de boules, also known as pétanque, can be played all year round in Utrecht, because the courts at Paardenveld are indoors. That makes it one of the few group activities where the weather plays no part, not even in November.',
           'The group plays in teams against each other. You get an explanation on the spot, so no experience is needed. Bites are on the table while you play. It is a five-minute walk from Utrecht Centraal, which is handy when people come by train.',
@@ -100,7 +100,7 @@ export const AANBOD_EN: AanbodTekst = {
           },
           {
             q: 'How long does it take?',
-            a: 'An hour and a half, including the explanation and bites.',
+            a: 'One hour, including the explanation and bites.',
           },
           {
             q: 'Do you need to know the game?',
@@ -602,7 +602,7 @@ export const AANBOD_EN: AanbodTekst = {
       naam: 'Bachelor Party Winter Day',
       kort: 'Mulled wine, shuffleboard, a winter lunch and drinks.',
       beschrijving:
-        'The winter version of the bachelor and bachelorette day, completely indoors. Start with mulled wine, then shuffleboard at The Grand Shuffle, a warm lunch and finish with drinks at JEU. Same price as the summer package.',
+        'The winter version of the bachelor and bachelorette day, completely indoors. Start with mulled wine, then shuffleboard at The Grand Shuffle, a warm lunch and finish with drinks at JEU.',
       voorWie: 'Bachelor and bachelorette parties and groups of friends, November to March',
     },
   },

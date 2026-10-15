@@ -63,14 +63,14 @@ export const BOUWSTEEN_SEO: Record<string, BouwsteenSeo> = {
   'jeu-de-boules': {
     titel: 'Jeu de boules in Utrecht met een groep',
     beschrijving:
-      'Anderhalf uur indoor jeu de boules bij Paardenveld, met bites erbij. Voor groepen vanaf 8 personen. Regen maakt niet uit.',
+      'Een uur indoor jeu de boules bij Paardenveld, met bites erbij. Voor groepen vanaf 8 personen. Regen maakt niet uit.',
     tekst: [
       'Jeu de boules in Utrecht kan het hele jaar door, want de banen aan Paardenveld liggen binnen. Dat maakt het een van de weinige groepsactiviteiten waarbij het weer geen rol speelt, ook niet in november.',
       'De groep speelt in teams tegen elkaar. Je krijgt uitleg ter plekke, dus voorkennis is niet nodig. Bites staan op tafel terwijl je speelt. Het is op vijf minuten lopen van Utrecht Centraal, wat handig is als mensen met de trein komen.',
     ],
     vragen: [
       { q: 'Is het binnen of buiten?', a: 'Binnen, op overdekte banen. Regen of kou maakt dus niets uit.' },
-      { q: 'Hoe lang duurt het?', a: 'Anderhalf uur, inclusief uitleg en bites.' },
+      { q: 'Hoe lang duurt het?', a: 'Een uur, inclusief uitleg en bites.' },
       { q: 'Moet je het spel kennen?', a: 'Nee. Je krijgt korte uitleg en na twee worpen weet iedereen hoe het werkt.' },
       { q: 'Hoe ver is het van het station?', a: 'Ongeveer vijf minuten lopen vanaf Utrecht Centraal.' },
     ],

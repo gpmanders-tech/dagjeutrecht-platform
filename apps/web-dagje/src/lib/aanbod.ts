@@ -92,9 +92,14 @@ export type Bouwsteen = {
   inclusief: string[];
 };
 
-/** Verkoopprijs: inkoop x 1,30, afgerond op hele euro's. */
+/**
+ * Verkoopprijs: inkoop x 1,40, afgerond op hele euro's.
+ * 15-10-2026 (Ger): van 1,30 naar 1,40. Van de opslag gaan nog btw over de marge,
+ * betaalkosten en de vouchers af; met 1,30 bleef er te weinig over.
+ */
+const OPSLAG = 1.4;
 function verkoop(inkoopCents: number) {
-  return Math.round((inkoopCents * 1.3) / 100) * 100;
+  return Math.round((inkoopCents * OPSLAG) / 100) * 100;
 }
 
 export type Maanden = { van: number; tot: number };
@@ -115,8 +120,8 @@ export function maandenTekst(m: Maanden) {
 
 /**
  * verkoopCentsVast: alleen voor bouwstenen die we zelf draaien. Daar is niets in
- * te kopen, dus de opslag van 30 procent op de inkoop zegt niets en bepaalt Ger
- * de prijs rechtstreeks. Bij alle andere bouwstenen blijft de prijs de inkoop x 1,30.
+ * te kopen, dus de opslag op de inkoop zegt niets en bepaalt Ger
+ * de prijs rechtstreeks. Bij alle andere bouwstenen blijft de prijs de inkoop x OPSLAG.
  */
 function blok(b: Omit<Bouwsteen, 'verkoopCents'> & { verkoopCentsVast?: number }): Bouwsteen {
   const { verkoopCentsVast, ...rest } = b;
@@ -137,7 +142,8 @@ export const BOUWSTENEN: Bouwsteen[] = [
     locatie: 'JEU de boules bar, Paardenveld',
     tijdvakken: ['ontvangst'],
     duur: '30 min',
-    inkoopCents: 750,
+    // 15-10-2026 schatting omhoog (was 7,50)
+    inkoopCents: 850,
     minPers: 8,
     maxPers: 40,
     prijsBevestigd: false,
@@ -146,7 +152,7 @@ export const BOUWSTENEN: Bouwsteen[] = [
   blok({
     slug: 'jeu-de-boules',
     naam: 'Jeu de boules met bites',
-    kort: '1,5 uur boulen op overdekte banen, met bites erbij.',
+    kort: '1 uur boulen op overdekte banen, met bites erbij.',
     beschrijving:
       'Binnen spelen op de banen van JEU de boules bar. Uitleg ter plekke, de groep speelt in teams tegen elkaar. Regen maakt niet uit.',
     emoji: '🎯',
@@ -154,11 +160,12 @@ export const BOUWSTENEN: Bouwsteen[] = [
     leverancier: 'BHG',
     locatie: 'JEU de boules bar, Paardenveld',
     tijdvakken: ['ochtend', 'middag'],
-    duur: '1,5 uur',
-    inkoopCents: 1650,
+    duur: '1 uur',
+    // JEU 5-10-2026: boules-bites-borrel 1 uur 23,44 excl. btw p.p. (2 uur 37,79; 1,5 uur kan niet). Ca. 28,50 incl., verdeeld: 19 boules met bites, 9,50 borrel
+    inkoopCents: 1900,
     minPers: 8,
     maxPers: 40,
-    prijsBevestigd: false,
+    prijsBevestigd: true,
     inclusief: ['baanhuur', 'uitleg', 'bites'],
   }),
   blok({
@@ -191,6 +198,7 @@ export const BOUWSTENEN: Bouwsteen[] = [
     locatie: 'Domplein',
     tijdvakken: ['ochtend', 'middag'],
     duur: '1 uur',
+    // losse tickets ca. 13,50. Privérondleiding 275 + 12,50 per groep (max 40): voordeliger vanaf ca. 21 personen, duur bij kleine groepen
     inkoopCents: 1400,
     minPers: 8,
     maxPers: 40,
@@ -227,7 +235,8 @@ export const BOUWSTENEN: Bouwsteen[] = [
     locatie: 'BHG-locatie in het centrum',
     tijdvakken: ['lunch'],
     duur: '1 uur',
-    inkoopCents: 1625,
+    // 15-10-2026 schatting omhoog (was 16,25), nog navragen bij BHG
+    inkoopCents: 2100,
     minPers: 8,
     maxPers: 40,
     prijsBevestigd: false,
@@ -244,10 +253,11 @@ export const BOUWSTENEN: Bouwsteen[] = [
     locatie: 'JEU de boules bar, Paardenveld',
     tijdvakken: ['afsluiting'],
     duur: '1 uur',
-    inkoopCents: 600,
+    // deel van het JEU-pakket boules-bites-borrel, zie jeu-de-boules
+    inkoopCents: 950,
     minPers: 8,
     maxPers: 40,
-    prijsBevestigd: false,
+    prijsBevestigd: true,
     inclusief: ['2 drankjes p.p.', 'bitterballen'],
   }),
 
@@ -264,11 +274,12 @@ export const BOUWSTENEN: Bouwsteen[] = [
     locatie: 'JEU de boules bar, Paardenveld',
     tijdvakken: ['ontvangst'],
     duur: '30 min',
-    inkoopCents: 650,
+    // JEU 5-10-2026: 6,00 p.p. (excl. btw), chocomel 4,50
+    inkoopCents: 750,
     minPers: 8,
     maxPers: 40,
     seizoen: WINTER,
-    prijsBevestigd: false,
+    prijsBevestigd: true,
     inclusief: ['glühwein of warme chocolademelk', 'iets lekkers'],
   }),
   blok({
@@ -283,7 +294,8 @@ export const BOUWSTENEN: Bouwsteen[] = [
     locatie: 'BHG-locatie in het centrum',
     tijdvakken: ['lunch'],
     duur: '1 uur',
-    inkoopCents: 1750,
+    // 15-10-2026 schatting omhoog (was 17,50), gevraagd aan JEU (H6IM1N)
+    inkoopCents: 2250,
     minPers: 8,
     maxPers: 40,
     seizoen: WINTER,
@@ -578,14 +590,14 @@ export const PAKKETTEN: Pakket[] = [
   },
   // ============== Vrijgezellen in de winter ==============
   // Het zomerpakket (suppen, picknick, kickbike, borrel) kan van november tot en
-  // met maart niet. Dit pakket kost hetzelfde, zodat vanaf 68 euro het hele jaar klopt.
+  // met maart niet. Dit is het wintervervangpakket (prijzen sinds 15-10-2026 niet meer gelijk).
   {
     slug: 'vrijgezellen-winterdag',
     seizoen: 'winter',
     naam: 'Vrijgezellen Winterdag',
     kort: 'Glühwein, shuffleboard, winterse lunch en een borrel.',
     beschrijving:
-      'De winterversie van het vrijgezellendagje, helemaal binnen. Beginnen met glühwein, dan shuffleboard bij The Grand Shuffle, een warme lunch en afsluiten met een borrel bij JEU. Zelfde prijs als het zomerpakket.',
+      'De winterversie van het vrijgezellendagje, helemaal binnen. Beginnen met glühwein, dan shuffleboard bij The Grand Shuffle, een warme lunch en afsluiten met een borrel bij JEU.',
     emoji: '🎉',
     voorWie: 'Vrijgezellenfeesten en vriendengroepen, van november tot en met maart',
     blokken: {

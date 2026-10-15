@@ -79,16 +79,16 @@ export const AANBOD_DE: AanbodTekst = {
 
     'jeu-de-boules': {
       naam: 'Boule mit Snacks',
-      kort: '1,5 Stunden Boule auf überdachten Bahnen, mit Snacks.',
+      kort: '1 Stunde Boule auf überdachten Bahnen, mit Snacks.',
       beschrijving:
         'Gespielt wird drinnen auf den Bahnen der JEU de boules bar. Sie bekommen vor Ort eine Einführung, und die Gruppe spielt in Teams gegeneinander. Regen spielt keine Rolle.',
       locatie: 'JEU de boules bar, Paardenveld',
-      duur: '1,5 Stunden',
+      duur: '1 Stunde',
       inclusief: ['Bahnmiete', 'Einführung', 'Snacks'],
       seo: {
         titel: 'Boule in Utrecht für Gruppen',
         beschrijving:
-          'Anderthalb Stunden Indoor-Boule am Paardenveld, mit Snacks. Für Gruppen ab 8 Personen. Regen spielt keine Rolle.',
+          'Eine Stunde Indoor-Boule am Paardenveld, mit Snacks. Für Gruppen ab 8 Personen. Regen spielt keine Rolle.',
         tekst: [
           'Boule (Jeu de boules oder Pétanque) können Sie in Utrecht das ganze Jahr über spielen, denn die Bahnen am Paardenveld liegen drinnen. Damit ist es eine der wenigen Gruppenaktivitäten, bei denen das Wetter keine Rolle spielt, auch nicht im November.',
           'Die Gruppe spielt in Teams gegeneinander. Sie bekommen vor Ort eine Einführung, Vorkenntnisse sind also nicht nötig. Während des Spiels stehen Snacks auf dem Tisch. Bis Utrecht Centraal sind es fünf Gehminuten, praktisch, wenn die Gruppe mit dem Zug anreist.',
@@ -100,7 +100,7 @@ export const AANBOD_DE: AanbodTekst = {
           },
           {
             q: 'Wie lange dauert es?',
-            a: 'Anderthalb Stunden, einschließlich Einführung und Snacks.',
+            a: 'Eine Stunde, einschließlich Einführung und Snacks.',
           },
           {
             q: 'Muss man das Spiel kennen?',
@@ -605,7 +605,7 @@ export const AANBOD_DE: AanbodTekst = {
       naam: 'JGA-Wintertag',
       kort: 'Glühwein, Shuffleboard, winterliches Mittagessen und Umtrunk.',
       beschrijving:
-        'Die Winterversion des Junggesellenabschieds, komplett drinnen. Beginnen mit Glühwein, dann Shuffleboard in The Grand Shuffle, ein warmes Mittagessen und zum Abschluss ein Umtrunk in der JEU. Gleicher Preis wie das Sommerpaket.',
+        'Die Winterversion des Junggesellenabschieds, komplett drinnen. Beginnen mit Glühwein, dann Shuffleboard in The Grand Shuffle, ein warmes Mittagessen und zum Abschluss ein Umtrunk in der JEU.',
       voorWie: 'Junggesellenabschiede (JGA) und Freundesgruppen, November bis März',
     },
   },
