@@ -435,6 +435,8 @@ export type Pakket = {
   emoji: string;
   voorWie: string;
   blokken: Partial<Record<TijdvakId, string>>;
+  /** Vaste pakketprijs p.p. (Ger), in plaats van de som van de onderdelen. */
+  prijsCentsVast?: number;
 };
 
 export const PAKKETTEN: Pakket[] = [
@@ -447,6 +449,7 @@ export const PAKKETTEN: Pakket[] = [
       'Een winterdag in het centrum van Utrecht, grotendeels binnen. Opwarmen met glühwein, de stad zien vanaf de Domtoren, erwtensoep of stamppot en daarna boulen tot de borrel.',
     emoji: '❄️',
     voorWie: 'Bedrijfsuitjes, teams en vriendengroepen',
+    prijsCentsVast: 9900, // vaste prijs Ger 15-10-2026
     blokken: {
       ontvangst: 'gluhwein',
       ochtend: 'domtoren',
@@ -520,6 +523,7 @@ export const PAKKETTEN: Pakket[] = [
       'Een middag zonder gedoe: om twee uur de banen op bij JEU de boules bar aan Paardenveld, bites erbij, en afsluiten met een borrel. Op vijf minuten lopen van Utrecht Centraal, dus iedereen kan zo aanschuiven en zo weer weg.',
     emoji: '🍻',
     voorWie: 'Teams en vriendengroepen die een middag vrij hebben',
+    prijsCentsVast: 3900, // vaste prijs Ger 15-10-2026
     blokken: { middag: 'jeu-de-boules', afsluiting: 'borrel' },
   },
   {
@@ -603,6 +607,7 @@ export const PAKKETTEN: Pakket[] = [
       'De winterversie van het vrijgezellendagje, helemaal binnen. Beginnen met glühwein, dan shuffleboard bij The Grand Shuffle, een warme lunch en afsluiten met een borrel bij JEU.',
     emoji: '🎉',
     voorWie: 'Vrijgezellenfeesten en vriendengroepen, van november tot en met maart',
+    prijsCentsVast: 8900, // vaste prijs Ger 15-10-2026
     blokken: {
       ontvangst: 'gluhwein',
       ochtend: 'shuffleboard',
@@ -670,7 +675,15 @@ export type Keuze = {
   blokken: Partial<Record<TijdvakId, string>>;
 };
 
+/** Zelfde onderdelen als een pakket met een vaste prijs: dan geldt die prijs. */
+function vastePakketPrijs(blokken: Keuze['blokken']) {
+  const sleutel = (b: Keuze['blokken']) => TIJDVAKKEN.map((t) => b[t.id] ?? '').join('|');
+  return PAKKETTEN.find((p) => p.prijsCentsVast && sleutel(p.blokken) === sleutel(blokken))?.prijsCentsVast;
+}
+
 export function prijsPerPersoon(blokken: Keuze['blokken']) {
+  const vast = vastePakketPrijs(blokken);
+  if (vast) return vast;
   return TIJDVAKKEN.reduce((som, t) => som + (vindBouwsteen(blokken[t.id])?.verkoopCents ?? 0), 0);
 }
 
