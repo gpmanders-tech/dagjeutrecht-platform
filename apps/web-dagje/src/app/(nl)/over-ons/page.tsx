@@ -22,9 +22,9 @@ export const metadata: Metadata = {
 };
 
 const PARTNERS = [
-  { naam: 'JEU de boules bar', wat: 'jeu de boules op overdekte banen, de ontvangst en de borrel, aan Paardenveld' },
+  { naam: 'JEU de boules bar', wat: 'jeu de boules op overdekte banen, de lunch van de kaart en de borrel, aan Paardenveld' },
   { naam: 'The Grand Shuffle', wat: 'shuffleboard in het centrum' },
-  { naam: 'Brothers Horeca Groep', wat: 'de groepslunch en de winterse lunch' },
+  { naam: 'Brothers Horeca Groep', wat: 'de groepslunch' },
   { naam: 'Botenverhuur De Rijnstroom', wat: 'kanoën, suppen, de picknick en de BBQ in Amelisweerd' },
   { naam: 'Domtoren', wat: 'de beklimming met gids' },
   { naam: 'Rederij Schuttevaer', wat: 'de rondvaart door de grachten' },

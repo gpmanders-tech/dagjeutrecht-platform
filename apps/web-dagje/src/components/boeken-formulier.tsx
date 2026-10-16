@@ -16,6 +16,7 @@ import {
   prijsPerPersoon,
   vindBouwsteen,
   vindPakket,
+  openOpEenDag,
   type Bouwsteen,
   type TijdvakId,
 } from '../lib/aanbod';
@@ -87,6 +88,9 @@ const NL: FormulierTekst = {
     'verkeerd-tijdvak': '',
     'aantal-blok': '',
     seizoen: '',
+    gesloten: '',
+    'gesloten-dag': '',
+    'gesloten-anders': '',
     'kickbike-nodig': '',
     'te-veel-wissels': '',
   },
@@ -291,8 +295,10 @@ export function BoekenFormulier({
           <p className="mb-5 text-grijs">{T.stap3Uitleg}</p>
           <div className="space-y-6">
             {TIJDVAKKEN.map((t) => {
-              const opties = bouwstenen.filter((b) => b.tijdvakken.includes(t.id));
+              const opties = bouwstenen.filter((b) => b.tijdvakken.includes(t.id) && openOpEenDag(b, t.id));
               const gekozen = blokken[t.id];
+              // Tijdvak zonder te boeken onderdelen (nu: de ontvangst) niet tonen.
+              if (opties.length === 0 && !gekozen) return null;
               return (
                 <fieldset key={t.id}>
                   <legend className="mb-3 flex items-center gap-3">

@@ -256,47 +256,49 @@ export const AANBOD_EN: AanbodTekst = {
     },
 
     gluhwein: {
-      naam: 'Welcome with mulled wine',
-      kort: 'Warm up with mulled wine or hot chocolate.',
+      naam: 'Mulled wine drinks',
+      kort: 'End the day with mulled wine or hot chocolate and drinks.',
       beschrijving:
-        'The group meets at JEU de boules bar on Paardenveld. Everyone gets a glühwein (mulled wine) or hot chocolate with something tasty on the side.',
+        'End the day at JEU de boules bar on Paardenveld. Everyone first gets a glühwein (mulled wine) or hot chocolate, followed by two drinks per person with bitterballen.',
       locatie: 'JEU de boules bar, Paardenveld',
-      duur: '30 min',
-      inclusief: ['mulled wine or hot chocolate', 'something tasty'],
+      duur: '1 hour',
+      inclusief: ['mulled wine or hot chocolate', '2 drinks per person', 'bitterballen'],
       seo: {
-        titel: 'Mulled wine welcome for groups in Utrecht',
+        titel: 'Mulled wine drinks for groups in Utrecht',
         beschrijving:
-          'A winter welcome with mulled wine or hot chocolate at Paardenveld. For groups of 8 or more, November to March.',
+          'End the day with mulled wine or hot chocolate and drinks at Paardenveld. For groups of 8 or more, November to March.',
         tekst: [
-          'The winter version of the welcome: mulled wine or hot chocolate with something tasty, indoors at Paardenveld.',
-          'This block runs from November to March and is part of the winter package Warm Winter Day.',
+          'The winter version of the closing drinks: first a mulled wine or hot chocolate, then two drinks per person with bitterballen, indoors at JEU de boules bar on Paardenveld.',
+          'This block runs from November to March and is part of the winter packages Warm Winter Day and Winter Drinks.',
         ],
         vragen: [
-          { q: 'Is there an alcohol-free option?', a: 'Yes, hot chocolate is the alternative.' },
+          { q: 'Is there an alcohol-free option?', a: 'Yes, hot chocolate is the alternative to the mulled wine.' },
+          { q: 'What time are the drinks?', a: 'In the closing time slot, from 16:30, for one hour.' },
           { q: 'When is this available?', a: 'From November to March.' },
         ],
       },
     },
 
     winterlunch: {
-      naam: 'Winter lunch',
-      kort: 'Pea soup or stamppot, vegetarian available.',
+      naam: 'Lunch from the menu',
+      kort: 'Lunch from the menu at JEU de boules bar.',
       beschrijving:
-        'A hearty Dutch winter lunch at one of the venues of Brothers Horeca Groep: erwtensoep (thick pea soup) or stamppot (mashed potatoes with vegetables), with a vegetarian choice.',
-      locatie: 'BHG venue in the city centre',
+        'Lunch at JEU de boules bar on Paardenveld. Everyone chooses a dish from the menu, with a drink on the side. Let us know about dietary requirements when you book.',
+      locatie: 'JEU de boules bar, Paardenveld',
       duur: '1 hour',
-      inclusief: ['pea soup or stamppot', 'soft drink or coffee'],
+      inclusief: ['lunch from the menu', 'soft drink or coffee'],
       seo: {
-        titel: 'Dutch winter lunch for groups in Utrecht',
+        titel: 'Lunch from the menu for groups in Utrecht',
         beschrijving:
-          'Pea soup or stamppot for groups of 8 or more in the centre of Utrecht. Vegetarian available, November to March.',
+          'Lunch from the menu at JEU de boules bar on Paardenveld, with a drink. For groups of 8 or more, November to March.',
         tekst: [
-          'Erwtensoep (Dutch pea soup) or stamppot (mashed potatoes with vegetables) at a fixed venue in the city centre, as a lunch between two winter activities.',
-          'Vegetarian is available. This block runs from November to March.',
+          'A lunch from the menu at JEU de boules bar on Paardenveld, as a break between two winter activities. Everyone chooses their own dish, with a soft drink or coffee.',
+          'Let us know about dietary requirements when you book. This block runs from November to March.',
         ],
         vragen: [
-          { q: 'What is served?', a: 'Pea soup or stamppot, with a soft drink or coffee.' },
-          { q: 'Is vegetarian available?', a: 'Yes, let us know when you book.' },
+          { q: 'What is served?', a: 'Everyone chooses a dish from the menu, with a soft drink or coffee.' },
+          { q: 'What time is lunch?', a: 'From 12:30 to 13:30.' },
+          { q: 'Can I pass on dietary requirements?', a: 'Yes, let us know when you book.' },
         ],
       },
     },
@@ -516,9 +518,9 @@ export const AANBOD_EN: AanbodTekst = {
   pakketten: {
     'warme-winterdag': {
       naam: 'Warm Winter Day',
-      kort: 'Mulled wine, the Dom Tower, a winter lunch, jeu de boules and drinks.',
+      kort: 'The Dom Tower, lunch from the menu, jeu de boules and mulled wine drinks.',
       beschrijving:
-        'A winter day in the centre of Utrecht, mostly indoors. Warm up with mulled wine, see the city from the Dom Tower, enjoy Dutch pea soup or stamppot and then play boules until it is time for drinks.',
+        'A winter day in the centre of Utrecht, mostly indoors. See the city from the Dom Tower, have lunch from the menu at JEU de boules bar, play boules on the covered courts and finish with mulled wine drinks.',
       voorWie: 'Company outings, teams and groups of friends',
     },
     'amelisweerd-actief': {
@@ -572,16 +574,16 @@ export const AANBOD_EN: AanbodTekst = {
     },
     'winter-op-de-grachten': {
       naam: 'Winter on the Canals',
-      kort: 'Half day: mulled wine, a canal cruise with Schuttevaer and a winter lunch.',
+      kort: 'Half day: a canal cruise with Schuttevaer and lunch from the menu.',
       beschrijving:
-        'Utrecht in winter, seen from the water. Warm up with mulled wine at JEU de boules bar, spend an hour with Rederij Schuttevaer on the Oudegracht and the city canals, and finish with pea soup or stamppot. Everyone is free again at half past one.',
+        'Utrecht in winter, seen from the water. Spend an hour with Rederij Schuttevaer on the Oudegracht and the city canals, then have lunch from the menu at JEU de boules bar on Paardenveld. Everyone is free again at half past one.',
       voorWie: 'Company outings, teams and families, November to March',
     },
     winterborrel: {
       naam: 'Winter Drinks',
-      kort: 'Half day: mulled wine, indoor jeu de boules and drinks.',
+      kort: 'Half day: indoor jeu de boules and mulled wine drinks.',
       beschrijving:
-        'A winter afternoon that does not depend on the weather: arrive to mulled wine, play boules on the covered courts and finish with drinks. All indoors, all in the city centre.',
+        'A winter afternoon that does not depend on the weather: play boules on the covered courts of JEU de boules bar and finish with mulled wine drinks. All indoors, all in the city centre.',
       voorWie: 'Teams and groups of friends, November to March',
     },
     'koffie-en-city-challenge': {

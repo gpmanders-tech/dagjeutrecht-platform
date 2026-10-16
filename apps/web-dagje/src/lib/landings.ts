@@ -1,4 +1,4 @@
-import { REGELS, formatEuro, maandenTekst, pakketMaanden, prijsPerPersoon, vindPakket } from './aanbod';
+import { REGELS, formatEuro, maandenTekst, pakketMaanden, prijsPerPersoon, vindBouwsteen, vindPakket } from './aanbod';
 import { fotos, type Foto } from './fotos';
 import { RONDVAARTEN } from './rondvaarten';
 
@@ -50,6 +50,11 @@ function prijs(slug: string) {
   return p ? formatEuro(prijsPerPersoon(p.blokken)) : '';
 }
 
+function blokPrijs(slug: string) {
+  const b = vindBouwsteen(slug);
+  return b ? formatEuro(b.verkoopCents) : '';
+}
+
 /**
  * De laagste prijs uit een rij pakketten. Hiermee staat de vanafprijs in de titel
  * en de beschrijving die Google toont, want elke concurrent die op deze zoektermen
@@ -64,17 +69,21 @@ function vanaf(slugs: string[]) {
   return formatEuro(Math.min(...centen));
 }
 
-const P_BEDRIJF = ['koffie-en-city-challenge', 'boules-en-borrel', 'spel-en-borrel', 'warme-winterdag', 'winter-op-de-grachten', 'winterborrel', 'amelisweerd-actief', 'water-naar-borrel'];
-const P_TEAM = ['koffie-en-city-challenge', 'boules-en-borrel', 'spel-en-borrel', 'warme-winterdag', 'winter-op-de-grachten', 'winterborrel', 'amelisweerd-actief'];
-const P_SCHOOL = ['koffie-en-city-challenge', 'schoolreis-basisschool', 'dom-en-grachten', 'schooluitje', 'spel-en-borrel'];
-const P_VRIJGEZEL = ['boules-en-borrel', 'water-naar-borrel', 'vrijgezellen-winterdag', 'amelisweerd-actief', 'spel-en-borrel'];
+// 16-10-2026: Spel & Borrel, Koffie & City Challenge en Vrijgezellen Winterdag staan offline
+// (JEU en The Grand Shuffle zijn 's ochtends dicht) en zijn uit deze rijen gehaald.
+const P_BEDRIJF = ['boules-en-borrel', 'warme-winterdag', 'winter-op-de-grachten', 'winterborrel', 'amelisweerd-actief', 'water-naar-borrel'];
+const P_TEAM = ['boules-en-borrel', 'warme-winterdag', 'winter-op-de-grachten', 'winterborrel', 'amelisweerd-actief'];
+const P_SCHOOL = ['schoolreis-basisschool', 'dom-en-grachten', 'schooluitje'];
+const P_VRIJGEZEL = ['boules-en-borrel', 'water-naar-borrel', 'winterborrel', 'amelisweerd-actief'];
+/** Pakketten van een hele dag (zonder het schooluitje), voor de vanafprijs van een hele dag. */
+const P_HELE_DAG = ['warme-winterdag', 'amelisweerd-actief', 'water-naar-borrel'];
 
-const P_PERSONEEL = ['boules-en-borrel', 'koffie-en-city-challenge', 'spel-en-borrel', 'winter-op-de-grachten', 'winterborrel', 'warme-winterdag', 'water-en-picknick', 'amelisweerd-actief'];
-const P_FAMILIE = ['dom-en-grachten', 'winter-op-de-grachten', 'koffie-en-city-challenge', 'spel-en-borrel', 'water-en-picknick', 'amelisweerd-actief'];
-const P_FEEST = ['boules-en-borrel', 'winterborrel', 'spel-en-borrel', 'warme-winterdag', 'amelisweerd-actief', 'water-naar-borrel'];
+const P_PERSONEEL = ['boules-en-borrel', 'winter-op-de-grachten', 'winterborrel', 'warme-winterdag', 'water-en-picknick', 'amelisweerd-actief'];
+const P_FAMILIE = ['dom-en-grachten', 'winter-op-de-grachten', 'schoolreis-basisschool', 'water-en-picknick', 'amelisweerd-actief'];
+const P_FEEST = ['boules-en-borrel', 'winterborrel', 'warme-winterdag', 'amelisweerd-actief', 'water-naar-borrel'];
 
 const P_RONDVAART = ['dom-en-grachten', 'winter-op-de-grachten', 'schoolreis-basisschool', 'schooluitje'];
-const P_WINTER = ['winter-op-de-grachten', 'warme-winterdag', 'winterborrel', 'vrijgezellen-winterdag'];
+const P_WINTER = ['winter-op-de-grachten', 'warme-winterdag', 'winterborrel'];
 
 /** De privé fluisterboot van Schuttevaer; groepsgrootte, duur en opstapplaats komen uit rondvaarten.ts. */
 const FLUISTERBOOT = RONDVAARTEN.find((r) => r.id === 'prive-fluisterboot')!;
@@ -131,7 +140,7 @@ export const LANDINGS: Record<LandingSleutel, Landing> = {
   bedrijfsuitje: {
     pad: '/bedrijfsuitje-utrecht',
     link: 'Bedrijfsuitje',
-    voorbeeld: 'spel-en-borrel',
+    voorbeeld: 'boules-en-borrel',
     kleur: 'zee',
     foto: fotos.boulesSpelers,
     galerij: [fotos.boules, fotos.kanoDuo, fotos.terrassen, fotos.borrel],
@@ -142,7 +151,7 @@ export const LANDINGS: Record<LandingSleutel, Landing> = {
       tekst: 'Alleen kickbikes huren voor het team, zonder lunch en borrel erbij?',
     },
     metaTitel: `Bedrijfsuitje Utrecht vanaf ${vanaf(P_BEDRIJF)} per persoon`,
-    metaOmschrijving: `Bedrijfsuitje in Utrecht met een vaste prijs per persoon: vanaf ${vanaf(P_BEDRIJF)} voor een ochtend, ${prijs('spel-en-borrel')} voor een hele dag. Vanaf ${REGELS.minPers} personen, inclusief btw.`,
+    metaOmschrijving: `Bedrijfsuitje in Utrecht met een vaste prijs per persoon: vanaf ${vanaf(P_BEDRIJF)} voor een middag, vanaf ${vanaf(P_HELE_DAG)} voor een hele dag. Vanaf ${REGELS.minPers} personen, inclusief btw.`,
     boven: 'Voor HR, teamleiders en personeelsverenigingen',
     titel: 'Bedrijfsuitje in Utrecht, zonder gedoe',
     intro:
@@ -156,12 +165,12 @@ export const LANDINGS: Record<LandingSleutel, Landing> = {
       },
       {
         kop: 'Wat het kost',
-        tekst: `Een hele dag begint bij ${prijs('spel-en-borrel')} per persoon voor Utrecht Spel & Borrel, inclusief koffie, lunch en borrel. Amelisweerd Actief kost ${prijs('amelisweerd-actief')} per persoon, inclusief picknick en BBQ met drankjes. Heeft het team maar een dagdeel? Boules & Borrel kost ${prijs('boules-en-borrel')} per persoon voor een middag, Koffie & City Challenge ${prijs('koffie-en-city-challenge')} voor een ochtend. Alle prijzen zijn inclusief btw, vanaf ${REGELS.minPers} personen.`,
+        tekst: `Een hele dag in de winter is de Warme Winterdag, voor ${prijs('warme-winterdag')} per persoon, met de Domtoren, lunch, jeu de boules en een glühwein-borrel. Amelisweerd Actief kost ${prijs('amelisweerd-actief')} per persoon, inclusief picknick en BBQ met drankjes. Heeft het team maar een dagdeel? Boules & Borrel kost ${prijs('boules-en-borrel')} per persoon voor een middag. Alle prijzen zijn inclusief btw, vanaf ${REGELS.minPers} personen.`,
       },
       {
         kop: 'Makkelijk bereikbaar',
         tekst:
-          'De dagen in het centrum beginnen bij JEU de boules bar aan Paardenveld, op vijf minuten lopen van Utrecht Centraal. Collega’s die met de trein komen zijn er dus zo, en wie eerder weg moet stapt net zo makkelijk weer in. Amelisweerd ligt aan de rand van de stad, bij Botenverhuur De Rijnstroom aan de Kromme Rijn.',
+          'Alles in het centrum ligt op loopafstand van Utrecht Centraal; JEU de boules bar aan Paardenveld is vijf minuten lopen. Collega’s die met de trein komen zijn er dus zo, en wie eerder weg moet stapt net zo makkelijk weer in. Amelisweerd ligt aan de rand van de stad, bij Botenverhuur De Rijnstroom aan de Kromme Rijn.',
       },
       {
         kop: 'Eén aanspreekpunt, één factuur',
@@ -183,7 +192,7 @@ export const LANDINGS: Record<LandingSleutel, Landing> = {
       GROTER,
       {
         q: 'Kunnen we alleen een middag doen?',
-        a: `Ja. Boules & Borrel is een middag van twee uur tot zes uur en kost ${prijs('boules-en-borrel')} per persoon. Koffie & City Challenge is een ochtend en kost ${prijs('koffie-en-city-challenge')} per persoon.`,
+        a: `Ja. Boules & Borrel is een middag van twee uur tot zes uur en kost ${prijs('boules-en-borrel')} per persoon. Van november tot en met maart is er ook de Winterborrel, voor ${prijs('winterborrel')} per persoon.`,
       },
       WEER,
       BEVESTIGING,
@@ -197,7 +206,7 @@ export const LANDINGS: Record<LandingSleutel, Landing> = {
     voorbeeld: 'boules-en-borrel',
     kleur: 'zon',
     foto: fotos.terrassen,
-    galerij: [fotos.boulesSpelers, fotos.koffie, fotos.oudegrachtDom, fotos.borrel],
+    galerij: [fotos.boulesSpelers, fotos.boulesBinnen, fotos.oudegrachtDom, fotos.borrel],
     band: ['Personeelsvereniging', 'Jeu de boules', 'City Challenge', 'Lunch', 'Borrel', 'Eén factuur'],
     metaTitel: `Personeelsuitje Utrecht vanaf ${vanaf(P_PERSONEEL)} per persoon`,
     metaOmschrijving: `Personeelsuitje in Utrecht voor jong en oud: boulen, City Challenge of kanoën, met lunch en borrel. Vanaf ${vanaf(P_PERSONEEL)} per persoon, vaste prijs incl. btw.`,
@@ -214,11 +223,11 @@ export const LANDINGS: Record<LandingSleutel, Landing> = {
       },
       {
         kop: 'Een middag na het werk',
-        tekst: `Boules & Borrel begint om twee uur met jeu de boules en bites en eindigt met een borrel tot zes uur. Dat kost ${prijs('boules-en-borrel')} per persoon, inclusief btw. Van november tot en met maart is er de Winterborrel met glühwein vooraf, voor ${prijs('winterborrel')} per persoon.`,
+        tekst: `Boules & Borrel begint om twee uur met jeu de boules en bites en eindigt met een borrel tot zes uur. Dat kost ${prijs('boules-en-borrel')} per persoon, inclusief btw. Van november tot en met maart is er de Winterborrel, die afsluit met een glühwein-borrel, voor ${prijs('winterborrel')} per persoon.`,
       },
       {
         kop: 'Of een hele dag',
-        tekst: `Utrecht Spel & Borrel duurt van half tien tot zes uur: koffie met gebak, jeu de boules, een groepslunch, shuffleboard en een borrel, allemaal binnen in het centrum. Het kost ${prijs('spel-en-borrel')} per persoon. In de winter is de Warme Winterdag met de Domtoren en een winterse lunch een goed alternatief, voor ${prijs('warme-winterdag')} per persoon.`,
+        tekst: `In de winter is er de Warme Winterdag: de Domtoren op, lunch van de kaart bij JEU de boules bar, jeu de boules en afsluiten met een glühwein-borrel, voor ${prijs('warme-winterdag')} per persoon. Van april tot en met oktober is Amelisweerd Actief een hele dag buiten, voor ${prijs('amelisweerd-actief')} per persoon.`,
       },
       {
         kop: 'Handig voor de personeelsvereniging',
@@ -269,7 +278,7 @@ export const LANDINGS: Record<LandingSleutel, Landing> = {
       },
       {
         kop: 'Wat het kost',
-        tekst: `Dom & Grachten kost ${prijs('dom-en-grachten')} per persoon voor een halve dag, Koffie & City Challenge ${prijs('koffie-en-city-challenge')} voor een ochtend. Een hele dag binnen in het centrum, Utrecht Spel & Borrel, kost ${prijs('spel-en-borrel')} per persoon. Van april tot en met oktober is er Amelisweerd Actief voor ${prijs('amelisweerd-actief')} per persoon. Alle prijzen zijn inclusief btw. De prijs is per persoon: in de samensteller telt iedereen die meedoet mee, ook kinderen.`,
+        tekst: `Dom & Grachten kost ${prijs('dom-en-grachten')} per persoon voor een halve dag. In de winter is er Winter op de Grachten, een rondvaart met lunch, voor ${prijs('winter-op-de-grachten')} per persoon. Van april tot en met oktober is er Amelisweerd Actief voor ${prijs('amelisweerd-actief')} per persoon. Alle prijzen zijn inclusief btw. De prijs is per persoon: in de samensteller telt iedereen die meedoet mee, ook kinderen.`,
       },
       {
         kop: 'Met jonge kinderen',
@@ -315,7 +324,7 @@ export const LANDINGS: Record<LandingSleutel, Landing> = {
     galerij: [fotos.kanoBrug, fotos.shuffleboard, fotos.kickbikePark, fotos.bbq],
     band: ['Samenwerken', 'Strijden', 'Peddelen', 'Steppen', 'Borrelen'],
     metaTitel: `Teambuilding Utrecht vanaf ${vanaf(P_TEAM)} per persoon`,
-    metaOmschrijving: `Teambuilding in Utrecht: City Challenge, jeu de boules, shuffleboard of kanoën. Vanaf ${vanaf(P_TEAM)} per persoon voor een dagdeel, ${prijs('spel-en-borrel')} voor een hele dag.`,
+    metaOmschrijving: `Teambuilding in Utrecht: City Challenge, jeu de boules, shuffleboard of kanoën. Vanaf ${vanaf(P_TEAM)} per persoon voor een dagdeel, vanaf ${vanaf(P_HELE_DAG)} voor een hele dag.`,
     boven: 'Samen spelen, samen peddelen',
     titel: 'Teambuilding in Utrecht',
     intro:
@@ -334,7 +343,7 @@ export const LANDINGS: Record<LandingSleutel, Landing> = {
       },
       {
         kop: 'De City Challenge',
-        tekst: `Met de City Challenge gaat het team in groepjes de binnenstad in, met opdrachten en vragen over de Dom, de werfkelders en de Oudegracht. Samen puzzelen, taken verdelen en aan het eind de uitslag. Met koffie en gebak vooraf is dat Koffie & City Challenge, voor ${prijs('koffie-en-city-challenge')} per persoon.`,
+        tekst: `Met de City Challenge gaat het team in groepjes de binnenstad in, met opdrachten en vragen over de Dom, de werfkelders en de Oudegracht. Samen puzzelen, taken verdelen en aan het eind de uitslag. Je voegt de City Challenge toe in de samensteller, voor ${blokPrijs('city-challenge')} per persoon.`,
       },
       {
         kop: 'Teamuitje of teambuilding?',
@@ -381,7 +390,7 @@ export const LANDINGS: Record<LandingSleutel, Landing> = {
       },
       {
         kop: 'Wat het kost',
-        tekst: `Boules & Borrel kost ${prijs('boules-en-borrel')} per persoon, de Winterborrel met glühwein vooraf ${prijs('winterborrel')}. Een hele dag met lunch, twee spellen en een borrel kost ${prijs('spel-en-borrel')} per persoon. Alle prijzen zijn inclusief btw.`,
+        tekst: `Boules & Borrel kost ${prijs('boules-en-borrel')} per persoon, de Winterborrel met een glühwein-borrel na het boulen ${prijs('winterborrel')}. Een hele winterdag met de Domtoren, lunch, jeu de boules en een glühwein-borrel kost ${prijs('warme-winterdag')} per persoon. Alle prijzen zijn inclusief btw.`,
       },
       {
         kop: 'In de zomer: BBQ aan het water',
@@ -417,7 +426,7 @@ export const LANDINGS: Record<LandingSleutel, Landing> = {
   bedrijfsevenement: {
     pad: '/bedrijfsevenement-utrecht',
     link: 'Bedrijfsevenement',
-    voorbeeld: 'spel-en-borrel',
+    voorbeeld: 'boules-en-borrel',
     kleur: 'zee',
     foto: fotos.shuffleboard,
     galerij: [fotos.boulesSpelers, fotos.terrassen, fotos.borrel, fotos.grachtAvond],
@@ -437,12 +446,12 @@ export const LANDINGS: Record<LandingSleutel, Landing> = {
       },
       {
         kop: 'Het programma',
-        tekst: `Een hele dag ziet er zo uit: koffie bij aankomst, jeu de boules op de overdekte banen van JEU, een lunch, shuffleboard in The Grand Shuffle en afsluiten met een borrel. Dat is Utrecht Spel & Borrel, voor ${prijs('spel-en-borrel')} per persoon. Een middag met jeu de boules en een borrel kost ${prijs('boules-en-borrel')} per persoon. Alle prijzen zijn inclusief btw.`,
+        tekst: `Een middag met jeu de boules op de overdekte banen van JEU en een borrel kost ${prijs('boules-en-borrel')} per persoon. In de winter duurt de Warme Winterdag de hele dag: de Domtoren op, lunch van de kaart, jeu de boules en afsluiten met een glühwein-borrel, voor ${prijs('warme-winterdag')} per persoon. Alle prijzen zijn inclusief btw.`,
       },
       {
         kop: 'Midden in de stad',
         tekst:
-          'De dagen in het centrum beginnen aan Paardenveld, op vijf minuten lopen van Utrecht Centraal. Collega’s uit het hele land zijn er dus makkelijk, en na afloop zit je meteen in de binnenstad. In de zomer kan het evenement ook buiten, met kanoën en een BBQ in Amelisweerd.',
+          'Alles in het centrum ligt op loopafstand van Utrecht Centraal; Paardenveld is vijf minuten lopen. Collega’s uit het hele land zijn er dus makkelijk, en na afloop zit je meteen in de binnenstad. In de zomer kan het evenement ook buiten, met kanoën en een BBQ in Amelisweerd.',
       },
       {
         kop: 'Met de hele organisatie',
@@ -498,11 +507,11 @@ export const LANDINGS: Record<LandingSleutel, Landing> = {
       {
         kop: 'Liever iets actiefs?',
         tekst:
-          'Vervang in de samensteller de rondvaart door jeu de boules, shuffleboard of de City Challenge.',
+          'Vervang in de samensteller de rondvaart door de City Challenge: in teams te voet door de binnenstad.',
       },
       {
         kop: 'Een halve dag of een kleiner budget',
-        tekst: `Dom & Grachten is een halve dag met de Domtoren en een rondvaart, voor ${prijs('dom-en-grachten')} per leerling. Het goedkoopst is Koffie & City Challenge: een ochtend in teams door de binnenstad voor ${prijs('koffie-en-city-challenge')} per persoon.`,
+        tekst: `Dom & Grachten is een halve dag met de Domtoren en een rondvaart, voor ${prijs('dom-en-grachten')} per leerling. Alleen de City Challenge kan ook: een dagdeel in teams door de binnenstad voor ${blokPrijs('city-challenge')} per persoon, in de samensteller.`,
       },
       {
         kop: 'Wat leerlingen zien',
@@ -560,11 +569,11 @@ export const LANDINGS: Record<LandingSleutel, Landing> = {
       {
         kop: 'Slecht weer voorspeld?',
         tekst:
-          'Kies dan Utrecht Spel & Borrel: jeu de boules, lunch, shuffleboard en borrel, helemaal binnen in het centrum.',
+          'Kies dan Boules & Borrel: jeu de boules op overdekte banen en een borrel, helemaal binnen in het centrum.',
       },
       {
         kop: 'In de winter',
-        tekst: `Suppen en kanoën kan van april tot en met oktober. Daarbuiten is er de Vrijgezellen Winterdag: glühwein, shuffleboard, een warme lunch en een borrel, helemaal binnen. Die kost ${prijs('vrijgezellen-winterdag')} per persoon, precies evenveel als het zomerpakket.`,
+        tekst: `Suppen en kanoën kan van april tot en met oktober. Daarbuiten is er de Winterborrel: jeu de boules op overdekte banen en afsluiten met een glühwein-borrel, helemaal binnen. Die kost ${prijs('winterborrel')} per persoon.`,
       },
       {
         kop: 'Alleen een middag',
@@ -641,7 +650,7 @@ export const LANDINGS: Record<LandingSleutel, Landing> = {
       },
       {
         kop: 'Varen als onderdeel van de dag',
-        tekst: `In onze pakketten is de rondvaart een vast onderdeel met een vaste prijs per persoon. Dom & Grachten combineert de Domtoren met een uur varen, voor ${prijs('dom-en-grachten')} per persoon. Van ${WINTERMAANDEN} is er Winter op de Grachten: glühwein, de rondvaart en een winterse lunch, voor ${prijs('winter-op-de-grachten')} per persoon. In de samensteller zet je de rondvaart naast jeu de boules, een lunch of een borrel.`,
+        tekst: `In onze pakketten is de rondvaart een vast onderdeel met een vaste prijs per persoon. Dom & Grachten combineert de Domtoren met een uur varen, voor ${prijs('dom-en-grachten')} per persoon. Van ${WINTERMAANDEN} is er Winter op de Grachten: de rondvaart en daarna lunch van de kaart, voor ${prijs('winter-op-de-grachten')} per persoon. In de samensteller zet je de rondvaart naast jeu de boules, een lunch of een borrel.`,
       },
       {
         kop: 'Varen met het bedrijf',
@@ -716,23 +725,23 @@ export const LANDINGS: Record<LandingSleutel, Landing> = {
     voorbeeld: 'warme-winterdag',
     kleur: 'zee',
     foto: fotos.winterUtrecht,
-    galerij: [fotos.gluhwein, fotos.boulesBinnen, fotos.erwtensoep, fotos.chocomel],
-    band: ['Glühwein', 'Kerstuitje', 'Rondvaart', 'Jeu de boules binnen', 'Erwtensoep', 'Borrel'],
+    galerij: [fotos.gluhwein, fotos.boulesBinnen, fotos.borrel, fotos.chocomel],
+    band: ['Glühwein', 'Kerstuitje', 'Rondvaart', 'Jeu de boules binnen', 'Domtoren', 'Borrel'],
     metaTitel: `Winteruitje en kerstuitje Utrecht vanaf ${vanaf(P_WINTER)} p.p.`,
     metaOmschrijving: `Winteruitje of kerstuitje in Utrecht met je bedrijf of team: glühwein, rondvaart, jeu de boules binnen en een borrel. Van ${WINTERMAANDEN}, vanaf ${vanaf(P_WINTER)} p.p.`,
     boven: `Van ${WINTERMAANDEN}`,
     titel: 'Winteruitje in Utrecht',
     intro:
-      'Opwarmen met glühwein, de stad zien vanaf het water of de Domtoren, een stevige winterlunch en jeu de boules binnen. Vaste pakketten met een vaste prijs per persoon, voor het bedrijf, het team of de vrienden.',
+      'De stad zien vanaf het water of de Domtoren, lunchen van de kaart, jeu de boules binnen en afsluiten met glühwein. Vaste pakketten met een vaste prijs per persoon, voor het bedrijf, het team of de vrienden.',
     pakketten: P_WINTER,
     alineas: [
       {
         kop: 'Gemaakt voor de winter',
-        tekst: `De winterpakketten zijn er van ${WINTERMAANDEN}. Ze beginnen allemaal met glühwein of warme chocolademelk bij JEU de boules bar aan Paardenveld, op vijf minuten lopen van Utrecht Centraal. De meeste onderdelen zijn binnen, dus een koude of natte dag maakt weinig uit.`,
+        tekst: `De winterpakketten zijn er van ${WINTERMAANDEN}. Ze komen allemaal uit bij JEU de boules bar aan Paardenveld, op vijf minuten lopen van Utrecht Centraal, voor de lunch of een glühwein-borrel. De meeste onderdelen zijn binnen, dus een koude of natte dag maakt weinig uit.`,
       },
       {
-        kop: 'Vier pakketten',
-        tekst: `Winter op de Grachten is een halve dag met glühwein, een rondvaart met Schuttevaer en een winterse lunch, voor ${prijs('winter-op-de-grachten')} per persoon. De Winterborrel is een middag met glühwein, jeu de boules en een borrel, voor ${prijs('winterborrel')}. De Warme Winterdag duurt de hele dag, met de Domtoren, een winterlunch, jeu de boules en een borrel, voor ${prijs('warme-winterdag')}. Voor vrijgezellen is er de Vrijgezellen Winterdag met shuffleboard, voor ${prijs('vrijgezellen-winterdag')}.`,
+        kop: 'Drie pakketten',
+        tekst: `Winter op de Grachten is een halve dag met een rondvaart met Schuttevaer en daarna lunch van de kaart, voor ${prijs('winter-op-de-grachten')} per persoon. De Winterborrel is een middag met jeu de boules en een glühwein-borrel, voor ${prijs('winterborrel')}. De Warme Winterdag duurt de hele dag, met de Domtoren, lunch van de kaart, jeu de boules en een glühwein-borrel, voor ${prijs('warme-winterdag')}.`,
       },
       {
         kop: 'Als kerstuitje of eindejaarsborrel',
@@ -745,9 +754,9 @@ export const LANDINGS: Record<LandingSleutel, Landing> = {
           'Je ziet de prijs per persoon vooraf, inclusief btw, en de factuur staat op naam van het bedrijf. Tot een week voor de datum kan het aantal deelnemers nog veranderen. Wij reserveren alles bij onze partners, op de dag zelf is Ger jullie aanspreekpunt.',
       },
       {
-        kop: 'Een stevige lunch',
+        kop: 'Lunch van de kaart',
         tekst:
-          'De winterse lunch is Hollands: erwtensoep of stamppot, met een vegetarische keuze. Andere dieetwensen geef je door bij het boeken.',
+          'De lunch is bij JEU de boules bar aan Paardenveld: iedereen kiest van de kaart, met een drankje erbij. Dieetwensen geef je door bij het boeken.',
       },
     ],
     verwijzing: {
@@ -762,7 +771,7 @@ export const LANDINGS: Record<LandingSleutel, Landing> = {
     faq: [
       {
         q: 'Wanneer kan een winteruitje?',
-        a: `De winterpakketten zijn te boeken van ${WINTERMAANDEN}, op donderdag, vrijdag en zaterdag, minimaal ${REGELS.minDagenVooruit} dagen vooruit.`,
+        a: `De winterpakketten zijn te boeken van ${WINTERMAANDEN}, op zaterdag, minimaal ${REGELS.minDagenVooruit} dagen vooruit. JEU de boules bar, waar de lunch, het boulen en de borrel zijn, gaat op donderdag en vrijdag pas om 15:00 open.`,
       },
       {
         q: 'Wat kost een winteruitje in Utrecht?',
@@ -770,11 +779,11 @@ export const LANDINGS: Record<LandingSleutel, Landing> = {
       },
       {
         q: 'Kan het ook als kerstuitje in december?',
-        a: 'Ja. Alle winterpakketten kunnen in december, op donderdag, vrijdag en zaterdag.',
+        a: 'Ja. Alle winterpakketten kunnen in december, op zaterdag.',
       },
       {
         q: 'Is er ook iets zonder alcohol?',
-        a: 'Ja. Bij de ontvangst kan iedereen kiezen tussen glühwein en warme chocolademelk.',
+        a: 'Ja. Bij de glühwein-borrel kan iedereen kiezen tussen glühwein en warme chocolademelk.',
       },
       {
         q: 'Gaat het door bij sneeuw of regen?',

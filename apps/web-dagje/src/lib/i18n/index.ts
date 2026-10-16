@@ -131,6 +131,13 @@ export function formulierNamen(taal: Vertaald): FormulierNamen {
     onderweg: a.onderweg,
     maanden: a.maanden,
     maandenSjabloon: a.maandenSjabloon,
+    // 4 januari 2026 is een zondag; zo staat index 0 voor zondag, net als getUTCDay().
+    dagen: Array.from({ length: 7 }, (_, i) =>
+      new Date(Date.UTC(2026, 0, 4 + i, 12)).toLocaleDateString(taal === 'de' ? 'de-DE' : 'en-GB', {
+        weekday: 'long',
+        timeZone: 'UTC',
+      }),
+    ),
   };
 }
 

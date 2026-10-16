@@ -77,7 +77,7 @@ export function fotoVoorBlog(post: { slug: string; title: string; heroImage?: st
 export const FOTO_PER_BOUWSTEEN: Record<string, Foto> = {
   'koffie-met-gebak': fotos.koffie,
   gluhwein: fotos.gluhwein,
-  winterlunch: fotos.erwtensoep,
+  winterlunch: fotos.terrassen, // 16-10-2026: was erwtensoep; zelfde foto als groepslunch
   'jeu-de-boules': fotos.boulesBinnen,
   shuffleboard: fotos.shuffleboard,
   domtoren: fotos.domtoren,
@@ -176,18 +176,6 @@ export const FOTO_BRONNEN = [
     maker: 'Personal Creations',
     licentie: 'CC BY 2.0',
     bron: 'https://commons.wikimedia.org/wiki/File:Hot_cocoa_in_a_mug_with_a_hand_sprinkling_chili_pepper_flakes_onto_the_whipped_cream_(15852162626).jpg',
-  },
-  {
-    foto: fotos.stamppot,
-    maker: 'Amin',
-    licentie: 'CC BY-SA 4.0',
-    bron: 'https://commons.wikimedia.org/wiki/File:Boerenkool_met_worst.jpg',
-  },
-  {
-    foto: fotos.erwtensoep,
-    maker: 'Takeaway',
-    licentie: 'CC BY-SA 3.0',
-    bron: 'https://commons.wikimedia.org/wiki/File:Erwtensoep_roggebrood_katenspek.jpg',
   },
   {
     foto: fotos.winterUtrecht,

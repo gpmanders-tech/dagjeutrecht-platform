@@ -17,7 +17,7 @@ import {
   TIJDVAKKEN,
   formatDatum,
   formatEuro,
-  vindBouwsteen,
+  vindBouwsteenOokOffline as vindBouwsteen,
   type LeverancierId,
   type TijdvakId,
 } from './aanbod';

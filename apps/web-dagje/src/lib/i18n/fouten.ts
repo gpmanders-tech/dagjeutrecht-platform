@@ -35,6 +35,13 @@ export function foutTekstMet(
         blok: blok(f.blok),
         maanden: maandenIn(namen.maanden, namen.maandenSjabloon, f.seizoen),
       });
+    case 'gesloten': {
+      const anders =
+        f.andereDag !== null ? vul(fouten['gesloten-anders'], { dag: namen.dagen[f.andereDag] ?? '' }) : '';
+      return f.tijd
+        ? vul(fouten.gesloten, { blok: blok(f.blok), dag: namen.dagen[f.dag] ?? '', tijd: f.tijd, anders })
+        : vul(fouten['gesloten-dag'], { blok: blok(f.blok), dag: namen.dagen[f.dag] ?? '', anders });
+    }
     case 'kickbike-nodig':
       return vul(fouten[f.code], { van: namen.clusters[f.van], naar: namen.clusters[f.naar] });
     default:
