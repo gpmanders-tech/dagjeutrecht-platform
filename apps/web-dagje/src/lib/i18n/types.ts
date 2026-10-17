@@ -123,6 +123,12 @@ export type FormulierTekst = {
     'aantal-blok': string;
     /** {blok} {maanden} */
     seizoen: string;
+    /** {blok} {dag} {tijd} {anders} */
+    gesloten: string;
+    /** {blok} {dag} {anders}: locatie is die dag helemaal dicht */
+    'gesloten-dag': string;
+    /** {dag}: achter gesloten, als het op een andere boekingsdag wel kan */
+    'gesloten-anders': string;
     /** {van} {naar} */
     'kickbike-nodig': string;
     'te-veel-wissels': string;
@@ -143,6 +149,8 @@ export type FormulierNamen = {
   maanden: string[];
   /** Sjabloon met {van} en {tot}, bijvoorbeeld "{van} to {tot}". */
   maandenSjabloon: string;
+  /** Weekdagnamen midden in een zin, 0 = zondag. */
+  dagen: string[];
 };
 
 export type { Foto };

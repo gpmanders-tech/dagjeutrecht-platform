@@ -90,6 +90,14 @@ export type Bouwsteen = {
   seizoen?: Maanden;
   prijsBevestigd: boolean;
   inclusief: string[];
+  /**
+   * Openingstijden van de locatie per weekdag (0 = zondag ... 6 = zaterdag), als 'HH:MM'.
+   * Ontbreekt een dag terwijl het veld er is, dan is de locatie die dag dicht.
+   * Geen veld = geen beperking bekend.
+   */
+  openVanaf?: Partial<Record<number, string>>;
+  /** Reden waarom het blok niet te boeken is. Gezet = niet op de site en niet te boeken. */
+  offline?: string;
 };
 
 /**
@@ -128,7 +136,13 @@ function blok(b: Omit<Bouwsteen, 'verkoopCents'> & { verkoopCentsVast?: number }
   return { ...rest, verkoopCents: verkoopCentsVast ?? verkoop(rest.inkoopCents) };
 }
 
-export const BOUWSTENEN: Bouwsteen[] = [
+/** Openingstijden JEU de boules bar, Paardenveld (maandag alleen op aanvraag). */
+const OPEN_JEU: Partial<Record<number, string>> = { 4: '15:00', 5: '15:00', 6: '12:00' };
+/** Openingstijden The Grand Shuffle. */
+const OPEN_SHUFFLE: Partial<Record<number, string>> = { 4: '16:00', 5: '16:00', 6: '14:00' };
+
+/** Alle bouwstenen, ook die offline staan. Gebruik BOUWSTENEN voor wat te boeken is. */
+export const ALLE_BOUWSTENEN: Bouwsteen[] = [
   // ============== Centrum ==============
   blok({
     slug: 'koffie-met-gebak',
@@ -148,6 +162,8 @@ export const BOUWSTENEN: Bouwsteen[] = [
     maxPers: 40,
     prijsBevestigd: false,
     inclusief: ['koffie of thee', 'gebak'],
+    openVanaf: OPEN_JEU,
+    offline: "JEU de boules bar is 's ochtends dicht (16-10-2026)",
   }),
   blok({
     slug: 'jeu-de-boules',
@@ -159,7 +175,7 @@ export const BOUWSTENEN: Bouwsteen[] = [
     cluster: 'centrum',
     leverancier: 'BHG',
     locatie: 'JEU de boules bar, Paardenveld',
-    tijdvakken: ['ochtend', 'middag'],
+    tijdvakken: ['middag'], // geen ochtend: JEU opent op do/vr/za pas om 15:00/15:00/12:00,
     duur: '1 uur',
     // JEU 5-10-2026: boules-bites-borrel 1 uur 23,44 excl. btw p.p. (2 uur 37,79; 1,5 uur kan niet). Ca. 28,50 incl., verdeeld: 19 boules met bites, 9,50 borrel
     inkoopCents: 1900,
@@ -167,6 +183,7 @@ export const BOUWSTENEN: Bouwsteen[] = [
     maxPers: 40,
     prijsBevestigd: true,
     inclusief: ['baanhuur', 'uitleg', 'bites'],
+    openVanaf: OPEN_JEU,
   }),
   blok({
     slug: 'shuffleboard',
@@ -178,7 +195,7 @@ export const BOUWSTENEN: Bouwsteen[] = [
     cluster: 'centrum',
     leverancier: 'BHG',
     locatie: 'The Grand Shuffle, centrum Utrecht',
-    tijdvakken: ['ochtend', 'middag'],
+    tijdvakken: ['middag'], // geen ochtend: The Grand Shuffle opent op do/vr/za pas om 16:00/16:00/14:00,
     duur: '1 uur',
     // thegrandshuffle.nl 15-10-2026: Bronze 1 uur 24,50 p.p. incl. (cava, charcuterie), 2 uur 35,50; groepen vanaf 20
     inkoopCents: 2450,
@@ -186,6 +203,7 @@ export const BOUWSTENEN: Bouwsteen[] = [
     maxPers: 40,
     prijsBevestigd: false,
     inclusief: ['banen', 'uitleg'],
+    openVanaf: OPEN_SHUFFLE,
   }),
   blok({
     slug: 'domtoren',
@@ -243,6 +261,7 @@ export const BOUWSTENEN: Bouwsteen[] = [
     maxPers: 40,
     prijsBevestigd: false,
     inclusief: ['vast lunchmenu', 'frisdrank of koffie'],
+    // Geen openVanaf: welke BHG-zaak het wordt en hoe laat die opengaat, nog navragen bij BHG.
   }),
   blok({
     slug: 'borrel',
@@ -261,48 +280,52 @@ export const BOUWSTENEN: Bouwsteen[] = [
     maxPers: 40,
     prijsBevestigd: true,
     inclusief: ['2 drankjes p.p.', 'bitterballen'],
+    openVanaf: OPEN_JEU,
   }),
 
   // ============== Winter (centrum) ==============
   blok({
     slug: 'gluhwein',
-    naam: 'Ontvangst met glühwein',
-    kort: 'Opwarmen met glühwein of warme chocolademelk.',
+    naam: 'Glühwein-borrel',
+    kort: 'Afsluiten met glühwein of warme chocomel en een borrel.',
     beschrijving:
-      'De groep verzamelt bij JEU de boules bar aan Paardenveld. Iedereen krijgt een glühwein of warme chocolademelk met iets lekkers erbij.',
+      'De dag afsluiten bij JEU de boules bar aan Paardenveld. Iedereen krijgt eerst een glühwein of warme chocolademelk, daarna twee drankjes per persoon met bitterballen.',
     emoji: '🍷',
     cluster: 'centrum',
     leverancier: 'BHG',
     locatie: 'JEU de boules bar, Paardenveld',
-    tijdvakken: ['ontvangst'],
-    duur: '30 min',
-    // JEU 5-10-2026: 6,00 p.p. (excl. btw), chocomel 4,50
-    inkoopCents: 750,
+    tijdvakken: ['afsluiting'],
+    duur: '1 uur',
+    // 16-10-2026 van ontvangst naar afsluiting. Inkoop = bevestigde glühwein 7,50
+    // (JEU 5-10-2026: 6,00 excl. btw, chocomel 4,50) + bevestigde borrel 9,50
+    inkoopCents: 1700,
     minPers: 8,
     maxPers: 40,
     seizoen: WINTER,
     prijsBevestigd: true,
-    inclusief: ['glühwein of warme chocolademelk', 'iets lekkers'],
+    inclusief: ['glühwein of warme chocolademelk', '2 drankjes p.p.', 'bitterballen'],
+    openVanaf: OPEN_JEU,
   }),
   blok({
     slug: 'winterlunch',
-    naam: 'Winterse lunch',
-    kort: 'Erwtensoep of stamppot, ook vegetarisch.',
+    naam: 'Lunch van de kaart',
+    kort: 'Lunch van de kaart bij JEU de boules bar.',
     beschrijving:
-      'Een stevige Hollandse winterlunch bij een van de zaken van Brothers Horeca Groep: erwtensoep of stamppot, met een vegetarische keuze.',
+      'Lunchen bij JEU de boules bar aan Paardenveld. Iedereen kiest een gerecht van de kaart, met een drankje erbij. Dieetwensen geef je door bij het boeken.',
     emoji: '🥣',
     cluster: 'centrum',
     leverancier: 'BHG',
-    locatie: 'BHG-locatie in het centrum',
+    locatie: 'JEU de boules bar, Paardenveld',
     tijdvakken: ['lunch'],
     duur: '1 uur',
-    // 15-10-2026 schatting omhoog (was 17,50), gevraagd aan JEU (H6IM1N)
-    inkoopCents: 2250,
+    // richtprijs, gevraagd aan JEU 19-10-2026 (H6IM1N)
+    inkoopCents: 1800,
     minPers: 8,
     maxPers: 40,
     seizoen: WINTER,
     prijsBevestigd: false,
-    inclusief: ['erwtensoep of stamppot', 'frisdrank of koffie'],
+    inclusief: ['lunch van de kaart', 'frisdrank of koffie'],
+    openVanaf: OPEN_JEU,
   }),
 
   blok({
@@ -425,6 +448,9 @@ export const BOUWSTENEN: Bouwsteen[] = [
   }),
 ];
 
+/** De bouwstenen die te boeken zijn (niet offline). */
+export const BOUWSTENEN: Bouwsteen[] = ALLE_BOUWSTENEN.filter((b) => !b.offline);
+
 export type Pakket = {
   slug: string;
   /** Zomer- en winterpakketten worden in hun seizoen uitgelicht. */
@@ -437,25 +463,27 @@ export type Pakket = {
   blokken: Partial<Record<TijdvakId, string>>;
   /** Vaste pakketprijs p.p. (Ger), in plaats van de som van de onderdelen. */
   prijsCentsVast?: number;
+  /** Reden waarom het pakket niet te boeken is. Gezet = niet op de site en niet te boeken. */
+  offline?: string;
 };
 
-export const PAKKETTEN: Pakket[] = [
+/** Alle pakketten, ook die offline staan. Gebruik PAKKETTEN voor wat te boeken is. */
+export const ALLE_PAKKETTEN: Pakket[] = [
   {
     slug: 'warme-winterdag',
     seizoen: 'winter',
     naam: 'Warme Winterdag',
-    kort: 'Glühwein, Domtoren, winterse lunch, jeu de boules en borrel.',
+    kort: 'Domtoren, lunch van de kaart, jeu de boules en een glühwein-borrel.',
     beschrijving:
-      'Een winterdag in het centrum van Utrecht, grotendeels binnen. Opwarmen met glühwein, de stad zien vanaf de Domtoren, erwtensoep of stamppot en daarna boulen tot de borrel.',
+      'Een winterdag in het centrum van Utrecht, grotendeels binnen. De stad zien vanaf de Domtoren, lunchen van de kaart bij JEU de boules bar, boulen op de overdekte banen en afsluiten met een glühwein-borrel.',
     emoji: '❄️',
     voorWie: 'Bedrijfsuitjes, teams en vriendengroepen',
     prijsCentsVast: 9900, // vaste prijs Ger 15-10-2026
     blokken: {
-      ontvangst: 'gluhwein',
       ochtend: 'domtoren',
       lunch: 'winterlunch',
       middag: 'jeu-de-boules',
-      afsluiting: 'borrel',
+      afsluiting: 'gluhwein',
     },
   },
   {
@@ -478,6 +506,7 @@ export const PAKKETTEN: Pakket[] = [
       'De hele dag binnen spelen en genieten in het centrum, dus weerbestendig. Alles op loopafstand van Utrecht Centraal.',
     emoji: '🎯',
     voorWie: 'Bedrijfsuitjes en teambuilding, het hele jaar',
+    offline: "JEU de boules bar is 's ochtends dicht en koffie met gebak staat offline (16-10-2026)",
     blokken: {
       ontvangst: 'koffie-met-gebak',
       ochtend: 'jeu-de-boules',
@@ -514,6 +543,8 @@ export const PAKKETTEN: Pakket[] = [
   // of een kleiner budget heeft, kon tot nu toe niets boeken. De vanafprijs zakt
   // hiermee van 78 naar 29 euro, waarmee we in dezelfde vergelijking staan als de
   // uitjesbureaus die met bedragen vanaf 20 tot 30 euro adverteren.
+  // 16-10-2026: Koffie & City Challenge staat offline (JEU 's ochtends dicht); de
+  // vanafprijs op de site komt nu van het goedkoopste pakket dat wel online staat.
   {
     slug: 'boules-en-borrel',
     seizoen: 'jaarrond',
@@ -552,23 +583,23 @@ export const PAKKETTEN: Pakket[] = [
     slug: 'winter-op-de-grachten',
     seizoen: 'winter',
     naam: 'Winter op de Grachten',
-    kort: 'Halve dag: glühwein, een rondvaart met Schuttevaer en een winterse lunch.',
+    kort: 'Halve dag: een rondvaart met Schuttevaer en lunch van de kaart.',
     beschrijving:
-      'Utrecht in de winter vanaf het water. Opwarmen met glühwein bij JEU de boules bar, dan een uur met Rederij Schuttevaer over de Oudegracht en de singels, en afsluiten met erwtensoep of stamppot. Om half twee is iedereen weer vrij.',
+      'Utrecht in de winter vanaf het water. Een uur met Rederij Schuttevaer over de Oudegracht en de singels, en daarna lunchen van de kaart bij JEU de boules bar aan Paardenveld. Om half twee is iedereen weer vrij.',
     emoji: '⛴️',
     voorWie: 'Bedrijfsuitjes, teams en families, van november tot en met maart',
-    blokken: { ontvangst: 'gluhwein', ochtend: 'rondvaart', lunch: 'winterlunch' },
+    blokken: { ochtend: 'rondvaart', lunch: 'winterlunch' },
   },
   {
     slug: 'winterborrel',
     seizoen: 'winter',
     naam: 'Winterborrel',
-    kort: 'Halve dag: glühwein, jeu de boules binnen en een borrel.',
+    kort: 'Halve dag: jeu de boules binnen en een glühwein-borrel.',
     beschrijving:
-      'Een winterse middag die niet afhankelijk is van het weer: binnenkomen met glühwein, boulen op de overdekte banen en afsluiten met een borrel. Alles binnen, alles in het centrum.',
+      'Een winterse middag die niet afhankelijk is van het weer: boulen op de overdekte banen van JEU de boules bar en afsluiten met een glühwein-borrel. Alles binnen, alles in het centrum.',
     emoji: '🔥',
     voorWie: 'Teams en vriendengroepen, van november tot en met maart',
-    blokken: { ontvangst: 'gluhwein', middag: 'jeu-de-boules', afsluiting: 'borrel' },
+    blokken: { middag: 'jeu-de-boules', afsluiting: 'gluhwein' },
   },
   {
     slug: 'koffie-en-city-challenge',
@@ -579,6 +610,7 @@ export const PAKKETTEN: Pakket[] = [
       'De goedkoopste manier om met een groep iets samen te doen in Utrecht. Om half tien koffie met gebak bij JEU de boules bar, om tien uur in teams de binnenstad in met de City Challenge, rond twaalf uur klaar. Geen reserveringen bij derden, dus ook op korte termijn te regelen.',
     emoji: '☕',
     voorWie: 'Teams, klassen en vriendengroepen met een ochtend en een klein budget',
+    offline: "Koffie met gebak staat offline: JEU de boules bar is 's ochtends dicht (16-10-2026)",
     blokken: { ontvangst: 'koffie-met-gebak', ochtend: 'city-challenge' },
   },
   // ============== School ==============
@@ -608,6 +640,7 @@ export const PAKKETTEN: Pakket[] = [
     emoji: '🎉',
     voorWie: 'Vrijgezellenfeesten en vriendengroepen, van november tot en met maart',
     prijsCentsVast: 8900, // vaste prijs Ger 15-10-2026
+    offline: "The Grand Shuffle en JEU de boules bar zijn 's ochtends dicht (16-10-2026)",
     blokken: {
       ontvangst: 'gluhwein',
       ochtend: 'shuffleboard',
@@ -616,6 +649,9 @@ export const PAKKETTEN: Pakket[] = [
     },
   },
 ];
+
+/** De pakketten die te boeken zijn (niet offline). */
+export const PAKKETTEN: Pakket[] = ALLE_PAKKETTEN.filter((p) => !p.offline);
 
 // ============== Spelregels ==============
 
@@ -667,6 +703,33 @@ export function vindBouwsteen(slug: string | undefined | null) {
 
 export function vindPakket(slug: string | undefined | null) {
   return slug ? PAKKETTEN.find((p) => p.slug === slug) ?? null : null;
+}
+
+/**
+ * Ook offline bouwstenen, voor bestaande boekingen en inkooporders (naam en locatie
+ * blijven dan zichtbaar). Niet gebruiken voor wat klanten kunnen kiezen.
+ */
+export function vindBouwsteenOokOffline(slug: string | undefined | null) {
+  return slug ? ALLE_BOUWSTENEN.find((b) => b.slug === slug) ?? null : null;
+}
+
+/** De openingstijd van de locatie op een weekdag; null = die dag dicht, undefined = geen beperking bekend. */
+export function openingstijd(b: Bouwsteen, dag: number): string | null | undefined {
+  if (!b.openVanaf) return undefined;
+  return b.openVanaf[dag] ?? null;
+}
+
+/** Is de locatie open bij het begin van het tijdvak op deze weekdag? */
+export function openOp(b: Bouwsteen, tijdvak: TijdvakId, dag: number) {
+  const open = openingstijd(b, dag);
+  if (open === undefined) return true;
+  const van = TIJDVAKKEN.find((t) => t.id === tijdvak)!.van;
+  return open !== null && open <= van;
+}
+
+/** Kan het blok in dit tijdvak op minstens een van de boekingsdagen? */
+export function openOpEenDag(b: Bouwsteen, tijdvak: TijdvakId) {
+  return REGELS.dagen.some((d) => openOp(b, tijdvak, d));
 }
 
 export type Keuze = {
@@ -722,6 +785,8 @@ export type KeuzeFout =
   | { code: 'verkeerd-tijdvak'; blok: string; tijdvak: TijdvakId }
   | { code: 'aantal-blok'; blok: string; min: number; max: number }
   | { code: 'seizoen'; blok: string; seizoen: Maanden }
+  /** Locatie nog dicht bij het begin van het tijdvak. tijd = openingstijd die dag (null = hele dag dicht); andereDag = boekingsdag waarop het wel kan. */
+  | { code: 'gesloten'; blok: string; tijdvak: TijdvakId; dag: number; tijd: string | null; andereDag: number | null }
   | { code: 'kickbike-nodig'; van: Exclude<Cluster, 'beide'>; naar: Exclude<Cluster, 'beide'> }
   | { code: 'te-veel-wissels' };
 
@@ -767,7 +832,20 @@ export function controleerKeuze(keuze: Keuze): KeuzeFout[] {
   }
 
   const maand = Number(keuze.datum.slice(5, 7));
+  const weekdag = /^\d{4}-\d{2}-\d{2}$/.test(keuze.datum)
+    ? new Date(`${keuze.datum}T12:00:00Z`).getUTCDay()
+    : null;
   for (const { tijdvak, blok } of gekozen) {
+    if (weekdag !== null && REGELS.dagen.includes(weekdag) && !openOp(blok, tijdvak.id, weekdag)) {
+      fouten.push({
+        code: 'gesloten',
+        blok: blok.slug,
+        tijdvak: tijdvak.id,
+        dag: weekdag,
+        tijd: openingstijd(blok, weekdag) ?? null,
+        andereDag: REGELS.dagen.find((d) => d !== weekdag && openOp(blok, tijdvak.id, d)) ?? null,
+      });
+    }
     if (!blok.tijdvakken.includes(tijdvak.id)) {
       fouten.push({ code: 'verkeerd-tijdvak', blok: blok.slug, tijdvak: tijdvak.id });
     }
@@ -827,6 +905,15 @@ function foutTekst(f: KeuzeFout): string {
       return `${naam(f.blok)} kan met ${f.min} tot ${f.max} personen.`;
     case 'seizoen':
       return `${naam(f.blok)} is alleen mogelijk van ${maandenTekst(f.seizoen)}.`;
+    case 'gesloten': {
+      const blok = vindBouwsteenOokOffline(f.blok);
+      const wie = blok ? `${blok.naam} (${blok.locatie})` : f.blok;
+      const dicht = f.tijd
+        ? `${wie} is op ${DAGNAMEN[f.dag]} pas open vanaf ${f.tijd}`
+        : `${wie} is op ${DAGNAMEN[f.dag]} dicht`;
+      const anders = f.andereDag !== null ? ` of een ${DAGNAMEN[f.andereDag]}` : '';
+      return `${dicht}; kies een later tijdvak${anders}.`;
+    }
     case 'kickbike-nodig':
       return `Van ${CLUSTERS[f.van].naam} naar ${CLUSTERS[f.naar].naam} gaat met de kickbike: kies de kickbike-tocht als tussenstap.`;
     case 'te-veel-wissels':

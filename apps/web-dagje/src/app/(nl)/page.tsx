@@ -131,7 +131,7 @@ const HOME_FAQ = [
   },
   {
     q: 'Wat als het slecht weer is?',
-    a: 'Jeu de boules, shuffleboard, de lunch en de borrel zijn binnen. Utrecht Spel & Borrel is een hele dag binnen in het centrum, dus die gaat altijd door.',
+    a: 'Jeu de boules, shuffleboard, de lunch en de borrel zijn binnen. Boules & Borrel is helemaal binnen in het centrum, dus dat gaat altijd door.',
   },
   {
     q: 'Voor wie zijn de pakketten?',
@@ -237,7 +237,7 @@ export default function Home() {
         <Band
           woorden={
             winter
-              ? ['Warme Winterdag', 'Glühwein', 'Jeu de boules', 'Domtoren', 'Erwtensoep', 'Shuffleboard', 'Borrel']
+              ? ['Warme Winterdag', 'Glühwein', 'Jeu de boules', 'Domtoren', 'Rondvaart', 'Shuffleboard', 'Borrel']
               : ['Suppen', 'Kanoën', 'Kickbiken', 'Jeu de boules', 'Shuffleboard', 'Rondvaart', 'Borrel', 'BBQ']
           }
         />
@@ -308,7 +308,7 @@ export default function Home() {
               sizes="(min-width: 768px) 40vw, 90vw"
               className="kantel polaroid rounded-sm"
             />
-            {(winter ? [fotos.erwtensoep, fotos.borrel] : [fotos.picknick, fotos.kickbikeGracht]).map((f, i) => (
+            {(winter ? [fotos.gluhwein, fotos.borrel] : [fotos.picknick, fotos.kickbikeGracht]).map((f, i) => (
               <Foto
                 key={f.src}
                 foto={f}

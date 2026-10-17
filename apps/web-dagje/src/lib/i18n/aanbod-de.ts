@@ -259,47 +259,49 @@ export const AANBOD_DE: AanbodTekst = {
     },
 
     gluhwein: {
-      naam: 'Empfang mit Glühwein',
-      kort: 'Aufwärmen mit Glühwein oder heißer Schokolade.',
+      naam: 'Glühwein-Umtrunk',
+      kort: 'Zum Abschluss Glühwein oder heiße Schokolade und ein Umtrunk.',
       beschrijving:
-        'Die Gruppe trifft sich in der JEU de boules bar am Paardenveld. Jeder bekommt einen Glühwein oder eine heiße Schokolade mit einer Kleinigkeit dazu.',
+        'Der Tag endet in der JEU de boules bar am Paardenveld. Jeder bekommt zuerst einen Glühwein oder eine heiße Schokolade, danach zwei Getränke pro Person mit Bitterballen.',
       locatie: 'JEU de boules bar, Paardenveld',
-      duur: '30 Min.',
-      inclusief: ['Glühwein oder heiße Schokolade', 'eine Kleinigkeit dazu'],
+      duur: '1 Stunde',
+      inclusief: ['Glühwein oder heiße Schokolade', '2 Getränke p. P.', 'Bitterballen'],
       seo: {
-        titel: 'Glühwein-Empfang für Gruppen in Utrecht',
+        titel: 'Glühwein-Umtrunk für Gruppen in Utrecht',
         beschrijving:
-          'Winterlicher Empfang mit Glühwein oder heißer Schokolade am Paardenveld. Für Gruppen ab 8 Personen, November bis März.',
+          'Zum Abschluss Glühwein oder heiße Schokolade und ein Umtrunk am Paardenveld. Für Gruppen ab 8 Personen, November bis März.',
         tekst: [
-          'Die Winterversion des Empfangs: Glühwein oder heiße Schokolade mit einer Kleinigkeit dazu, drinnen am Paardenveld.',
-          'Dieser Programmpunkt läuft von November bis März und gehört fest zum Winterpaket Warmer Wintertag.',
+          'Die Winterversion des Abschlussumtrunks: zuerst ein Glühwein oder eine heiße Schokolade, danach zwei Getränke pro Person mit Bitterballen, drinnen in der JEU de boules bar am Paardenveld.',
+          'Dieser Programmpunkt läuft von November bis März und gehört zu den Winterpaketen Warmer Wintertag und Winter-Umtrunk.',
         ],
         vragen: [
-          { q: 'Gibt es auch etwas ohne Alkohol?', a: 'Ja, heiße Schokolade ist die Alternative.' },
+          { q: 'Gibt es auch etwas ohne Alkohol?', a: 'Ja, heiße Schokolade ist die Alternative zum Glühwein.' },
+          { q: 'Wann ist der Glühwein-Umtrunk?', a: 'Im Abschluss-Zeitfenster, ab 16:30 Uhr, eine Stunde lang.' },
           { q: 'Wann ist das möglich?', a: 'Von November bis März.' },
         ],
       },
     },
 
     winterlunch: {
-      naam: 'Winterliches Mittagessen',
-      kort: 'Erbsensuppe oder Stamppot, auch vegetarisch.',
+      naam: 'Mittagessen à la carte',
+      kort: 'Mittagessen à la carte in der JEU de boules bar.',
       beschrijving:
-        'Ein deftiges niederländisches Wintermittagessen in einem der Lokale der Brothers Horeca Groep: Erwtensoep (dicke Erbsensuppe) oder Stamppot (Kartoffelstampf mit Gemüse), mit vegetarischer Auswahl.',
-      locatie: 'BHG-Lokal in der Innenstadt',
+        'Mittagessen in der JEU de boules bar am Paardenveld. Jeder wählt ein Gericht von der Karte, mit einem Getränk dazu. Ernährungswünsche geben Sie bei der Buchung an.',
+      locatie: 'JEU de boules bar, Paardenveld',
       duur: '1 Stunde',
-      inclusief: ['Erbsensuppe oder Stamppot', 'Softdrink oder Kaffee'],
+      inclusief: ['Mittagessen à la carte', 'Softdrink oder Kaffee'],
       seo: {
-        titel: 'Niederländisches Wintermittagessen für Gruppen in Utrecht',
+        titel: 'Mittagessen à la carte für Gruppen in Utrecht',
         beschrijving:
-          'Erbsensuppe oder Stamppot für Gruppen ab 8 Personen in der Innenstadt von Utrecht. Auch vegetarisch, November bis März.',
+          'Mittagessen à la carte in der JEU de boules bar am Paardenveld, mit einem Getränk. Für Gruppen ab 8 Personen, November bis März.',
         tekst: [
-          'Erwtensoep (niederländische Erbsensuppe) oder Stamppot (Kartoffelstampf mit Gemüse) in einem festen Lokal in der Innenstadt, als Mittagessen zwischen zwei winterlichen Programmpunkten.',
-          'Vegetarisch ist möglich. Dieser Programmpunkt läuft von November bis März.',
+          'Ein Mittagessen à la carte in der JEU de boules bar am Paardenveld, als Pause zwischen zwei winterlichen Programmpunkten. Jeder wählt selbst ein Gericht, mit Softdrink oder Kaffee dazu.',
+          'Ernährungswünsche geben Sie bei der Buchung an. Dieser Programmpunkt läuft von November bis März.',
         ],
         vragen: [
-          { q: 'Was wird serviert?', a: 'Erbsensuppe oder Stamppot, mit Softdrink oder Kaffee.' },
-          { q: 'Ist vegetarisch möglich?', a: 'Ja, bitte bei der Buchung angeben.' },
+          { q: 'Was wird serviert?', a: 'Jeder wählt ein Gericht von der Karte, mit Softdrink oder Kaffee.' },
+          { q: 'Wann ist das Mittagessen?', a: 'Von 12:30 bis 13:30 Uhr.' },
+          { q: 'Kann ich Ernährungswünsche angeben?', a: 'Ja, bitte bei der Buchung angeben.' },
         ],
       },
     },
@@ -519,9 +521,9 @@ export const AANBOD_DE: AanbodTekst = {
   pakketten: {
     'warme-winterdag': {
       naam: 'Warmer Wintertag',
-      kort: 'Glühwein, Domturm, winterliches Mittagessen, Boule und Umtrunk.',
+      kort: 'Domturm, Mittagessen à la carte, Boule und ein Glühwein-Umtrunk.',
       beschrijving:
-        'Ein Wintertag in der Innenstadt von Utrecht, größtenteils drinnen. Aufwärmen mit Glühwein, die Stadt vom Domturm aus sehen, niederländische Erbsensuppe oder Stamppot und danach Boule spielen bis zum Umtrunk.',
+        'Ein Wintertag in der Innenstadt von Utrecht, größtenteils drinnen. Die Stadt vom Domturm aus sehen, à la carte zu Mittag essen in der JEU de boules bar, Boule auf den überdachten Bahnen und zum Abschluss ein Glühwein-Umtrunk.',
       voorWie: 'Firmenausflüge, Teams und Freundesgruppen',
     },
     'amelisweerd-actief': {
@@ -575,16 +577,16 @@ export const AANBOD_DE: AanbodTekst = {
     },
     'winter-op-de-grachten': {
       naam: 'Winter auf den Grachten',
-      kort: 'Halber Tag: Glühwein, eine Grachtenfahrt mit Schuttevaer und ein winterliches Mittagessen.',
+      kort: 'Halber Tag: eine Grachtenfahrt mit Schuttevaer und ein Mittagessen à la carte.',
       beschrijving:
-        'Utrecht im Winter vom Wasser aus. Aufwärmen mit Glühwein in der JEU de boules bar, eine Stunde mit der Rederij Schuttevaer über die Oudegracht und die Singel, und zum Abschluss Erbsensuppe oder Stamppot. Um halb zwei sind alle wieder frei.',
+        'Utrecht im Winter vom Wasser aus. Eine Stunde mit der Rederij Schuttevaer über die Oudegracht und die Singel, danach Mittagessen à la carte in der JEU de boules bar am Paardenveld. Um halb zwei sind alle wieder frei.',
       voorWie: 'Firmenausflüge, Teams und Familien, November bis März',
     },
     winterborrel: {
       naam: 'Winter-Umtrunk',
-      kort: 'Halber Tag: Glühwein, Boule drinnen und ein Umtrunk.',
+      kort: 'Halber Tag: Boule drinnen und ein Glühwein-Umtrunk.',
       beschrijving:
-        'Ein Winternachmittag, der nicht vom Wetter abhängt: Ankommen mit Glühwein, Boule auf den überdachten Bahnen und zum Abschluss ein Umtrunk. Alles drinnen, alles in der Innenstadt.',
+        'Ein Winternachmittag, der nicht vom Wetter abhängt: Boule auf den überdachten Bahnen der JEU de boules bar und zum Abschluss ein Glühwein-Umtrunk. Alles drinnen, alles in der Innenstadt.',
       voorWie: 'Teams und Freundesgruppen, November bis März',
     },
     'koffie-en-city-challenge': {

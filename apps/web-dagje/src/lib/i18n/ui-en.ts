@@ -62,6 +62,9 @@ const formulier: FormulierTekst = {
     'verkeerd-tijdvak': '{blok} is not available in the {tijdvak} slot.',
     'aantal-blok': '{blok} is possible with {min} to {max} people.',
     seizoen: '{blok} is only available from {maanden}.',
+    gesloten: '{blok} is only available from {tijd} on {dag}, when the venue opens; choose a later time slot{anders}.',
+    'gesloten-dag': '{blok} is closed on {dag}; choose a later time slot{anders}.',
+    'gesloten-anders': ' or a {dag}',
     'kickbike-nodig':
       'Getting from {van} to {naar} is done by kickbike: choose the kickbike tour in between.',
     'te-veel-wissels': 'Switch between the city centre and Amelisweerd no more than once.',
@@ -243,7 +246,7 @@ export const UI_EN = {
       },
       {
         q: 'What if the weather is bad?',
-        a: 'Jeu de boules, shuffleboard, lunch and drinks are indoors. Utrecht Games & Drinks is a full day indoors in the city centre, so it always goes ahead.',
+        a: 'Jeu de boules, shuffleboard, lunch and drinks are indoors. Boules & Drinks is completely indoors in the city centre, so it always goes ahead.',
       },
     ],
     heroSticker: `Groups from ${R.minPers} people`,
@@ -262,7 +265,7 @@ export const UI_EN = {
       'Mulled wine',
       'Jeu de boules',
       'Dom Tower',
-      'Pea soup',
+      'Canal cruise',
       'Shuffleboard',
       'Drinks',
     ],
@@ -521,10 +524,10 @@ export const UI_EN = {
     partnerLijst: [
       {
         naam: 'JEU de boules bar',
-        wat: 'jeu de boules on indoor courts, the welcome and the closing drinks, on Paardenveld',
+        wat: 'jeu de boules on indoor courts, lunch from the menu and the closing drinks, on Paardenveld',
       },
       { naam: 'The Grand Shuffle', wat: 'shuffleboard in the city centre' },
-      { naam: 'Brothers Horeca Groep', wat: 'the group lunch and the winter lunch' },
+      { naam: 'Brothers Horeca Groep', wat: 'the group lunch' },
       {
         naam: 'Botenverhuur De Rijnstroom',
         wat: 'canoeing, stand-up paddling, the picnic and the BBQ in Amelisweerd',

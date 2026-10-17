@@ -64,6 +64,9 @@ const formulier: FormulierTekst = {
     'verkeerd-tijdvak': '{blok} ist im Zeitfenster {tijdvak} nicht möglich.',
     'aantal-blok': '{blok} ist mit {min} bis {max} Personen möglich.',
     seizoen: '{blok} ist nur von {maanden} möglich.',
+    gesloten: '{blok} ist am {dag} erst ab {tijd} Uhr möglich, dann öffnet das Lokal; bitte wählen Sie ein späteres Zeitfenster{anders}.',
+    'gesloten-dag': '{blok} ist am {dag} geschlossen; bitte wählen Sie ein späteres Zeitfenster{anders}.',
+    'gesloten-anders': ' oder einen {dag}',
     'kickbike-nodig':
       'Von {van} nach {naar} geht es mit dem Kickbike: Wählen Sie die Kickbike-Tour als Zwischenschritt.',
     'te-veel-wissels': 'Wechseln Sie höchstens einmal zwischen Innenstadt und Amelisweerd.',
@@ -245,7 +248,7 @@ export const UI_DE: UiTekst = {
       },
       {
         q: 'Was ist bei schlechtem Wetter?',
-        a: 'Boule, Shuffleboard, das Mittagessen und der Umtrunk finden drinnen statt. Utrecht Spiel & Umtrunk ist ein ganzer Tag drinnen in der Innenstadt und findet also immer statt.',
+        a: 'Boule, Shuffleboard, das Mittagessen und der Umtrunk finden drinnen statt. Boule & Umtrunk ist komplett drinnen in der Innenstadt und findet also immer statt.',
       },
     ],
     heroSticker: `Gruppen ab ${R.minPers} Personen`,
@@ -264,7 +267,7 @@ export const UI_DE: UiTekst = {
       'Glühwein',
       'Boule',
       'Domturm',
-      'Erbsensuppe',
+      'Grachtenfahrt',
       'Shuffleboard',
       'Umtrunk',
     ],
@@ -527,12 +530,12 @@ export const UI_DE: UiTekst = {
     partnerLijst: [
       {
         naam: 'JEU de boules bar',
-        wat: 'Boule auf überdachten Bahnen, der Empfang und der Umtrunk, am Paardenveld',
+        wat: 'Boule auf überdachten Bahnen, das Mittagessen à la carte und der Umtrunk, am Paardenveld',
       },
       { naam: 'The Grand Shuffle', wat: 'Shuffleboard in der Innenstadt' },
       {
         naam: 'Brothers Horeca Groep',
-        wat: 'das Gruppen-Mittagessen und das winterliche Mittagessen',
+        wat: 'das Gruppen-Mittagessen',
       },
       {
         naam: 'Botenverhuur De Rijnstroom',

@@ -8,12 +8,14 @@
  */
 import { REGELS, pakketMaanden, vindPakket } from '../aanbod';
 import { LANDINGS } from '../landings';
-import { pakketPrijs, vanafPrijs } from './opmaak';
+import { bouwsteenPrijs, pakketPrijs, vanafPrijs } from './opmaak';
 import type { LandingTekst, Vraag } from './types';
 import type { VertaaldeLanding } from './landings-en';
 
 const prijs = (slug: string) => pakketPrijs('de', slug);
 const vanaf = (sleutel: VertaaldeLanding) => vanafPrijs('de', LANDINGS[sleutel].pakketten);
+/** Niedrigster Preis für einen ganzen Tag (Warmer Wintertag, Amelisweerd Aktiv, Vom Wasser zum Umtrunk). */
+const heleDag = () => vanafPrijs('de', ['warme-winterdag', 'amelisweerd-actief', 'water-naar-borrel']);
 
 const GROEP = `Ab ${REGELS.minPers} Personen.`;
 
@@ -75,7 +77,7 @@ export const LANDINGS_DE: Record<VertaaldeLanding, LandingTekst> = {
       tekst: 'Nur Kickbikes für das Team mieten, ohne Mittagessen und Umtrunk?',
     },
     metaTitel: `Firmenausflug Utrecht ab ${vanaf('bedrijfsuitje')} pro Person`,
-    metaOmschrijving: `Firmenausflug nach Utrecht zum Festpreis pro Person: ab ${vanaf('bedrijfsuitje')} für einen Vormittag, ${prijs('spel-en-borrel')} für einen ganzen Tag. Ab ${REGELS.minPers} Personen, inkl. MwSt.`,
+    metaOmschrijving: `Firmenausflug nach Utrecht zum Festpreis pro Person: ab ${vanaf('bedrijfsuitje')} für einen Nachmittag, ab ${heleDag()} für einen ganzen Tag. Ab ${REGELS.minPers} Personen, inkl. MwSt.`,
     boven: 'Für HR, Teamleitungen und Betriebsräte',
     titel: 'Firmenausflug nach Utrecht, ganz ohne Aufwand',
     intro:
@@ -88,12 +90,12 @@ export const LANDINGS_DE: Record<VertaaldeLanding, LandingTekst> = {
       },
       {
         kop: 'Was es kostet',
-        tekst: `Ein ganzer Tag beginnt bei ${prijs('spel-en-borrel')} pro Person für Utrecht Spiel & Umtrunk, mit Kaffee, Mittagessen und Umtrunk. Amelisweerd Aktiv kostet ${prijs('amelisweerd-actief')} pro Person, einschließlich Picknick und Grillen mit Getränken. Hat das Team nur einen halben Tag? Boule & Umtrunk kostet ${prijs('boules-en-borrel')} pro Person für einen Nachmittag, Kaffee & City Challenge ${prijs('koffie-en-city-challenge')} für einen Vormittag. Alle Preise gelten pro Person inklusive niederländischer MwSt., ab ${REGELS.minPers} Personen.`,
+        tekst: `Ein ganzer Tag im Winter ist der Warme Wintertag, für ${prijs('warme-winterdag')} pro Person, mit Domturm, Mittagessen, Boule und Glühwein-Umtrunk. Amelisweerd Aktiv kostet ${prijs('amelisweerd-actief')} pro Person, einschließlich Picknick und Grillen mit Getränken. Hat das Team nur einen halben Tag? Boule & Umtrunk kostet ${prijs('boules-en-borrel')} pro Person für einen Nachmittag. Alle Preise gelten pro Person inklusive niederländischer MwSt., ab ${REGELS.minPers} Personen.`,
       },
       {
         kop: 'Gut erreichbar',
         tekst:
-          'Die Tage in der Innenstadt beginnen in der JEU de boules bar am Paardenveld, fünf Gehminuten vom Bahnhof Utrecht Centraal. Dort halten direkte Züge aus Amsterdam, vom Flughafen Schiphol und aus den meisten niederländischen Städten, und auch der ICE zwischen Frankfurt und Amsterdam hält in Utrecht Centraal. Wer mit dem Zug kommt, ist also schnell da, und wer früher gehen muss, steigt genauso leicht wieder ein. Amelisweerd liegt am Stadtrand, bei Botenverhuur De Rijnstroom an der Kromme Rijn.',
+          'In der Innenstadt ist alles zu Fuß vom Bahnhof Utrecht Centraal erreichbar; die JEU de boules bar am Paardenveld liegt fünf Gehminuten entfernt. Dort halten direkte Züge aus Amsterdam, vom Flughafen Schiphol und aus den meisten niederländischen Städten, und auch der ICE zwischen Frankfurt und Amsterdam hält in Utrecht Centraal. Wer mit dem Zug kommt, ist also schnell da, und wer früher gehen muss, steigt genauso leicht wieder ein. Amelisweerd liegt am Stadtrand, bei Botenverhuur De Rijnstroom an der Kromme Rijn.',
       },
       {
         kop: 'Ein Ansprechpartner, eine Rechnung',
@@ -112,7 +114,7 @@ export const LANDINGS_DE: Record<VertaaldeLanding, LandingTekst> = {
       GROTER,
       {
         q: 'Können wir auch nur einen Nachmittag buchen?',
-        a: `Ja. Boule & Umtrunk ist ein Nachmittag von 14 bis 18 Uhr und kostet ${prijs('boules-en-borrel')} pro Person. Kaffee & City Challenge ist ein Vormittag und kostet ${prijs('koffie-en-city-challenge')} pro Person.`,
+        a: `Ja. Boule & Umtrunk ist ein Nachmittag von 14 bis 18 Uhr und kostet ${prijs('boules-en-borrel')} pro Person. Von November bis März gibt es außerdem den Winter-Umtrunk, für ${prijs('winterborrel')} pro Person.`,
       },
       WEER,
       BEVESTIGING,
@@ -137,11 +139,11 @@ export const LANDINGS_DE: Record<VertaaldeLanding, LandingTekst> = {
       },
       {
         kop: 'Ein Nachmittag nach der Arbeit',
-        tekst: `Boule & Umtrunk beginnt um 14 Uhr mit Boule und Snacks und endet mit einem Umtrunk bis 18 Uhr. Das kostet ${prijs('boules-en-borrel')} pro Person, inklusive MwSt. Von November bis März gibt es den Winter-Umtrunk mit Glühwein vorab, für ${prijs('winterborrel')} pro Person.`,
+        tekst: `Boule & Umtrunk beginnt um 14 Uhr mit Boule und Snacks und endet mit einem Umtrunk bis 18 Uhr. Das kostet ${prijs('boules-en-borrel')} pro Person, inklusive MwSt. Von November bis März gibt es den Winter-Umtrunk, der mit einem Glühwein-Umtrunk endet, für ${prijs('winterborrel')} pro Person.`,
       },
       {
         kop: 'Oder ein ganzer Tag',
-        tekst: `Utrecht Spiel & Umtrunk dauert von 9:30 bis 18 Uhr: Kaffee und Kuchen, Boule, ein Gruppen-Mittagessen, Shuffleboard und ein Umtrunk, alles drinnen in der Innenstadt. Das kostet ${prijs('spel-en-borrel')} pro Person. Im Winter ist der Warme Wintertag mit Domturm und niederländischem Wintermittagessen eine gute Alternative, für ${prijs('warme-winterdag')} pro Person.`,
+        tekst: `Im Winter gibt es den Warmen Wintertag: auf den Domturm, Mittagessen à la carte in der JEU de boules bar, Boule und zum Abschluss ein Glühwein-Umtrunk, für ${prijs('warme-winterdag')} pro Person. Von April bis Oktober ist Amelisweerd Aktiv ein ganzer Tag draußen, für ${prijs('amelisweerd-actief')} pro Person.`,
       },
       {
         kop: 'Praktisch für den Betriebsrat',
@@ -193,7 +195,7 @@ export const LANDINGS_DE: Record<VertaaldeLanding, LandingTekst> = {
       },
       {
         kop: 'Was es kostet',
-        tekst: `Domturm & Grachten kostet ${prijs('dom-en-grachten')} pro Person für einen halben Tag, Kaffee & City Challenge ${prijs('koffie-en-city-challenge')} für einen Vormittag. Ein ganzer Tag drinnen in der Innenstadt, Utrecht Spiel & Umtrunk, kostet ${prijs('spel-en-borrel')} pro Person. Von April bis Oktober gibt es Amelisweerd Aktiv für ${prijs('amelisweerd-actief')} pro Person. Alle Preise inklusive MwSt. Der Preis gilt pro Person: Alle, die mitmachen, zählen mit, auch Kinder.`,
+        tekst: `Domturm & Grachten kostet ${prijs('dom-en-grachten')} pro Person für einen halben Tag. Im Winter gibt es Winter auf den Grachten, eine Grachtenfahrt mit Mittagessen, für ${prijs('winter-op-de-grachten')} pro Person. Von April bis Oktober gibt es Amelisweerd Aktiv für ${prijs('amelisweerd-actief')} pro Person. Alle Preise inklusive MwSt. Der Preis gilt pro Person: Alle, die mitmachen, zählen mit, auch Kinder.`,
       },
       {
         kop: 'Mit kleinen Kindern',
@@ -231,7 +233,7 @@ export const LANDINGS_DE: Record<VertaaldeLanding, LandingTekst> = {
     link: 'Teambuilding',
     band: ['Zusammenarbeiten', 'Wetteifern', 'Paddeln', 'Kickbike', 'Umtrunk'],
     metaTitel: `Teambuilding in Utrecht ab ${vanaf('teambuilding')} pro Person`,
-    metaOmschrijving: `Teambuilding in Utrecht: City Challenge, Boule, Shuffleboard oder Kanufahren. Ab ${vanaf('teambuilding')} pro Person für einen halben Tag, ${prijs('spel-en-borrel')} für einen ganzen Tag.`,
+    metaOmschrijving: `Teambuilding in Utrecht: City Challenge, Boule, Shuffleboard oder Kanufahren. Ab ${vanaf('teambuilding')} pro Person für einen halben Tag, ab ${heleDag()} für einen ganzen Tag.`,
     boven: 'Gemeinsam spielen, gemeinsam paddeln',
     titel: 'Teambuilding in Utrecht',
     intro:
@@ -249,7 +251,7 @@ export const LANDINGS_DE: Record<VertaaldeLanding, LandingTekst> = {
       },
       {
         kop: 'Die City Challenge',
-        tekst: `Bei der City Challenge zieht das Team in kleinen Gruppen durch die Altstadt, mit Aufgaben und Fragen zum Dom, zu den Werftkellern und zur Oudegracht. Gemeinsam rätseln, Aufgaben verteilen und am Ende die Auswertung. Mit Kaffee und Kuchen vorab ist das Kaffee & City Challenge, für ${prijs('koffie-en-city-challenge')} pro Person.`,
+        tekst: `Bei der City Challenge zieht das Team in kleinen Gruppen durch die Altstadt, mit Aufgaben und Fragen zum Dom, zu den Werftkellern und zur Oudegracht. Gemeinsam rätseln, Aufgaben verteilen und am Ende die Auswertung. Die City Challenge fügen Sie hinzu, wenn Sie Ihren Tag selbst zusammenstellen, für ${bouwsteenPrijs('de', 'city-challenge')} pro Person.`,
       },
       {
         kop: 'Teamausflug oder Teambuilding?',
@@ -295,11 +297,11 @@ export const LANDINGS_DE: Record<VertaaldeLanding, LandingTekst> = {
       {
         kop: 'Schlechtes Wetter angesagt?',
         tekst:
-          'Dann wählen Sie Utrecht Spiel & Umtrunk: Boule, Mittagessen, Shuffleboard und Umtrunk, komplett drinnen in der Innenstadt.',
+          'Dann wählen Sie Boule & Umtrunk: Boule auf überdachten Bahnen und ein Umtrunk, komplett drinnen in der Innenstadt.',
       },
       {
         kop: 'Im Winter',
-        tekst: `Stand-up-Paddling und Kanufahren sind von April bis Oktober möglich. Außerhalb dieser Zeit gibt es den JGA-Wintertag: Glühwein, Shuffleboard, ein warmes Mittagessen und ein Umtrunk, komplett drinnen. Er kostet ${prijs('vrijgezellen-winterdag')} pro Person, genau so viel wie das Sommerpaket.`,
+        tekst: `Stand-up-Paddling und Kanufahren sind von April bis Oktober möglich. Außerhalb dieser Zeit gibt es den Winter-Umtrunk: Boule auf überdachten Bahnen und zum Abschluss ein Glühwein-Umtrunk, komplett drinnen. Er kostet ${prijs('winterborrel')} pro Person.`,
       },
       {
         kop: 'Nur ein Nachmittag',
@@ -351,21 +353,21 @@ export const LANDINGS_DE: Record<VertaaldeLanding, LandingTekst> = {
 
   winteruitje: {
     link: 'Winterausflug',
-    band: ['Glühwein', 'Weihnachtsfeier', 'Grachtenfahrt', 'Boule drinnen', 'Erbsensuppe', 'Umtrunk'],
+    band: ['Glühwein', 'Weihnachtsfeier', 'Grachtenfahrt', 'Boule drinnen', 'Domturm', 'Umtrunk'],
     metaTitel: `Winterausflug Utrecht ab ${vanaf('winteruitje')} pro Person`,
     metaOmschrijving: `Winterausflug oder Weihnachtsfeier in Utrecht mit Firma oder Team: Glühwein, Grachtenfahrt, Boule drinnen und Umtrunk. ${WINTER}, ab ${vanaf('winteruitje')} p. P.`,
     boven: WINTER,
     titel: 'Winterausflug nach Utrecht',
     intro:
-      'Aufwärmen mit Glühwein, die Stadt vom Wasser oder vom Domturm aus sehen, ein deftiges niederländisches Wintermittagessen und Boule in der Halle. Feste Pakete mit festem Preis pro Person, für Firma, Team oder Freundeskreis.',
+      'Die Stadt vom Wasser oder vom Domturm aus sehen, à la carte zu Mittag essen, Boule in der Halle und zum Abschluss Glühwein. Feste Pakete mit festem Preis pro Person, für Firma, Team oder Freundeskreis.',
     alineas: [
       {
         kop: 'Gemacht für den Winter',
-        tekst: `Die Winterpakete gibt es ${klein(WINTER)}. Alle beginnen mit Glühwein oder heißer Schokolade in der JEU de boules bar am Paardenveld, fünf Gehminuten vom Bahnhof Utrecht Centraal. Die meisten Programmpunkte sind drinnen, ein kalter oder nasser Tag macht also wenig aus.`,
+        tekst: `Die Winterpakete gibt es ${klein(WINTER)}. Zu allen gehört die JEU de boules bar am Paardenveld, fünf Gehminuten vom Bahnhof Utrecht Centraal, für das Mittagessen oder einen Glühwein-Umtrunk. Die meisten Programmpunkte sind drinnen, ein kalter oder nasser Tag macht also wenig aus.`,
       },
       {
         kop: 'Vier Pakete',
-        tekst: `Winter auf den Grachten ist ein halber Tag mit Glühwein, einer Grachtenfahrt mit Rederij Schuttevaer und einem Wintermittagessen, für ${prijs('winter-op-de-grachten')} pro Person. Der Winter-Umtrunk ist ein Nachmittag mit Glühwein, Boule und Umtrunk, für ${prijs('winterborrel')}. Der Warme Wintertag dauert den ganzen Tag, mit Domturm, Wintermittagessen, Boule und Umtrunk, für ${prijs('warme-winterdag')}. Für Junggesellenabschiede gibt es den JGA-Wintertag mit Shuffleboard, für ${prijs('vrijgezellen-winterdag')}.`,
+        tekst: `Winter auf den Grachten ist ein halber Tag mit einer Grachtenfahrt mit Rederij Schuttevaer und danach einem Mittagessen à la carte, für ${prijs('winter-op-de-grachten')} pro Person. Der Winter-Umtrunk ist ein Nachmittag mit Boule und einem Glühwein-Umtrunk, für ${prijs('winterborrel')}. Der Warme Wintertag dauert den ganzen Tag, mit Domturm, Mittagessen à la carte, Boule und Glühwein-Umtrunk, für ${prijs('warme-winterdag')}.`,
       },
       {
         kop: 'Als Weihnachtsfeier',
@@ -378,15 +380,15 @@ export const LANDINGS_DE: Record<VertaaldeLanding, LandingTekst> = {
           'Sie sehen den Preis pro Person vorab, inklusive niederländischer MwSt., und die Rechnung wird auf Ihr Unternehmen ausgestellt. Bis eine Woche vor dem Termin kann sich die Teilnehmerzahl noch ändern. Wir reservieren alles bei unseren Partnern, am Tag selbst ist Ger Ihr Ansprechpartner.',
       },
       {
-        kop: 'Ein deftiges Mittagessen',
+        kop: 'Mittagessen à la carte',
         tekst:
-          'Das Wintermittagessen ist typisch niederländisch: Erbsensuppe (Erwtensoep) oder Stamppot, ein Eintopf aus Kartoffelpüree und Gemüse, mit vegetarischer Variante. Weitere Ernährungswünsche können Sie bei der Buchung angeben.',
+          'Das Mittagessen ist in der JEU de boules bar am Paardenveld: Jeder wählt von der Karte, mit einem Getränk dazu. Ernährungswünsche können Sie bei der Buchung angeben.',
       },
     ],
     faq: [
       {
         q: 'Wann ist ein Winterausflug möglich?',
-        a: `Die Winterpakete sind ${klein(WINTER)} buchbar, donnerstags, freitags und samstags, mindestens ${REGELS.minDagenVooruit} Tage im Voraus.`,
+        a: `Die Winterpakete sind ${klein(WINTER)} buchbar, samstags, mindestens ${REGELS.minDagenVooruit} Tage im Voraus. Die JEU de boules bar, in der Mittagessen, Boule und Umtrunk stattfinden, öffnet donnerstags und freitags erst um 15:00 Uhr.`,
       },
       {
         q: 'Was kostet ein Winterausflug nach Utrecht?',
@@ -394,11 +396,11 @@ export const LANDINGS_DE: Record<VertaaldeLanding, LandingTekst> = {
       },
       {
         q: 'Geht es auch als Weihnachtsfeier im Dezember?',
-        a: 'Ja. Alle Winterpakete sind im Dezember buchbar, donnerstags, freitags und samstags.',
+        a: 'Ja. Alle Winterpakete sind im Dezember buchbar, samstags.',
       },
       {
         q: 'Gibt es auch etwas ohne Alkohol?',
-        a: 'Ja. Beim Empfang kann jeder zwischen Glühwein und heißer Schokolade wählen.',
+        a: 'Ja. Beim Glühwein-Umtrunk kann jeder zwischen Glühwein und heißer Schokolade wählen.',
       },
       {
         q: 'Findet es bei Schnee oder Regen statt?',

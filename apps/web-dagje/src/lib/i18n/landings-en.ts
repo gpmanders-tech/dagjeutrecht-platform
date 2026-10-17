@@ -8,7 +8,7 @@
  */
 import { REGELS, pakketMaanden, vindPakket } from '../aanbod';
 import { LANDINGS } from '../landings';
-import { pakketPrijs, vanafPrijs } from './opmaak';
+import { bouwsteenPrijs, pakketPrijs, vanafPrijs } from './opmaak';
 import type { LandingTekst, Vraag } from './types';
 
 export type VertaaldeLanding =
@@ -21,6 +21,8 @@ export type VertaaldeLanding =
 
 const prijs = (slug: string) => pakketPrijs('en', slug);
 const vanaf = (sleutel: VertaaldeLanding) => vanafPrijs('en', LANDINGS[sleutel].pakketten);
+/** Lowest price of a full day (Warm Winter Day, Active Amelisweerd, From the Water to Drinks). */
+const heleDag = () => vanafPrijs('en', ['warme-winterdag', 'amelisweerd-actief', 'water-naar-borrel']);
 
 const GROEP = `From ${REGELS.minPers} people.`;
 
@@ -75,7 +77,7 @@ export const LANDINGS_EN: Record<VertaaldeLanding, LandingTekst> = {
       tekst: 'Only want to rent kickbikes for the team, without lunch and drinks?',
     },
     metaTitel: `Company outing in Utrecht from ${vanaf('bedrijfsuitje')} per person`,
-    metaOmschrijving: `Company outing in Utrecht at a fixed price per person: from ${vanaf('bedrijfsuitje')} for a morning, ${prijs('spel-en-borrel')} for a full day. From ${REGELS.minPers} people, VAT included.`,
+    metaOmschrijving: `Company outing in Utrecht at a fixed price per person: from ${vanaf('bedrijfsuitje')} for an afternoon, from ${heleDag()} for a full day. From ${REGELS.minPers} people, VAT included.`,
     boven: 'For HR, team leads and social committees',
     titel: 'Company outing in Utrecht, without the hassle',
     intro:
@@ -88,12 +90,12 @@ export const LANDINGS_EN: Record<VertaaldeLanding, LandingTekst> = {
       },
       {
         kop: 'What it costs',
-        tekst: `A full day starts at ${prijs('spel-en-borrel')} per person for Utrecht Games & Drinks, including coffee, lunch and drinks. Active Amelisweerd costs ${prijs('amelisweerd-actief')} per person, including a picnic and a BBQ with drinks. Only have part of the day? Boules & Drinks costs ${prijs('boules-en-borrel')} per person for an afternoon, Coffee & City Challenge ${prijs('koffie-en-city-challenge')} for a morning. All prices are per person and include Dutch VAT, from ${REGELS.minPers} people.`,
+        tekst: `A full day in winter is the Warm Winter Day, for ${prijs('warme-winterdag')} per person, with the Dom Tower, lunch, jeu de boules and mulled wine drinks. Active Amelisweerd costs ${prijs('amelisweerd-actief')} per person, including a picnic and a BBQ with drinks. Only have part of the day? Boules & Drinks costs ${prijs('boules-en-borrel')} per person for an afternoon. All prices are per person and include Dutch VAT, from ${REGELS.minPers} people.`,
       },
       {
         kop: 'Easy to reach',
         tekst:
-          'The days in the city centre start at JEU de boules bar on Paardenveld, a five-minute walk from Utrecht Centraal, the main station with direct trains from Amsterdam, Schiphol Airport and most Dutch cities. Colleagues coming by train are there in no time, and anyone who has to leave early can easily hop back on. Amelisweerd is on the edge of the city, at Botenverhuur De Rijnstroom on the Kromme Rijn.',
+          'Everything in the city centre is within walking distance of Utrecht Centraal; JEU de boules bar on Paardenveld is a five-minute walk from the station, the main station with direct trains from Amsterdam, Schiphol Airport and most Dutch cities. Colleagues coming by train are there in no time, and anyone who has to leave early can easily hop back on. Amelisweerd is on the edge of the city, at Botenverhuur De Rijnstroom on the Kromme Rijn.',
       },
       {
         kop: 'One point of contact, one invoice',
@@ -112,7 +114,7 @@ export const LANDINGS_EN: Record<VertaaldeLanding, LandingTekst> = {
       GROTER,
       {
         q: 'Can we do just an afternoon?',
-        a: `Yes. Boules & Drinks is an afternoon from two to six o’clock and costs ${prijs('boules-en-borrel')} per person. Coffee & City Challenge is a morning and costs ${prijs('koffie-en-city-challenge')} per person.`,
+        a: `Yes. Boules & Drinks is an afternoon from two to six o’clock and costs ${prijs('boules-en-borrel')} per person. From November to March there are also Winter Drinks, for ${prijs('winterborrel')} per person.`,
       },
       WEER,
       BEVESTIGING,
@@ -137,11 +139,11 @@ export const LANDINGS_EN: Record<VertaaldeLanding, LandingTekst> = {
       },
       {
         kop: 'An afternoon after work',
-        tekst: `Boules & Drinks starts at two o’clock with jeu de boules and bites and ends with drinks until six. It costs ${prijs('boules-en-borrel')} per person, VAT included. From November to March there are Winter Drinks with mulled wine to start, for ${prijs('winterborrel')} per person.`,
+        tekst: `Boules & Drinks starts at two o’clock with jeu de boules and bites and ends with drinks until six. It costs ${prijs('boules-en-borrel')} per person, VAT included. From November to March there are Winter Drinks, which end with mulled wine drinks, for ${prijs('winterborrel')} per person.`,
       },
       {
         kop: 'Or a full day',
-        tekst: `Utrecht Games & Drinks runs from half past nine to six: coffee and cake, jeu de boules, a group lunch, shuffleboard and drinks, all indoors in the city centre. It costs ${prijs('spel-en-borrel')} per person. In winter, the Warm Winter Day with the Dom Tower and a Dutch winter lunch is a good alternative, for ${prijs('warme-winterdag')} per person.`,
+        tekst: `In winter there is the Warm Winter Day: up the Dom Tower, lunch from the menu at JEU de boules bar, jeu de boules and mulled wine drinks to finish, for ${prijs('warme-winterdag')} per person. From April to October, Active Amelisweerd is a full day outdoors, for ${prijs('amelisweerd-actief')} per person.`,
       },
       {
         kop: 'Handy for the social committee',
@@ -193,7 +195,7 @@ export const LANDINGS_EN: Record<VertaaldeLanding, LandingTekst> = {
       },
       {
         kop: 'What it costs',
-        tekst: `Dom Tower & Canals costs ${prijs('dom-en-grachten')} per person for half a day, Coffee & City Challenge ${prijs('koffie-en-city-challenge')} for a morning. A full indoor day in the city centre, Utrecht Games & Drinks, costs ${prijs('spel-en-borrel')} per person. From April to October there is Active Amelisweerd for ${prijs('amelisweerd-actief')} per person. All prices include VAT. The price is per person: everyone who takes part counts, children too.`,
+        tekst: `Dom Tower & Canals costs ${prijs('dom-en-grachten')} per person for half a day. In winter there is Winter on the Canals, a canal cruise with lunch, for ${prijs('winter-op-de-grachten')} per person. From April to October there is Active Amelisweerd for ${prijs('amelisweerd-actief')} per person. All prices include VAT. The price is per person: everyone who takes part counts, children too.`,
       },
       {
         kop: 'With young children',
@@ -231,7 +233,7 @@ export const LANDINGS_EN: Record<VertaaldeLanding, LandingTekst> = {
     link: 'Team building',
     band: ['Work together', 'Compete', 'Paddle', 'Kickbike', 'Drinks'],
     metaTitel: `Team building in Utrecht from ${vanaf('teambuilding')} per person`,
-    metaOmschrijving: `Team building in Utrecht: City Challenge, jeu de boules, shuffleboard or canoeing. From ${vanaf('teambuilding')} per person for half a day, ${prijs('spel-en-borrel')} for a full day.`,
+    metaOmschrijving: `Team building in Utrecht: City Challenge, jeu de boules, shuffleboard or canoeing. From ${vanaf('teambuilding')} per person for half a day, from ${heleDag()} for a full day.`,
     boven: 'Play together, paddle together',
     titel: 'Team building in Utrecht',
     intro:
@@ -249,7 +251,7 @@ export const LANDINGS_EN: Record<VertaaldeLanding, LandingTekst> = {
       },
       {
         kop: 'The City Challenge',
-        tekst: `With the City Challenge the team heads into the old town in small groups, with challenges and questions about the Dom, the wharf cellars and the Oudegracht canal. Solving puzzles together, dividing tasks and the results at the end. With coffee and cake beforehand, that is Coffee & City Challenge, for ${prijs('koffie-en-city-challenge')} per person.`,
+        tekst: `With the City Challenge the team heads into the old town in small groups, with challenges and questions about the Dom, the wharf cellars and the Oudegracht canal. Solving puzzles together, dividing tasks and the results at the end. You add the City Challenge when you build your own day, for ${bouwsteenPrijs('en', 'city-challenge')} per person.`,
       },
       {
         kop: 'Team outing or team building?',
@@ -295,11 +297,11 @@ export const LANDINGS_EN: Record<VertaaldeLanding, LandingTekst> = {
       {
         kop: 'Bad weather forecast?',
         tekst:
-          'Then choose Utrecht Games & Drinks: jeu de boules, lunch, shuffleboard and drinks, completely indoors in the city centre.',
+          'Then choose Boules & Drinks: jeu de boules on covered courts and drinks, completely indoors in the city centre.',
       },
       {
         kop: 'In winter',
-        tekst: `Stand-up paddling and canoeing are possible from April to October. Outside that period there is the Bachelor Party Winter Day: mulled wine, shuffleboard, a warm lunch and drinks, completely indoors. It costs ${prijs('vrijgezellen-winterdag')} per person, exactly the same as the summer package.`,
+        tekst: `Stand-up paddling and canoeing are possible from April to October. Outside that period there are Winter Drinks: jeu de boules on covered courts and mulled wine drinks to finish, completely indoors. It costs ${prijs('winterborrel')} per person.`,
       },
       {
         kop: 'Just an afternoon',
@@ -351,21 +353,21 @@ export const LANDINGS_EN: Record<VertaaldeLanding, LandingTekst> = {
 
   winteruitje: {
     link: 'Winter outing',
-    band: ['Mulled wine', 'Christmas outing', 'Canal cruise', 'Indoor jeu de boules', 'Pea soup', 'Drinks'],
+    band: ['Mulled wine', 'Christmas outing', 'Canal cruise', 'Indoor jeu de boules', 'Dom Tower', 'Drinks'],
     metaTitel: `Winter outing in Utrecht from ${vanaf('winteruitje')} per person`,
     metaOmschrijving: `Winter or Christmas outing in Utrecht with your company or team: mulled wine, a canal cruise, indoor jeu de boules and drinks. ${WINTER}, from ${vanaf('winteruitje')} p.p.`,
     boven: WINTER,
     titel: 'Winter outing in Utrecht',
     intro:
-      'Warm up with mulled wine, see the city from the water or the Dom Tower, enjoy a hearty Dutch winter lunch and play jeu de boules indoors. Fixed packages at a fixed price per person, for your company, team or friends.',
+      'See the city from the water or the Dom Tower, have lunch from the menu, play jeu de boules indoors and finish with mulled wine. Fixed packages at a fixed price per person, for your company, team or friends.',
     alineas: [
       {
         kop: 'Made for winter',
-        tekst: `The winter packages run ${klein(WINTER)}. They all start with mulled wine (glühwein) or hot chocolate at JEU de boules bar on Paardenveld, a five-minute walk from Utrecht Centraal station. Most activities are indoors, so a cold or wet day hardly matters.`,
+        tekst: `The winter packages run ${klein(WINTER)}. They all include JEU de boules bar on Paardenveld, a five-minute walk from Utrecht Centraal station, for lunch or for mulled wine (glühwein) drinks. Most activities are indoors, so a cold or wet day hardly matters.`,
       },
       {
         kop: 'Four packages',
-        tekst: `Winter on the Canals is half a day with mulled wine, a canal cruise with Rederij Schuttevaer and a winter lunch, for ${prijs('winter-op-de-grachten')} per person. Winter Drinks is an afternoon with mulled wine, jeu de boules and drinks, for ${prijs('winterborrel')}. The Warm Winter Day takes the whole day, with the Dom Tower, a winter lunch, jeu de boules and drinks, for ${prijs('warme-winterdag')}. For bachelor parties there is the Bachelor Party Winter Day with shuffleboard, for ${prijs('vrijgezellen-winterdag')}.`,
+        tekst: `Winter on the Canals is half a day with a canal cruise with Rederij Schuttevaer followed by lunch from the menu, for ${prijs('winter-op-de-grachten')} per person. Winter Drinks is an afternoon with jeu de boules and mulled wine drinks, for ${prijs('winterborrel')}. The Warm Winter Day takes the whole day, with the Dom Tower, lunch from the menu, jeu de boules and mulled wine drinks, for ${prijs('warme-winterdag')}.`,
       },
       {
         kop: 'As a Christmas outing',
@@ -378,15 +380,15 @@ export const LANDINGS_EN: Record<VertaaldeLanding, LandingTekst> = {
           'You see the price per person in advance, including Dutch VAT, and the invoice is made out to your company. The number of participants can still change up to a week before the date. We book everything with our partners, and on the day itself Ger is your contact person.',
       },
       {
-        kop: 'A hearty lunch',
+        kop: 'Lunch from the menu',
         tekst:
-          'The winter lunch is typically Dutch: pea soup (erwtensoep) or stamppot, a mash of potatoes and vegetables, with a vegetarian option. Other dietary requirements can be passed on when you book.',
+          'Lunch is at JEU de boules bar on Paardenveld: everyone chooses from the menu, with a drink on the side. Dietary requirements can be passed on when you book.',
       },
     ],
     faq: [
       {
         q: 'When can we book a winter outing?',
-        a: `The winter packages can be booked ${klein(WINTER)}, on Thursday, Friday and Saturday, at least ${REGELS.minDagenVooruit} days in advance.`,
+        a: `The winter packages can be booked ${klein(WINTER)}, on Saturdays, at least ${REGELS.minDagenVooruit} days in advance. JEU de boules bar, where the lunch, the boules and the drinks take place, only opens at 15:00 on Thursday and Friday.`,
       },
       {
         q: 'What does a winter outing in Utrecht cost?',
@@ -394,11 +396,11 @@ export const LANDINGS_EN: Record<VertaaldeLanding, LandingTekst> = {
       },
       {
         q: 'Is a Christmas outing in December possible?',
-        a: 'Yes. All winter packages are available in December, on Thursday, Friday and Saturday.',
+        a: 'Yes. All winter packages are available in December, on Saturdays.',
       },
       {
         q: 'Is there a non-alcoholic option?',
-        a: 'Yes. At the welcome, everyone can choose between mulled wine and hot chocolate.',
+        a: 'Yes. At the mulled wine drinks, everyone can choose between mulled wine and hot chocolate.',
       },
       {
         q: 'Does it go ahead in snow or rain?',

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound, redirect } from 'next/navigation';
 import { prisma } from '@utrecht/db';
-import { LEVERANCIERS, TIJDVAKKEN, formatDatum, vindBouwsteen, type LeverancierId } from '../../../../lib/aanbod';
+import { LEVERANCIERS, TIJDVAKKEN, formatDatum, vindBouwsteenOokOffline as vindBouwsteen, type LeverancierId } from '../../../../lib/aanbod';
 import { verwerkAntwoord } from '../../../../lib/inkoop-agent';
 
 export const dynamic = 'force-dynamic';

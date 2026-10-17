@@ -189,7 +189,7 @@ export const BOUWSTEEN_SEO: Record<string, BouwsteenSeo> = {
     vragen: [
       { q: 'Wat zit er in het pakket?', a: 'Een verzorgd picknickpakket per persoon. Geef dieetwensen door bij het boeken.' },
       { q: 'Waar eet je?', a: 'Bij De Rijnstroom aan de Kromme Rijn, in Amelisweerd.' },
-      { q: 'Kan het in de winter?', a: 'Nee, de picknick loopt van april tot en met oktober. In de winter is er een winterse lunch in het centrum.' },
+      { q: 'Kan het in de winter?', a: 'Nee, de picknick loopt van april tot en met oktober. In de winter is er lunch van de kaart in het centrum.' },
     ],
   },
 
@@ -238,30 +238,32 @@ export const BOUWSTEEN_SEO: Record<string, BouwsteenSeo> = {
   },
 
   gluhwein: {
-    titel: 'Glühwein-ontvangst voor groepen in Utrecht',
+    titel: 'Glühwein-borrel voor groepen in Utrecht',
     beschrijving:
-      'Winterse ontvangst met glühwein of warme chocolademelk bij Paardenveld. Voor groepen vanaf 8 personen, november tot maart.',
+      'De dag afsluiten met glühwein of warme chocolademelk en een borrel bij Paardenveld. Voor groepen vanaf 8 personen, november tot maart.',
     tekst: [
-      'De winterversie van de ontvangst: glühwein of warme chocolademelk met iets lekkers erbij, binnen bij Paardenveld.',
-      'Dit blok loopt van november tot en met maart en zit standaard in het winterpakket Warme Winterdag.',
+      'De winterversie van de afsluitende borrel: eerst een glühwein of warme chocolademelk, daarna twee drankjes per persoon met bitterballen, binnen bij JEU de boules bar aan Paardenveld.',
+      'Dit blok loopt van november tot en met maart en zit in de winterpakketten Warme Winterdag en Winterborrel.',
     ],
     vragen: [
-      { q: 'Is er ook iets zonder alcohol?', a: 'Ja, warme chocolademelk is het alternatief.' },
+      { q: 'Is er ook iets zonder alcohol?', a: 'Ja, warme chocolademelk is het alternatief voor de glühwein.' },
+      { q: 'Hoe laat is de glühwein-borrel?', a: 'In het afsluitende tijdvak, vanaf 16:30, en hij duurt een uur.' },
       { q: 'Wanneer kan dit?', a: 'Van november tot en met maart.' },
     ],
   },
 
   winterlunch: {
-    titel: 'Winterse lunch voor groepen in Utrecht',
+    titel: 'Lunch van de kaart voor groepen in Utrecht',
     beschrijving:
-      'Erwtensoep of stamppot voor groepen vanaf 8 personen, in het centrum van Utrecht. Ook vegetarisch, november tot maart.',
+      'Lunchen van de kaart bij JEU de boules bar aan Paardenveld, met een drankje erbij. Voor groepen vanaf 8 personen, november tot maart.',
     tekst: [
-      'Erwtensoep of stamppot op een vaste locatie in het centrum, als lunch tussen twee winterse blokken door.',
-      'Vegetarisch kan. Dit blok loopt van november tot en met maart.',
+      'Een lunch van de kaart bij JEU de boules bar aan Paardenveld, als pauze tussen twee winterse blokken door. Iedereen kiest zelf een gerecht, met frisdrank of koffie erbij.',
+      'Dieetwensen geef je door bij het boeken. Dit blok loopt van november tot en met maart.',
     ],
     vragen: [
-      { q: 'Wat wordt er geserveerd?', a: 'Erwtensoep of stamppot, met frisdrank of koffie erbij.' },
-      { q: 'Is vegetarisch mogelijk?', a: 'Ja, doorgeven bij het boeken.' },
+      { q: 'Wat wordt er geserveerd?', a: 'Iedereen kiest een gerecht van de kaart, met frisdrank of koffie erbij.' },
+      { q: 'Hoe laat is de lunch?', a: 'Van 12:30 tot 13:30.' },
+      { q: 'Kan ik dieetwensen doorgeven?', a: 'Ja, geef ze door bij het boeken.' },
     ],
   },
 };

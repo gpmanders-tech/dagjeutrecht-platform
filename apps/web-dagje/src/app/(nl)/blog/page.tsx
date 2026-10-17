@@ -50,7 +50,7 @@ export default async function BlogIndex() {
       </p>
       <p className="text-grijs mb-4 max-w-2xl">
         Hier lees je waar je in Utrecht het best kunt kanoën of suppen, waarom jeu de boules en shuffleboard zo goed werken
-        voor een groep, en hoe je van losse activiteiten een dag maakt die klopt: van de ontvangst met koffie tot de borrel
+        voor een groep, en hoe je van losse activiteiten een dag maakt die klopt: van het eerste onderdeel tot de borrel
         aan het eind. Elk artikel verwijst naar de pakketten die erbij passen, zodat je van idee meteen naar een datum kunt.
       </p>
       <p className="text-grijs mb-4 max-w-2xl">

@@ -295,7 +295,7 @@ export function Home({ taal }: { taal: Vertaald }) {
               className="kantel polaroid rounded-sm"
             />
             {(winter
-              ? [fotos.erwtensoep, fotos.borrel]
+              ? [fotos.gluhwein, fotos.borrel]
               : [fotos.picknick, fotos.kickbikeGracht]
             ).map((f, i) => (
               <Foto
