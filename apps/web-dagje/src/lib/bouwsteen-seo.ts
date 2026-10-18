@@ -116,6 +116,7 @@ export const BOUWSTEEN_SEO: Record<string, BouwsteenSeo> = {
       'Je stapt op in het centrum, op loopafstand van de andere onderdelen. Handig als startpunt van de dag of juist als rustpunt na de lunch.',
     ],
     vragen: [
+      { q: 'Is dit de pannenkoekenboot?', a: 'Nee, er vaart geen pannenkoekenboot meer in Utrecht. Deze rondvaart met Schuttevaer is het dichtstbijzijnde alternatief om toch samen het water op te gaan.' },
       { q: 'Hoe lang duurt de rondvaart?', a: 'Een uur.' },
       { q: 'Is de boot overdekt?', a: 'Ja, er is een overkapping, dus de vaart gaat ook door bij regen.' },
       { q: 'Kan er onderweg gedronken worden?', a: 'Drankjes zitten niet in deze bouwsteen. Voor een borrel combineer je met het borrelblok na afloop.' },
