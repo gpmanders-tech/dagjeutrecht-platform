@@ -368,6 +368,11 @@ export const LANDINGS: Record<LandingSleutel, Landing> = {
         tekst:
           'Je hoeft niet zelf met de boulesbar, de botenverhuur en de lunchzaak te schakelen. Wij reserveren alles bij onze vaste partners en je krijgt één factuur op naam van het bedrijf. Op de dag zelf is Ger het aanspreekpunt, zodat het team zich alleen met het programma bezig hoeft te houden.',
       },
+      {
+        kop: 'Welk onderdeel past bij jullie team',
+        tekst:
+          'Een groot team dat elkaar al goed kent, kiest vaak voor jeu de boules of shuffleboard: snel te leren en met z\'n allen tegelijk te spelen. Een kleiner team dat beter wil samenwerken, kiest eerder voor de kano\'s, waar je met z\'n tweeën op elkaar aangewezen bent, of de City Challenge, waar de hele groep in kleine teams tegen elkaar speelt. Twijfel je, zet het dan in de aanvraag, dan denken we mee.',
+      },
     ],
     faq: [
       { q: 'Met hoeveel personen kan het?', a: GROEP },
