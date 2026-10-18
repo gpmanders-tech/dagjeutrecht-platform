@@ -146,9 +146,9 @@ export async function submitBoeking(
     await stuurMail({
         aan: OPS_MAIL_TO,
         replyTo: data.email,
-        onderwerp: `[DagjeUtrecht] Boeking ${code}${data.taal ? ` [${data.taal.toUpperCase()}]` : ''}: ${formatDatum(data.datum)}, ${data.personen} pers.`,
-        tekst: `Nieuwe boekingsaanvraag ${code}
-${data.taal ? `\nTaal klant: ${ui(data.taal).mail.taalNaam} (geboekt via /${data.taal}; de bevestiging aan de klant ging in het ${ui(data.taal).mail.taalNaam}).\n` : ''}
+        onderwerp: `[DagjeUtrecht] Aanvraag ${code}${data.taal ? ` [${data.taal.toUpperCase()}]` : ''}: ${formatDatum(data.datum)}, ${data.personen} pers.`,
+        tekst: `Nieuwe aanvraag ${code}
+${data.taal ? `\nTaal klant: ${ui(data.taal).mail.taalNaam} (aangevraagd via /${data.taal}; de bevestiging aan de klant ging in het ${ui(data.taal).mail.taalNaam}).\n` : ''}
 Datum: ${formatDatum(data.datum)}
 Personen: ${data.personen}
 Pakket: ${pakket?.naam ?? 'zelf samengesteld'}
