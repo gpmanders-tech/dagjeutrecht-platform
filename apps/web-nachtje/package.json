@@ -14,7 +14,7 @@
     "@utrecht/i18n": "workspace:*",
     "@utrecht/booking-engine": "workspace:*",
     "next": "^15.5.27",
-    "next-intl": "^3.26.5",
+    "next-intl": "^4.9.2",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
   },
