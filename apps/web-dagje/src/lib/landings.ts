@@ -182,6 +182,11 @@ export const LANDINGS: Record<LandingSleutel, Landing> = {
         tekst:
           'Een jubileum, een afscheid of het einde van een project vieren? Begin met een spel en sluit af met een borrel: dan heeft iedereen iets gedaan en is er daarna tijd om te praten. Kijk ook bij het bedrijfsfeest en het personeelsuitje voor pakketten die daarbij passen.',
       },
+      {
+        kop: 'Een bedrijfsuitje organiseren in drie stappen',
+        tekst:
+          'Kies een pakket of stel zelf een dag samen in de samensteller, prik een donderdag, vrijdag of zaterdag en vul het aantal personen in. Wij reserveren alles bij onze partners en binnen drie werkdagen krijg je de bevestiging met een betaallink. De dag ervoor krijg je alle tijden en adressen, zodat jij op de dag zelf niets meer hoeft te regelen.',
+      },
     ],
     faq: [
       {
@@ -193,6 +198,10 @@ export const LANDINGS: Record<LandingSleutel, Landing> = {
       {
         q: 'Kunnen we alleen een middag doen?',
         a: `Ja. Boules & Borrel is een middag van twee uur tot zes uur en kost ${prijs('boules-en-borrel')} per persoon. Van november tot en met maart is er ook de Winterborrel, voor ${prijs('winterborrel')} per persoon.`,
+      },
+      {
+        q: 'Wat kost een bedrijfsuitje in Utrecht?',
+        a: `Bij ons vanaf ${vanaf(P_BEDRIJF)} per persoon voor een dagdeel en vanaf ${vanaf(P_HELE_DAG)} voor een hele dag, inclusief btw en vanaf ${REGELS.minPers} personen.`,
       },
       WEER,
       BEVESTIGING,
@@ -350,6 +359,15 @@ export const LANDINGS: Record<LandingSleutel, Landing> = {
         tekst:
           'Wil je vooral samen een leuke dag hebben, dan is een teamuitje met een spel en een borrel genoeg. Wil je dat mensen die elkaar weinig zien echt samenwerken, kies dan onderdelen waarin je op elkaar moet rekenen: twee personen in een kano, of een team dat samen de City Challenge oplost.',
       },
+      {
+        kop: 'Wat teambuilding in Utrecht kost',
+        tekst: `Een middag jeu de boules, shuffleboard of de City Challenge met een borrel kost ${prijs('boules-en-borrel')} per persoon. Amelisweerd Actief, een hele dag kanoën, steppen en barbecueën, kost ${prijs('amelisweerd-actief')}. In de winter is er de Warme Winterdag met de Domtoren, lunch en een glühwein-borrel, voor ${prijs('warme-winterdag')}. Alle prijzen zijn inclusief btw, vanaf ${REGELS.minPers} personen.`,
+      },
+      {
+        kop: 'Eén aanspreekpunt, één factuur',
+        tekst:
+          'Je hoeft niet zelf met de boulesbar, de botenverhuur en de lunchzaak te schakelen. Wij reserveren alles bij onze vaste partners en je krijgt één factuur op naam van het bedrijf. Op de dag zelf is Ger het aanspreekpunt, zodat het team zich alleen met het programma bezig hoeft te houden.',
+      },
     ],
     faq: [
       { q: 'Met hoeveel personen kan het?', a: GROEP },
@@ -361,6 +379,14 @@ export const LANDINGS: Record<LandingSleutel, Landing> = {
       {
         q: 'Kan teambuilding ook in de winter?',
         a: `Ja. Jeu de boules, shuffleboard en de City Challenge kunnen het hele jaar. Van november tot en met maart is er ook de Warme Winterdag voor ${prijs('warme-winterdag')} per persoon.`,
+      },
+      {
+        q: 'Hoeveel tijd moeten we uittrekken?',
+        a: `Een middagprogramma duurt van twee tot zes uur. Amelisweerd Actief en de Warme Winterdag zijn een hele dag, van 's ochtends tot een borrel aan het eind van de middag.`,
+      },
+      {
+        q: 'Krijgen we een factuur op naam van het bedrijf?',
+        a: 'Ja. Vul bij de aanvraag de bedrijfsnaam in, dan staat de factuur op naam van het bedrijf, met btw.',
       },
       WEER,
       ...ALGEMENE_FAQ,
@@ -518,6 +544,19 @@ export const LANDINGS: Record<LandingSleutel, Landing> = {
         tekst:
           'De Domtoren is met 465 treden het hoogste punt van Utrecht. Vanaf het water zie je de werfkelders langs de Oudegracht, en tijdens de City Challenge zoeken de teams zelf hun weg langs de Dom, de werven en de Neude. Zo wordt het schoolreisje ook een les over de stad.',
       },
+      {
+        kop: 'Hoe de dag eruit ziet',
+        tekst: `De klas komt 's ochtends aan bij het verzamelpunt in het centrum, op loopafstand van Utrecht Centraal. Daarna volgt het onderdeel dat bij het pakket hoort: de klim op de Domtoren, de rondvaart of de City Challenge. Tussen de middag is er tijd voor lunch, en 's middags volgt het tweede onderdeel. Rond het einde van de middag is de klas weer op het verzamelpunt voor de terugreis.`,
+      },
+      {
+        kop: 'Een vaste prijs per leerling',
+        tekst: `Je weet vooraf wat de dag kost, want de prijs staat per leerling vast en is inclusief btw. Het schooluitje met de Domtoren, rondvaart en lunch kost ${prijs('schooluitje')}, het programma voor de basisschool ${prijs('schoolreis-basisschool')} en de halve dag Dom & Grachten ${prijs('dom-en-grachten')} per leerling. Zo kan de ouderraad of de school vooraf begroten zonder verrassingen achteraf.`,
+      },
+      {
+        kop: 'Eén aanspreekpunt voor de school',
+        tekst:
+          'De school regelt niet zelf met de rederij, de boulesbar en de lunchzaak. Wij reserveren alles bij onze vaste partners, zodat de leerkracht of mentor op de dag zelf alleen de klas hoeft te begeleiden. Vragen voor of tijdens de dag gaan naar Ger als vast aanspreekpunt.',
+      },
     ],
     faq: [
       {
@@ -535,6 +574,14 @@ export const LANDINGS: Record<LandingSleutel, Landing> = {
       {
         q: 'Hoe komen we er met de klas?',
         a: 'Alle schoolprogramma’s zijn in het centrum, op loopafstand van Utrecht Centraal. Wie met de trein komt, loopt zo naar de start.',
+      },
+      {
+        q: 'Wat kost een schooluitje in Utrecht?',
+        a: `Vanaf ${vanaf(P_SCHOOL)} per leerling, inclusief btw. Het programma voor de basisschool kost ${prijs('schoolreis-basisschool')}, het schooluitje met de Domtoren ${prijs('schooluitje')} per leerling.`,
+      },
+      {
+        q: 'Kan het ook bij regen?',
+        a: 'Ja. De rondvaart gaat gewoon door bij regen, en de lunch is binnen. Alleen bij storm of onweer nemen we contact op om een onderdeel te verschuiven.',
       },
       GROTER,
       ...ALGEMENE_FAQ,
