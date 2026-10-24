@@ -18,6 +18,8 @@ export default function ImpressumPage() {
           <p>
             Utrecht Incoming ist ein Handelsname von Traxeo (Einzelunternehmen nach niederländischem Recht).
             <br />
+            Inhaber: Ger Manders
+            <br />
             Raiffeisenlaan 42
             <br />
             3571 TE Utrecht
