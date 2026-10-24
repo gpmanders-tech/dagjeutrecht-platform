@@ -30,6 +30,8 @@ export default function ImpressumPage() {
           <p>
             E-Mail: <a href="mailto:info@utrechtincoming.nl" className="underline">info@utrechtincoming.nl</a>
             <br />
+            Telefon: <a href="tel:+31852262157" className="underline">+31 85 226 21 57</a>
+            <br />
             Kontaktformular: <a href="/anfrage" className="underline">utrechtincoming.nl/anfrage</a>
           </p>
         </section>

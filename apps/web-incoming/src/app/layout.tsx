@@ -39,6 +39,8 @@ const jsonLd = {
         'B2B-Incoming-Partner für Gruppenreisen nach Utrecht: Gruppenprogramme, Partnertarife, mehrsprachige Vouchers und Sammelrechnung für Reiseveranstalter.',
       areaServed: { '@type': 'City', name: 'Utrecht' },
       knowsLanguage: ['de', 'nl'],
+      telephone: '+31852262157',
+      email: 'info@utrechtincoming.nl',
       audience: {
         '@type': 'BusinessAudience',
         audienceType: 'Reiseveranstalter, Busunternehmen, DMC und Schulreise-Spezialisten',
@@ -74,6 +76,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               </p>
               <p className="mt-3 text-sm">
                 <a href="mailto:info@utrechtincoming.nl" className="underline underline-offset-2 hover:text-white">info@utrechtincoming.nl</a>
+                <br />
+                <a href="tel:+31852262157" className="underline underline-offset-2 hover:text-white">+31 85 226 21 57</a>
               </p>
               <p className="mt-4 text-sm">
                 Auch von uns:{' '}

@@ -40,8 +40,9 @@ export default function AnfragePage() {
         </ol>
         <AnfrageForm />
         <p className="mt-8 text-sm text-white/70">
-          Lieber direkt per E-Mail? Schreiben Sie an{' '}
-          <a href="mailto:info@utrechtincoming.nl" className="underline text-incoming-orange">info@utrechtincoming.nl</a>.
+          Lieber direkt? Schreiben Sie an{' '}
+          <a href="mailto:info@utrechtincoming.nl" className="underline text-incoming-orange">info@utrechtincoming.nl</a> oder rufen Sie an:{' '}
+          <a href="tel:+31852262157" className="underline text-incoming-orange">+31 85 226 21 57</a>.
         </p>
       </div>
     </main>
