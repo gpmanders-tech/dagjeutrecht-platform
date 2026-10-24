@@ -61,7 +61,7 @@ Nieuwer, actiever, en dé teambuilding-trend van 2026. Instructie mogelijk voor 
 Immersieve escape-ervaringen in virtual reality. Ideaal voor tech-teams of jongere groepen.
 
 ## Zelf samenstellen?
-Vindt u niet direct wat past? Op DagjeUtrecht.nl combineert u eenvoudig activiteiten, lunch en borrel tot een compleet programma. Onze AI-gids helpt u binnen 2 minuten aan een concreet voorstel, en Ger stuurt binnen 48 uur een sluitende offerte.
+Vindt u niet direct wat past? Bekijk de vaste pakketten en prijzen op de pagina [bedrijfsuitje in Utrecht](/bedrijfsuitje-utrecht), of combineer eenvoudig activiteiten, lunch en borrel tot een eigen programma. Onze AI-gids helpt u binnen 2 minuten aan een concreet voorstel, en Ger stuurt binnen 48 uur een sluitende offerte.
 `,
   },
   {
@@ -127,7 +127,7 @@ Actief, sociaal en de trend van 2026.
 Dagvullend, all-in, geen zorgen. Vanaf 79 euro per persoon.
 
 ## Alles regelen in één keer
-Op DagjeUtrecht.nl stel je zelf een vrijgezellenprogramma samen: activiteit + lunch + avondprogramma in een pakket. Ger regelt alle boekingen en stuurt binnen 48 uur een offerte.
+Bekijk de pakketten op de pagina [vrijgezellenfeest in Utrecht](/vrijgezellenfeest-utrecht): activiteit, lunch en avondprogramma in één prijs per persoon. Ger regelt alle boekingen en stuurt binnen 48 uur een offerte.
 `,
   },
   {
@@ -181,7 +181,7 @@ Combineer een lokaal bedrijf (brouwerij, atelier) met een korte stadswandeling.
 
 ## Wat wij regelen
 
-Op DagjeUtrecht.nl stel je een schoolprogramma samen dat past bij de leeftijd van je groep. Wij regelen boekingen, vervoer optioneel, factuur op naam school, en zorgen voor een weer-alternatief. Binnen 48 uur een sluitende offerte.
+Op de pagina [schooluitje in Utrecht](/schooluitje-utrecht) stel je een schoolprogramma samen dat past bij de leeftijd van je groep. Wij regelen boekingen, vervoer optioneel, factuur op naam school, en zorgen voor een weer-alternatief. Binnen 48 uur een sluitende offerte.
 `,
   },
   {
@@ -243,7 +243,7 @@ Op DagjeUtrecht.nl stel je een schoolprogramma samen dat past bij de leeftijd va
 
 ## Zelf een programma samenstellen
 
-Op DagjeUtrecht.nl combineer je activiteiten uit onze 150+ leveranciers tot een compleet dagprogramma. Kies je doelgroep, budget en sfeer - onze AI-gids stelt binnen minuten iets voor. Ger regelt vervolgens alle boekingen en stuurt binnen 48 uur een offerte.
+Op de pagina [alle pakketten](/pakketten) combineer je activiteiten tot een compleet dagprogramma, of kies direct het pakket dat bij jullie gelegenheid past: [bedrijfsuitje](/bedrijfsuitje-utrecht), [personeelsuitje](/personeelsuitje-utrecht) of [familiedag](/familiedag-utrecht). Kies je doelgroep, budget en sfeer - onze AI-gids stelt binnen minuten iets voor. Ger regelt vervolgens alle boekingen en stuurt binnen 48 uur een offerte.
 `,
   },
   {
@@ -301,7 +301,147 @@ Verschillende cateringspots + een gezamenlijke activiteit erna.
 
 ## Bonus: onze aanpak
 
-Wij regelen alles op een factuur, met één contactpersoon (Ger). Geen 12 losse boekingen, geen chaos. Op DagjeUtrecht.nl kies je activiteiten, wij regelen de rest. Binnen 48 uur een sluitende offerte.
+Wij regelen alles op een factuur, met één contactpersoon (Ger). Geen 12 losse boekingen, geen chaos. Bekijk de vaste pakketten en prijzen op de pagina [teambuilding in Utrecht](/teambuilding-utrecht). Binnen 48 uur een sluitende offerte.
+`,
+  },
+  {
+    slug: 'personeelsuitje-utrecht-ideeen',
+    title: 'Personeelsuitje Utrecht: ideeën voor jong en oud',
+    metaTitle: 'Personeelsuitje Utrecht 2026 - ideeën voor jong en oud',
+    metaDesc:
+      'Personeelsuitje in Utrecht organiseren voor de hele vereniging? Ideeën die voor jong en oud werken, met jeu de boules, kanoën en een City Challenge.',
+    excerpt:
+      'Een personeelsuitje waar niemand bij afhaakt: wij zetten de ideeën op een rij die voor jong en oud werken.',
+    heroImageQuery: 'colleagues,outdoor,games',
+    body: `Bij een personeelsuitje zit vaak iedereen bij elkaar: de stagiair, de collega die net begint en degene die bijna met pensioen gaat. De vraag die personeelsverenigingen ons het vaakst stellen is simpel: wat kan iedereen meedoen, zonder dat het te sportief of te kinderachtig wordt?
+
+## Wat werkt voor een gemengde groep
+
+### Jeu de boules en shuffleboard
+Allebei in twee worpen uit te leggen en zonder conditie te spelen. Precies waarom dit de vaste basis is van de meeste personeelsuitjes in Utrecht.
+
+### De City Challenge
+Een speurtocht te voet door de binnenstad, op eigen tempo. Werkt voor een groep van twintig of tachtig collega's tegelijk, zonder dat iemand hoeft te rennen.
+
+### Kanoën in Amelisweerd
+Voor de groep die liever buiten actief is. Alleen in het warmere seizoen, en wel vragen om een beetje beweeglijkheid.
+
+## Wat het kost en hoe lang het duurt
+Een middag na het werk met jeu de boules en een borrel heet bij ons Boules & Borrel. In de winter is er een variant met een glühwein-borrel erbij. Voor een hele dag, met de Domtoren en een lunch erbij, is er de Warme Winterdag in de winter en Amelisweerd Actief in het warmere seizoen. De actuele prijs per persoon staat op de pakketpagina, en is inclusief btw.
+
+## Praktisch voor de personeelsvereniging
+De factuur staat op naam van de vereniging of het bedrijf, en het aantal deelnemers kan tot een week voor de datum nog veranderen. Dat maakt plannen makkelijk, ook als niet iedereen meteen weet of hij kan.
+
+## Zelf kiezen
+Op de pagina [personeelsuitje in Utrecht](/personeelsuitje-utrecht) staan de pakketten met een vaste prijs per persoon. Ger regelt de boekingen bij onze partners en stuurt binnen 48 uur een offerte.
+`,
+  },
+  {
+    slug: 'bedrijfsevenement-utrecht-organiseren',
+    title: 'Bedrijfsevenement organiseren in Utrecht: waar begin je',
+    metaTitle: 'Bedrijfsevenement Utrecht organiseren - kick-off tot jubileum',
+    metaDesc:
+      'Een bedrijfsevenement organiseren in Utrecht: kick-off, jubileum of afdelingsdag. Praktische tips voor programma, locatie en budget.',
+    excerpt:
+      'Een kick-off, jubileum of afdelingsdag organiseren in Utrecht? Deze opbouw werkt bij de meeste bedrijfsevenementen.',
+    heroImageQuery: 'corporate,event,city',
+    body: `Een bedrijfsevenement is breder dan een gewoon bedrijfsuitje: het kan een kick-off zijn, een jubileum, een afscheid of de dag waarop twee afdelingen elkaar beter leren kennen. De vraag die wij het vaakst krijgen is waar je als organisator mee moet beginnen.
+
+## Begin met het doel
+Een kick-off vraagt om energie en een gezamenlijk startpunt. Een jubileum vraagt om terugblikken en vieren. Een afdelingsdag vraagt om elkaar beter leren kennen. Kies het programma op basis van wat de dag moet opleveren, niet op basis van wat het leukst klinkt.
+
+## Een programma dat werkt
+De opbouw die bij de meeste bedrijfsevenementen in Utrecht goed valt: eerst een activiteit waarbij mensen samen iets doen, zoals jeu de boules op de overdekte banen aan Paardenveld, dan een lunch, en aan het eind een borrel. Die volgorde zorgt dat er al gesprek is voordat de borrel begint.
+
+## Midden in de stad
+Alle vaste onderdelen zitten op loopafstand van elkaar en van Utrecht Centraal, dus er is geen vervoer nodig tussen de onderdelen. Dat is handig als gasten uit het hele land komen.
+
+## Budget en factuur
+Je ziet de prijs per persoon vooraf, inclusief btw, en de factuur staat op naam van het bedrijf. Dat maakt het makkelijk om een bedrijfsevenement voor te leggen aan de financiële afdeling.
+
+## Direct aan de slag
+Op de pagina [bedrijfsevenement in Utrecht](/bedrijfsevenement-utrecht) staan de pakketten met een vaste prijs per persoon. Ger regelt de reserveringen bij onze partners en stuurt binnen 48 uur een offerte.
+`,
+  },
+  {
+    slug: 'bedrijfsfeest-utrecht-locatie-en-programma',
+    title: 'Bedrijfsfeest Utrecht: locatie en programma kiezen',
+    metaTitle: 'Bedrijfsfeest Utrecht - locatie en programma kiezen',
+    metaDesc:
+      'Een bedrijfsfeest vieren in Utrecht: jubileum, afscheid of eindejaarsborrel. Tips voor locatie, programma en wat het betekent voor de sfeer.',
+    excerpt:
+      'Een jubileum, afscheid of eindejaarsborrel in Utrecht vieren? Dit bepaalt of een bedrijfsfeest blijft hangen.',
+    heroImageQuery: 'celebration,drinks,office',
+    body: `Een jubileum, een afscheid of het einde van het jaar vieren met het team: een bedrijfsfeest leeft of sterft bij de opbouw van de dag. De vraag die wij het meest horen van organisatoren is of je meteen moet beginnen met de borrel, of eerst iets anders.
+
+## Eerst spelen, dan pas de borrel
+Een feest dat begint met alleen een borrel, komt langzaam op gang: iedereen zoekt dezelfde paar collega's op die ze al kennen. Begin je eerst met een spel zoals jeu de boules of shuffleboard, dan heeft iedereen al iets samen gedaan voordat de drankjes komen, en lopen de gesprekken daarna makkelijker.
+
+## In de zomer: naar buiten
+Een BBQ aan het water in Amelisweerd werkt goed als het bedrijfsfeest in het warmere seizoen valt. Buiten, informeel, en met ruimte om tussen de gangen door te bewegen.
+
+## In de winter: binnen en warm
+Jeu de boules binnen, gevolgd door een glühwein-borrel, past bij een eindejaarsfeest of kerstborrel. Het hele programma zit binnen, dus weer speelt geen rol.
+
+## Wat het betekent voor de keuze
+Vier het feest op naam van een jubileum of afscheid? Kies dan een programma met wat meer tijd voor speeches en een toost. Is het puur een eindejaarsborrel? Dan kan het compacter, met meer tijd voor de borrel zelf.
+
+## Boeken
+Op de pagina [bedrijfsfeest in Utrecht](/bedrijfsfeest-utrecht) staan de pakketten met een vaste prijs per persoon, inclusief btw. Ger regelt de reserveringen en stuurt binnen 48 uur een offerte.
+`,
+  },
+  {
+    slug: 'familiedag-utrecht-programma-met-kinderen',
+    title: 'Familiedag Utrecht: een programma voor jong en oud',
+    metaTitle: 'Familiedag Utrecht - programma voor collega’s en kinderen',
+    metaDesc:
+      'Familiedag organiseren in Utrecht met collega’s, partners en kinderen? Programmatips die werken voor alle leeftijden, met en zonder trappen.',
+    excerpt:
+      'Collega’s nemen hun gezin mee: wat een familiedag in Utrecht voor jong en oud laat werken.',
+    heroImageQuery: 'family,day,outdoor',
+    body: `Bij een familiedag gaan niet alleen collega's mee, maar ook partners en kinderen. Dat verandert de vraag die je jezelf als organisator stelt: niet "wat is leuk voor het team", maar "wat kan iedereen van 6 tot 66 jaar meedoen".
+
+## Kies onderdelen zonder drempel
+Een rondvaart door de grachten vraagt niets van deelnemers: geen conditie, geen trappen, en kinderen vinden het water al leuk. De City Challenge doe je te voet, op eigen tempo, dus een ouder met een kinderwagen kan gewoon meedoen. Jeu de boules op overdekte banen is in twee worpen uitgelegd.
+
+## Let op met jonge kinderen
+De Domtoren heeft 465 treden en is niet geschikt voor wie hoogtevrees heeft of slecht ter been is: met jonge kinderen kies je dan liever de rondvaart. Suppen kan alleen als iedereen kan zwemmen. Geef de leeftijden van de kinderen door bij de aanvraag, dan houden wij er rekening mee.
+
+## Als het warmer is
+Van april tot en met oktober kan de groep ook kanoën op de Kromme Rijn in Amelisweerd: actiever, maar nog steeds te doen voor de meeste leeftijden.
+
+## Iets extra's
+Bowlen, pingpong of virtual reality zijn populair bij families maar hebben geen vaste prijs. Die vraag je apart aan, en dan krijg je binnen een werkdag een voorstel met een prijs per persoon.
+
+## Eén factuur
+Je hoeft niet zelf met de rederij, de boulesbar en de lunchzaak te schakelen. Op de pagina [familiedag in Utrecht](/familiedag-utrecht) staan de pakketten; wij reserveren alles bij onze partners en je krijgt één factuur op naam van het bedrijf.
+`,
+  },
+  {
+    slug: 'winteruitje-utrecht-ideeen',
+    title: 'Winteruitje Utrecht: ideeën voor een kerstuitje of eindejaarsborrel',
+    metaTitle: 'Winteruitje Utrecht - ideeën voor kerstuitje en eindejaar',
+    metaDesc:
+      'Winteruitje of kerstuitje organiseren in Utrecht? Glühwein, de Domtoren, jeu de boules binnen en een borrel: ideeën voor de koude maanden.',
+    excerpt:
+      'Een winteruitje of kerstuitje in Utrecht hoeft niet van het weer af te hangen. Deze ideeën werken ook bij regen of kou.',
+    heroImageQuery: 'winter,mulled wine,friends',
+    body: `In de winter valt een buitenactiviteit al snel af door kou of regen. De vraag die wij dan het meest krijgen: wat kan een team of bedrijf in Utrecht doen dat niet van het weer afhangt, en toch het gevoel van een echt uitje geeft?
+
+## Binnen, warm en toch Utrecht
+De winterpakketten in Utrecht draaien allemaal om JEU de boules bar aan Paardenveld, vijf minuten lopen van Utrecht Centraal. Jeu de boules binnen, lunch van de kaart en een glühwein-borrel: alles onder één dak, dus een natte of koude dag maakt weinig uit.
+
+## De Domtoren erbij
+Voor een hele dag kan de groep eerst de Domtoren op. 465 treden, dus niet geschikt voor wie slecht ter been is of hoogtevrees heeft, maar voor de rest van de groep een stevig begin van de dag voordat de lunch en het boulen volgen.
+
+## Ook zonder alcohol
+Bij de glühwein-borrel kan iedereen kiezen tussen glühwein en warme chocolademelk, dus een winteruitje werkt ook voor collega's die geen alcohol drinken.
+
+## Als kerstuitje of eindejaarsborrel
+In december is een winteruitje een logische afsluiting van het jaar. Kies een kortere middag als het team na het werk wil beginnen, of een hele dag als jullie er met het bedrijf echt een dag voor vrijmaken.
+
+## Boeken
+Op de pagina [winteruitje in Utrecht](/winteruitje-utrecht) staan de pakketten met een vaste prijs per persoon, van november tot en met maart. Ger regelt de reserveringen en stuurt binnen 48 uur een offerte.
 `,
   },
 ];
@@ -316,6 +456,11 @@ const BLOG_FOTO: Record<string, string> = {
   'vrijgezellenfeest-utrecht-ideeen': '/fotos/suppen-vrijgezellen-utrecht.jpg',
   'schoolreis-utrecht-educatief-veilig': '/fotos/domtoren-utrecht.jpg',
   'wat-te-doen-utrecht-groep-gids': '/fotos/oudegracht-terrassen-domtoren.jpg',
+  'personeelsuitje-utrecht-ideeen': '/fotos/picknick-groep-utrecht.jpg',
+  'bedrijfsevenement-utrecht-organiseren': '/fotos/terrassen-winkel-van-sinkel.jpg',
+  'bedrijfsfeest-utrecht-locatie-en-programma': '/fotos/oudegracht-avond.jpg',
+  'familiedag-utrecht-programma-met-kinderen': '/fotos/jeu-de-boules-binnen.jpg',
+  'winteruitje-utrecht-ideeen': '/fotos/utrecht-winter-sneeuw.jpg',
 };
 
 async function main() {

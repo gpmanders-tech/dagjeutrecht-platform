@@ -4,6 +4,7 @@ import { prisma } from '@utrecht/db';
 import { Breadcrumbs } from '../../../../components/seo-jsonld';
 import { Foto } from '../../../../components/ui';
 import { fotoVoorBlog } from '../../../../lib/fotos';
+import { BlogBody } from '../../../../components/blog-body';
 
 export async function generateMetadata(props: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const params = await props.params;
@@ -86,12 +87,7 @@ export default async function BlogPost(props: { params: Promise<{ slug: string }
           {auteur ? ` · ${auteur}` : ''}
         </p>
       )}
-      <div
-        className="prose max-w-none text-inkt whitespace-pre-wrap"
-        // Markdown blijft ruw - de admin CMS mag deze pagina later omzetten met een MD-renderer.
-      >
-        {post.body}
-      </div>
+      <BlogBody body={post.body} />
     </article>
   );
 }
