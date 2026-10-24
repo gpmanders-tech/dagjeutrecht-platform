@@ -355,7 +355,7 @@ export const LANDINGS_EN: Record<VertaaldeLanding, LandingTekst> = {
     link: 'Winter outing',
     band: ['Mulled wine', 'Christmas outing', 'Canal cruise', 'Indoor jeu de boules', 'Dom Tower', 'Drinks'],
     metaTitel: `Winter outing in Utrecht from ${vanaf('winteruitje')} per person`,
-    metaOmschrijving: `Winter or Christmas outing in Utrecht with your company or team: mulled wine, a canal cruise, indoor jeu de boules and drinks. ${WINTER}, from ${vanaf('winteruitje')} p.p.`,
+    metaOmschrijving: `Winter or Christmas outing in Utrecht: mulled wine, a canal cruise, indoor jeu de boules and drinks. ${WINTER}, from ${vanaf('winteruitje')} p.p.`,
     boven: WINTER,
     titel: 'Winter outing in Utrecht',
     intro:
