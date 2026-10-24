@@ -2,6 +2,7 @@
 
 import { prisma } from '@utrecht/db';
 import { z } from 'zod';
+import { meldeIntern } from '@/lib/mail';
 
 const schema = z.object({
   companyName: z.string().min(1),
@@ -17,7 +18,7 @@ export async function registerPartner(input: z.infer<typeof schema>) {
   const data = schema.parse(input);
 
   const existing = await prisma.partner.findUnique({ where: { email: data.email } });
-  if (existing) return { error: 'Een aanvraag met dit e-mailadres staat al ingediend.' };
+  if (existing) return { error: 'Mit dieser E-Mail-Adresse liegt bereits eine Registrierung vor.' };
 
   await prisma.partner.create({
     data: {
@@ -32,6 +33,23 @@ export async function registerPartner(input: z.infer<typeof schema>) {
       preferredLocale: data.country === 'NL' ? 'nl' : data.country === 'FR' ? 'fr' : 'de',
     },
   });
+
+  // Neue Registrierung als Mail an info@utrechtincoming.nl, damit sie innerhalb von 2 Werktagen geprüft wird
+  await meldeIntern({
+    betreff: `Neue Partnerregistrierung: ${data.companyName} (${data.country})`,
+    text: [
+      'Neue Partnerregistrierung über utrechtincoming.nl/registrieren (Status PENDING in der Datenbank).',
+      '',
+      `Firma: ${data.companyName}`,
+      `Kontaktperson: ${data.contactName}`,
+      `E-Mail: ${data.email}`,
+      `Telefon: ${data.phone || '-'}`,
+      `USt-Nummer: ${data.vatNumber || '-'}`,
+      `Land: ${data.country}`,
+      `Bemerkungen: ${data.notes || '-'}`,
+    ].join('\n'),
+    antwortAn: data.email,
+  }).catch(() => null);
 
   return { ok: true };
 }

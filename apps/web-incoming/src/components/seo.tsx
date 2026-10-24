@@ -64,6 +64,7 @@ export function Kopf({ aktiv }: { aktiv?: string }) {
   const links = [
     { href: '/gruppenprogramme', label: 'Gruppenprogramme' },
     { href: '/busreise-utrecht', label: 'Busreisen' },
+    { href: '/anfrage', label: 'Anfrage' },
     { href: '/login', label: 'Login' },
   ];
   return (

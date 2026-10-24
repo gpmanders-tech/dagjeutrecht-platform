@@ -1,6 +1,7 @@
 import '@utrecht/ui/styles';
 import type { Metadata } from 'next';
 import { SEITEN, SITE_NAME, SITE_URL } from '@/lib/site';
+import { Herkunft } from '@/components/herkunft';
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -61,6 +62,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       </head>
       <body className="min-h-screen bg-incoming-navy text-white">
+        <Herkunft />
         {children}
         <footer className="border-t border-white/10 bg-incoming-navy text-white/80">
           <div className="max-w-5xl mx-auto px-6 py-10 grid gap-8 md:grid-cols-2">
@@ -70,6 +72,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 Ihr Incoming-Partner für Gruppenreisen nach Utrecht. Für Reiseveranstalter, DMC, Busunternehmen und
                 Schulreise-Spezialisten.
               </p>
+              <p className="mt-3 text-sm">
+                <a href="mailto:info@utrechtincoming.nl" className="underline underline-offset-2 hover:text-white">info@utrechtincoming.nl</a>
+              </p>
+              <p className="mt-3 text-xs text-white/60">Utrecht Incoming ist ein Handelsname von Traxeo, KvK 63330393.</p>
             </div>
             <nav aria-label="Footer">
               <ul className="grid gap-2 text-sm">
@@ -84,6 +90,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   <a href="/login" className="underline underline-offset-2 hover:text-white">
                     Partner-Login
                   </a>
+                </li>
+                <li>
+                  <a href="/impressum" className="underline underline-offset-2 hover:text-white">Impressum</a>
+                  {' · '}
+                  <a href="/datenschutz" className="underline underline-offset-2 hover:text-white">Datenschutz</a>
                 </li>
               </ul>
             </nav>
