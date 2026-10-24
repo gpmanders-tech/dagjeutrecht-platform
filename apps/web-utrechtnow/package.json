@@ -17,7 +17,7 @@
     "@utrecht/integrations": "workspace:*",
     "@anthropic-ai/sdk": "^0.32.1",
     "next": "^15.5.27",
-    "next-intl": "^3.26.5",
+    "next-intl": "^4.9.2",
     "marked": "^14.1.3",
     "qrcode": "^1.5.4",
     "react": "^19.2.0",
