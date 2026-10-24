@@ -8,7 +8,7 @@ import { RondvaartKaart } from '../../../components/rondvaart-kaart';
 import { Breadcrumbs, FaqSchema } from '../../../components/seo-jsonld';
 import { Band, BoekBlok, HOEKEN, PaginaKop, Sticker } from '../../../components/ui';
 
-const TITEL = 'Rondvaart Utrecht boeken: grachten, varen en eten, privé boot';
+const TITEL = 'Rondvaart Utrecht boeken: grachten en privé boot';
 const OMSCHRIJVING =
   'Boek een rondvaart in Utrecht direct bij Rederij Schuttevaer: door de grachten, met diner of lunch, een privé fluisterboot voor je groep of naar Amelisweerd.';
 

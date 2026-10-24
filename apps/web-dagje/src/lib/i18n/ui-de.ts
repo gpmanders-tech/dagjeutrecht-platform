@@ -498,7 +498,7 @@ export const UI_DE: UiTekst = {
   contact: {
     metaTitel: 'Kontakt: Ihren Tag in Utrecht anfragen',
     metaOmschrijving:
-      'Fragen zu einem Tag in Utrecht für Ihre Gruppe? Rufen Sie +31 30 227 1439 an oder schreiben Sie an info@dagjeutrecht.nl. Wir helfen gern bei Datum, Gruppengröße und Programm.',
+      'Fragen zu einem Tag in Utrecht? Rufen Sie +31 30 227 1439 an oder schreiben Sie an info@dagjeutrecht.nl. Wir helfen gern bei Datum, Gruppengröße und Programm.',
     titel: 'Kontakt',
     voor: 'Am schnellsten buchen Sie einen Tag über unsere',
     link: 'Buchungsseite',

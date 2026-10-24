@@ -492,7 +492,7 @@ export const UI_EN = {
   contact: {
     metaTitel: 'Contact: request your day out in Utrecht',
     metaOmschrijving:
-      'Questions about a day out in Utrecht for your group? Call +31 30 227 1439 or email info@dagjeutrecht.nl. We are happy to help with the date, group size and programme.',
+      'Questions about a day out in Utrecht? Call +31 30 227 1439 or email info@dagjeutrecht.nl. We are happy to help with the date, group size and programme.',
     titel: 'Contact',
     voor: 'The quickest way to book a day is our',
     link: 'booking page',

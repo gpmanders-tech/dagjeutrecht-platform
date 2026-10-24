@@ -502,7 +502,7 @@ export const LANDINGS: Record<LandingSleutel, Landing> = {
     galerij: [fotos.boulesSpelers, fotos.terrassen, fotos.borrel, fotos.grachtAvond],
     band: ['Kick-off', 'Jubileum', 'Afdelingsdag', 'Klantendag', 'Spel', 'Borrel'],
     metaTitel: `Bedrijfsevenement Utrecht vanaf ${vanaf(P_FEEST)} per persoon`,
-    metaOmschrijving: `Bedrijfsevenement in Utrecht organiseren: een kick-off, jubileum of afdelingsdag met spel, lunch en borrel in het centrum. Vanaf ${vanaf(P_FEEST)} per persoon, inclusief btw.`,
+    metaOmschrijving: `Bedrijfsevenement in Utrecht organiseren: een kick-off, jubileum of afdelingsdag met spel, lunch en borrel. Vanaf ${vanaf(P_FEEST)} per persoon, inclusief btw.`,
     boven: 'Voor HR, office managers en events',
     titel: 'Bedrijfsevenement in Utrecht',
     intro:
@@ -753,7 +753,7 @@ export const LANDINGS: Record<LandingSleutel, Landing> = {
     foto: fotos.schuttevaerFluisterboot,
     galerij: [fotos.schuttevaerSloep, fotos.rondvaart, fotos.schuttevaerCatharijnesingel, fotos.grachtAvond],
     band: ['Eigen boot', 'Fluisterboot', 'Bedrijfsuitje', 'Varen en lunchen', 'Voorstel binnen een werkdag', 'Oudegracht'],
-    metaTitel: `Rondvaart met je groep in Utrecht vanaf ${vanaf(P_RONDVAART)} p.p.`,
+    metaTitel: `Rondvaart met je groep Utrecht vanaf ${vanaf(P_RONDVAART)} p.p.`,
     metaOmschrijving: `Met je groep of bedrijf varen in Utrecht: een privé fluisterboot voor jullie alleen, of de rondvaart in een dagprogramma met lunch, vanaf ${vanaf(P_RONDVAART)} p.p.`,
     boven: 'Voor bedrijven, teams en verenigingen',
     titel: 'Rondvaart met je groep in Utrecht',
@@ -845,7 +845,7 @@ export const LANDINGS: Record<LandingSleutel, Landing> = {
     galerij: [fotos.gluhwein, fotos.boulesBinnen, fotos.borrel, fotos.chocomel],
     band: ['Glühwein', 'Kerstuitje', 'Rondvaart', 'Jeu de boules binnen', 'Domtoren', 'Borrel'],
     metaTitel: `Winteruitje en kerstuitje Utrecht vanaf ${vanaf(P_WINTER)} p.p.`,
-    metaOmschrijving: `Winteruitje of kerstuitje in Utrecht met je bedrijf of team: glühwein, rondvaart, jeu de boules binnen en een borrel. Van ${WINTERMAANDEN}, vanaf ${vanaf(P_WINTER)} p.p.`,
+    metaOmschrijving: `Winteruitje of kerstuitje in Utrecht: glühwein, rondvaart, jeu de boules binnen en een borrel. Van ${WINTERMAANDEN}, vanaf ${vanaf(P_WINTER)} p.p.`,
     boven: `Van ${WINTERMAANDEN}`,
     titel: 'Winteruitje in Utrecht',
     intro:
