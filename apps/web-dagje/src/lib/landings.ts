@@ -143,7 +143,7 @@ export const LANDINGS: Record<LandingSleutel, Landing> = {
     voorbeeld: 'boules-en-borrel',
     kleur: 'zee',
     foto: fotos.boulesSpelers,
-    galerij: [fotos.boules, fotos.kanoDuo, fotos.terrassen, fotos.borrel],
+    galerij: [fotos.boules, fotos.kanoDuo, fotos.terrassen, fotos.borrel, fotos.boulesBinnen, fotos.sfeerCollegasTerras],
     band: ['Jeu de boules', 'Shuffleboard', 'Kanoën', 'Lunch', 'Borrel', 'Factuur op de zaak'],
     zuster: {
       href: 'https://stepverhuurutrecht.nl/bedrijfsuitje-utrecht',
@@ -171,6 +171,11 @@ export const LANDINGS: Record<LandingSleutel, Landing> = {
         kop: 'Makkelijk bereikbaar',
         tekst:
           'Alles in het centrum ligt op loopafstand van Utrecht Centraal; JEU de boules bar aan Paardenveld is vijf minuten lopen. Collega’s die met de trein komen zijn er dus zo, en wie eerder weg moet stapt net zo makkelijk weer in. Amelisweerd ligt aan de rand van de stad, bij Botenverhuur De Rijnstroom aan de Kromme Rijn.',
+      },
+      {
+        kop: 'Wat er precies bij zit',
+        tekst:
+          'Bij Boules & Borrel krijg je baanhuur, uitleg en bites bij het boulen, en bij de borrel twee drankjes per persoon met bitterballen. De Warme Winterdag voegt daar toegang en een gids op de Domtoren aan toe, lunch van de kaart met een drankje, en bij het afsluiten een glühwein of warme chocolademelk. Amelisweerd Actief geeft een tweepersoonskano met zwemvest, een picknickpakket, een kickbike met route en een BBQ-pakket met twee uur drankjes. Wat bij een pakket hoort, staat op de pagina van dat pakket.',
       },
       {
         kop: 'Eén aanspreekpunt, één factuur',
@@ -202,6 +207,14 @@ export const LANDINGS: Record<LandingSleutel, Landing> = {
       {
         q: 'Wat kost een bedrijfsuitje in Utrecht?',
         a: `Bij ons vanaf ${vanaf(P_BEDRIJF)} per persoon voor een dagdeel en vanaf ${vanaf(P_HELE_DAG)} voor een hele dag, inclusief btw en vanaf ${REGELS.minPers} personen.`,
+      },
+      {
+        q: 'Hoe lang duurt een bedrijfsuitje bij jullie?',
+        a: 'Een dagdeel zoals Boules & Borrel duurt van twee tot zes uur. Een hele dag, zoals Amelisweerd Actief of de Warme Winterdag, begint ’s ochtends en eindigt met de borrel aan het eind van de middag.',
+      },
+      {
+        q: 'Is alles inclusief, of komen er nog kosten bij?',
+        a: 'De prijs per persoon is alles wat je betaalt: baanhuur of toegang, het eten en drinken dat bij het pakket staat, en de borrel aan het eind. Alleen een extra onderdeel dat je zelf toevoegt in de samensteller komt erbij.',
       },
       WEER,
       BEVESTIGING,
@@ -330,7 +343,7 @@ export const LANDINGS: Record<LandingSleutel, Landing> = {
     voorbeeld: 'amelisweerd-actief',
     kleur: 'vlam',
     foto: fotos.kanoDuo,
-    galerij: [fotos.kanoBrug, fotos.shuffleboard, fotos.kickbikePark, fotos.bbq],
+    galerij: [fotos.kanoBrug, fotos.shuffleboard, fotos.kickbikePark, fotos.bbq, fotos.sfeerTeamBoules, fotos.boulesSpelers],
     band: ['Samenwerken', 'Strijden', 'Peddelen', 'Steppen', 'Borrelen'],
     metaTitel: `Teambuilding Utrecht vanaf ${vanaf(P_TEAM)} per persoon`,
     metaOmschrijving: `Teambuilding in Utrecht: City Challenge, jeu de boules, shuffleboard of kanoën. Vanaf ${vanaf(P_TEAM)} per persoon voor een dagdeel, vanaf ${vanaf(P_HELE_DAG)} voor een hele dag.`,
@@ -373,6 +386,11 @@ export const LANDINGS: Record<LandingSleutel, Landing> = {
         tekst:
           'Een groot team dat elkaar al goed kent, kiest vaak voor jeu de boules of shuffleboard: snel te leren en met z\'n allen tegelijk te spelen. Een kleiner team dat beter wil samenwerken, kiest eerder voor de kano\'s, waar je met z\'n tweeën op elkaar aangewezen bent, of de City Challenge, waar de hele groep in kleine teams tegen elkaar speelt. Twijfel je, zet het dan in de aanvraag, dan denken we mee.',
       },
+      {
+        kop: 'Wat er precies bij zit',
+        tekst:
+          'Bij jeu de boules en shuffleboard krijg je baanhuur en uitleg, bij Boules & Borrel ook bites en bij de afsluitende borrel twee drankjes per persoon met bitterballen. Bij de City Challenge krijgt elk team de opdrachten, begeleiding bij start en finish en aan het eind de uitslag, zodat er een winnaar is. In Amelisweerd krijg je een tweepersoonskano met zwemvest en een waterdichte tas, daarna een kickbike met slot en route, en een BBQ-pakket met twee uur drankjes.',
+      },
     ],
     faq: [
       { q: 'Met hoeveel personen kan het?', a: GROEP },
@@ -380,6 +398,14 @@ export const LANDINGS: Record<LandingSleutel, Landing> = {
       {
         q: 'Is er een begeleider bij?',
         a: 'Bij de City Challenge staan wij klaar bij de start en de finish. Bij jeu de boules krijg je uitleg ter plekke en bij het kanoën uitleg bij vertrek.',
+      },
+      {
+        q: 'Is er een winnaar bij de City Challenge?',
+        a: 'Ja, elk team krijgt dezelfde opdrachten en aan het eind van de tocht is er een uitslag.',
+      },
+      {
+        q: 'Wat zit er bij de kano inbegrepen?',
+        a: 'Een tweepersoonskano met zwemvest en een waterdichte tas, zodat telefoon en spullen droog blijven.',
       },
       {
         q: 'Kan teambuilding ook in de winter?',
@@ -517,7 +543,7 @@ export const LANDINGS: Record<LandingSleutel, Landing> = {
     voorbeeld: 'schoolreis-basisschool',
     kleur: 'zon',
     foto: fotos.domtoren,
-    galerij: [fotos.oudegrachtDom, fotos.rondvaart, fotos.terrassen, fotos.grachtAvond],
+    galerij: [fotos.oudegrachtDom, fotos.rondvaart, fotos.terrassen, fotos.grachtAvond, fotos.domtorenKlok, fotos.schuttevaerRondvaartboot],
     band: ['Domtoren', 'Rondvaart', 'City Challenge', 'Groepslunch', 'Basisschool, vo en mbo'],
     metaTitel: `Schooluitje en schoolreisje Utrecht vanaf ${vanaf(P_SCHOOL)}`,
     metaOmschrijving: `Schooluitje of schoolreisje in Utrecht voor basisschool, vo en mbo: rondvaart, City Challenge, Domtoren en lunch. Vanaf ${vanaf(P_SCHOOL)} per leerling, incl. btw.`,
@@ -562,8 +588,21 @@ export const LANDINGS: Record<LandingSleutel, Landing> = {
         tekst:
           'De school regelt niet zelf met de rederij, de boulesbar en de lunchzaak. Wij reserveren alles bij onze vaste partners, zodat de leerkracht of mentor op de dag zelf alleen de klas hoeft te begeleiden. Vragen voor of tijdens de dag gaan naar Ger als vast aanspreekpunt.',
       },
+      {
+        kop: 'Wat er precies bij zit',
+        tekst:
+          'Het schooluitje met de Domtoren geeft toegang en een gids voor de klim, een vast lunchmenu met een drankje, en een uur rondvaart door de grachten. De Schoolreis basisschool geeft een uur rondvaart en bij de City Challenge opdrachten per team met begeleiding bij start en finish; eigen lunch mee of de groepslunch erbij in de samensteller. Dom & Grachten, de halve dag, combineert alleen de Domtoren en de rondvaart. Wat bij een pakket hoort, staat op de pagina van dat pakket.',
+      },
     ],
     faq: [
+      {
+        q: 'Is er begeleiding bij de City Challenge?',
+        a: 'Ja, wij staan bij de start en de finish en de teams krijgen de opdrachten van ons. Onderweg lopen ze zelfstandig, op eigen tempo.',
+      },
+      {
+        q: 'Hoe lang duurt het schoolreisje?',
+        a: 'Een halve dag, zoals Dom & Grachten of de Schoolreis basisschool, duurt een ochtend of middag. Het schooluitje met de Domtoren, lunch en rondvaart is een hele dag.',
+      },
       {
         q: 'Tellen begeleiders mee?',
         a: `Ja, begeleiders tellen mee in het aantal personen. ${GROEP}`,
@@ -599,7 +638,7 @@ export const LANDINGS: Record<LandingSleutel, Landing> = {
     voorbeeld: 'water-naar-borrel',
     kleur: 'inkt',
     foto: fotos.supVrijgezellen,
-    galerij: [fotos.supOudegracht, fotos.picknick, fotos.kickbikeGracht, fotos.borrel],
+    galerij: [fotos.supOudegracht, fotos.picknick, fotos.kickbikeGracht, fotos.borrel, fotos.kickbikePoort, fotos.gluhwein],
     band: ['Suppen', 'Picknick', 'Kickbike', 'Borrel', 'Vrijgezellen'],
     zuster: {
       href: 'https://stepverhuurutrecht.nl/vrijgezellenfeest-utrecht',
@@ -656,12 +695,25 @@ export const LANDINGS: Record<LandingSleutel, Landing> = {
         tekst:
           'Onze dagen eindigen rond zes uur met een borrel in het centrum. Daarna zit je midden in de binnenstad, dus de avond plannen jullie zelf: uit eten aan de werf of verder de stad in.',
       },
+      {
+        kop: 'Wat er precies bij zit',
+        tekst:
+          'Van het water naar de borrel geeft een supboard met peddel en zwemvest, een picknickpakket, een kickbike met route naar het centrum en bij de borrel twee drankjes per persoon met bitterballen. Boules & Borrel geeft baanhuur, uitleg en bites bij het boulen en dezelfde borrel erna. In de winter geeft de Winterborrel dezelfde baanhuur en uitleg, afgesloten met een glühwein of warme chocolademelk plus twee drankjes.',
+      },
     ],
     faq: [
       { q: 'Met hoeveel personen kan het?', a: GROEP },
       {
         q: 'Moet iedereen kunnen zwemmen?',
         a: 'Voor suppen wel: kunnen zwemmen is verplicht. Iedereen krijgt een zwemvest. Kan niet iedereen zwemmen, kies dan een pakket in het centrum.',
+      },
+      {
+        q: 'Wat krijgen we precies bij het suppen?',
+        a: 'Een eigen supboard, een peddel en een zwemvest per persoon. Kunnen zwemmen is verplicht.',
+      },
+      {
+        q: 'Zit de borrel er altijd bij?',
+        a: 'Bij elk pakket op deze pagina wel: twee drankjes per persoon met bitterballen, of in de winter een glühwein-borrel vooraf.',
       },
       {
         q: 'Wat kost een vrijgezellenfeest in Utrecht?',
