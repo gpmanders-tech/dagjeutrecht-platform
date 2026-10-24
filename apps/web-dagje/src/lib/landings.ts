@@ -43,6 +43,19 @@ export type Landing = {
    * app/actions/submit-aanvraag.ts (EXTRA_ONDERWERPEN of op-aanvraag.ts).
    */
   aanvraag?: { onderwerp: string; kop: string; titel: string; tekst: string };
+  /**
+   * Bewijs dat anderen ons al vertrouwen (DAG-SEO-18): reviews, aantal groepen per
+   * jaar en namen van bedrijven/scholen die zijn geweest. Alleen echte gegevens
+   * invullen, nooit verzinnen (24-10-2026: Google Bedrijfsprofiel van DagjeUtrecht
+   * had op dat moment nog geen reviews en er stonden nergens testimonials). Leeg
+   * laten toont niets; de sectie en de structured data verschijnen pas zodra hier
+   * echte gegevens staan.
+   */
+  bewijs?: {
+    aantalGroepenPerJaar?: number;
+    klanten?: string[];
+    reviews?: Array<{ auteur: string; tekst: string; score: number; datum?: string }>;
+  };
 };
 
 function prijs(slug: string) {

@@ -13,7 +13,7 @@ import {
 import { LANDING_LIJST, type Landing } from '../lib/landings';
 import { vindOpAanvraag } from '../lib/op-aanvraag';
 import { AanvraagKort } from './aanvraag-kort';
-import { Breadcrumbs, FaqSchema } from './seo-jsonld';
+import { Breadcrumbs, FaqSchema, ReviewSchema } from './seo-jsonld';
 import { PakketKaart } from './pakket-kaart';
 import { PADEN, paginaAlternates, type PaginaSleutel } from '../lib/talen';
 import { Band, BoekBlok, Foto, HOEKEN, Knop, PaginaKop } from './ui';
@@ -83,6 +83,9 @@ export function LandingPagina({ landing: l }: { landing: Landing }) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(dienstSchema(l, prijzen)) }}
       />
+      {l.bewijs?.reviews && (
+        <ReviewSchema itemName={l.titel} url={l.pad} reviews={l.bewijs.reviews} />
+      )}
 
       <PaginaKop
         titel={l.titel}
@@ -220,6 +223,36 @@ export function LandingPagina({ landing: l }: { landing: Landing }) {
           ))}
         </ul>
       </section>
+
+      {l.bewijs && (l.bewijs.reviews?.length || l.bewijs.klanten?.length || l.bewijs.aantalGroepenPerJaar) ? (
+        <section className="mx-auto max-w-5xl px-4 py-14 sm:px-6">
+          <h2 className="text-4xl font-black uppercase tracking-tight text-inkt sm:text-5xl">Al bij ons geweest</h2>
+          {l.bewijs.aantalGroepenPerJaar && (
+            <p className="mt-3 text-lg text-grijs">
+              Gemiddeld {l.bewijs.aantalGroepenPerJaar} groepen per jaar gaan bij ons op pad.
+            </p>
+          )}
+          {l.bewijs.klanten && l.bewijs.klanten.length > 0 && (
+            <p className="mt-3 max-w-3xl text-lg text-grijs">
+              Onder meer: {l.bewijs.klanten.join(', ')}.
+            </p>
+          )}
+          {l.bewijs.reviews && l.bewijs.reviews.length > 0 && (
+            <ul className="mt-8 grid gap-6 md:grid-cols-2">
+              {l.bewijs.reviews.map((r) => (
+                <li key={r.auteur + r.tekst} className="rounded-2xl border-2 border-inkt bg-white p-5">
+                  <p aria-hidden="true" className="text-vlam-700">
+                    {'★'.repeat(r.score)}
+                    {'☆'.repeat(Math.max(0, 5 - r.score))}
+                  </p>
+                  <p className="mt-2 text-inkt">“{r.tekst}”</p>
+                  <p className="mt-2 font-bold text-inkt">{r.auteur}</p>
+                </li>
+              ))}
+            </ul>
+          )}
+        </section>
+      ) : null}
 
       {l.aanvraag && (
         <section id="aanvragen" className="scroll-mt-24 bg-zee-50">

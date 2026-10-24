@@ -42,6 +42,47 @@ export function FaqSchema({ items }: { items: Array<{ q: string; a: string }> })
   );
 }
 
+/**
+ * Reviews en gemiddelde score als structured data (DAG-SEO-18). Alleen echte reviews,
+ * nooit verzonnen: zonder reviews rendert dit niets.
+ */
+export function ReviewSchema({
+  itemName,
+  url,
+  reviews,
+}: {
+  itemName: string;
+  url: string;
+  reviews: Array<{ auteur: string; tekst: string; score: number; datum?: string }>;
+}) {
+  if (reviews.length === 0) return null;
+  const gemiddelde = reviews.reduce((s, r) => s + r.score, 0) / reviews.length;
+  const data = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: itemName,
+    url: url.startsWith('http') ? url : `${SITE_URL}${url}`,
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: gemiddelde.toFixed(1),
+      reviewCount: reviews.length,
+    },
+    review: reviews.map((r) => ({
+      '@type': 'Review',
+      author: { '@type': 'Person', name: r.auteur },
+      reviewBody: r.tekst,
+      reviewRating: { '@type': 'Rating', ratingValue: r.score, bestRating: 5 },
+      ...(r.datum ? { datePublished: r.datum } : {}),
+    })),
+  };
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+    />
+  );
+}
+
 export function EventOrProductSchema({
   name,
   description,
