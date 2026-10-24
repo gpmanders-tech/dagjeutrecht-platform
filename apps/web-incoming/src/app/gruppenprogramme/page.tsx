@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import { Brotkrumen, Fragen, JsonLd, Kopf, type Frage } from '@/components/seo';
 import { SITE_URL } from '@/lib/site';
 
@@ -16,41 +17,47 @@ export const metadata: Metadata = {
   },
 };
 
-type Baustein = { name: string; ort: string; dauer: string; text: string; saison?: string };
+type Baustein = { name: string; ort: string; dauer: string; text: string; saison?: string; foto: string };
 
 const ZENTRUM: Baustein[] = [
   {
     name: 'Domturm mit Führung',
+    foto: '/fotos/domtoren-utrecht.jpg',
     ort: 'Domplein',
     dauer: '1 Stunde',
     text: 'Mit einem Guide 465 Stufen hinauf auf den höchsten Punkt von Utrecht, mit Blick über die ganze Stadt. Nicht geeignet für Gäste mit Höhenangst oder eingeschränkter Mobilität.',
   },
   {
     name: 'Grachtenrundfahrt',
+    foto: '/fotos/schuttevaer-rondvaart-oudegracht.jpg',
     ort: 'Anleger Oudegracht',
     dauer: '1 Stunde',
     text: 'Eine Rundfahrt mit Schuttevaer entlang der Werftkeller der Oudegracht und über die Singels.',
   },
   {
     name: 'Jeu de Boules',
+    foto: '/fotos/jeu-de-boules-spelers.jpg',
     ort: 'JEU de boules bar, Paardenveld',
     dauer: '1,5 Stunden',
     text: 'Auf überdachten Bahnen, fünf Minuten zu Fuß von Utrecht Centraal. Die Gruppe spielt in Teams gegeneinander, mit Erklärung vor Ort und Snacks. Wetterunabhängig.',
   },
   {
     name: 'Shuffleboard',
+    foto: '/fotos/shuffleboard.jpg',
     ort: 'The Grand Shuffle, Zentrum',
     dauer: '1,5 Stunden',
     text: 'Das Spiel, das man von Kreuzfahrtschiffen kennt, in der ersten Shuffleboard-Bar der Niederlande. Schnell gelernt, ideal für gemischte Gruppen.',
   },
   {
     name: 'City Challenge',
+    foto: '/fotos/oudegracht-terrassen-domtoren.jpg',
     ort: 'Start Paardenveld, Ziel Neude',
     dauer: '1,5 bis 2 Stunden',
     text: 'Eine Stadtrallye in Teams durch die Altstadt, mit Aufgaben und Fragen zu Dom, Werftkellern und Oudegracht. Zu Fuß und im eigenen Tempo.',
   },
   {
     name: 'Gruppenlunch und Borrel',
+    foto: '/fotos/borrel-bier.jpg',
     ort: 'Zentrum',
     dauer: 'je 1 Stunde',
     text: 'Ein festes Lunchmenü, auch vegetarisch, und zum Abschluss ein Borrel: der niederländische Umtrunk mit Getränken und Bitterballen.',
@@ -60,6 +67,7 @@ const ZENTRUM: Baustein[] = [
 const AMELISWEERD: Baustein[] = [
   {
     name: 'Kanufahren auf der Kromme Rijn',
+    foto: '/fotos/kanoen-utrecht-duo.jpg',
     ort: 'De Rijnstroom, Weg naar Rhijnauwen 2',
     dauer: '2 Stunden',
     saison: 'April bis Oktober',
@@ -67,6 +75,7 @@ const AMELISWEERD: Baustein[] = [
   },
   {
     name: 'Stand-up-Paddling',
+    foto: '/fotos/suppen-kromme-rijn-rode-boards.jpg',
     ort: 'De Rijnstroom, Weg naar Rhijnauwen 2',
     dauer: '2 Stunden',
     saison: 'April bis Oktober',
@@ -74,6 +83,7 @@ const AMELISWEERD: Baustein[] = [
   },
   {
     name: 'Picknick und Grillen am Wasser',
+    foto: '/fotos/picknick-groep-utrecht.jpg',
     ort: 'De Rijnstroom',
     dauer: '1 bis 2 Stunden',
     saison: 'April bis Oktober',
@@ -81,6 +91,7 @@ const AMELISWEERD: Baustein[] = [
   },
   {
     name: 'Kickbike-Tour',
+    foto: '/fotos/kickbike-utrecht-park.jpg',
     ort: 'Zwischen Zentrum und Amelisweerd',
     dauer: '1,5 bis 2 Stunden',
     saison: 'April bis Oktober',
@@ -147,13 +158,18 @@ function Liste({ titel, text, bausteine }: { titel: string; text: string; bauste
       <p className="text-canal-600 max-w-3xl mb-8">{text}</p>
       <div className="grid gap-6 md:grid-cols-2">
         {bausteine.map((b) => (
-          <article key={b.name} className="rounded-xl bg-white p-6 shadow-soft">
+          <article key={b.name} className="overflow-hidden rounded-xl bg-white shadow-soft">
+            <div className="relative aspect-[16/9]">
+              <Image src={b.foto} alt={`${b.name} in Utrecht`} fill sizes="(min-width: 768px) 480px, 100vw" className="object-cover" />
+            </div>
+            <div className="p-6">
             <h3 className="font-serif text-2xl mb-1">{b.name}</h3>
             <p className="text-sm text-incoming-orange mb-3">
               {b.dauer} · {b.ort}
               {b.saison ? ` · ${b.saison}` : ''}
             </p>
             <p className="text-canal-600">{b.text}</p>
+            </div>
           </article>
         ))}
       </div>

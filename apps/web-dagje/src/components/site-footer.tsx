@@ -7,6 +7,8 @@ export type VoetTekst = {
   tagline: string;
   knop: { href: string; label: string };
   steps: { voor: string; na: string };
+  /** Link naar Utrecht Incoming (groepsreizen uit Duitsland); alleen in de Nederlandse voet. */
+  incoming?: string;
   contactKop: string;
   telefoon: string;
   kvk: string;
@@ -21,6 +23,7 @@ const NL: VoetTekst = {
   tagline: 'Vaste dagpakketten in Utrecht voor bedrijven, scholen en vriendengroepen. Met een vaste prijs per persoon.',
   knop: { href: '/boeken', label: 'Stel je dag samen' },
   steps: { voor: 'Alleen steps huren? Boek direct bij', na: '.' },
+  incoming: 'Groepsreizen uit Duitsland:',
   contactKop: 'Contact',
   telefoon: '030 227 14 39',
   kvk: 'KvK 63330393',
@@ -67,6 +70,14 @@ export function SiteFooter({ tekst = NL }: { tekst?: VoetTekst }) {
             </a>
             {t.steps.na === '.' ? '.' : ` ${t.steps.na}`}
           </p>
+          {t.incoming && (
+            <p className="mt-2 text-sm">
+              {t.incoming}{' '}
+              <a href="https://utrechtincoming.nl" className="font-bold underline underline-offset-2 hover:text-white">
+                utrechtincoming.nl
+              </a>
+            </p>
+          )}
         </div>
 
         <div>

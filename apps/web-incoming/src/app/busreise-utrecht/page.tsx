@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import { Brotkrumen, Fragen, Kopf, type Frage } from '@/components/seo';
 
 export const metadata: Metadata = {
@@ -56,6 +57,18 @@ export default function Busreise() {
           Fuß erreichbar, und direkt am Stadtrand das Grün von Amelisweerd. Wir stellen das Programm für Ihre Busgruppe
           zusammen und buchen bei unseren Partnern vor Ort.
         </p>
+        <div className="mt-10 grid gap-3 sm:grid-cols-3">
+          {[
+            ['utrecht-singel-brug.jpg', 'Singel und Brücken in der Altstadt'],
+            ['domtoren-utrecht.jpg', 'Der Domturm, Wahrzeichen von Utrecht'],
+            ['utrecht-tivolivredenburg.jpg', 'Kurze Wege vom Bahnhof in die Altstadt'],
+          ].map(([f, t]) => (f && t ? (
+            <figure key={f} className="relative aspect-[4/3] overflow-hidden rounded-xl">
+              <Image src={`/fotos/${f}`} alt={t} fill sizes="(min-width: 640px) 330px, 100vw" className="object-cover" />
+              <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-2 text-xs text-white">{t}</figcaption>
+            </figure>
+          ) : null))}
+        </div>
       </section>
 
       <section className="bg-cream text-canal-900 py-16">

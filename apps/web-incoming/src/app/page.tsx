@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import { Button, UtrechtSkyline } from '@utrecht/ui';
 import { Brotkrumen, Fragen, Kopf, type Frage } from '@/components/seo';
 
@@ -8,6 +9,18 @@ export const metadata: Metadata = {
     'Gruppenreisen und Busreisen nach Utrecht für Reiseveranstalter: Gruppenprogramme, Partnertarife, mehrsprachige Vouchers und eine Sammelrechnung pro Monat.',
   alternates: { canonical: '/' },
 };
+
+const GALERIE: [string, string][] = [
+  ['oudegracht-terrassen-domtoren.jpg', 'Oudegracht mit Domturm'],
+  ['rondvaart-oudegracht-bootjes.jpg', 'Grachtenrundfahrt'],
+  ['jeu-de-boules-binnen.jpg', 'Jeu de Boules, wetterunabhängig'],
+  ['sfeer-collegas-terras-oudegracht.webp', 'Terrasse an der Oudegracht'],
+  ['kromme-rijn-amelisweerd.jpg', 'Kromme Rijn in Amelisweerd'],
+  ['steppen-utrecht-domkerk.jpg', 'Kickbike-Tour am Dom'],
+  ['terrassen-winkel-van-sinkel.jpg', 'Borrel in der Altstadt'],
+  ['utrecht-winter-sneeuw.jpg', 'Utrecht im Winter'],
+  ['utrecht-wolvenplein.jpg', 'Grachten und Singels'],
+];
 
 const FRAGEN: Frage[] = [
   {
@@ -42,6 +55,8 @@ export default function Home() {
       <Brotkrumen pfad={[{ name: 'Startseite', url: '/' }]} />
       <Kopf aktiv="/" />
       <section className="relative overflow-hidden">
+        <Image src="/fotos/oudegracht-avond.jpg" alt="" fill priority sizes="100vw" className="object-cover opacity-30" />
+        <div className="absolute inset-0 bg-gradient-to-r from-incoming-navy via-incoming-navy/80 to-incoming-navy/40" />
         <UtrechtSkyline className="absolute inset-x-0 bottom-0 w-full h-[60%] text-white opacity-[0.08] pointer-events-none" />
         <div className="relative max-w-5xl mx-auto px-6 py-24">
           <p className="text-incoming-orange mb-3 uppercase tracking-wide text-sm">Utrecht Incoming</p>
@@ -56,9 +71,9 @@ export default function Home() {
             <a href="/registrieren">
               <Button variant="incoming" size="lg">Als Partner registrieren</Button>
             </a>
-            <a href="/gruppenprogramme">
+            <a href="/anfrage">
               <Button variant="outline" size="lg" className="border-white text-white hover:bg-white/10">
-                Gruppenprogramme ansehen
+                Gruppenanfrage stellen
               </Button>
             </a>
           </div>
@@ -102,6 +117,23 @@ export default function Home() {
       </section>
 
       <section className="bg-white text-canal-900 py-16">
+        <div className="max-w-5xl mx-auto px-6">
+          <h2 className="font-serif text-3xl mb-4">Utrecht für Gruppen</h2>
+          <p className="text-canal-600 max-w-3xl mb-8">
+            Grachten mit Werftkellern, der Domturm, Terrassen am Wasser und gleich am Stadtrand das Grüne von Amelisweerd.
+          </p>
+          <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
+            {GALERIE.map(([f, t], i) => (
+              <figure key={f} className={`relative overflow-hidden rounded-xl ${i === 0 ? 'col-span-2 row-span-2 aspect-square md:aspect-auto' : 'aspect-[4/3]'}`}>
+                <Image src={`/fotos/${f}`} alt={t} fill sizes={i === 0 ? '(min-width: 768px) 500px, 100vw' : '(min-width: 768px) 250px, 50vw'} className="object-cover" />
+                <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-2 text-xs text-white">{t}</figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-white text-canal-900 pb-16">
         <div className="max-w-5xl mx-auto px-6">
           <h2 className="font-serif text-3xl mb-4">Bausteine für Ihr Gruppenprogramm</h2>
           <p className="text-canal-600 max-w-3xl mb-8">

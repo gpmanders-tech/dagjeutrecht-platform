@@ -75,6 +75,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <p className="mt-3 text-sm">
                 <a href="mailto:info@utrechtincoming.nl" className="underline underline-offset-2 hover:text-white">info@utrechtincoming.nl</a>
               </p>
+              <p className="mt-4 text-sm">
+                Auch von uns:{' '}
+                <a href="https://dagjeutrecht.nl" className="underline underline-offset-2 hover:text-white">DagjeUtrecht</a>
+                {' '}(Gruppenausflüge, auf Niederländisch) und{' '}
+                <a href="https://stepverhuurutrecht.nl" className="underline underline-offset-2 hover:text-white">Stepverhuur Utrecht</a>
+                {' '}(Kickbikes).
+              </p>
               <p className="mt-3 text-xs text-white/60">Utrecht Incoming ist ein Handelsname von Traxeo, KvK 63330393.</p>
             </div>
             <nav aria-label="Footer">
