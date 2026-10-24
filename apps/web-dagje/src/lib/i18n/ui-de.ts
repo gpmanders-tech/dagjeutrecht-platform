@@ -562,7 +562,7 @@ export const UI_DE: UiTekst = {
   },
 
   voorwaarden: {
-    metaTitel: 'AGB',
+    metaTitel: 'AGB Tagesausflug Utrecht',
     metaOmschrijving:
       'Die Bedingungen von DagjeUtrecht: wie weit im Voraus Sie buchen, Zahlung vorab, Teilnehmerzahl ändern, Stornierung, schlechtes Wetter und der Tag selbst.',
     titel: 'Allgemeine Geschäftsbedingungen',
